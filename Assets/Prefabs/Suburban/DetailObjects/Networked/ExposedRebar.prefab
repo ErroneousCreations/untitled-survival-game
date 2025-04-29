@@ -196,7 +196,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   Description: Remove Rebar
   InteractLength: 10
-  InteractDistance: 1.5
+  InteractDistance: 1.75
   InteractedLocal:
     m_PersistentCalls:
       m_Calls: []

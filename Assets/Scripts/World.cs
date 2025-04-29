@@ -12,6 +12,7 @@ public class World : NetworkBehaviour
         public string name; //just for editor identification
         public List<WorldFeature> FeatureTypes;
         public List<Transform> SpawnPoints;
+        public bool RandomiseRotation;
         [Tooltip("-1 is empty btw")]public List<int> SpawnPool;
     }
 
@@ -22,6 +23,7 @@ public class World : NetworkBehaviour
         public string name; //just for editor identification
         public List<NetWorldFeature> FeatureTypes;
         public List<Transform> SpawnPoints;
+        public bool RandomiseRotation;
         [Tooltip("-1 is empty btw")] public List<int> SpawnPool;
     }
 

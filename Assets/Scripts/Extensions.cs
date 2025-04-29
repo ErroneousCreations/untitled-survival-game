@@ -13,15 +13,12 @@ public static class Extensions
     {
         if (range <= 0) return 0;
 
-        unchecked
-        {
-            int hash = 23;
-            foreach (char c in input)
-                hash = hash * 31 + c;
+        int hash = 0;
+        foreach (char c in input)
+            hash += c;
 
-            // Make sure it's positive and within range
-            return Mathf.Abs(hash % range);
-        }
+        // Make sure it's positive and within range
+        return Mathf.Abs(hash % range);
     }
 
     public static Vector3 GetCloseSpawnPoint

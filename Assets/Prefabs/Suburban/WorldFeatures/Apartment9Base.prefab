@@ -1604,7 +1604,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 8759379658775214815}
   - {fileID: 113555668279389800}
-  spawnProbability: 0.5
+  spawnProbability: 0.3
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
@@ -3641,6 +3641,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019e246d33c536f42a565a9c0f25da1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Destroyable: 0
+  CurrHealth: 0
+  MaxHealth: 0
+  drops: []
 --- !u!205 &5841603950431221942
 LODGroup:
   m_ObjectHideFlags: 0
