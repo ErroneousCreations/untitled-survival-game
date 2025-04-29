@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 301118beef6b4ac0ac69aa36ec880432
+timeCreated: 1639148197
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/Core/Sources/Jobs/PhysicsBakeMeshJob.cs
+  uploadId: 748592

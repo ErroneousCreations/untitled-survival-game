@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: dcec9bf286cafe4419852431e4fbd897
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/AdvancedOperations/Sources/Editor/Digger.AdvancedOperations.Editor.asmdef
+  uploadId: 748592

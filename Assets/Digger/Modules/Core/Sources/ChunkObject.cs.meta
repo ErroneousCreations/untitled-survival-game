@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 974a118189b54758826a11649a0dab75
+timeCreated: 1546187938
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/Core/Sources/ChunkObject.cs
+  uploadId: 748592

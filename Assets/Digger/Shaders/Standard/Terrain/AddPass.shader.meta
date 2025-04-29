@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: afd43528560540949806f646084e1fc9
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Shaders/Standard/Terrain/AddPass.shader
+  uploadId: 748592

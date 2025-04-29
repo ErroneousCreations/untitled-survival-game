@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 5ff53e5faa574cadbcbf55fce3ae57cc
+timeCreated: 1642346279
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/AdvancedOperations/Sources/SplineMaster.cs
+  uploadId: 748592

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 0e4c0af8795a4b14bfc86f4642a30465
+timeCreated: 1642254264
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/AdvancedOperations/Sources/Editor/SplineWalkerOperationEditor.cs
+  uploadId: 748592

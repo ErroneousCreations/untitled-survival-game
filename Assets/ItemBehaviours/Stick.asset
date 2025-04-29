@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91354c1376fb0c04c9a7343ac10c8ff9, type: 3}
+  m_Name: Stick
+  m_EditorClassIdentifier: 
+  AttackLength: 1.25
+  ForwardTime: 0.3
+  AttackForwardAmount: 2.5
+  AttackJumpPower: 0.1
+  RotateForwardsMelee: 1
+  Damage: 0.1
+  Type: 0
+  Range: 1
+  HitWorldBreakables: 0
+  WorldBreakableDamage: 0
+  Sharpen: 1
+  SharpenResult: sharpstick
+  MaxCharge: 1.5
+  VibrateIntensity: 0.15
+  ThrowchargeUpwardAmount: 1
+  MaximumThrowForce: 16
+  ThrowAngularForce: 10
+  ThrowAnimationBack: 0.5
+  ThrowAnimationForward: 0.5
+  ThrowAnimationJump: 0.25
+  ThrowAnimationLength: 0.4
+  RotateForwardsThrow: 1

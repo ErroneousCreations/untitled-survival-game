@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 29c2acc99acdef242a4b95418cb32e8c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Misc/HDRP/ReticleHDRP.mat
+  uploadId: 748592

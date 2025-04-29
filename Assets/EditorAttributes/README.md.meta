@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f17ed6bdef46373428ad4307fbbae33b
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 269285
+  packageName: EditorAttributes
+  packageVersion: 2.6.0
+  assetPath: Assets/EditorAttributes/README.md
+  uploadId: 743352

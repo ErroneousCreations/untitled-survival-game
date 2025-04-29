@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bb8ee193bd552954591bfd2ff56111cf
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/AdvancedOperations/Splines/Editor/Digger.Splines.Editor.asmdef
+  uploadId: 748592

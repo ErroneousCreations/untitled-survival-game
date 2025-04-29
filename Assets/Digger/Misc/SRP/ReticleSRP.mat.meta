@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1e61bf15ad7a14aa5ab8c7b3e6dbd14e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Misc/SRP/ReticleSRP.mat
+  uploadId: 748592

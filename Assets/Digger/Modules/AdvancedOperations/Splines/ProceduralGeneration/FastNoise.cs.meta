@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 8ccb9e7a9e374d018e9678e347868318
+timeCreated: 1640439328
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/AdvancedOperations/Splines/ProceduralGeneration/FastNoise.cs
+  uploadId: 748592

@@ -1,0 +1,48 @@
+{
+    "name": "Digger.Core.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Mathematics",
+        "Digger.Core",
+        "JBooth.MicroSplat.Core",
+        "JBooth.MicroSplat.Core.Editor",
+        "Unity.RenderPipelines.HighDefinition.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.high-definition",
+            "expression": "0",
+            "define": "USING_HDRP"
+        },
+        {
+            "name": "com.unity.render-pipelines.high-definition",
+            "expression": "12.1",
+            "define": "USING_HDRP_12_OR_ABOVE"
+        },
+        {
+            "name": "com.unity.render-pipelines.high-definition",
+            "expression": "14",
+            "define": "USING_HDRP_14_OR_ABOVE"
+        },
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "0",
+            "define": "USING_URP"
+        },
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "14",
+            "define": "USING_URP_14_OR_ABOVE"
+        }
+    ],
+    "noEngineReferences": false
+}

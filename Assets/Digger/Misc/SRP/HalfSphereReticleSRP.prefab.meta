@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f62cacfd4e7fe46f9bbbdd7d73bdadbf
+labels:
+- Digger_HalfSphereReticleSRP
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Misc/SRP/HalfSphereReticleSRP.prefab
+  uploadId: 748592

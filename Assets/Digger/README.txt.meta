@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fa96d574fc5e842c7afb24ae28cf4747
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/README.txt
+  uploadId: 748592

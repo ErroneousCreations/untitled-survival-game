@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: aa0b3539c9d7b864c88af91f7209eda3
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Shaders/Standard/Mesh/Mesh-Pass3.shader
+  uploadId: 748592

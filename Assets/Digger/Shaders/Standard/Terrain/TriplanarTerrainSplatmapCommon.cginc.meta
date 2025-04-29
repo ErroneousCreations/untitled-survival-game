@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6ac0534675e0026409b7e4e9aa28b102
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Shaders/Standard/Terrain/TriplanarTerrainSplatmapCommon.cginc
+  uploadId: 748592

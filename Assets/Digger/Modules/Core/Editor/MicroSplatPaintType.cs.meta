@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 486e59c2e5cc42768ba1c1b626616370
+timeCreated: 1582985635
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/Core/Editor/MicroSplatPaintType.cs
+  uploadId: 748592

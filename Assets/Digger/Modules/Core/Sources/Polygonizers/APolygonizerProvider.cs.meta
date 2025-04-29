@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 94d8a146a402404fb3c7a0f86b6ee342
+timeCreated: 1643969397
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/Core/Sources/Polygonizers/APolygonizerProvider.cs
+  uploadId: 748592

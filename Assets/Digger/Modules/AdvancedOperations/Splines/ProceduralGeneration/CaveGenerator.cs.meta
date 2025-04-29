@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: fb1e353e626b4d498b20454c5086060e
+timeCreated: 1641741144
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/AdvancedOperations/Splines/ProceduralGeneration/CaveGenerator.cs
+  uploadId: 748592

@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 9a0833af34584a93aea75aff3888fdcf
+timeCreated: 1638974150
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/Core/Sources/Jobs/VoxelFillSurfaceJob.cs
+  uploadId: 748592

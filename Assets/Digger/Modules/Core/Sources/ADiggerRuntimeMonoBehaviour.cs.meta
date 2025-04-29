@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: a1bd738861f84718a6ca05235843b8c0
+timeCreated: 1642596795
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/Core/Sources/ADiggerRuntimeMonoBehaviour.cs
+  uploadId: 748592

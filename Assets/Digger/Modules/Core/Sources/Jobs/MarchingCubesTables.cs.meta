@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 04673e9edd7a4cfb8e32db0263fb429b
+timeCreated: 1542111948
+AssetOrigin:
+  serializedVersion: 1
+  productId: 135178
+  packageName: Digger - Terrain caves & overhangs
+  packageVersion: 7.0
+  assetPath: Assets/Digger/Modules/Core/Sources/Jobs/MarchingCubesTables.cs
+  uploadId: 748592
