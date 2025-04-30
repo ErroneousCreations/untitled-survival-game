@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.Rendering.Universal;
+using Unity.Collections;
+using Unity.Jobs;
 
 public class World : NetworkBehaviour
 {
@@ -27,15 +29,32 @@ public class World : NetworkBehaviour
         [Tooltip("-1 is empty btw")] public List<int> SpawnPool;
     }
 
+    //for grass or something, still worldfeatures
+    [System.Serializable]
+    public struct RaycastedRandomWorldFeature
+    {
+        public string name; //just for editor identification
+        public List<WorldFeature> FeatureTypes;
+        public List<Transform> SpawnCentres;
+        public Vector2 SpawnRectangleSize;
+        public int Amount;
+        public string RequiredTag;
+        public LayerMask Mask;
+        public bool RandomiseRotation;
+        [Tooltip("-1 is empty btw")] public List<int> SpawnPool;
+    }
+
     [Header("World Features")]
     public List<RandomWorldFeature> worldFeatures; //local features
     public List<RandomNetWorldFeature> netWorldFeatures; //networked features
+    public List<RaycastedRandomWorldFeature> raycastedWorldFeatures;
 
     //privates
     private List<List<WorldFeature>> spawnedWorldFeatures = new();
     private List<List<NetWorldFeature>> spawnedNetWorldFeatures = new();
     private System.Random rand;
     private static World instance;
+    private int seed;
 
     public static bool LoadingFromSave = false;
 
@@ -76,6 +95,7 @@ public class World : NetworkBehaviour
         return (float)instance.rand.NextDouble() * (max - min) + min;
     }
 
+    public static int CurrentSeed => instance.seed;
     public static float RandomValue => (float)instance.rand.NextDouble();
 
     private void Awake()
@@ -120,7 +140,8 @@ public class World : NetworkBehaviour
                 var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
                 if (feature.SpawnPool[spawnedindex] != -1)
                 {
-                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.SpawnPoints[j].position, feature.SpawnPoints[j].rotation, feature.SpawnPoints[j]);
+                    Random.InitState(seed + (int)feature.SpawnPoints[j].position.x + (int)feature.SpawnPoints[j].position.y); //this should be deterministic
+                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.SpawnPoints[j].position, feature.RandomiseRotation ? Quaternion.Euler(0, Random.Range(0, 360), 0) : feature.SpawnPoints[j].rotation, feature.SpawnPoints[j]);
                     spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
                     spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
                     spawnedNetWorldFeatures[i].Add(spawnedFeature);
@@ -141,7 +162,54 @@ public class World : NetworkBehaviour
                 var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
                 if (feature.SpawnPool[spawnedindex] != -1)
                 {
-                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.SpawnPoints[j].position, feature.SpawnPoints[j].rotation, feature.SpawnPoints[j]);
+                    Random.InitState(seed + (int)feature.SpawnPoints[j].position.x + (int)feature.SpawnPoints[j].position.y); //this should be deterministic
+                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.SpawnPoints[j].position, feature.RandomiseRotation ? Quaternion.Euler(0, Random.Range(0, 360), 0) : feature.SpawnPoints[j].rotation, feature.SpawnPoints[j]);
+                    spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
+                    spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
+                    spawnedWorldFeatures[i].Add(spawnedFeature);
+                }
+            }
+        }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void DoRaycastedWorldFeatures()
+    {
+        for (int i = 0; i < raycastedWorldFeatures.Count; i++)
+        {
+            spawnedWorldFeatures.Add(new());
+            RaycastedRandomWorldFeature feature = raycastedWorldFeatures[i];
+
+            //prepare the raycastcommand stuff
+            var results = new NativeArray<RaycastHit>(feature.Amount * feature.SpawnCentres.Count, Allocator.TempJob);
+            var commands = new NativeArray<RaycastCommand>(feature.Amount * feature.SpawnCentres.Count, Allocator.TempJob);
+
+            //get the start points
+            int k = 0;
+            foreach (var point in feature.SpawnCentres)
+            {
+                for (int j = 0; j < feature.Amount; j++)
+                {
+                    var pos = point.TransformPoint(new Vector3(rand.Next((int)(-feature.SpawnRectangleSize.x * 100), (int)(feature.SpawnRectangleSize.x * 100)) / 100, 0, rand.Next((int)(-feature.SpawnRectangleSize.y * 100), (int)(feature.SpawnRectangleSize.y * 100)) / 100));
+                    commands[k] = new RaycastCommand(pos, Vector3.down, new QueryParameters(feature.Mask));
+                }
+            }
+
+            //do the job
+            JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, 1, 2, default);
+            handle.Complete();
+
+            //actually spawn them
+            k = 0;
+            foreach (var point in feature.SpawnCentres)
+            {
+                for (int j = 0; j < feature.Amount; j++)
+                {
+                    if (results[k].collider==null || (feature.RequiredTag!="" && !results[k].collider.CompareTag(feature.RequiredTag))) { continue; }
+
+                    var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
+                    Random.InitState(seed + (int)results[k].point.x + (int)results[k].point.y);
+                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], results[k].point, Quaternion.identity, point);
                     spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
                     spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
                     spawnedWorldFeatures[i].Add(spawnedFeature);
@@ -203,6 +271,20 @@ public class World : NetworkBehaviour
         if (spawnedWorldFeatures[featureID][index] != null)
         {
             spawnedWorldFeatures[featureID][index].__RemoveHealth(damage);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        if (raycastedWorldFeatures==null || raycastedWorldFeatures.Count<=0) { return; }
+        foreach (var feature in raycastedWorldFeatures)
+        {
+            foreach (var spawn in feature.SpawnCentres)
+            {
+                Gizmos.matrix = spawn.localToWorldMatrix;
+                Gizmos.DrawCube(Vector3.zero, new Vector3(feature.SpawnRectangleSize.x, 0.25f, feature.SpawnRectangleSize.y));
+            }
         }
     }
 }
