@@ -192,7 +192,7 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.39506575
+  - screenRelativeHeight: 0.1475978
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 429181015877969533}
@@ -405,7 +405,7 @@ MonoBehaviour:
   - {fileID: 8701911266804393704, guid: 204a73991ab97b343b527d5faf38c56b, type: 3}
   - {fileID: 8701911266804393704, guid: dc0b3f0a201488e41959bf33031e4f26, type: 3}
   - {fileID: 8701911266804393704, guid: 58e647c54d67de14c98a4f367ac40faf, type: 3}
-  SpawnProbability: 0.2
+  SpawnProbability: 0.33
   OnlySpawnBeforeSave: 1
   DrawGizmos: 1
 --- !u!1 &3726984091661188423

@@ -46,9 +46,9 @@ public class NonNetInteractible : MonoBehaviour
     public virtual void InteractComplete()
     {
         interacted = true;
-        Interacted?.Invoke();
+        Interacted.Invoke();
         OnInteracted?.Invoke();
-        Interacted_GetUser?.Invoke(NetworkManager.Singleton.LocalClientId);
+        Interacted_GetUser.Invoke(NetworkManager.Singleton.LocalClientId);
         OnInteracted_GetUser?.Invoke(NetworkManager.Singleton.LocalClientId);
     }
 

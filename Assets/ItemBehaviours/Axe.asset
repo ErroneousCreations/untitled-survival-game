@@ -17,5 +17,5 @@ MonoBehaviour:
   AttackForwardAmount: 1.25
   Damage: 20
   Type: 0
-  Range: 1
+  Range: 1.5
   WorldBreakableDamage: 1.1

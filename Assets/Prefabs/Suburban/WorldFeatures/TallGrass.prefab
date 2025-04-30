@@ -50,6 +50,7 @@ MonoBehaviour:
   Destroyable: 0
   CurrHealth: 0
   MaxHealth: 0
+  drops: []
 --- !u!205 &4956696669709103622
 LODGroup:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.5021359
+  - screenRelativeHeight: 0.09882804
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 8684304527143357116}
@@ -82,7 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Description: Pick Grass
-  InteractLength: 1
+  InteractLength: 3
   InteractDistance: 1.75
   Interacted:
     m_PersistentCalls:
@@ -114,7 +115,6 @@ MonoBehaviour:
   Interacted_GetUser:
     m_PersistentCalls:
       m_Calls: []
-  DestroyOnInteract: 0
   InteractOnce: 0
   Banned: 0
 --- !u!1 &4219873831183293170
@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 4219873831183293170}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.018, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

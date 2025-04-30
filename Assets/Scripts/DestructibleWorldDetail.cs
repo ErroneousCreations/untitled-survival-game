@@ -49,7 +49,7 @@ public class DestructibleWorldDetail : MonoBehaviour
         }
         else
         {
-            transform.DOPunchScale(Vector3.one * 0.95f, 0.2f);
+            transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.2f);
         }
     }
 

@@ -143,7 +143,7 @@ public class Interactor : MonoBehaviour
                 bestNonNet = inter;
             }
         }
-        nonnet = bestNonNet;
+        nonnet = closestScreenDist < maxUIInteractionRange*maxUIInteractionRange ? bestNonNet : null;
         return closestScreenDist < maxUIInteractionRange*maxUIInteractionRange ? best: null;
     }
 
@@ -230,8 +230,8 @@ public class Interactor : MonoBehaviour
     {
         get
         {
-            if (!currentTarget) return 0f;
-            return Mathf.Clamp01(holdProgress / currentTarget.InteractLength);
+            if (!currentTarget && !altCurrentTarget) return 0f;
+            return Mathf.Clamp01(currentTarget ? holdProgress / currentTarget.InteractLength : (altCurrentTarget ? holdProgress / altCurrentTarget.InteractLength : 0));
         }
     }
 

@@ -19,7 +19,7 @@ MonoBehaviour:
   RotateForwardsMelee: 1
   Damage: 25
   Type: 1
-  Range: 1
+  Range: 1.65
   HitWorldBreakables: 0
   WorldBreakableDamage: 0
   Sharpen: 0

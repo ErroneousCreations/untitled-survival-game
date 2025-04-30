@@ -3233,9 +3233,9 @@ GameObject:
   - component: {fileID: 2895659975664390632}
   - component: {fileID: 6196702446320049340}
   - component: {fileID: 5211967582531779989}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Digger
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6809,14 +6809,14 @@ MonoBehaviour:
     - {fileID: 7968027182350256104}
     - {fileID: 9173614681237367412}
     - {fileID: 5425545473001971275}
-    SpawnRectangleSize: {x: 10, y: 10}
-    Amount: 10
-    RequiredTag: Ground
+    SpawnRectangleSize: {x: 8, y: 8}
+    Amount: 30
+    RequiredTag: 
     Mask:
       serializedVersion: 2
       m_Bits: 8
     RandomiseRotation: 1
-    SpawnPool: 0000000000000000ffffffff
+    SpawnPool: ffffffff000000000000000000000000
 --- !u!114 &-3752908936989674390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18879,7 +18879,7 @@ GameObject:
   - component: {fileID: 6361204278451436815}
   m_Layer: 3
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

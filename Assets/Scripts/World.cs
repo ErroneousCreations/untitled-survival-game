@@ -176,6 +176,7 @@ public class World : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void DoRaycastedWorldFeaturesRPC()
     {
+        var initiallength = spawnedWorldFeatures.Count;
         for (int i = 0; i < raycastedWorldFeatures.Count; i++)
         {
             spawnedWorldFeatures.Add(new());
@@ -191,31 +192,35 @@ public class World : NetworkBehaviour
             {
                 for (int j = 0; j < feature.Amount; j++)
                 {
-                    var pos = point.TransformPoint(new Vector3(rand.Next((int)(-feature.SpawnRectangleSize.x * 100), (int)(feature.SpawnRectangleSize.x * 100)) / 100, 0, rand.Next((int)(-feature.SpawnRectangleSize.y * 100), (int)(feature.SpawnRectangleSize.y * 100)) / 100));
+                    var pos = point.TransformPoint(new Vector3(RandomFloatRange(0, feature.SpawnRectangleSize.x * 2) - feature.SpawnRectangleSize.x, 0, RandomFloatRange(0, feature.SpawnRectangleSize.y * 2) - feature.SpawnRectangleSize.y));
                     commands[k] = new RaycastCommand(pos, Vector3.down, new QueryParameters(feature.Mask));
+                    k++;
                 }
             }
 
             //do the job
-            JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, 1, 1, default);
+            JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, feature.Amount * feature.SpawnCentres.Count, 1, default);
             handle.Complete();
 
             //actually spawn them
+            bool needstag = feature.RequiredTag != "";
             k = 0;
             foreach (var point in feature.SpawnCentres)
             {
                 for (int j = 0; j < feature.Amount; j++)
                 {
-                    if (results[k].collider==null || (feature.RequiredTag!="" && !results[k].collider.CompareTag(feature.RequiredTag))) { continue; }
+                    if (results[k].collider==null || (needstag && !results[k].collider.CompareTag(feature.RequiredTag))) { continue; }
 
                     var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
+                    if(feature.SpawnPool[spawnedindex] == -1) { continue; }
                     Random.InitState(seed + (int)results[k].point.x + (int)results[k].point.y);
                     var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], results[k].point, Quaternion.identity, point);
                     if (feature.RandomiseRotation) { spawnedFeature.transform.localRotation = Quaternion.AngleAxis(Random.Range(0, 360), results[k].normal); }
                     else { spawnedFeature.transform.up = results[k].normal; }
                     spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
-                    spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
-                    spawnedWorldFeatures[i].Add(spawnedFeature);
+                    spawnedFeature.Init(initiallength + i, k, feature.SpawnPool[spawnedindex]);
+                    spawnedWorldFeatures[initiallength + i].Add(spawnedFeature);
+                    k++;
                 }
             }
 

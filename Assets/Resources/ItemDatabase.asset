@@ -104,7 +104,7 @@ MonoBehaviour:
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: 9b0d9f89028ce8e468aa5f09a302b5ae, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: ae3aa056c8a2d3346812ff243e9dad43, type: 2}
-        HeldMesh: {fileID: -7833040123349192039, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        HeldMesh: {fileID: 9062786143903917041, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
         HeldMats:
         - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}
         - {fileID: 2100000, guid: be3ecbda8849f0946be1fa5eec7065f5, type: 2}
@@ -216,7 +216,7 @@ MonoBehaviour:
     Ingredient2: shortstick
   - Result: knife
     Ingredient1: sharperrock
-    Ingredient2: shortropestick
+    Ingredient2: ropeshortstick
   - Result: axe
     Ingredient1: sharprock
     Ingredient2: ropestick

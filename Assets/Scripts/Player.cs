@@ -98,7 +98,7 @@ public class Player : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.relativeVelocity.magnitude);
+        //Debug.Log(collision.relativeVelocity.magnitude);
 
         // Filter out minor scrapes
         if (collision.relativeVelocity.magnitude < minimumFallVelocity) return;

@@ -45,7 +45,6 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
         item.TempData = new()
         {
             0,
-            0,
             0
         };
         return item;
@@ -158,7 +157,6 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
         item.TempData = new()
         {
             0,
-            0,
             0
         };
         return item;
@@ -168,7 +166,6 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
     {
         item.TempData = new()
         {
-            0,
             0,
             0
         };
@@ -180,7 +177,6 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
         item.TempData = new()
         {
             0,
-            0,
             0
         };
         return item;
@@ -191,7 +187,6 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
         item.TempData = new()
         {
             0,
-            0,
             0
         };
         return item;
@@ -201,7 +196,6 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
     {
         item.TempData = new()
         {
-            0,
             0,
             0
         };

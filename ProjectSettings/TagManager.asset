@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ladder
   - CloseSpawn
+  - Building
+  - Ground
   layers:
   - Default
   - TransparentFX

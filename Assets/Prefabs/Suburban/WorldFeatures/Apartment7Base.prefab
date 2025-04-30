@@ -3284,7 +3284,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 5139756220714146001}
   - {fileID: 7998990506979541405}
-  spawnProbability: 0.3
+  spawnProbability: 0.15
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
