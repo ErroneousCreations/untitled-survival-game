@@ -53,7 +53,7 @@ MonoBehaviour:
   - {fileID: 6733649845709549072}
   SpawnPool:
   - {fileID: 8701911266804393704, guid: 1d20778006a83874992629ca28b3a67a, type: 3}
-  SpawnProbability: 0.33
+  SpawnProbability: 0.2
   OnlySpawnBeforeSave: 1
   DrawGizmos: 0
 --- !u!1 &2500441081783796358

@@ -3568,7 +3568,7 @@ GameObject:
   - component: {fileID: 5841603950431221942}
   m_Layer: 3
   m_Name: Apartment3Base
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 22
@@ -3612,6 +3612,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019e246d33c536f42a565a9c0f25da1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Destroyable: 0
+  CurrHealth: 0
+  MaxHealth: 0
+  drops: []
 --- !u!205 &5841603950431221942
 LODGroup:
   m_ObjectHideFlags: 0
@@ -3656,7 +3660,7 @@ GameObject:
   - component: {fileID: 6082272316822854117}
   m_Layer: 3
   m_Name: Apartment
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 22

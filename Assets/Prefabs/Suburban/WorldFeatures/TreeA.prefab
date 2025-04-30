@@ -170,6 +170,14 @@ MonoBehaviour:
     Chance: 0.75
   - ItemID: shortstick
     Chance: 0.75
+  - ItemID: berry
+    Chance: 0.75
+  - ItemID: berry
+    Chance: 0.75
+  - ItemID: berry
+    Chance: 0.75
+  - ItemID: berry
+    Chance: 0.75
 --- !u!205 &3537084021293982726
 LODGroup:
   m_ObjectHideFlags: 0
@@ -393,8 +401,11 @@ MonoBehaviour:
   - {fileID: 2500609457315591045}
   - {fileID: 5162700182692708380}
   - {fileID: 2547168139164172602}
-  SpawnPool: []
-  SpawnProbability: 0.33
+  SpawnPool:
+  - {fileID: 8701911266804393704, guid: 204a73991ab97b343b527d5faf38c56b, type: 3}
+  - {fileID: 8701911266804393704, guid: dc0b3f0a201488e41959bf33031e4f26, type: 3}
+  - {fileID: 8701911266804393704, guid: 58e647c54d67de14c98a4f367ac40faf, type: 3}
+  SpawnProbability: 0.2
   OnlySpawnBeforeSave: 1
   DrawGizmos: 1
 --- !u!1 &3726984091661188423

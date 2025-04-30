@@ -124,6 +124,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &119215640868629494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8792549357202719504}
+  m_Layer: 3
+  m_Name: GrassSpawn (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8792549357202719504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119215640868629494}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.62592345, z: 0, w: 0.7798845}
+  m_LocalPosition: {x: -345.6, y: 0, z: -581.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 77.5, z: 0}
 --- !u!1 &139641725625883286
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +217,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &140832908811072595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8129839302456616629}
+  m_Layer: 3
+  m_Name: GrassSpawn (20)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8129839302456616629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140832908811072595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.21303032, z: 0, w: 0.9770456}
+  m_LocalPosition: {x: -417.95, y: 0, z: -736.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 24.6, z: 0}
 --- !u!1 &198942013131364274
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +403,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &228850645604128738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3486307827350353781}
+  m_Layer: 3
+  m_Name: GrassSpawn (19)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3486307827350353781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228850645604128738}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.62592345, z: 0, w: 0.7798845}
+  m_LocalPosition: {x: -405.9, y: 0, z: -513.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 77.5, z: 0}
 --- !u!1 &231844826215940139
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,6 +2753,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1069969397126333688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3167887878493675662}
+  m_Layer: 3
+  m_Name: GrassSpawn (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3167887878493675662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069969397126333688}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.66588163, z: 0, w: 0.7460574}
+  m_LocalPosition: {x: -389.9, y: 0, z: -586.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 83.5, z: 0}
 --- !u!1 &1070684194651862616
 GameObject:
   m_ObjectHideFlags: 0
@@ -2819,6 +2943,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1152311079213970496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1357809169462659511}
+  m_Layer: 3
+  m_Name: GrassSpawn (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1357809169462659511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152311079213970496}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.62592345, z: 0, w: 0.7798845}
+  m_LocalPosition: {x: -308.86, y: 0, z: -611.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 77.5, z: 0}
 --- !u!1 &1155706907176655032
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,6 +3303,60 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   digger: {fileID: 6196702446320049340}
+--- !u!1 &1247402388438904173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1897159747798392491}
+  m_Layer: 3
+  m_Name: GrassSpawns
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1897159747798392491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247402388438904173}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7350446970852169470}
+  - {fileID: 252848189487423550}
+  - {fileID: 5074609389975606521}
+  - {fileID: 9064229366726468489}
+  - {fileID: 1557182980221446650}
+  - {fileID: 8167413617066946881}
+  - {fileID: 8309686782822853512}
+  - {fileID: 8640664042324233524}
+  - {fileID: 7830185623645031258}
+  - {fileID: 6126698439554488164}
+  - {fileID: 8435672977423880401}
+  - {fileID: 7999412104446442244}
+  - {fileID: 2876005133685519820}
+  - {fileID: 8932655860962888074}
+  - {fileID: 5742379990898541832}
+  - {fileID: 3167887878493675662}
+  - {fileID: 8792549357202719504}
+  - {fileID: 1357809169462659511}
+  - {fileID: 3486307827350353781}
+  - {fileID: 8129839302456616629}
+  - {fileID: 7968027182350256104}
+  - {fileID: 9173614681237367412}
+  - {fileID: 5425545473001971275}
+  m_Father: {fileID: 3491135937923356397}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1320852839791304733
 GameObject:
   m_ObjectHideFlags: 0
@@ -6191,6 +6400,7 @@ MonoBehaviour:
     - {fileID: 7636669428578213672}
     - {fileID: 1876831972182479050}
     - {fileID: 3501500666495782037}
+    RandomiseRotation: 0
     SpawnPool: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a000000
   - name: powerpoles
     FeatureTypes:
@@ -6280,6 +6490,7 @@ MonoBehaviour:
     - {fileID: 5816808405321638316}
     - {fileID: 4634276469885134530}
     - {fileID: 7993520931711846790}
+    RandomiseRotation: 0
     SpawnPool: 00000000
   - name: trees
     FeatureTypes:
@@ -6472,6 +6683,7 @@ MonoBehaviour:
     - {fileID: 7699025351584929482}
     - {fileID: 7136831695814361845}
     - {fileID: 1331555258449177747}
+    RandomiseRotation: 1
     SpawnPool: 00000000010000000000000001000000ffffffff
   - name: rocks
     FeatureTypes:
@@ -6566,8 +6778,45 @@ MonoBehaviour:
     - {fileID: 6791169764487186105}
     - {fileID: 4799889359873114353}
     - {fileID: 5459405997214433213}
+    RandomiseRotation: 1
     SpawnPool: 000000000100000002000000000000000100000002000000ffffffffffffffffffffffff
   netWorldFeatures: []
+  raycastedWorldFeatures:
+  - name: grass
+    FeatureTypes:
+    - {fileID: 4958045002686522478, guid: 7cf69e23f5c0c3d49ba1c4b68c63a8b0, type: 3}
+    SpawnCentres:
+    - {fileID: 7350446970852169470}
+    - {fileID: 252848189487423550}
+    - {fileID: 5074609389975606521}
+    - {fileID: 9064229366726468489}
+    - {fileID: 1557182980221446650}
+    - {fileID: 8167413617066946881}
+    - {fileID: 8309686782822853512}
+    - {fileID: 8640664042324233524}
+    - {fileID: 7830185623645031258}
+    - {fileID: 6126698439554488164}
+    - {fileID: 8435672977423880401}
+    - {fileID: 7999412104446442244}
+    - {fileID: 2876005133685519820}
+    - {fileID: 8932655860962888074}
+    - {fileID: 5742379990898541832}
+    - {fileID: 3167887878493675662}
+    - {fileID: 8792549357202719504}
+    - {fileID: 1357809169462659511}
+    - {fileID: 3486307827350353781}
+    - {fileID: 8129839302456616629}
+    - {fileID: 7968027182350256104}
+    - {fileID: 9173614681237367412}
+    - {fileID: 5425545473001971275}
+    SpawnRectangleSize: {x: 10, y: 10}
+    Amount: 10
+    RequiredTag: Ground
+    Mask:
+      serializedVersion: 2
+      m_Bits: 8
+    RandomiseRotation: 1
+    SpawnPool: 0000000000000000ffffffff
 --- !u!114 &-3752908936989674390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8481,6 +8730,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3362591463352326268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8309686782822853512}
+  m_Layer: 3
+  m_Name: GrassSpawn (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8309686782822853512
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362591463352326268}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.21814322, z: 0, w: 0.9759168}
+  m_LocalPosition: {x: -291.55, y: 0, z: -790.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: -25.2, z: 0}
 --- !u!1 &3368738888011355575
 GameObject:
   m_ObjectHideFlags: 0
@@ -8884,6 +9164,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3530773785450828973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8932655860962888074}
+  m_Layer: 3
+  m_Name: GrassSpawn (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8932655860962888074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530773785450828973}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.2044961, z: 0, w: 0.97886735}
+  m_LocalPosition: {x: -481.91, y: 0, z: -628.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 23.6, z: 0}
 --- !u!1 &3547845651630393775
 GameObject:
   m_ObjectHideFlags: 0
@@ -9458,6 +9769,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3751182474660542120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7968027182350256104}
+  m_Layer: 3
+  m_Name: GrassSpawn (21)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7968027182350256104
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3751182474660542120}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.21303032, z: 0, w: 0.9770456}
+  m_LocalPosition: {x: -385.4, y: 0, z: -657.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 24.6, z: 0}
 --- !u!1 &3783566276932824655
 GameObject:
   m_ObjectHideFlags: 0
@@ -9854,6 +10196,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3956899570367047235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5074609389975606521}
+  m_Layer: 3
+  m_Name: GrassSpawn (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5074609389975606521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956899570367047235}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.1036605, z: 0, w: 0.99461275}
+  m_LocalPosition: {x: -350, y: 0, z: -629}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: -11.9, z: 0}
 --- !u!1 &3963836316120712596
 GameObject:
   m_ObjectHideFlags: 0
@@ -12613,6 +12986,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5182954579161078105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9173614681237367412}
+  m_Layer: 3
+  m_Name: GrassSpawn (22)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9173614681237367412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5182954579161078105}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.21303032, z: 0, w: 0.9770456}
+  m_LocalPosition: {x: -304.23, y: 0, z: -750.39}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 24.6, z: 0}
 --- !u!1 &5210885611245248586
 GameObject:
   m_ObjectHideFlags: 0
@@ -12675,6 +13079,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5234516098988387960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8640664042324233524}
+  m_Layer: 3
+  m_Name: GrassSpawn (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8640664042324233524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5234516098988387960}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.1409013, z: 0, w: 0.9900237}
+  m_LocalPosition: {x: -333.4, y: 0, z: -754.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 16.2, z: 0}
 --- !u!1 &5288543696219864853
 GameObject:
   m_ObjectHideFlags: 0
@@ -16197,6 +16632,7 @@ Transform:
   - {fileID: 5655204122420941088}
   - {fileID: 3795842609233623395}
   - {fileID: 4833306761659381374}
+  - {fileID: 1897159747798392491}
   - {fileID: 2880895682625487176}
   m_Father: {fileID: 4889956379003131956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16541,6 +16977,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6763298368499821147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7350446970852169470}
+  m_Layer: 3
+  m_Name: GrassSpawn (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7350446970852169470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6763298368499821147}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.20236002, z: 0, w: 0.9793113}
+  m_LocalPosition: {x: -324.4, y: 0, z: -648.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: -23.35, z: 0}
 --- !u!1 &6771146814270206323
 GameObject:
   m_ObjectHideFlags: 0
@@ -16602,6 +17069,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6788490702643475593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1557182980221446650}
+  m_Layer: 3
+  m_Name: GrassSpawn (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1557182980221446650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6788490702643475593}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -313.5, y: 0, z: -511.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6789766565936122866
 GameObject:
@@ -16882,6 +17380,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6925499498918741171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 252848189487423550}
+  m_Layer: 3
+  m_Name: GrassSpawn (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &252848189487423550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6925499498918741171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.24310715, z: 0, w: 0.9699995}
+  m_LocalPosition: {x: -349, y: 0, z: -645.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 28.14, z: 0}
+--- !u!1 &6928652705275398940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8167413617066946881}
+  m_Layer: 3
+  m_Name: GrassSpawn (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8167413617066946881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6928652705275398940}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -266.2, y: 0, z: -715.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6964350590021972435
 GameObject:
   m_ObjectHideFlags: 0
@@ -17130,6 +17690,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7180919760353134584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2876005133685519820}
+  m_Layer: 3
+  m_Name: GrassSpawn (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2876005133685519820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7180919760353134584}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.62292427, z: 0, w: 0.7822822}
+  m_LocalPosition: {x: -367.6, y: 0, z: -658.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 77.06, z: 0}
 --- !u!1 &7200711545145777529
 GameObject:
   m_ObjectHideFlags: 0
@@ -17346,6 +17937,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7275005756688124417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6126698439554488164}
+  m_Layer: 3
+  m_Name: GrassSpawn (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6126698439554488164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7275005756688124417}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -523, y: 0, z: -769}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7300705367167660959
 GameObject:
@@ -18786,6 +19408,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7750974834030277864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5742379990898541832}
+  m_Layer: 3
+  m_Name: GrassSpawn (15)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5742379990898541832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7750974834030277864}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.66588163, z: 0, w: 0.7460574}
+  m_LocalPosition: {x: -435.49, y: 0, z: -593.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 83.5, z: 0}
 --- !u!1 &7752871359288183408
 GameObject:
   m_ObjectHideFlags: 0
@@ -20025,6 +20678,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8299781329249104387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8435672977423880401}
+  m_Layer: 3
+  m_Name: GrassSpawn (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8435672977423880401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8299781329249104387}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -199.7, y: 0, z: -698.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8309802290560273814
 GameObject:
   m_ObjectHideFlags: 0
@@ -20297,6 +20981,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8399360709902179199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9064229366726468489}
+  m_Layer: 3
+  m_Name: GrassSpawn (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9064229366726468489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8399360709902179199}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -406.5, y: 0, z: -548}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8416263359295549325
 GameObject:
   m_ObjectHideFlags: 0
@@ -20390,6 +21105,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8529233019499534398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5425545473001971275}
+  m_Layer: 3
+  m_Name: GrassSpawn (23)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5425545473001971275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8529233019499534398}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.21303032, z: 0, w: 0.9770456}
+  m_LocalPosition: {x: -256.5, y: 0, z: -760.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 24.6, z: 0}
 --- !u!1 &8529851065396262185
 GameObject:
   m_ObjectHideFlags: 0
@@ -20979,6 +21725,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8820035942700295504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7999412104446442244}
+  m_Layer: 3
+  m_Name: GrassSpawn (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7999412104446442244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820035942700295504}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.15384822, z: 0, w: 0.9880945}
+  m_LocalPosition: {x: -232.1, y: 0, z: -742.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: -17.7, z: 0}
 --- !u!1 &8826351454168486833
 GameObject:
   m_ObjectHideFlags: 0
@@ -21661,6 +22438,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9157685182127105107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7830185623645031258}
+  m_Layer: 3
+  m_Name: GrassSpawn (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7830185623645031258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9157685182127105107}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.3650393, z: 0, w: 0.9309921}
+  m_LocalPosition: {x: -459.58, y: 0, z: -713.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1897159747798392491}
+  m_LocalEulerAnglesHint: {x: 0, y: 42.82, z: 0}
 --- !u!1 &9177946344886414927
 GameObject:
   m_ObjectHideFlags: 0

@@ -121,6 +121,7 @@ public class World : NetworkBehaviour
         InitSeedRPC(seed);
         DoWorldFeaturesRPC();
         DoNetWorldFeatures();
+        DoRaycastedWorldFeaturesRPC();
     }
 
     [Rpc(SendTo.Everyone)]
@@ -173,7 +174,7 @@ public class World : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    private void DoRaycastedWorldFeatures()
+    private void DoRaycastedWorldFeaturesRPC()
     {
         for (int i = 0; i < raycastedWorldFeatures.Count; i++)
         {
@@ -196,7 +197,7 @@ public class World : NetworkBehaviour
             }
 
             //do the job
-            JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, 1, 2, default);
+            JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, 1, 1, default);
             handle.Complete();
 
             //actually spawn them
@@ -210,11 +211,17 @@ public class World : NetworkBehaviour
                     var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
                     Random.InitState(seed + (int)results[k].point.x + (int)results[k].point.y);
                     var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], results[k].point, Quaternion.identity, point);
+                    if (feature.RandomiseRotation) { spawnedFeature.transform.localRotation = Quaternion.AngleAxis(Random.Range(0, 360), results[k].normal); }
+                    else { spawnedFeature.transform.up = results[k].normal; }
                     spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
                     spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
                     spawnedWorldFeatures[i].Add(spawnedFeature);
                 }
             }
+
+            // Dispose the buffers
+            results.Dispose();
+            commands.Dispose();
         }
     }
 

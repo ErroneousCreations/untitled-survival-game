@@ -4102,7 +4102,7 @@ GameObject:
   - component: {fileID: 5841603950431221942}
   m_Layer: 3
   m_Name: Apartment7Base
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 22
@@ -4424,7 +4424,7 @@ GameObject:
   - component: {fileID: 7362366697907685144}
   m_Layer: 3
   m_Name: Apartment
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 22
