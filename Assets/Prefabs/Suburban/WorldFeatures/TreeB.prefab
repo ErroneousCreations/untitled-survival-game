@@ -105,6 +105,7 @@ MonoBehaviour:
     Chance: 0.75
   - ItemID: berry
     Chance: 0.75
+  Breakparticle: particle_splinters
 --- !u!205 &3537084021293982726
 LODGroup:
   m_ObjectHideFlags: 0

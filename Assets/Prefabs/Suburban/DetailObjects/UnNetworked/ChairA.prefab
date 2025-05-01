@@ -76,6 +76,7 @@ MonoBehaviour:
   - ItemID: stick
     Chance: 0.5
   Health: 5
+  BreakParticle: particle_splinters
 --- !u!1 &4736872897992533961
 GameObject:
   m_ObjectHideFlags: 0

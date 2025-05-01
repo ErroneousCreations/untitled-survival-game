@@ -86,6 +86,7 @@ MonoBehaviour:
   - ItemID: rock
     Chance: 0.5
   Health: 60
+  BreakParticle: particle_dust
 --- !u!1 &4736872897992533961
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
     public bool HitWorldBreakables;
     [ShowField(nameof(HitWorldBreakables))] public float WorldBreakableDamage;
     public bool Sharpen;
-    [ShowField(nameof(Sharpen))] public string SharpenResult;
+    [ShowField(nameof(Sharpen))] public string SharpenResult, SharpenParticle;
 
     [Header("Throw")]
     public float MaxCharge = 1;
@@ -124,17 +124,23 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
             {
                 ph.ApplyDamage(Damage, Type, hit.point, hit.normal, false);
             }
-            else if (HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out WorldFeature wf))
+            else if (HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out WorldFeature wf) && wf.Destroyable)
             {
                 wf.Attack(WorldBreakableDamage);
+                NetPrefabsList.SpawnObjectExcept(wf.Breakparticle, hit.point, Quaternion.LookRotation(hit.normal), Extensions.LocalClientID, 1);
+                Destroy(Instantiate(NetPrefabsList.GetNetPrefab(wf.Breakparticle), hit.point, Quaternion.LookRotation(hit.normal)), 1);
             }
             else if(HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out DestructibleWorldDetail det))
             {
                 det.Attack(WorldBreakableDamage);
+                NetPrefabsList.SpawnObjectExcept(det.BreakParticle, hit.point, Quaternion.LookRotation(hit.normal), Extensions.LocalClientID, 1);
+                Destroy(Instantiate(NetPrefabsList.GetNetPrefab(det.BreakParticle), hit.point, Quaternion.LookRotation(hit.normal)), 1);
             }
-            else
+            else if(Sharpen)
             {
-                if (int.TryParse(item.SavedData[0].ToString(), out int sharphitsleft)) { 
+                if (int.TryParse(item.SavedData[0].ToString(), out int sharphitsleft)) {
+                    NetPrefabsList.SpawnObjectExcept(SharpenParticle, hit.point, Quaternion.LookRotation(hit.normal), Extensions.LocalClientID, 1);
+                    Destroy(Instantiate(NetPrefabsList.GetNetPrefab(SharpenParticle), hit.point, Quaternion.LookRotation(hit.normal)), 1);
                     sharphitsleft--; 
                     item.SavedData[0] = sharphitsleft.ToString();  
                     if(sharphitsleft <= 0)

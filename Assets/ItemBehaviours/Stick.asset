@@ -24,6 +24,7 @@ MonoBehaviour:
   WorldBreakableDamage: 0
   Sharpen: 1
   SharpenResult: sharpstick
+  SharpenParticle: particle_splinters
   MaxCharge: 1.5
   VibrateIntensity: 0.15
   ThrowchargeUpwardAmount: 1

@@ -244,7 +244,7 @@ public class World : NetworkBehaviour
     private void SpawnItemAtWorldfeatureRPC(string id, int worldfeatureid, int index)
     {
         if (!spawnedWorldFeatures[worldfeatureid][index]) { return; }
-        var curr = Instantiate(ItemDatabase.GetItem(id).ItemPrefab, spawnedWorldFeatures[worldfeatureid][index].transform.position, Quaternion.identity);
+        var curr = Instantiate(ItemDatabase.GetItem(id).ItemPrefab, spawnedWorldFeatures[worldfeatureid][index].transform.position + Vector3.up*0.5f, Quaternion.identity);
         curr.NetworkObject.Spawn();
         curr.InitSavedData();
     }

@@ -130,6 +130,7 @@ MonoBehaviour:
     Chance: 1
   - ItemID: rock
     Chance: 1
+  Breakparticle: particle_dust
 --- !u!205 &3537084021293982726
 LODGroup:
   m_ObjectHideFlags: 0

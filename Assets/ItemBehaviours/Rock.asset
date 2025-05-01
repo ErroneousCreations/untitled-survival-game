@@ -24,6 +24,7 @@ MonoBehaviour:
   WorldBreakableDamage: 0.4
   Sharpen: 1
   SharpenResult: sharprock
+  SharpenParticle: particle_sparks
   MaxCharge: 1
   VibrateIntensity: 0.15
   ThrowchargeUpwardAmount: 1

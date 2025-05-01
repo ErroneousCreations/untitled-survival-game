@@ -70,13 +70,17 @@ public class Axe : ScriptableObject, IItemBehaviour
             {
                 ph.ApplyDamage(Damage, Type, hit.point, hit.normal, false);
             }
-            else if (hit.collider.transform.parent.TryGetComponent(out WorldFeature wf))
+            else if (hit.collider.transform.parent.TryGetComponent(out WorldFeature wf) && wf.Destroyable)
             {
                 wf.Attack(WorldBreakableDamage);
+                NetPrefabsList.SpawnObjectExcept(wf.Breakparticle, hit.point, Quaternion.LookRotation(hit.normal), Extensions.LocalClientID, 1);
+                Destroy(Instantiate(NetPrefabsList.GetNetPrefab(wf.Breakparticle), hit.point, Quaternion.LookRotation(hit.normal)), 1);
             }
             else if (hit.collider.transform.parent.TryGetComponent(out DestructibleWorldDetail det))
             {
                 det.Attack(WorldBreakableDamage);
+                NetPrefabsList.SpawnObjectExcept(det.BreakParticle, hit.point, Quaternion.LookRotation(hit.normal), Extensions.LocalClientID, 1);
+                Destroy(Instantiate(NetPrefabsList.GetNetPrefab(det.BreakParticle), hit.point, Quaternion.LookRotation(hit.normal)), 1);
             }
         }
     }

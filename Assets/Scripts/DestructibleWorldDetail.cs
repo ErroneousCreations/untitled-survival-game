@@ -12,6 +12,7 @@ public class DestructibleWorldDetail : MonoBehaviour
     [ReadOnly, SerializeField]private float CurrHealth;
     [SerializeField]private List<LootDropStruct> drops;
     public float Health;
+    public string BreakParticle;
 
     private void Awake()
     {
@@ -47,10 +48,10 @@ public class DestructibleWorldDetail : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else
-        {
-            transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.2f);
-        }
+        //else
+        //{
+        //    transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.2f);
+        //}
     }
 
     public void Attack(float damage)

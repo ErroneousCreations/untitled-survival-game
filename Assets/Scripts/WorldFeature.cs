@@ -17,10 +17,11 @@ public class WorldFeature : MonoBehaviour
     // first one is the index of what world feature it is (e.g. house or tree) second is the index of the generated feature in the world (if its house 1 or house 2 etc) and last one is the index of the type of feature (e.g. house type 1 or house type 2)
     private int worldFeatureIndex, generatedFeatureIndex, featureTypeIndex;
 
-    [SerializeField] private bool Destroyable;
+    public bool Destroyable;
     [SerializeField, ReadOnly, ShowField(nameof(Destroyable))] private float CurrHealth;
     [SerializeField, ShowField(nameof(Destroyable))] private float MaxHealth;
     [SerializeField, ShowField(nameof(Destroyable))] private List<LootDropStruct> drops;
+    [ShowField(nameof(Destroyable))] public string Breakparticle;
 
     public void Init(int worldFeatureIndex, int generatedFeatureIndex, int featureTypeIndex)
     {
@@ -63,10 +64,10 @@ public class WorldFeature : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else
-        {
-            transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.2f);
-        }
+        //else
+        //{
+        //    transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.2f);
+        //}
     }
 
     public void RemoveFeature()
