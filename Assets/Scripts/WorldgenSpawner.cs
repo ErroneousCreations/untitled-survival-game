@@ -22,21 +22,23 @@ public class WorldgenSpawner : MonoBehaviour
         if (Networked)
         {
             if(!NetworkManager.Singleton.IsServer) { Destroy(this); return; }
+            Random.InitState(World.CurrentSeed + (int)(transform.position.x * 100) + (int)(transform.position.y * 100));
             foreach (var spawnPoint in spawnPoints)
             {
-                if (World.RandomValue < spawnProbability)
+                if (Random.value < spawnProbability)
                 {
-                    Instantiate(netSpawnPool[World.RandomIntRange(0, netSpawnPool.Count)], spawnPoint.position, spawnPoint.rotation, null).Spawn();
+                    Instantiate(netSpawnPool[Random.Range(0, netSpawnPool.Count)], spawnPoint.position, spawnPoint.rotation, null).Spawn();
                 }
             }
         }
         else
         {
+            Random.InitState(World.CurrentSeed + (int)(transform.position.x * 100) + (int)(transform.position.y * 100));
             foreach (var spawnPoint in spawnPoints)
             {
-                if (World.RandomValue < spawnProbability)
+                if (Random.value < spawnProbability)
                 {
-                    Instantiate(spawnPool[World.RandomIntRange(0, spawnPool.Count)], spawnPoint.position, spawnPoint.rotation, parentOnSpawnpoint ? spawnPoint : null);
+                    Instantiate(spawnPool[Random.Range(0, spawnPool.Count)], spawnPoint.position, spawnPoint.rotation, parentOnSpawnpoint ? spawnPoint : null);
                 }
             }
         }

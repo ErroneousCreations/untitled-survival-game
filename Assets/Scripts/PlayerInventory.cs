@@ -261,7 +261,7 @@ public class PlayerInventory : NetworkBehaviour
                 item = ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour.OnPickup(item, HandSideEnum.Right); //call onpickup
             }
             rightHand.Value = item;
-            hotbar[currEquippedSlot] = rightHand.Value; // Update hotbar with new item
+            hotbar[currEquippedSlot] = item; // Update hotbar with new item
             UpdateRighthandVisuals();
             yield return new WaitForSeconds(0.3f);
             busy = false;
@@ -473,9 +473,10 @@ public class PlayerInventory : NetworkBehaviour
         // Hotbar swap (right hand)
         for (int i = 0; i < maxHotbarSize; i++)
         {
-            if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + i)) && !(!rightHand.Value.IsValid && !hotbar[i].IsValid)) //if theyre both invalid dont bother lmao
+            if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + i))) //if theyre both invalid dont bother lmao
             {
-                StartCoroutine(SwapHotbarItem(i));
+                if(!(!rightHand.Value.IsValid && !hotbar[i].IsValid)) { currEquippedSlot = i; }
+                else { StartCoroutine(SwapHotbarItem(i)); }
             }
         }
     }
@@ -661,17 +662,18 @@ public class PlayerInventory : NetworkBehaviour
         }
     }
 
+    private void Died()
+    {
+
+    }
+
     [Rpc(SendTo.Server)]
     private void SpawnItemWorldRPC(ItemData item, Vector3 position)
     {
         // Spawn logic should be synced
         var go = Instantiate(ItemDatabase.GetItem(item.ID.ToString()).ItemPrefab, position, Quaternion.identity);
         go.NetworkObject.Spawn();
-        go.CurrentSavedData.Clear();
-        foreach (var data in item.SavedData)
-        {
-            go.CurrentSavedData.Add(data.ToString());
-        }
+        go.InitSavedData(item.SavedData);
     }
 
     public ItemData StealFromBackpack()
@@ -704,4 +706,6 @@ public class PlayerInventory : NetworkBehaviour
             SpawnItemWorldRPC(item, Player.GetLocalPlayerCentre + transform.forward);
         }
     }
+
+
 }

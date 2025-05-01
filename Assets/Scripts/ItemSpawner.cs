@@ -14,16 +14,14 @@ public class ItemSpawner : MonoBehaviour
     {
         if (!NetworkManager.Singleton || !NetworkManager.Singleton.IsServer) { return; }
         if(OnlySpawnBeforeSave && World.LoadingFromSave) { return; }
-        if (World.RandomValue < SpawnProbability)
+        Random.InitState(World.CurrentSeed + (int)(transform.position.x * 100) + (int)(transform.position.y * 100));
+        foreach (var spawnPoint in SpawnPoints)
         {
-            foreach (var spawnPoint in SpawnPoints)
+            if (Random.value < SpawnProbability)
             {
-                if (World.RandomValue < SpawnProbability)
-                {
-                    var item = Instantiate(SpawnPool[World.RandomIntRange(0, SpawnPool.Count)], spawnPoint.position, spawnPoint.rotation);
-                    item.NetworkObject.Spawn();
-                    item.InitSavedData();
-                }
+                var item = Instantiate(SpawnPool[Random.Range(0, SpawnPool.Count)], spawnPoint.position, spawnPoint.rotation);
+                item.NetworkObject.Spawn();
+                item.InitSavedData();
             }
         }
         Destroy(this);

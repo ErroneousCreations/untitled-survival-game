@@ -19,6 +19,14 @@ public class PickupableItem : Interactible
     private float currDisableThrowTime = 0, ignoreThrowerTime;
     private Vector3 lastPos;
 
+    public void InitSavedData(List<FixedString64Bytes> saveddata)
+    {
+        foreach (var data in saveddata)
+        {
+            CurrentSavedData.Add(data);
+        }
+    }
+
     public void InitThrown(ulong thrower)
     {
         IsThrown = true;

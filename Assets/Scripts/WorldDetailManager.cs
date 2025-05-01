@@ -16,7 +16,7 @@ public class WorldDetailManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone, RequireOwnership = false)]
-    public void DoDamageRPC(int objectID, float damage)
+    private void DoDamageRPC(int objectID, float damage)
     {
         if (objectsByID.TryGetValue(objectID, out var obj))
         {

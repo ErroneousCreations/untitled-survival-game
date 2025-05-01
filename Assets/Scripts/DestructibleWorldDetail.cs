@@ -7,7 +7,6 @@ using Unity.Netcode;
 public class DestructibleWorldDetail : MonoBehaviour
 {
     public int ObjectID { get; private set; }
-    private static int NextID = 0;
 
     [ReadOnly, SerializeField]private float CurrHealth;
     [SerializeField]private List<LootDropStruct> drops;
@@ -16,7 +15,7 @@ public class DestructibleWorldDetail : MonoBehaviour
 
     private void Awake()
     {
-        ObjectID = NextID++;
+        ObjectID = Mathf.RoundToInt(transform.position.x * 1000) + Mathf.RoundToInt(transform.position.y * 1000);
         CurrHealth = Health;
         WorldDetailManager.RegisterObject(this);
     }

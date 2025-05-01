@@ -254,6 +254,7 @@ public class World : NetworkBehaviour
         instance.WorldFeatureDestroyedRPC(featureID, index);
     }
 
+    [Rpc(SendTo.Everyone, RequireOwnership = false)]
     private void WorldFeatureDestroyedRPC(int featureID, int index)
     {
         if (spawnedWorldFeatures[featureID][index] != null)
@@ -268,6 +269,7 @@ public class World : NetworkBehaviour
         instance.WorldFeatureSwappedRPC(featureID, index, newtype);
     }
 
+    [Rpc(SendTo.Everyone, RequireOwnership = false)]
     private void WorldFeatureSwappedRPC(int featureID, int index, int newtype)
     {
         if (spawnedWorldFeatures[featureID][index] != null)
