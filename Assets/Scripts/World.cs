@@ -147,6 +147,7 @@ public class World : NetworkBehaviour
                     spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
                     spawnedNetWorldFeatures[i].Add(spawnedFeature);
                 }
+                else { spawnedWorldFeatures[i].Add(null); }
             }
         }
     }
@@ -169,6 +170,7 @@ public class World : NetworkBehaviour
                     spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
                     spawnedWorldFeatures[i].Add(spawnedFeature);
                 }
+                else { spawnedWorldFeatures[i].Add(null); }
             }
         }
     }
@@ -212,14 +214,17 @@ public class World : NetworkBehaviour
                     if (results[k].collider==null || (needstag && !results[k].collider.CompareTag(feature.RequiredTag))) { continue; }
 
                     var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
-                    if(feature.SpawnPool[spawnedindex] == -1) { continue; }
-                    Random.InitState(seed + (int)results[k].point.x + (int)results[k].point.y);
-                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], results[k].point, Quaternion.identity, point);
-                    if (feature.RandomiseRotation) { spawnedFeature.transform.localRotation = Quaternion.AngleAxis(Random.Range(0, 360), results[k].normal); }
-                    else { spawnedFeature.transform.up = results[k].normal; }
-                    spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
-                    spawnedFeature.Init(initiallength + i, k, feature.SpawnPool[spawnedindex]);
-                    spawnedWorldFeatures[initiallength + i].Add(spawnedFeature);
+                    if(feature.SpawnPool[spawnedindex] != -1)
+                    {
+                        Random.InitState(seed + (int)results[k].point.x + (int)results[k].point.y);
+                        var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], results[k].point, Quaternion.identity, point);
+                        if (feature.RandomiseRotation) { spawnedFeature.transform.localRotation = Quaternion.AngleAxis(Random.Range(0, 360), results[k].normal); }
+                        else { spawnedFeature.transform.up = results[k].normal; }
+                        spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
+                        spawnedFeature.Init(initiallength + i, k, feature.SpawnPool[spawnedindex]);
+                        spawnedWorldFeatures[initiallength + i].Add(spawnedFeature);
+                    }
+                    else { spawnedWorldFeatures[initiallength + i].Add(null); }
                     k++;
                 }
             }
