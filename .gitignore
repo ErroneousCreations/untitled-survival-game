@@ -9,6 +9,8 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/[Tt]estBuild/
+[Tt]estBuild.zip
 
 #macos
 .DS_Store

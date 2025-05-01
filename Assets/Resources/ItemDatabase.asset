@@ -20,7 +20,7 @@ MonoBehaviour:
         ID: rock
         Volume: 0.75
         BaseSavedData:
-        - 3
+        - 20
         ItemPrefab: {fileID: 8701911266804393704, guid: 1d20778006a83874992629ca28b3a67a, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: d926a7fa33de2f24690844569ceb531c, type: 2}
         HeldMesh: {fileID: 4013275331872712965, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
