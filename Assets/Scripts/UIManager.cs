@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        instance.SetLobbyCustomisationSliders();
     }
 
     public static void TogglePauseMenu(bool open)
@@ -135,6 +137,7 @@ public class UIManager : MonoBehaviour
         instance.GameUI.blocksRaycasts = false;
 
         instance.TransitionScreen.alpha = 0;
+        instance.SetLobbyCustomisationSliders();
     }
 
     public static void FadeToGame()
@@ -210,5 +213,43 @@ public class UIManager : MonoBehaviour
     public static void SetFeetDamage(float amount)
     {
         instance.FeetDamageIndicator.color = amount <= 0 ? Color.Lerp(Color.black, Color.red, amount+1) : Color.Lerp(Color.white, Color.red, 1 - amount);
+    }
+
+    [SerializeField] private Slider LobbyScarfR, LobbyScarfG, LobbyScarfB, LobbySkinTone;
+    [SerializeField] private Image LobbyColIndicator, LobbySkinIndicator;
+    [SerializeField] private List<Sprite> LobbySkinTones;
+
+    private void SetLobbyCustomisationSliders()
+    {
+        LobbyScarfR.value = PlayerPrefs.GetFloat("SCARFCOL_R", 1);
+        LobbyScarfG.value = PlayerPrefs.GetFloat("SCARFCOL_G", 0);
+        LobbyScarfB.value = PlayerPrefs.GetFloat("SCARFCOL_B", 0);
+        LobbySkinTone.value = PlayerPrefs.GetInt("SKINTEX", 0);
+        LobbySkinIndicator.sprite = LobbySkinTones[PlayerPrefs.GetInt("SKINTEX", 0)];
+        LobbyColIndicator.color = new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
+    }
+
+    public void SetScarfR(float value)
+    {
+        PlayerPrefs.SetFloat("SCARFCOL_R", value);
+        LobbyColIndicator.color = new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
+    }
+
+    public void SetScarfG(float value)
+    {
+        PlayerPrefs.SetFloat("SCARFCOL_G", value);
+        LobbyColIndicator.color = new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
+    }
+
+    public void SetScarfB(float value)
+    {
+        PlayerPrefs.SetFloat("SCARFCOL_B", value);
+        LobbyColIndicator.color = new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
+    }
+
+    public void SetSkinTex(float value)
+    {
+        PlayerPrefs.SetInt("SKINTEX", (int)value);
+        LobbySkinIndicator.sprite = LobbySkinTones[PlayerPrefs.GetInt("SKINTEX", 0)];
     }
 }

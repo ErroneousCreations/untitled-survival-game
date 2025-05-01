@@ -869,7 +869,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 9de54de3d970dff46b22a4eb1ab6dba0, type: 2}
   - {fileID: 2100000, guid: 271b55e571b7f7d40bf37bca8ea7eae0, type: 2}
-  - {fileID: 2100000, guid: 229d65160b3853941b7f9827f3ac8a63, type: 2}
+  - {fileID: 2100000, guid: b7463f2b9691a6442ab1a8e6ff788cd1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1285,7 +1285,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.15
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3106,6 +3106,8 @@ MonoBehaviour:
   - {fileID: 7412239047916043632}
   PlayerBody: {fileID: 5895422202403721210}
   skinMaterialID: 0
+  scarfMaterialID: 2
+  ScarfRend: {fileID: 7412239047916043632}
   speakingIndicator: {fileID: 2983407331317601488}
   rb: {fileID: 5915086949411864073}
   standupForce: 700
@@ -3127,6 +3129,11 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 7a6a00e537dd89c499017dc24b66e4a5, type: 3}
   - {fileID: 2800000, guid: c5ee5ff92585cd54eb6c57da3b8020b3, type: 3}
   - {fileID: 2800000, guid: 9e961bb7d0d982941ae9b559541746a0, type: 3}
+  SkinTextures:
+  - {fileID: 2800000, guid: 02c7b46a4a99e384298e43ca14bd8087, type: 3}
+  - {fileID: 2800000, guid: 0379862561a7a0d48ae69efd28d2d165, type: 3}
+  - {fileID: 2800000, guid: aa381fe2c97d2274597689b92cc9e637, type: 3}
+  - {fileID: 2800000, guid: aa26b98e81adfd24aa64dea7a1e364cc, type: 3}
   Mixer: {fileID: 24100000, guid: 635c1b3b8bd853143b74606430bb3fc7, type: 2}
   hungryAudiosource: {fileID: 4467407709081242012}
   stomachRumbles:

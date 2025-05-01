@@ -91,7 +91,7 @@ MonoBehaviour:
         Volume: 1
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: b5fc35dc10cae7c49aaf0013dec2221f, type: 3}
-        _itemBehaviour: {fileID: 11400000, guid: ae3aa056c8a2d3346812ff243e9dad43, type: 2}
+        _itemBehaviour: {fileID: 11400000, guid: f0b75a4b6f3b33341bdf4c6910704969, type: 2}
         HeldMesh: {fileID: -7833040123349192039, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
         HeldMats:
         - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}
@@ -103,7 +103,7 @@ MonoBehaviour:
         Volume: 0.75
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: 9b0d9f89028ce8e468aa5f09a302b5ae, type: 3}
-        _itemBehaviour: {fileID: 11400000, guid: ae3aa056c8a2d3346812ff243e9dad43, type: 2}
+        _itemBehaviour: {fileID: 11400000, guid: f0b75a4b6f3b33341bdf4c6910704969, type: 2}
         HeldMesh: {fileID: 9062786143903917041, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
         HeldMats:
         - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}

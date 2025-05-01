@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VibrateIntensity: 0.1
   EatLength: 1
-  HungerGiven: 0.02
+  HungerGiven: 0.1

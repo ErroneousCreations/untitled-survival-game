@@ -79,6 +79,10 @@ MonoBehaviour:
     Chance: 0.7
   - ItemID: stick
     Chance: 0.7
+  - ItemID: bandage
+    Chance: 0.7
+  - ItemID: bandage
+    Chance: 0.7
   Health: 5
   BreakParticle: particle_splinters
 --- !u!1 &4736872897992533961

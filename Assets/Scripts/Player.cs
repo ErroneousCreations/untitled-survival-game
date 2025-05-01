@@ -24,6 +24,8 @@ public class Player : NetworkBehaviour
     public Renderer[] PlayermodelMeshes;
     [SerializeField] private Renderer PlayerBody;
     [SerializeField] private int skinMaterialID;
+    [SerializeField] private int scarfMaterialID;
+    [SerializeField] private Renderer ScarfRend;
     [SerializeField] private GameObject speakingIndicator;
     [Header("Physics Settings")]
     [SerializeField] private Rigidbody rb;
@@ -37,6 +39,8 @@ public class Player : NetworkBehaviour
     [Header("Eyes")]
     [SerializeField] private MeshRenderer Eyes;
     [SerializeField] private List<Texture2D> EyeTextures;
+    [Header("SkinTexture")]
+    [SerializeField]private List<Texture2D> SkinTextures;
     [Header("Misc")]
     public AudioMixer Mixer;
     [Header("Hunger effects")]
@@ -53,6 +57,8 @@ public class Player : NetworkBehaviour
     private Material eyesmat;
 
     private NetworkVariable<float> SyncedEyeTexture = new(0, writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<float> SyncedSkinTexture = new(0, writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<Color> SyncedScarfColour = new(Color.white, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<float> currLookAngle = new(0, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isTalking = new(false, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isSprinting = new(false, writePerm: NetworkVariableWritePermission.Owner);
@@ -61,7 +67,7 @@ public class Player : NetworkBehaviour
     private float currfalloverTime = 0;
     private float currStandForce = 0;
     private bool inChannel = false;
-    private Material skinMat;
+    private Material skinMat, bodyScarfMat, scarfMat;
     private float beatTimer;
 
     private VivoxParticipant participant;
@@ -151,6 +157,8 @@ public class Player : NetworkBehaviour
             pm.ViewmodelParent.parent = Camera.main.transform;
             LocalPlayer = this;
             SyncedEyeTexture.Value = 0;
+            SyncedScarfColour.Value = new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
+            SyncedSkinTexture.Value = PlayerPrefs.GetInt("SKINTEX", 0);
             blinkCurr = Random.Range(2.1f, 2.6f);
             VivoxManager.JoinMainChannel(() =>
             {
@@ -162,6 +170,8 @@ public class Player : NetworkBehaviour
             });
             username.Value = PlayerPrefs.GetString("USERNAME", "NoName");
         }
+        bodyScarfMat = PlayerBody.materials[scarfMaterialID];
+        scarfMat = ScarfRend.material;
         skinMat = PlayerBody.materials[skinMaterialID];
         eyesmat = Eyes.material;
         eyesmat.mainTexture = EyeTextures[0];
@@ -209,6 +219,7 @@ public class Player : NetworkBehaviour
         hungryAudiosource.Stop();
         hungryAudiosource.pitch = pitch;
         hungryAudiosource.clip = array == 0 ? stomachRumbles[clip] : extremeHungerSounds[clip]; // slight pitch/volume variation
+        hungryAudiosource.volume = 0.09f;
         hungryAudiosource.Play();
     }
 
@@ -240,6 +251,9 @@ public class Player : NetworkBehaviour
     private void Update()
     {
         skinMat.SetFloat("_Paleness", 1-ph.currentBlood.Value);
+        skinMat.SetTexture("_MainTex", SkinTextures[(int)SyncedSkinTexture.Value]);
+        scarfMat.color = SyncedScarfColour.Value;
+        bodyScarfMat.color = SyncedScarfColour.Value;
         head.localRotation = Quaternion.AngleAxis(Mathf.Clamp(currLookAngle.Value, headAngleRange.x, headAngleRange.y) + (pm.GetCrouching ? 49 : 0), Vector3.forward);
         eyesmat.mainTexture = EyeTextures[(int)SyncedEyeTexture.Value];
         anim.SetBool("Crouching", pm.GetCrouching && StandingUp);
