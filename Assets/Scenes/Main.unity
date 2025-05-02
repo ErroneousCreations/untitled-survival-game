@@ -3041,7 +3041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1eb779612b608408d8526833321a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxUIInteractionRange: 110
+  maxUIInteractionRange: 150
   interactKey: 102
   canvas: {fileID: 475354899}
   UIcentre: {fileID: 4993586}
