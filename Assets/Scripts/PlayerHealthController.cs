@@ -17,6 +17,20 @@ public struct Wound
     }
 }
 
+public struct WoundObject
+{
+    public ParticleSystem particles;
+    public ItemData embedded;
+    public bool hasembedded;
+
+    public WoundObject(ParticleSystem particles, ItemData embedded, bool hasembedded)
+    {
+        this.particles = particles;
+        this.embedded = embedded;
+        this.hasembedded = hasembedded;
+    }
+}
+
 public class PlayerHealthController : NetworkBehaviour
 {
     public NetworkVariable<float> currentBlood = new(0, writePerm: NetworkVariableWritePermission.Owner);
@@ -28,9 +42,10 @@ public class PlayerHealthController : NetworkBehaviour
     public NetworkVariable<bool> isAlive = new(true, writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<float> legHealth = new(0, writePerm: NetworkVariableWritePermission.Owner), bodyHealth = new(0, writePerm: NetworkVariableWritePermission.Owner), headHealth = new(0, writePerm: NetworkVariableWritePermission.Owner);
 
-    public Dictionary<ushort, Wound> wounds = new();
+    private Dictionary<ushort, Wound> wounds = new();
     private Dictionary<ushort, float> woundIntensities = new();
     private Dictionary<ushort, bool> woundEmbeddeds = new();
+    private List<WoundObject> woundObjects = new();
 
     public Player player;
 
@@ -121,6 +136,11 @@ public class PlayerHealthController : NetworkBehaviour
 
     void Update()
     {
+        for (int i = 0; i < woundObjects.Count; i++)
+        {
+            if (!woundObjects[i].particles) { woundObjects.RemoveAt(i); i--; }
+        }
+
         foreach (var inter in interactibles)
         {
             inter.Banned = IsOwner;
@@ -143,8 +163,11 @@ public class PlayerHealthController : NetworkBehaviour
 
         //stop bleeding when out of blood
         if(currentBlood.Value <= 0 && woundIntensities.Count>0) {
-            woundIntensities.Clear();
-            woundEmbeddeds.Clear();
+            var keys = woundIntensities.Keys;
+            foreach (var key in keys)
+            {
+                woundIntensities[key] = 0;
+            }
         }
         if (!IsOwner) { return; }
 
@@ -177,6 +200,13 @@ public class PlayerHealthController : NetworkBehaviour
     void HandleVitals()
     {
         if (!isAlive.Value) { return; }
+
+        if(wounds.Count > 254)
+        {
+            Die("Death by a thousand cuts");
+            return;
+        }
+
         if (currentBlood.Value <= 0.1f)
         {
             Die("Blood loss");
@@ -303,10 +333,9 @@ public class PlayerHealthController : NetworkBehaviour
         if ((pos - transform.TransformPoint(new Vector3(headPos.x, headPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, headPos.z))).sqrMagnitude < headRadius*headRadius)
         {
             wasinHead = true;
-            consciousness.Value -= damage / 100f;
-            headHealth.Value -= damage / 50f;
+            consciousness.Value -= damage / 60f;
+            headHealth.Value -= damage / 90f;
             headhealthRegenCd = 30;
-            if (damage >= (type == DamageType.Blunt ? 90f : 30f)) { Die("Massive head trauma"); }
         }
         else if ((pos - transform.TransformPoint(new Vector3(legsPos.x, legsPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, legsPos.z))).sqrMagnitude < legsRadius * legsRadius)
         {
@@ -340,6 +369,7 @@ public class PlayerHealthController : NetworkBehaviour
 
         //create the wound interactor
         var bleed = Instantiate(bleedingEffect, Vector3.zero, Quaternion.identity);
+        woundObjects.Add(new WoundObject(bleed, embeddedItem, embedded));
         var ob = new GameObject("Wound" + wounds.Count);
         var coll = GetClosestCollider(pos, out Vector3 newPos);
         ob.transform.parent = coll;
@@ -356,8 +386,6 @@ public class PlayerHealthController : NetworkBehaviour
         }
         bleed.transform.parent = ob.transform;
         bleed.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        var emission = bleed.emission;
-        emission.rateOverTime= 25 * intensity;
         var initialpos = ob.transform.localPosition;
 
         var inter = ob.AddComponent<Interactible>();
@@ -373,6 +401,7 @@ public class PlayerHealthController : NetworkBehaviour
                 Destroy(embeddedgraphic);
             }
             if (!woundIntensities.ContainsKey(id)) { Destroy(ob); return; }
+            var emission = bleed.emission;
             emission.rateOverTime = 25 * woundIntensities[id];
             if (woundEmbeddeds[id]) { inter.OnInteractedLocal = () => RemoveEmbeddedObject(id, embeddedItem); }
             else if (PlayerInventory.GetRightHandItem.ID.ToString() == "bandage") { inter.OnInteractedLocal = () => { 
@@ -534,7 +563,7 @@ public class PlayerHealthController : NetworkBehaviour
             }
             else
             {
-                player.GetRigidbody.AddForce(Vector3.up * 2, ForceMode.Impulse);
+                player.GetRigidbody.AddForce(Vector3.up * 0.5f, ForceMode.Impulse);
             }
         }
         lastMouthMouthTime = Time.time;
@@ -543,7 +572,7 @@ public class PlayerHealthController : NetworkBehaviour
     [Rpc(SendTo.Owner, RequireOwnership = false)]
     private void MtMRecuscitateRPC()
     {
-        player.GetRigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
+        player.GetRigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
         stopBreathignTime = 30f;
         breathing.Value = true;
         consciousness.Value = 0.15f;
@@ -582,7 +611,7 @@ public class PlayerHealthController : NetworkBehaviour
             }
             else
             {
-                player.GetRigidbody.AddForce(Vector3.up * 2, ForceMode.Impulse);
+                player.GetRigidbody.AddForce(Vector3.up * 0.5f, ForceMode.Impulse);
             }
         }
         lastMouthMouthTime = Time.time;
@@ -592,7 +621,7 @@ public class PlayerHealthController : NetworkBehaviour
     private void CPRRecuscitateRPC()
     {
         if(heartBeating.Value) return;
-        player.GetRigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
+        player.GetRigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
         heartBeating.Value = true;
         breathing.Value = true;
         consciousness.Value = 0.15f;
@@ -609,6 +638,7 @@ public class PlayerHealthController : NetworkBehaviour
         breathing.Value = false;
         isConscious.Value = false;
         Debug.Log($"biological death: {cause}");
+        player.OnDied?.Invoke();
     }
 
     private void OnDrawGizmosSelected()

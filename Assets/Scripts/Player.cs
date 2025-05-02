@@ -70,6 +70,9 @@ public class Player : NetworkBehaviour
     private Material skinMat, bodyScarfMat, scarfMat;
     private float beatTimer;
 
+    //events
+    public System.Action OnDied;
+
     private VivoxParticipant participant;
 
     //shock camera jitter

@@ -5,6 +5,7 @@ using Unity.Netcode;
 using DG.Tweening;
 using Unity.VisualScripting;
 using Unity.Collections;
+using static UnityEditor.Progress;
 
 public class PlayerInventory : NetworkBehaviour 
 {
@@ -44,7 +45,7 @@ public class PlayerInventory : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        if(IsOwner) { localInstance = this; }
+        if(IsOwner) { localInstance = this; Player.LocalPlayer.OnDied += Died; }
         UpdateLefthandVisuals();
         UpdateRighthandVisuals();
     }
@@ -664,7 +665,29 @@ public class PlayerInventory : NetworkBehaviour
 
     private void Died()
     {
+        foreach(var item in hotbar)
+        {
+            if (item.IsValid)
+            {
+                var rand = Random.insideUnitCircle*0.35f;
+                SpawnItemWorldRPC(item, Player.GetLocalPlayerCentre + (Vector3.up * 0.5f) + new Vector3(rand.x, 0, rand.y));
+            }
+        }
 
+        foreach (var item in backpack)
+        {
+            if (item.IsValid)
+            {
+                var rand = Random.insideUnitCircle * 0.35f;
+                SpawnItemWorldRPC(item, Player.GetLocalPlayerCentre + (Vector3.up * 0.5f) + new Vector3(rand.x, 0, rand.y));
+            }
+        }
+
+        if (leftHand.Value.IsValid)
+        {
+            var rand = Random.insideUnitCircle * 0.35f;
+            SpawnItemWorldRPC(leftHand.Value, Player.GetLocalPlayerCentre + (Vector3.up * 0.5f) + new Vector3(rand.x, 0, rand.y));
+        }
     }
 
     [Rpc(SendTo.Server)]
