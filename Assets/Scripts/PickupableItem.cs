@@ -59,6 +59,7 @@ public class PickupableItem : Interactible
     public void OnCollisionEnter(Collision collision)
     {
         if (!IsThrown || !IsOwner) { return; }
+        AddThreatRPC(rb.linearVelocity.magnitude * DamagePerVelocity * 1.5f, collision.contacts[0].point);
         IsThrown = false;
         rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
         rb.angularVelocity = Random.insideUnitSphere * 15f;
@@ -115,6 +116,12 @@ public class PickupableItem : Interactible
             }
             lastPos = transform.position;
         }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void AddThreatRPC(float amount, Vector3 impactpos)
+    {
+        MusicManager.AddThreatLevel(amount * Mathf.Clamp01(Mathf.Pow(2, (impactpos - Player.GetLocalPlayerCentre).magnitude - 5)+1));
     }
 
     public void DestroyItem() {

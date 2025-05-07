@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c62203a773e10478b9b290a6764d63, type: 3}
+  m_Name: Suburban
+  m_EditorClassIdentifier: 
+  layers:
+  - {fileID: 8300000, guid: 6eea52b6b917c7a418aee68f90c47326, type: 3}
+  - {fileID: 8300000, guid: 9e586e71095da7d4eb3d8e93666fa2be, type: 3}
+  - {fileID: 8300000, guid: d5ff04440622f0547b0f6a3fbf033d84, type: 3}
+  - {fileID: 8300000, guid: 6a4800381d270624cbce3d6c5693af82, type: 3}
+  - {fileID: 8300000, guid: 8a631dca0084fd44080bad51fb511b13, type: 3}
+  - {fileID: 8300000, guid: 6f4b2fe44eb70704a85f1e8ed8fa2831, type: 3}
+  volume: 1

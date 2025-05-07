@@ -19996,6 +19996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RegionName: -SUBURBAN-
   RegionTitleCountdown: 3
+  threatMusicProfile: {fileID: 11400000, guid: ffdc842a640d09d40b6199c39b23e57b, type: 2}
 --- !u!1 &7986254700095480594
 GameObject:
   m_ObjectHideFlags: 0

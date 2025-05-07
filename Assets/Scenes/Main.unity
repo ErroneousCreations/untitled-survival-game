@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: b767f44ba1d6b9d419c1c10766982fe9, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -616,6 +616,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58244401}
   m_CullTransparentMesh: 1
+--- !u!1 &86350924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 86350926}
+  - component: {fileID: 86350925}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &86350925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86350924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83357d641a823143af3c4274d3e2f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeSpeed: 4
+  threatDecaySpeed: 1.5
+  threatdecayCooldown: 20
+  mixer: {fileID: 24300002, guid: 635c1b3b8bd853143b74606430bb3fc7, type: 2}
+  threatLevel: 0
+  currentProfile: {fileID: 0}
+--- !u!4 &86350926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86350924}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &97109375
 GameObject:
   m_ObjectHideFlags: 0
@@ -4125,7 +4175,8 @@ MonoBehaviour:
   specialPlayerIcons:
   - {fileID: 21300000, guid: 11a319d8df0fc4d4c9e46dc3f932263c, type: 3}
   - {fileID: 21300000, guid: 518c4df4f98d942439f0b317add81fdb, type: 3}
-  - {fileID: 21300000, guid: f6d5ef0645d2c3447a3756a693669eaf, type: 3}
+  - {fileID: 21300000, guid: 8c4b3d2e11c82654685dc4b53027fef2, type: 3}
+  - {fileID: 21300000, guid: 380b4e3f3587093438378ca7f275a7c5, type: 3}
   ready: {fileID: 21300000, guid: 5808e5cbcfee53247b47ce2eb2c1c64e, type: 3}
   notready: {fileID: 21300000, guid: 3d5c4928911fda04abf6e76bd57eac7a, type: 3}
   LobbyUI: {fileID: 670380939}
@@ -14427,3 +14478,4 @@ SceneRoots:
   - {fileID: 1932233205}
   - {fileID: 3801498626704748568}
   - {fileID: 889028996}
+  - {fileID: 86350926}
