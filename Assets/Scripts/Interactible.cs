@@ -25,11 +25,23 @@ public class Interactible : NetworkBehaviour
     private void OnEnable()
     {
         INTERACTIBLES.Add(this);
+        Enabled();
+    }
+
+    protected virtual void Enabled()
+    {
+
     }
 
     private void OnDisable()
     {
         INTERACTIBLES.Remove(this);
+        Disabled();
+    }
+
+    protected virtual void Disabled()
+    {
+
     }
 
     private void Update()

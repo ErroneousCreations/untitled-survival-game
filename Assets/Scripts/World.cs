@@ -103,6 +103,9 @@ public class World : NetworkBehaviour
         instance = this;
     }
 
+    public static List<List<WorldFeature>> GetWorldFeatures => instance.spawnedWorldFeatures;
+    public static List<List<NetWorldFeature>> GetNetWorldFeatures => instance.spawnedNetWorldFeatures;
+
     public void Init(int seed) //todo feed savefile to load from
     {
         //initialise tree swaying stuff
@@ -302,7 +305,7 @@ public class World : NetworkBehaviour
             foreach (var spawn in feature.SpawnCentres)
             {
                 Gizmos.matrix = spawn.localToWorldMatrix;
-                Gizmos.DrawCube(Vector3.zero, new Vector3(feature.SpawnRectangleSize.x, 0.25f, feature.SpawnRectangleSize.y));
+                Gizmos.DrawCube(Vector3.zero, new Vector3(feature.SpawnRectangleSize.x*2, 0.25f, feature.SpawnRectangleSize.y*2));
             }
         }
     }

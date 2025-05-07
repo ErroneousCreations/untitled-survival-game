@@ -19,6 +19,18 @@ public class PickupableItem : Interactible
     private float currDisableThrowTime = 0, ignoreThrowerTime;
     private Vector3 lastPos;
 
+    public static List<PickupableItem> ITEMS = new();
+
+    protected override void Enabled()
+    {
+        ITEMS.Add(this);
+    }
+
+    protected override void Disabled()
+    {
+        ITEMS.Remove(this);
+    }
+
     public void InitSavedData(List<FixedString64Bytes> saveddata)
     {
         foreach (var data in saveddata)

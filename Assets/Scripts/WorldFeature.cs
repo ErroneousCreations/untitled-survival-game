@@ -34,6 +34,26 @@ public class WorldFeature : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Gets the saved data that will be saved with this object. subclasses can change this to have custom saved data (e.g. cooldown or some bs idk)
+    /// </summary>
+    public virtual string GetSavedData
+    {
+        get
+        {
+            return System.Math.Round(CurrHealth, 1).ToString();
+        }
+    }
+
+    /// <summary>
+    /// Loads whatever you want from given saved data. subclasses can change this to do stuff with their custom saved data
+    /// </summary>
+    public virtual void LoadFromSavedData(string data)
+    {
+        CurrHealth = float.Parse(data);
+    }
+
     public void SpawnItemAtMe(string item)
     {
         World.SpawnItemAtWorldfeature(item, worldFeatureIndex, generatedFeatureIndex);
