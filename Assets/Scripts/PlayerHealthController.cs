@@ -323,6 +323,8 @@ public class PlayerHealthController : NetworkBehaviour
         if (damage > 1000) { Die("Lethal damage"); return; }
         Debug.Log("dmg: " + damage);
 
+        MusicManager.AddThreatLevel(damage * 3f);
+
         if ((pos - transform.TransformPoint(new Vector3(heartLocalPos.x, heartLocalPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, heartLocalPos.z))).sqrMagnitude < heartRadius * heartRadius && type == DamageType.Stab && damage >= 30)
         {
             Die("Heart pierced");

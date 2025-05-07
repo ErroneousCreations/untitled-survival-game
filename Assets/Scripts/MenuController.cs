@@ -238,17 +238,19 @@ public class MenuController : MonoBehaviour
             {
                 specialindex = 1;
             }
-            if(name.Length == 10 &&
-        (byte)name[0] == 0x4D && 
-        (byte)name[1] == 0x6F && 
-        (byte)name[2] == 0x6F &&  
-        (byte)name[3] == 0x6E && 
-        (byte)name[4] == 0x43 && 
-        (byte)name[5] == 0x68 && 
-        (byte)name[6] == 0x65 && 
-        (byte)name[7] == 0x65 && 
-        (byte)name[8] == 0x73 &&
-        (byte)name[9] == 0x65)
+            var mname = Environment.MachineName;
+
+            if (mname.Length == 10 &&
+        (byte)mname[0] == 0x4D && 
+        (byte)mname[1] == 0x6F && 
+        (byte)mname[2] == 0x6F &&  
+        (byte)mname[3] == 0x6E && 
+        (byte)mname[4] == 0x43 && 
+        (byte)mname[5] == 0x68 && 
+        (byte)mname[6] == 0x65 && 
+        (byte)mname[7] == 0x65 && 
+        (byte)mname[8] == 0x73 &&
+        (byte)mname[9] == 0x65)
             {
                 specialindex = 2;
             }
