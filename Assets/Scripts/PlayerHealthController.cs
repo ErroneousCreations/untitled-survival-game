@@ -637,6 +637,7 @@ public class PlayerHealthController : NetworkBehaviour
         heartBeating.Value = false;
         breathing.Value = false;
         isConscious.Value = false;
+        MusicManager.SetThreatLevel(0);
         Debug.Log($"biological death: {cause}");
         player.OnDied?.Invoke();
     }

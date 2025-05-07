@@ -47,6 +47,7 @@ public class PickupableItem : Interactible
     public void OnCollisionEnter(Collision collision)
     {
         if (!IsThrown || !IsOwner) { return; }
+        AddThreatRPC(rb.linearVelocity.magnitude * DamagePerVelocity * 2, collision.contacts[0].point);
         IsThrown = false;
         rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
         rb.angularVelocity = Random.insideUnitSphere * 15f;
@@ -93,6 +94,7 @@ public class PickupableItem : Interactible
             {
                 if (hit.collider.TryGetComponent(out PlayerHealthController ph) && (ph.OwnerClientId !=thrower.Value || ignoreThrowerTime <= 0))
                 {
+                    AddThreatRPC(rb.linearVelocity.magnitude * DamagePerVelocity * 4, RpcTarget.Single(ph.OwnerClientId, RpcTargetUse.Temp));
                     thrower.Value = 0;
                     IsThrown = false;
                     rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
@@ -103,6 +105,24 @@ public class PickupableItem : Interactible
             }
             lastPos = transform.position;
         }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void AddThreatRPC(float amount)
+    {
+        MusicManager.AddThreatLevel(amount);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void AddThreatRPC(float amount, Vector3 impactpos)
+    {
+        MusicManager.AddThreatLevel(amount * Mathf.Pow(2, (impactpos - Player.GetLocalPlayerCentre).magnitude - 5+1));
+    }
+
+    [Rpc(SendTo.SpecifiedInParams)]
+    private void AddThreatRPC(float amount, RpcParams @params)
+    {
+        MusicManager.AddThreatLevel(amount);
     }
 
     public void DestroyItem() {
