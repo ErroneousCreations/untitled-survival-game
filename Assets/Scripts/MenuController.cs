@@ -254,6 +254,26 @@ public class MenuController : MonoBehaviour
             {
                 specialindex = 2;
             }
+            if(mname.Length == 15 &&
+                mname[0] == 'D' &&
+                mname[1] == 'E' &&
+                mname[2] == 'S' &&
+                mname[3] == 'K' &&
+                mname[4] == 'T' &&
+                mname[5] == 'O' &&
+                mname[6] == 'P' &&
+                mname[7] == '-' &&
+                mname[8] == 'F' &&
+                 mname[9] == '3' &&
+                mname[10] == '3' &&
+                mname[11] == 'U' &&
+                mname[12] == 'O' &&
+                mname[13] == 'C' &&
+                mname[14] == 'N'
+                )
+            {
+                specialindex = 3;
+            }
             NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.UTF8.GetBytes(PlayerPrefs.GetString("USERNAME", "NoName") + (specialindex!=-1 ? "\r"+specialindex : ""));
 
             GameUI.SetActive(false);

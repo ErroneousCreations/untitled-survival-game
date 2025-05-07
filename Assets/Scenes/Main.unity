@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: b767f44ba1d6b9d419c1c10766982fe9, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -4175,7 +4175,8 @@ MonoBehaviour:
   specialPlayerIcons:
   - {fileID: 21300000, guid: 11a319d8df0fc4d4c9e46dc3f932263c, type: 3}
   - {fileID: 21300000, guid: 518c4df4f98d942439f0b317add81fdb, type: 3}
-  - {fileID: 21300000, guid: f6d5ef0645d2c3447a3756a693669eaf, type: 3}
+  - {fileID: 21300000, guid: 8c4b3d2e11c82654685dc4b53027fef2, type: 3}
+  - {fileID: 21300000, guid: 380b4e3f3587093438378ca7f275a7c5, type: 3}
   ready: {fileID: 21300000, guid: 5808e5cbcfee53247b47ce2eb2c1c64e, type: 3}
   notready: {fileID: 21300000, guid: 3d5c4928911fda04abf6e76bd57eac7a, type: 3}
   LobbyUI: {fileID: 670380939}
