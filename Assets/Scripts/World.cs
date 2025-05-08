@@ -34,7 +34,7 @@ public class World : NetworkBehaviour
     public struct RaycastedRandomWorldFeature
     {
         public string name; //just for editor identification
-        public List<WorldFeature> FeatureTypes;
+        public List<WorldFeatureSavePos> FeatureTypes; //saves raycasting later by saving the position
         public List<Transform> SpawnCentres;
         public Vector2 SpawnRectangleSize;
         public int Amount;
@@ -132,18 +132,116 @@ public class World : NetworkBehaviour
         GenerateWorld(seed == -1 ? Random.Range(0, 999999) : seed);
     }
 
+    public void Init(int seed, string[] worldfeatures)
+    {
+        //initialise tree swaying stuff
+        var dir = Random.insideUnitCircle.normalized;
+        SetSwayDir(new Vector3(dir.x, 0, dir.y));
+        SetSwayIntensity(1f);
+        SetSwaySpeed(1f);
+
+        LoadingFromSave = true;
+        rand = new System.Random(seed);
+
+        LoadWorldFeatures(worldfeatures);
+        LoadRaycastedWorldFeatures(worldfeatures);
+    }
+
+    public void LoadNetWorldFeatures(string[] loadedfeatures)
+    {
+        if (!IsOwner) { return; }
+        for (int i = 0; i < netWorldFeatures.Count; i++)
+        {
+            var split = loadedfeatures[i].Split('|');
+            spawnedNetWorldFeatures.Add(new());
+            for (int j = 0; j < split.Length; j++)
+            {
+                var wfsplit = split[j].Split(',');
+                int typeindex = int.Parse(wfsplit[0]);
+                if (typeindex == -1) { spawnedNetWorldFeatures[i].Add(null); continue; }
+                var savedataarray = new string[wfsplit.Length - 1];
+                System.Array.Copy(wfsplit, 1, savedataarray, 0, wfsplit.Length - 1);
+                string savedata = string.Join(",", savedataarray);
+                if (worldFeatures[i].FeatureTypes[typeindex] != null)
+                {
+                    Random.InitState(seed + (int)netWorldFeatures[i].SpawnPoints[j].position.x + (int)netWorldFeatures[i].SpawnPoints[j].position.z); //this should be deterministic
+                    var spawnedFeature = Instantiate(netWorldFeatures[i].FeatureTypes[typeindex], netWorldFeatures[i].SpawnPoints[j].position, netWorldFeatures[i].SpawnPoints[j].rotation, netWorldFeatures[i].SpawnPoints[j]);
+                    spawnedFeature.NetworkObject.Spawn();
+                    spawnedFeature.Init(i, j, typeindex);
+                    spawnedFeature.LoadFromSavedData(savedata);
+                    spawnedFeature.name = worldFeatures[i].name + "_" + j + "_" + typeindex;
+                    spawnedNetWorldFeatures[i].Add(spawnedFeature);
+                }
+            }
+        }
+    }
+
+    private void LoadWorldFeatures(string[] loadedfeatures)
+    {
+        for (int i = 0; i < worldFeatures.Count; i++)
+        {
+            var split = loadedfeatures[i].Split('|');
+            spawnedWorldFeatures.Add(new());
+            for (int j = 0; j < split.Length; j++)
+            {
+                var wfsplit = split[j].Split(',');
+                int typeindex = int.Parse(wfsplit[0]);
+                if (typeindex == -1) { spawnedWorldFeatures[i].Add(null); continue; }
+                var savedataarray = new string[wfsplit.Length - 1];
+                System.Array.Copy(wfsplit, 1, savedataarray, 0, wfsplit.Length - 1);
+                string savedata = string.Join(",", savedataarray);
+                if (worldFeatures[i].FeatureTypes[typeindex] != null)
+                {
+                    Random.InitState(seed + (int)worldFeatures[i].SpawnPoints[j].position.x + (int)worldFeatures[i].SpawnPoints[j].position.z); //this should be deterministic
+                    var spawnedFeature = Instantiate(worldFeatures[i].FeatureTypes[typeindex], worldFeatures[i].SpawnPoints[j].position, worldFeatures[i].SpawnPoints[j].rotation, worldFeatures[i].SpawnPoints[j]);
+                    spawnedFeature.Init(i, j, typeindex);
+                    spawnedFeature.LoadFromSavedData(savedata);
+                    spawnedFeature.name = worldFeatures[i].name + "_" + j + "_" + typeindex;
+                    spawnedWorldFeatures[i].Add(spawnedFeature);
+                }
+            }
+        }
+    }
+
+    private void LoadRaycastedWorldFeatures(string[] loadedfeatures)
+    {
+        for (int i = worldFeatures.Count; i < loadedfeatures.Length; i++)
+        {
+            var split = loadedfeatures[i].Split('|');
+            spawnedWorldFeatures.Add(new());
+            for (int j = 0; j < split.Length; j++)
+            {
+                var wfsplit = split[j].Split(',');
+                int typeindex = int.Parse(wfsplit[0]);
+                if (typeindex == -1) { spawnedWorldFeatures[i].Add(null); continue; }
+                var savedataarray = new string[wfsplit.Length - 1];
+                System.Array.Copy(wfsplit, 1, savedataarray, 0, wfsplit.Length - 1);
+                string savedata = string.Join(",", savedataarray);
+                if (raycastedWorldFeatures[i].FeatureTypes[typeindex] != null)
+                {
+                    var spawnedFeature = Instantiate(raycastedWorldFeatures[i].FeatureTypes[typeindex], raycastedWorldFeatures[i].SpawnCentres[j].position, raycastedWorldFeatures[i].SpawnCentres[j].rotation, raycastedWorldFeatures[i].SpawnCentres[j]);
+                    spawnedFeature.Init(i, j, typeindex);
+                    spawnedFeature.LoadFromSavedData(savedata);
+                    spawnedFeature.name = worldFeatures[i].name + "_" + j + "_" + typeindex;
+                    spawnedWorldFeatures[i].Add(spawnedFeature);
+                }
+            }
+        }
+    }
+
     private void GenerateWorld(int seed)
     {
         InitSeedRPC(seed);
         DoWorldFeaturesRPC();
-        DoNetWorldFeatures();
         DoRaycastedWorldFeaturesRPC();
+        DoNetWorldFeatures();
     }
 
     [Rpc(SendTo.Everyone)]
     private void InitSeedRPC(int seed)
     {
         rand = new System.Random(seed);
+        this.seed = seed;
     }
 
     private void DoNetWorldFeatures()
@@ -157,7 +255,7 @@ public class World : NetworkBehaviour
                 var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
                 if (feature.SpawnPool[spawnedindex] != -1)
                 {
-                    Random.InitState(seed + (int)feature.SpawnPoints[j].position.x + (int)feature.SpawnPoints[j].position.y); //this should be deterministic
+                    Random.InitState(seed + (int)feature.SpawnPoints[j].position.x + (int)feature.SpawnPoints[j].position.z); //this should be deterministic
                     var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.SpawnPoints[j].position, feature.RandomiseRotation ? Quaternion.Euler(0, Random.Range(0, 360), 0) : feature.SpawnPoints[j].rotation, feature.SpawnPoints[j]);
                     spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
                     spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
@@ -180,7 +278,7 @@ public class World : NetworkBehaviour
                 var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
                 if (feature.SpawnPool[spawnedindex] != -1)
                 {
-                    Random.InitState(seed + (int)feature.SpawnPoints[j].position.x + (int)feature.SpawnPoints[j].position.y); //this should be deterministic
+                    Random.InitState(seed + (int)feature.SpawnPoints[j].position.x + (int)feature.SpawnPoints[j].position.z); //this should be deterministic
                     var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.SpawnPoints[j].position, feature.RandomiseRotation ? Quaternion.Euler(0, Random.Range(0, 360), 0) : feature.SpawnPoints[j].rotation, feature.SpawnPoints[j]);
                     spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
                     spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
@@ -232,7 +330,7 @@ public class World : NetworkBehaviour
                     var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
                     if(feature.SpawnPool[spawnedindex] != -1)
                     {
-                        Random.InitState(seed + (int)results[k].point.x + (int)results[k].point.y);
+                        Random.InitState(seed + (int)results[k].point.x + (int)results[k].point.z);
                         var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], results[k].point, Quaternion.identity, point);
                         if (feature.RandomiseRotation) { spawnedFeature.transform.localRotation = Quaternion.AngleAxis(Random.Range(0, 360), results[k].normal); }
                         else { spawnedFeature.transform.up = results[k].normal; }

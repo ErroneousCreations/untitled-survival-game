@@ -6,7 +6,7 @@ using Unity.Netcode;
 public class PickupableItem : Interactible
 {
     public string itemCode;
-    public NetworkList<FixedString64Bytes> CurrentSavedData = new(writePerm: NetworkVariableWritePermission.Server, readPerm: NetworkVariableReadPermission.Everyone);
+    public NetworkList<FixedString128Bytes> CurrentSavedData = new(writePerm: NetworkVariableWritePermission.Server, readPerm: NetworkVariableReadPermission.Everyone);
     public Rigidbody rb;
     public List<Collider> colliders;
     public float DamagePerVelocity = 2, MaxThrowFlyTime;
@@ -31,7 +31,7 @@ public class PickupableItem : Interactible
         ITEMS.Remove(this);
     }
 
-    public void InitSavedData(List<FixedString64Bytes> saveddata)
+    public void InitSavedData(List<FixedString128Bytes> saveddata)
     {
         foreach (var data in saveddata)
         {
@@ -83,11 +83,11 @@ public class PickupableItem : Interactible
             ItemData itemData = new ItemData
             {
                 ID = itemCode,
-                SavedData = new List<FixedString64Bytes>(CurrentSavedData.Count)
+                SavedData = new List<FixedString128Bytes>(CurrentSavedData.Count)
             };
             foreach (var data in CurrentSavedData)
             {
-                itemData.SavedData.Add(new FixedString64Bytes(data));
+                itemData.SavedData.Add(new FixedString128Bytes(data));
             }
             return itemData;
         }

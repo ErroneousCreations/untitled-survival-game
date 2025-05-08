@@ -146,7 +146,7 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
                     if(sharphitsleft <= 0)
                     {
                         item.ID = SharpenResult;
-                        item.SavedData = new List<FixedString64Bytes>();
+                        item.SavedData = new List<FixedString128Bytes>();
                         foreach (var data in ItemDatabase.GetItem(SharpenResult).BaseSavedData)
                         {
                             item.SavedData.Add(data);

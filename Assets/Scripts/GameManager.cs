@@ -25,6 +25,8 @@ public class GameManager : NetworkBehaviour
     private bool readied, inlobbychannel;
     private World currWorld;
 
+    public static World GetWorld => instance.currWorld;
+
     private void Awake()
     {
         instance = this;

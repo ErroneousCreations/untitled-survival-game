@@ -35,7 +35,7 @@ public struct Item
 public struct ItemData : INetworkSerializable
 {
     public FixedString64Bytes ID; // Unity-friendly network string
-    public List<FixedString64Bytes> SavedData;
+    public List<FixedString128Bytes> SavedData;
     public List<float> TempData;
 
     public readonly bool IsValid => !ID.IsEmpty;
@@ -45,7 +45,7 @@ public struct ItemData : INetworkSerializable
     public ItemData(string id, List<string> savedData)
     {
         ID = new FixedString64Bytes(id);
-        SavedData = new List<FixedString64Bytes>(savedData.Count);
+        SavedData = new List<FixedString128Bytes>(savedData.Count);
         foreach (var data in savedData)
         {
             SavedData.Add(new FixedString64Bytes(data));
@@ -65,7 +65,7 @@ public struct ItemData : INetworkSerializable
         if (serializer.IsReader)
         {
             if (SavedData == null)
-                SavedData = new List<FixedString64Bytes>(savedCount);
+                SavedData = new List<FixedString128Bytes>(savedCount);
             else
                 SavedData.Clear();
 
@@ -156,6 +156,15 @@ public class ItemDatabase : ScriptableObject
     private Dictionary<ItemPair, CraftingRecipe> recipeLookup;
 
     private static ItemDatabase instance;
+
+    public static bool ItemExists(string itemcode)
+    {
+        if (instance == null)
+        {
+            instance = Resources.Load<ItemDatabase>("ItemDatabase");
+        }
+        return instance.ITEMS.ContainsKey(itemcode);
+    }
 
     public static Item GetItem(string itemCode)
     {

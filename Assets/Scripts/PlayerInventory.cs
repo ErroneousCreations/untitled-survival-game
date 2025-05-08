@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using Unity.Netcode;
 using DG.Tweening;
-using Unity.VisualScripting;
 using Unity.Collections;
-using static UnityEditor.Progress;
 
 public class PlayerInventory : NetworkBehaviour 
 {
@@ -58,7 +56,7 @@ public class PlayerInventory : NetworkBehaviour
     public static ItemData GetLeftHandItem => localInstance.leftHand.Value;
     public static ItemData GetRightHandItem => localInstance.rightHand.Value;
 
-    public static void UpdateRightHandSaveData(List<FixedString64Bytes> data)
+    public static void UpdateRightHandSaveData(List<FixedString128Bytes> data)
     {
         ItemData righthand = localInstance.rightHand.Value;
         righthand.SavedData = data;
@@ -67,7 +65,7 @@ public class PlayerInventory : NetworkBehaviour
         localInstance.UpdateRighthandVisuals();
     }
 
-    public static void UpdateLeftHandSaveData(List<FixedString64Bytes> data)
+    public static void UpdateLeftHandSaveData(List<FixedString128Bytes> data)
     {
         ItemData lefthand = localInstance.leftHand.Value;
         lefthand.SavedData = data;
@@ -88,8 +86,8 @@ public class PlayerInventory : NetworkBehaviour
         localInstance.UpdateLefthandVisuals();
     }
 
-    public static List<FixedString64Bytes> GetLeftHandSaveData => localInstance.leftHand.Value.SavedData;
-    public static List<FixedString64Bytes> GetRightHandSaveData => localInstance.rightHand.Value.SavedData;
+    public static List<FixedString128Bytes> GetLeftHandSaveData => localInstance.leftHand.Value.SavedData;
+    public static List<FixedString128Bytes> GetRightHandSaveData => localInstance.rightHand.Value.SavedData;
 
     #region Stuff for the items to use since they cant have their own variables and be networked etc
 

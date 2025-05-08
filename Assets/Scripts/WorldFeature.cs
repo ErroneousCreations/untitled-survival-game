@@ -18,9 +18,9 @@ public class WorldFeature : MonoBehaviour
     private int worldFeatureIndex, generatedFeatureIndex, featureTypeIndex;
 
     public bool Destroyable;
-    [SerializeField, ReadOnly, ShowField(nameof(Destroyable))] private float CurrHealth;
-    [SerializeField, ShowField(nameof(Destroyable))] private float MaxHealth;
-    [SerializeField, ShowField(nameof(Destroyable))] private List<LootDropStruct> drops;
+    [SerializeField, ReadOnly, ShowField(nameof(Destroyable))] protected float CurrHealth;
+    [SerializeField, ShowField(nameof(Destroyable))] protected float MaxHealth;
+    [SerializeField, ShowField(nameof(Destroyable))] protected List<LootDropStruct> drops;
     [ShowField(nameof(Destroyable))] public string Breakparticle;
 
     public void Init(int worldFeatureIndex, int generatedFeatureIndex, int featureTypeIndex)
@@ -42,7 +42,7 @@ public class WorldFeature : MonoBehaviour
     {
         get
         {
-            return System.Math.Round(CurrHealth, 1).ToString();
+            return Destroyable ? System.Math.Round(CurrHealth, 1).ToString() : "";
         }
     }
 
@@ -51,6 +51,7 @@ public class WorldFeature : MonoBehaviour
     /// </summary>
     public virtual void LoadFromSavedData(string data)
     {
+        if(!Destroyable) return;
         CurrHealth = float.Parse(data);
     }
 
