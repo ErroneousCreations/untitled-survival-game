@@ -3,39 +3,29 @@ using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
 using Unity.Collections;
-
-public struct SavedItem
-{
-    public string itemId;
-    public Vector3 pos, rot;
-    public List<string> savedData;
-}
-
-public struct SavedWorldFeature
-{
-    public List<string> savedWFData;
-}
-
-public struct SavedObject
-{
-    public string savedObjectId;
-    public List<string> savedObjectData;
-    public Vector3 pos, rot;
-}
+using System.IO;
 
 public class SavingManager : MonoBehaviour
 {
     public enum SaveFileLocationEnum { Survival, Deathmatch, TeamDeathmatch }
 
-    public static readonly string[] SAVE_LOCATIONS = { "/Saves/SV/", "/Saves/DM/", "/Saves/TDM/" };
+    public static readonly string[] SAVE_LOCATIONS = { "/Saves/SV", "/Saves/DM", "/Saves/TDM" };
 
-    public SerializedDictionary<string, string> DefaultWorldData;
+    [SerializeField] private SerializedDictionary<string, string> DefaultWorldData;
+    private Dictionary<string, string> CurrentWorldData;
+
+    public static string GetWorldSaveData(string key)
+    {
+        if (!instance.CurrentWorldData.ContainsKey(key)) { Debug.LogError("No world data with key: "+key); return ""; }
+        return instance.CurrentWorldData[key];
+    }
 
     private static SavingManager instance;
 
     private void Awake()
     {
         instance = this;
+        CurrentWorldData = new(DefaultWorldData);
     }
 
     private static string VecToString(Vector3 pos)
@@ -51,13 +41,34 @@ public class SavingManager : MonoBehaviour
             final += item.ToString() + ",";
         }
         return final[..^1];
+    }
 
+    private static void CheckDirectories()
+    {
+        if (!Directory.Exists(Application.dataPath + "/Saves"))
+        {
+            Directory.CreateDirectory(Application.dataPath + "/Saves");
+        }
+
+        foreach (var save in SAVE_LOCATIONS)
+        {
+            if (!Directory.Exists(Application.dataPath + save))
+            {
+                Directory.CreateDirectory(Application.dataPath + save);
+            }
+        }
     }
 
     public static void Save(SaveFileLocationEnum loc, int slot)
     {
-        var targetpath = Application.dataPath + SAVE_LOCATIONS[(int)loc] + $"{slot+1}.sav";
+        var targetpath = Application.dataPath + SAVE_LOCATIONS[(int)loc] + $"/{slot+1}.sav";
         string savedata = "";
+        foreach (var data in instance.CurrentWorldData)
+        {
+            savedata += $"{data.Key},{data.Value}\\";
+        }
+        savedata = savedata[..^1];
+        savedata += ";";
         foreach (var item in PickupableItem.ITEMS)
         {
             savedata += $"{item.itemCode},{VecToString(item.transform.position)},{VecToString(item.transform.eulerAngles)},{SavedItemDataToString(item.CurrentSavedData)}\\";
@@ -86,5 +97,6 @@ public class SavingManager : MonoBehaviour
         }
         savedata = savedata[..^1];
         savedata += ";";
+
     }
 }
