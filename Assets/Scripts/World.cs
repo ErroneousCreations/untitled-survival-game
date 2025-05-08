@@ -106,6 +106,19 @@ public class World : NetworkBehaviour
     public static List<List<WorldFeature>> GetWorldFeatures => instance.spawnedWorldFeatures;
     public static List<List<NetWorldFeature>> GetNetWorldFeatures => instance.spawnedNetWorldFeatures;
 
+    /// <summary>
+    /// Wont work for raycasted ones im not bothered lol
+    /// </summary>
+    public static WorldFeature GetWorldFeaturePrefab(int wftype, int typeindex)
+    {
+        return instance.worldFeatures[wftype].FeatureTypes[typeindex];
+    }
+
+    public static NetWorldFeature GetNetWorldFeaturePrefab(int wftype, int typeindex)
+    {
+        return instance.netWorldFeatures[wftype].FeatureTypes[typeindex];
+    }
+
     public void Init(int seed) //todo feed savefile to load from
     {
         //initialise tree swaying stuff

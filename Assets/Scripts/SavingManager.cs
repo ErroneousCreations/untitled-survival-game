@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
 using Unity.Collections;
-using static UnityEditor.Progress;
 
 public struct SavedItem
 {
@@ -65,9 +64,27 @@ public class SavingManager : MonoBehaviour
         }
         savedata = savedata[..^1];
         savedata += ";";
-        foreach (var wf in World.GetWorldFeatures)
+        foreach (var wfl in World.GetWorldFeatures)
         {
-            savedata += $"\\";
+            foreach (var wf in wfl)
+            {
+                savedata += wf ? $"{wf.GetGeneratedFeatureIndex},{wf.GetSavedData}|" : "-1|";
+            }
+            savedata = savedata[..^1];
+            savedata += "\\";
         }
+        savedata = savedata[..^1];
+        savedata += ";";
+        foreach (var wfl in World.GetNetWorldFeatures)
+        {
+            foreach (var wf in wfl)
+            {
+                savedata += wf ? $"{wf.GetGeneratedFeatureIndex},{wf.GetSavedData}|" : "-1|";
+            }
+            savedata = savedata[..^1];
+            savedata += "\\";
+        }
+        savedata = savedata[..^1];
+        savedata += ";";
     }
 }
