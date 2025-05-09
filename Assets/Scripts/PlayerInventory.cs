@@ -5,7 +5,7 @@ using Unity.Netcode;
 using DG.Tweening;
 using Unity.Collections;
 
-public class PlayerInventory : NetworkBehaviour 
+public class PlayerInventory : NetworkBehaviour
 {
     public NetworkVariable<bool> backpackOpen = new NetworkVariable<bool>(false, writePerm: NetworkVariableWritePermission.Owner);
 
@@ -18,7 +18,7 @@ public class PlayerInventory : NetworkBehaviour
 
     // Backpack (stack-based)
     private List<ItemData> backpack = new();
-    [SerializeField]private float backpackCapacity = 30; //in litres
+    [SerializeField] private float backpackCapacity = 30; //in litres
 
     [SerializeField] private int maxHotbarSize = 4;
     [SerializeField] private int currEquippedSlot = 0;
@@ -33,6 +33,7 @@ public class PlayerInventory : NetworkBehaviour
     //syncing visuals
     private NetworkVariable<Vector3> currLefthandParentPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandParentPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currLefthandPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currLeftHandRot = new(default, writePerm: NetworkVariableWritePermission.Owner), currRightHandRot = new(default, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> currLefthandVisible = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandVisible = new(default, writePerm: NetworkVariableWritePermission.Owner), currLefthandItemVisible = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandItemVisible = new(default, writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<FixedString4096Bytes> savedInventoryData = new(default, writePerm: NetworkVariableWritePermission.Owner);
 
     private bool isCrafting = false;
     private bool busy = false;
@@ -43,7 +44,7 @@ public class PlayerInventory : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        if(IsOwner) { localInstance = this; Player.LocalPlayer.OnDied += Died; }
+        if (IsOwner) { localInstance = this; Player.LocalPlayer.OnDied += Died; }
         UpdateLefthandVisuals();
         UpdateRighthandVisuals();
     }
@@ -55,6 +56,8 @@ public class PlayerInventory : NetworkBehaviour
 
     public static ItemData GetLeftHandItem => localInstance.leftHand.Value;
     public static ItemData GetRightHandItem => localInstance.rightHand.Value;
+
+    public static Dictionary<ulong, string> INVENTORY_DATA = new();
 
     public static void UpdateRightHandSaveData(List<FixedString128Bytes> data)
     {
@@ -106,7 +109,7 @@ public class PlayerInventory : NetworkBehaviour
         go.rb.linearVelocity = velocity;
         go.rb.angularVelocity = angular;
         go.InitThrown(thrower);
-        go.CurrentSavedData .Clear();
+        go.CurrentSavedData.Clear();
         foreach (var data in item.SavedData)
         {
             go.CurrentSavedData.Add(data.ToString());
@@ -131,7 +134,7 @@ public class PlayerInventory : NetworkBehaviour
 
     private void Start()
     {
-        if(!IsOwner) return;
+        if (!IsOwner) return;
         // Fill hotbar with null if needed
         for (int i = 0; i < maxHotbarSize; i++) hotbar.Add(ItemData.Empty);
 
@@ -140,12 +143,42 @@ public class PlayerInventory : NetworkBehaviour
         initialRightHandPos = RightHandOb.localPosition;
     }
 
+    private void LocalUpdateSaveableData()
+    {
+        if (!INVENTORY_DATA.ContainsKey(OwnerClientId)) { INVENTORY_DATA.Add(OwnerClientId, savedInventoryData.ToString()); }
+        else { INVENTORY_DATA[OwnerClientId] = savedInventoryData.ToString(); }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+        if (INVENTORY_DATA.ContainsKey(OwnerClientId)) { INVENTORY_DATA.Remove(OwnerClientId); }
+    }
+
     private void Update()
     {
+        LocalUpdateSaveableData();
         if (!IsOwner) { LocalSync(); return; }
+        UpdateSaveableData();
         UpdateItems();
         HandleInput();
         HandleSyncing();
+    }
+
+    private void UpdateSaveableData()
+    {
+        savedInventoryData.Value = "";
+        savedInventoryData.Value += leftHand.Value.ToString() + "|";
+        savedInventoryData.Value += currEquippedSlot.ToString() + "|";
+        foreach (var item in hotbar)
+        {
+            savedInventoryData.Value += item.ToString() + "|";
+        }
+        foreach (var item in backpack)
+        {
+            savedInventoryData.Value += item.ToString() + "|";
+        }
+        savedInventoryData.Value = savedInventoryData.Value.ToString()[..^1];
     }
 
     private void UpdateItems()

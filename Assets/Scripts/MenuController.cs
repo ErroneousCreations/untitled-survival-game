@@ -274,7 +274,7 @@ public class MenuController : MonoBehaviour
             {
                 specialindex = 3;
             }
-            NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.UTF8.GetBytes(PlayerPrefs.GetString("USERNAME", "NoName") + (specialindex!=-1 ? "\r"+specialindex : ""));
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.UTF8.GetBytes(PlayerPrefs.GetString("USERNAME", "NoName") + (specialindex!=-1 ? "\r"+specialindex : "") + "\v" + Extensions.UniqueIdentifier);
 
             GameUI.SetActive(false);
             MenuUI.SetActive(true);

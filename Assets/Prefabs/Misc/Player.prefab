@@ -3104,6 +3104,9 @@ MonoBehaviour:
   PlayermodelMeshes:
   - {fileID: 5895422202403721210}
   - {fileID: 7412239047916043632}
+  handRends:
+  - {fileID: 6957443970320383900}
+  - {fileID: 187230797577766747}
   PlayerBody: {fileID: 5895422202403721210}
   skinMaterialID: 0
   scarfMaterialID: 2

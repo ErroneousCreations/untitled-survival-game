@@ -4,6 +4,7 @@ using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
 using Unity.Collections;
 using System.IO;
+using static UnityEditor.PlayerSettings;
 
 public class SavingManager : NetworkBehaviour
 {
@@ -14,24 +15,69 @@ public class SavingManager : NetworkBehaviour
     [SerializeField] private SerializedDictionary<string, string> DefaultWorldData;
     [SerializeField] private SerializedDictionary<string, SavedObject> SavedObjects;
     [SerializeField] private SerializedDictionary<string, SavedNetObject> SavedNetObjects;
+    private Dictionary<string, PlayerSavedData> SavedPlayerData;
 
+    public struct PlayerSavedData
+    {
+        public string UUID;
+        public string InventoryData;
+        public float headHP, bodyHP, legsHP, blood, consciousness, shock, hunger;
+        public bool respawnOnLoad; //if your downed you fucking die
+        //todo wounds saving nigga
+        public Vector3 position;
+        public float rotation;
+
+        public override string ToString()
+        {
+            return $"{UUID},{InventoryData},{System.Math.Round(headHP, 2)},{System.Math.Round(bodyHP, 2)},{System.Math.Round(legsHP, 2)},{System.Math.Round(blood, 2)},{System.Math.Round(consciousness, 2)},{System.Math.Round(shock, 2)},{System.Math.Round(hunger, 2)},{(respawnOnLoad ? 1 : 0)},{System.Math.Round(position.x, 3).ToString() + "," + System.Math.Round(position.y, 3).ToString() + "," + System.Math.Round(position.z, 3).ToString()},{System.Math.Round(rotation, 1)}";
+        }
+
+        public PlayerSavedData(string uUID, string inventoryData, float headHP, float bodyHP, float legsHP, float blood, float consciousness, float shock, float hunger, bool respawnOnLoad, Vector3 position, float rotation)
+        {
+            UUID = uUID;
+            InventoryData = inventoryData;
+            this.headHP = headHP;
+            this.bodyHP = bodyHP;
+            this.legsHP = legsHP;
+            this.blood = blood;
+            this.consciousness = consciousness;
+            this.shock = shock;
+            this.hunger = hunger;
+            this.respawnOnLoad = respawnOnLoad;
+            this.position = position;
+            this.rotation = rotation;
+        }
+
+        public PlayerSavedData(string saveddata)
+        {
+            var split = saveddata.Split(',');
+            UUID = split[0];
+            InventoryData = split[1];
+            headHP = float.Parse(split[2]);
+            bodyHP = float.Parse(split[3]);
+            legsHP = float.Parse(split[4]);
+            blood = float.Parse(split[5]);
+            consciousness = float.Parse(split[6]);
+            shock = float.Parse(split[7]);
+            hunger = float.Parse(split[8]);
+            respawnOnLoad = split[9] == "0" ? false : true;
+            position = new Vector3(float.Parse(split[10]), float.Parse(split[11]), float.Parse(split[12]));
+            rotation = float.Parse(split[13]);
+        }
+    }
     private Dictionary<string, string> CurrentWorldData;
-
     public static string GetWorldSaveData(string key)
     {
         if (!instance.CurrentWorldData.ContainsKey(key)) { Debug.LogError("No world data with key: "+key); return ""; }
         return instance.CurrentWorldData[key];
     }
-
     private static SavingManager instance;
-
     private void Awake()
     {
         instance = this;
         CurrentWorldData = new(DefaultWorldData);
         CheckDirectories();
     }
-
     private static string VecToString(Vector3 pos)
     {
         return System.Math.Round(pos.x, 3).ToString() + "," + System.Math.Round(pos.y, 3).ToString() + "," + System.Math.Round(pos.z, 3).ToString();
@@ -127,6 +173,10 @@ public class SavingManager : NetworkBehaviour
         }
         savedata = savedata[..^1];
         savedata += ";";
+        foreach (var player in GameManager.GetUUIDS)
+        {
+
+        }
         File.WriteAllText(targetpath, savedata);
     }
 

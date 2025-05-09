@@ -22,6 +22,7 @@ public class Player : NetworkBehaviour
     public PlayerInventory pi;
     public Animator anim;
     public Renderer[] PlayermodelMeshes;
+    public Renderer[] handRends;
     [SerializeField] private Renderer PlayerBody;
     [SerializeField] private int skinMaterialID;
     [SerializeField] private int scarfMaterialID;
@@ -178,6 +179,10 @@ public class Player : NetworkBehaviour
         skinMat = PlayerBody.materials[skinMaterialID];
         eyesmat = Eyes.material;
         eyesmat.mainTexture = EyeTextures[0];
+        foreach (var rend in handRends)
+        {
+            rend.material = skinMat;
+        }
     }
 
     IEnumerator HungerSoundLoop()
@@ -191,18 +196,18 @@ public class Player : NetworkBehaviour
             if (ph.GetHunger < 0.35f && extremeHungerSounds.Length > 0)
             {
                 waitTime = Random.Range(2f, 10f);
-                waitTime += PlayRandomClip(extremeHungerSounds, 1);
+                waitTime += PlayRandomClip(extremeHungerSounds);
             }
             else if (ph.GetHunger < 0.6f && stomachRumbles.Length > 0)
             {
-                waitTime += PlayRandomClip(stomachRumbles, 0);
+                waitTime += PlayRandomClip(stomachRumbles);
             }
 
             yield return new WaitForSeconds(waitTime);
         }
     }
 
-    float PlayRandomClip(AudioClip[] clips, int array)
+    float PlayRandomClip(AudioClip[] clips)
     {
         if (hungryAudiosource == null || clips.Length == 0) return 0;
         var index = Random.Range(0, clips.Length);
@@ -212,18 +217,7 @@ public class Player : NetworkBehaviour
         hungryAudiosource.pitch = pitch;
         hungryAudiosource.clip = clip; // slight pitch/volume variation
         hungryAudiosource.Play();
-        PlayClipRPC(array, index, pitch); // send RPC to play the clip on other clients
         return clip.length;
-    }
-
-    [Rpc(SendTo.NotOwner)]
-    void PlayClipRPC(int array, int clip, float pitch)
-    {
-        hungryAudiosource.Stop();
-        hungryAudiosource.pitch = pitch;
-        hungryAudiosource.clip = array == 0 ? stomachRumbles[clip] : extremeHungerSounds[clip]; // slight pitch/volume variation
-        hungryAudiosource.volume = 0.09f;
-        hungryAudiosource.Play();
     }
 
     void FindOwnParticipant(VivoxParticipant part)

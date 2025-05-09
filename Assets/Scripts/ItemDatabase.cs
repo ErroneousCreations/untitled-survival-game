@@ -3,6 +3,7 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using Unity.Collections;
 using Unity.Netcode;
+using UnityEditor.Overlays;
 
 [System.Serializable]
 public struct Item
@@ -52,6 +53,31 @@ public struct ItemData : INetworkSerializable
         }
 
         TempData = new List<float>(); // Initialize empty temp data
+    }
+
+    public ItemData(string saveditem)
+    {
+        var split = saveditem.Split(',');
+        ID = split[0];
+        SavedData = new List<FixedString128Bytes>();
+        TempData = new List<float>();
+        if (split.Length <= 0) { return; }
+        for (int i = 1; i < split.Length; i++)
+        {
+            SavedData.Add(split[i]);
+        }
+    }
+
+    public override string ToString()
+    {
+        var returned = "";
+        returned += ID;
+        returned += ",";
+        foreach (var data in SavedData)
+        {
+            returned += data + ",";
+        }
+        return returned[..^1];
     }
 
     public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
