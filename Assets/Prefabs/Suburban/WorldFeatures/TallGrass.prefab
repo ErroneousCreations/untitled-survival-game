@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4150091176782170323}
-  - component: {fileID: 4958045002686522478}
   - component: {fileID: 4956696669709103622}
   - component: {fileID: 3547827497009302674}
+  - component: {fileID: 33179626614870286}
   m_Layer: 3
   m_Name: TallGrass
   m_TagString: Untagged
@@ -35,22 +35,6 @@ Transform:
   - {fileID: 1340364852975554214}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4958045002686522478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1474682761767569297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 019e246d33c536f42a565a9c0f25da1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Destroyable: 0
-  CurrHealth: 0
-  MaxHealth: 0
-  drops: []
 --- !u!205 &4956696669709103622
 LODGroup:
   m_ObjectHideFlags: 0
@@ -88,7 +72,7 @@ MonoBehaviour:
   Interacted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4958045002686522478}
+      - m_Target: {fileID: 33179626614870286}
         m_TargetAssemblyTypeName: WorldFeature, Assembly-CSharp
         m_MethodName: SpawnItemAtMe
         m_Mode: 5
@@ -100,7 +84,7 @@ MonoBehaviour:
           m_StringArgument: grass
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4958045002686522478}
+      - m_Target: {fileID: 33179626614870286}
         m_TargetAssemblyTypeName: WorldFeature, Assembly-CSharp
         m_MethodName: RemoveFeature
         m_Mode: 1
@@ -117,6 +101,23 @@ MonoBehaviour:
       m_Calls: []
   InteractOnce: 0
   Banned: 0
+--- !u!114 &33179626614870286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474682761767569297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07ebc36c0c928d43a4be8fdab3316b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Destroyable: 0
+  CurrHealth: 0
+  MaxHealth: 0
+  drops: []
+  Breakparticle: 
 --- !u!1 &4219873831183293170
 GameObject:
   m_ObjectHideFlags: 0

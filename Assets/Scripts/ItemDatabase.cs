@@ -72,6 +72,7 @@ public struct ItemData : INetworkSerializable
     {
         var returned = "";
         returned += ID;
+        if(SavedData == null || SavedData.Count <= 0) { return returned; }
         returned += ",";
         foreach (var data in SavedData)
         {
