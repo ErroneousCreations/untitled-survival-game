@@ -128,4 +128,14 @@ public class FoodItem : ScriptableObject, IItemBehaviour
     {
         return item;
     }
+
+    public ItemData OnLoaded(ItemData item)
+    {
+        item.TempData = new()
+        {
+            0,
+            0
+        };
+        return item;
+    }
 }

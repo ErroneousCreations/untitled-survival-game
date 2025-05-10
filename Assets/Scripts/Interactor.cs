@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
+using static UnityEditor.PlayerSettings;
 
 public class Interactor : MonoBehaviour
 {
@@ -125,7 +126,9 @@ public class Interactor : MonoBehaviour
         foreach (var inter in withinRange)
         {
             if(!inter) { continue; }
-            var dist = (UIcentre.localPosition - TransformToHUDSpace(inter.transform.position)).sqrMagnitude;
+            var pos = TransformToHUDSpace(inter.transform.position);
+            if (pos.z < 0) { continue; }
+            var dist = (UIcentre.localPosition - pos).sqrMagnitude;
             if (dist < closestScreenDist)
             {
                 closestScreenDist = dist;
@@ -136,7 +139,9 @@ public class Interactor : MonoBehaviour
         foreach (var inter in withinRangeNonNet)
         {
             if (!inter) { continue; }
-            var dist = (UIcentre.localPosition - TransformToHUDSpace(inter.transform.position)).sqrMagnitude;
+            var pos = TransformToHUDSpace(inter.transform.position);
+            if (pos.z < 0) { continue; }
+            var dist = (UIcentre.localPosition - pos).sqrMagnitude;
             if (dist < closestScreenDist)
             {
                 closestScreenDist = dist;

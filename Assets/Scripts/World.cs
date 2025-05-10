@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.Rendering.Universal;
 using Unity.Collections;
 using Unity.Jobs;
 
@@ -58,12 +57,16 @@ public class World : NetworkBehaviour
 
     public static bool LoadingFromSave = false;
 
+    public static Vector3 WindDirection { get; private set; }
+    public static float WindIntensity { get; private set; }
+
     /// <summary>
     /// Multiplier for the sway intensity of foliage mateirals (mostly on trees)
     /// </summary>
     public static void SetSwayIntensity(float intensity)
     {
         Shader.SetGlobalFloat("_GLOBALSWAYINTENSITY", intensity);
+        WindIntensity = intensity;
     }
 
     /// <summary>
@@ -80,6 +83,7 @@ public class World : NetworkBehaviour
     public static void SetSwayDir(Vector3 dir)
     {
         Shader.SetGlobalVector("_GLOBALSWAYDIR", dir);
+        WindDirection = dir;
     }
 
     public static int RandomIntRange(int min, int max)
@@ -121,7 +125,11 @@ public class World : NetworkBehaviour
 
     public void Init(int seed) //todo feed savefile to load from
     {
+        if(seed == -1) { seed = Random.Range(0, 999999); }
+        InitSeedRPC(seed);
+
         //initialise tree swaying stuff
+        Random.InitState(seed);
         var dir = Random.insideUnitCircle.normalized;
         SetSwayDir(new Vector3(dir.x, 0, dir.y));
         SetSwayIntensity(1f);
@@ -129,12 +137,13 @@ public class World : NetworkBehaviour
 
         if (!IsOwner) { return; }
         LoadingFromSave = false;
-        GenerateWorld(seed == -1 ? Random.Range(0, 999999) : seed);
+        GenerateWorld();
     }
 
     public void Init(int seed, string[] worldfeatures)
     {
         //initialise tree swaying stuff
+        Random.InitState(seed);
         var dir = Random.insideUnitCircle.normalized;
         SetSwayDir(new Vector3(dir.x, 0, dir.y));
         SetSwayIntensity(1f);
@@ -229,9 +238,8 @@ public class World : NetworkBehaviour
         }
     }
 
-    private void GenerateWorld(int seed)
+    private void GenerateWorld()
     {
-        InitSeedRPC(seed);
         DoWorldFeaturesRPC();
         DoRaycastedWorldFeaturesRPC();
         DoNetWorldFeatures();
@@ -409,14 +417,50 @@ public class World : NetworkBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        if (raycastedWorldFeatures==null || raycastedWorldFeatures.Count<=0) { return; }
-        foreach (var feature in raycastedWorldFeatures)
+        if(raycastedWorldFeatures != null && raycastedWorldFeatures.Count > 0)
         {
-            foreach (var spawn in feature.SpawnCentres)
+            Gizmos.color = Color.green;
+            foreach (var feature in raycastedWorldFeatures)
             {
-                Gizmos.matrix = spawn.localToWorldMatrix;
-                Gizmos.DrawCube(Vector3.zero, new Vector3(feature.SpawnRectangleSize.x*2, 0.25f, feature.SpawnRectangleSize.y*2));
+                foreach (var spawn in feature.SpawnCentres)
+                {
+                    Gizmos.matrix = spawn.localToWorldMatrix;
+                    Gizmos.DrawCube(Vector3.zero, new Vector3(feature.SpawnRectangleSize.x * 2, 0.25f, feature.SpawnRectangleSize.y * 2));
+                }
+            }
+        }
+
+        if (worldFeatures != null && worldFeatures.Count > 0)
+        {
+            Gizmos.color = Color.red;
+            foreach (var feature in worldFeatures)
+            {
+                foreach (var spawn in feature.SpawnPoints)
+                {
+                    Gizmos.matrix = spawn.localToWorldMatrix;
+                    var rend = feature.FeatureTypes[0].GetComponentInChildren<MeshRenderer>();
+                    var offset = rend.transform.localPosition;
+                    var extents = rend.bounds.extents;
+                    var centre = rend.bounds.center;
+                    Gizmos.DrawWireCube(offset + centre, extents * 2);
+                }
+            }
+        }
+
+        if(netWorldFeatures != null && netWorldFeatures.Count > 0)
+        {
+            Gizmos.color = Color.blue;
+            foreach (var feature in netWorldFeatures)
+            {
+                foreach (var spawn in feature.SpawnPoints)
+                {
+                    Gizmos.matrix = spawn.localToWorldMatrix;
+                    var rend = feature.FeatureTypes[0].GetComponentInChildren<MeshRenderer>();
+                    var offset = rend.transform.localPosition;
+                    var extents = rend.bounds.extents;
+                    var centre = rend.bounds.center;
+                    Gizmos.DrawWireCube(offset + centre, extents * 2);
+                }
             }
         }
     }

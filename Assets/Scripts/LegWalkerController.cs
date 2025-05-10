@@ -30,6 +30,8 @@ public class LegWalkerController : MonoBehaviour
     public float ungroundedLegFlailAmplitude = 0.2f, ungroundedLegFlailSpeed = 4, groundcastLength;
     public Vector3 groundcastHeightOffset;
 
+    [HideInInspector] public bool DisableLegsMovement = false;
+
     private int currentLegIndex = 0;
     private float lastStepTime;
     private Vector3 bodyLastPosition;
@@ -55,6 +57,8 @@ public class LegWalkerController : MonoBehaviour
 
         if (!IsGrounded) { flyingTime += Time.deltaTime; }
         else { flyingTime = 0; }
+
+        if (DisableLegsMovement) { return; }
 
         for (int i = 0; i < legs.Count; i++)
         {
@@ -102,9 +106,7 @@ public class LegWalkerController : MonoBehaviour
             Vector3 pos = Vector3.Lerp(startPos, finalPosition, t);
             pos.y += Mathf.Sin(t * Mathf.PI) * leg.stepHeight;
 
-            leg.target.position = pos;
-            leg.target.rotation = Quaternion.LookRotation((leg.EndOfLeg.position - pos).normalized, direction.right);
-
+            leg.target.SetPositionAndRotation(pos, Quaternion.LookRotation((leg.EndOfLeg.position - pos).normalized, direction.right));
             yield return null;
         }
         stepping[index] = false;

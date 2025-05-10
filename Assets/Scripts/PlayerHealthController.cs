@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 public enum DamageType { Blunt, Stab }
 public enum BodyPart { Head, Body, Arm, Leg }
@@ -22,12 +24,21 @@ public struct WoundObject
     public ParticleSystem particles;
     public ItemData embedded;
     public bool hasembedded;
+    public float severity;
+    public Vector3 originalhitpos;
 
-    public WoundObject(ParticleSystem particles, ItemData embedded, bool hasembedded)
+    public WoundObject(ParticleSystem particles, ItemData embedded, bool hasembedded, Vector3 hitpos, float severity)
     {
         this.particles = particles;
         this.embedded = embedded;
         this.hasembedded = hasembedded;
+        originalhitpos = hitpos;
+        this.severity = severity;
+    }
+
+    public override string ToString()
+    {
+        return $"{System.Math.Round(originalhitpos.x, 2)}~{System.Math.Round(originalhitpos.y)}~{System.Math.Round(originalhitpos.z)}~{System.Math.Round(severity,2)}~{(hasembedded ? 1 : 0)}~{embedded}~{System.Math.Round(particles.transform.forward.x, 2)}~{System.Math.Round(particles.transform.forward.y, 2)}~{System.Math.Round(particles.transform.forward.z, 2)}";
     }
 }
 
@@ -41,11 +52,10 @@ public class PlayerHealthController : NetworkBehaviour
     public NetworkVariable<bool> isConscious = new(true, writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<bool> isAlive = new(true, writePerm: NetworkVariableWritePermission.Owner);
     public NetworkVariable<float> legHealth = new(0, writePerm: NetworkVariableWritePermission.Owner), bodyHealth = new(0, writePerm: NetworkVariableWritePermission.Owner), headHealth = new(0, writePerm: NetworkVariableWritePermission.Owner);
+    public NetworkVariable<float> hunger = new(0, writePerm: NetworkVariableWritePermission.Owner);
 
     private Dictionary<ushort, Wound> wounds = new();
-    private Dictionary<ushort, float> woundIntensities = new();
-    private Dictionary<ushort, bool> woundEmbeddeds = new();
-    private List<WoundObject> woundObjects = new();
+    private Dictionary<ushort, WoundObject> woundObjects = new();
 
     public Player player;
 
@@ -74,6 +84,7 @@ public class PlayerHealthController : NetworkBehaviour
 
     [Header("FX")]
     public ParticleSystem bleedingEffect;
+    public PlayerCorpseProxy corpse;
 
     [Header("Interactors")]
     public List<Interactible> interactibles;
@@ -92,25 +103,54 @@ public class PlayerHealthController : NetworkBehaviour
     private float lastBleedAmount = 0;
     private float recentDamageCd = 0;
     private float shockTimer = 0;
-    [SerializeField]private float hunger = 0;
 
-    public bool GetCanSprint => hunger > 0.2f && consciousness.Value > 0.25f && legHealth.Value > 0.5f && isConscious.Value;
-    public float GetHunger => hunger;
-    public float GetMovespeedMult => LeghealthMovementMult.Evaluate(legHealth.Value) * ConsciousnessMovementMult.Evaluate(consciousness.Value) * HungerMovementMult.Evaluate(hunger);
-    public float MouseTrippyness => Mathf.Max(ConsciousnessMouseTrippiness.Evaluate(consciousness.Value), HungerMouseTrippinessMult.Evaluate(hunger));
+    public bool GetCanSprint => hunger.Value > 0.2f && consciousness.Value > 0.25f && legHealth.Value > 0.5f && isConscious.Value;
+    public float GetHunger => hunger.Value;
+    public float GetMovespeedMult => LeghealthMovementMult.Evaluate(legHealth.Value) * ConsciousnessMovementMult.Evaluate(consciousness.Value) * HungerMovementMult.Evaluate(hunger.Value);
+    public float MouseTrippyness => Mathf.Max(ConsciousnessMouseTrippiness.Evaluate(consciousness.Value), HungerMouseTrippinessMult.Evaluate(hunger.Value));
     public float GetHeadbobMult => ConsciousnessHeadbobMult.Evaluate(consciousness.Value) * LeghealthHeadbobMult.Evaluate(legHealth.Value);
     public float GetHeadbobSpeedMult =>  LeghealthHeadbobSpeedMult.Evaluate(legHealth.Value);
-    public bool GetForceCrouch => consciousness.Value <= 0.3f || legHealth.Value <= 0.1f || hunger <= 0.2f;
-    public float GetWallrunDropChance => (1f-consciousness.Value+0.3f)*0.1f * (1f - hunger + 0.3f) * 0.1f;
-    public float GetStandDampeningMult => ConsciousnessStandDampeningMult.Evaluate(consciousness.Value) * HungerStandDampeningMult.Evaluate(hunger);
+    public bool GetForceCrouch => consciousness.Value <= 0.3f || legHealth.Value <= 0.1f || hunger.Value <= 0.2f;
+    public float GetWallrunDropChance => (1f-consciousness.Value+0.3f)*0.1f * (1f - hunger.Value + 0.3f) * 0.1f;
+    public float GetStandDampeningMult => ConsciousnessStandDampeningMult.Evaluate(consciousness.Value) * HungerStandDampeningMult.Evaluate(hunger.Value);
     public bool GetCanStand => isConscious.Value;
     public float GetBleedSpeed => lastBleedAmount;
     public bool GetRecentDamage => recentDamageCd > 0;
-    public float GetBlurriness => HungerBlurriness.Evaluate(hunger);
+    public float GetBlurriness => HungerBlurriness.Evaluate(hunger.Value);
+
+    public string GetSavedWounds
+    {
+        get
+        {
+            if(woundObjects.Count <= 0) { return "null"; }
+            string str = "";
+            foreach (var item in woundObjects)
+            {
+                str += item.Value.ToString() + "|";
+            }
+            return str[..^1];
+        }
+    }
+
+    public void ApplySavedWounds(string saved)
+    {
+        if (saved == "null") { return; }
+        var split = saved.Split('|');
+        foreach (var item in split)
+        {
+            var wound = item.Split('~');
+            var pos = new Vector3(float.Parse(wound[0]), float.Parse(wound[1]), float.Parse(wound[2]));
+            var severity = float.Parse(wound[3]);
+            var embedded = wound[4] == "1";
+            var embeddeditem = new ItemData(wound[5]);
+            SpawnWoundInteractorRPC(nextWoundID, pos, Vector3.up, severity, embedded, ItemDatabase.GetItem(embeddeditem.ID.ToString()).Name, embeddeditem);
+            nextWoundID++;
+        }
+    }
 
     public void AddHunger(float amount)
     {
-        hunger = Mathf.Clamp(hunger + amount, 0, HungerMax);
+        hunger.Value = Mathf.Clamp(hunger.Value + amount, 0, HungerMax);
     }
 
     public override void OnNetworkSpawn()
@@ -130,15 +170,20 @@ public class PlayerHealthController : NetworkBehaviour
             currOxygen = 1;
             bodyHealth.Value = 1f;
             headHealth.Value = 1f;
-            hunger = 1;
+            hunger.Value = 1;
         }
     }
 
     void Update()
     {
-        for (int i = 0; i < woundObjects.Count; i++)
+        List<ushort> removing = new();
+        foreach (var item in woundObjects)
         {
-            if (!woundObjects[i].particles) { woundObjects.RemoveAt(i); i--; }
+            if (!item.Value.particles) { removing.Add(item.Key); }
+        }
+        foreach (var item in removing)
+        {
+            woundObjects.Remove(item);
         }
 
         foreach (var inter in interactibles)
@@ -162,17 +207,19 @@ public class PlayerHealthController : NetworkBehaviour
         if(combinedcprPoints > 0) { combinedcprPoints -= Time.deltaTime; }
 
         //stop bleeding when out of blood
-        if(currentBlood.Value <= 0 && woundIntensities.Count>0) {
-            var keys = woundIntensities.Keys;
+        if(currentBlood.Value <= 0 && woundObjects.Count>0) {
+            var keys = woundObjects.Keys;
             foreach (var key in keys)
             {
-                woundIntensities[key] = 0;
+                var ob = woundObjects[key];
+                ob.severity = 0;
+                woundObjects[key] = ob;
             }
         }
         if (!IsOwner) { return; }
 
-        hunger = Mathf.Clamp(hunger - (Time.deltaTime / HungerDepleteTime),0, HungerMax);
-        if (hunger <= 0) { Die("Hunger"); return; }
+        hunger.Value = Mathf.Clamp(hunger.Value - (Time.deltaTime / HungerDepleteTime),0, HungerMax);
+        if (hunger.Value <= 0) { Die("Hunger"); return; }
 
         if (recentDamageCd > 0) { recentDamageCd -= Time.deltaTime; } 
         HandleWounds();
@@ -194,7 +241,7 @@ public class PlayerHealthController : NetworkBehaviour
         if (lastBleedAmount > 0) { shockTimer += Time.deltaTime * (lastBleedAmount / (bleedRatePerWound*1.25f)); }
         else if(shockTimer>0) { shockTimer -= Time.deltaTime * 1.5f; }
         float shockIncreaseMult = Mathf.Pow(1.02f, shockTimer) - 1;
-        shock.Value += shockIncreasePerWound * shockIncreaseMult * Time.deltaTime;
+        shock.Value += shockIncreasePerWound * Mathf.Clamp(shockIncreaseMult, 0, lastBleedAmount * 7) * Time.deltaTime;
     }
 
     void HandleVitals()
@@ -274,15 +321,15 @@ public class PlayerHealthController : NetworkBehaviour
         if (heartBeating.Value)
         {
             if (leghealthRegenCd > 0) { leghealthRegenCd -= Time.deltaTime; }
-            legHealth.Value = Mathf.Min(1, legHealth.Value + (leghealthRegenCd <= 0 ? (Time.deltaTime/legHealthRegenRate)*hunger : 0));
+            legHealth.Value = Mathf.Min(1, legHealth.Value + (leghealthRegenCd <= 0 && lastBleedAmount <= bleedRatePerWound ? (Time.deltaTime/legHealthRegenRate)*hunger.Value : 0));
             if (legHealth.Value < -1) { legHealth.Value = -1; }
 
             if (bodyHealthRegenCd > 0) { bodyHealthRegenCd -= Time.deltaTime; }
-            bodyHealth.Value = Mathf.Min(1, bodyHealth.Value + (bodyHealthRegenCd <= 0 ? (Time.deltaTime/bodyHealthRegenRate)*hunger : 0));
+            bodyHealth.Value = Mathf.Min(1, bodyHealth.Value + (bodyHealthRegenCd <= 0 && lastBleedAmount <= bleedRatePerWound ? (Time.deltaTime/bodyHealthRegenRate)*hunger.Value : 0));
             if (bodyHealth.Value < -1) { bodyHealth.Value = -1; }
 
             if (headhealthRegenCd > 0) { headhealthRegenCd -= Time.deltaTime; }
-            headHealth.Value = Mathf.Min(1, headHealth.Value + (headhealthRegenCd <= 0 ? (Time.deltaTime / headHealthRegenRate) * hunger : 0));
+            headHealth.Value = Mathf.Min(1, headHealth.Value + (headhealthRegenCd <= 0 && lastBleedAmount <= bleedRatePerWound ? (Time.deltaTime / headHealthRegenRate) * hunger.Value : 0));
             if (headHealth.Value < -1) { headHealth.Value = -1; }
 
             shock.Value = Mathf.Max(0, shock.Value - ((Time.deltaTime/shockReduceRate) / (wounds.Count+1)));
@@ -323,7 +370,7 @@ public class PlayerHealthController : NetworkBehaviour
         if (damage > 1000) { Die("Lethal damage"); return; }
         Debug.Log("dmg: " + damage);
 
-        MusicManager.AddThreatLevel(damage * 3f);
+        MusicManager.AddThreatLevel(damage*1.1f);
 
         if ((pos - transform.TransformPoint(new Vector3(heartLocalPos.x, heartLocalPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, heartLocalPos.z))).sqrMagnitude < heartRadius * heartRadius && type == DamageType.Stab && damage >= 30)
         {
@@ -335,8 +382,8 @@ public class PlayerHealthController : NetworkBehaviour
         if ((pos - transform.TransformPoint(new Vector3(headPos.x, headPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, headPos.z))).sqrMagnitude < headRadius*headRadius)
         {
             wasinHead = true;
-            consciousness.Value -= damage / 60f;
-            headHealth.Value -= damage / 90f;
+            consciousness.Value -= damage / 45f;
+            headHealth.Value -= damage / 75f;
             headhealthRegenCd = 30;
         }
         else if ((pos - transform.TransformPoint(new Vector3(legsPos.x, legsPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, legsPos.z))).sqrMagnitude < legsRadius * legsRadius)
@@ -348,6 +395,13 @@ public class PlayerHealthController : NetworkBehaviour
         {
             bodyHealth.Value -= damage / 150;
             bodyHealthRegenCd = 30;
+        }
+
+        player.MouseJitterIntensity = damage * 0.3f;
+
+        if(damage > (type == DamageType.Stab ? 55 : 65) && Random.value <= 0.8f)
+        {
+            player.KnockOver(damage * 0.125f);
         }
 
         recentDamageCd = 0.5f;
@@ -366,12 +420,9 @@ public class PlayerHealthController : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void SpawnWoundInteractorRPC(ushort id, Vector3 pos, Vector3 normal, float intensity, bool embedded, string embeddedname, ItemData embeddedItem)
     {
-        woundIntensities.Add(id, intensity);
-        woundEmbeddeds.Add(id, embedded);
-
-        //create the wound interactor
+                //create the wound interactor
         var bleed = Instantiate(bleedingEffect, Vector3.zero, Quaternion.identity);
-        woundObjects.Add(new WoundObject(bleed, embeddedItem, embedded));
+        woundObjects.Add(id, new WoundObject(bleed, embeddedItem, embedded, pos, intensity));
         var ob = new GameObject("Wound" + wounds.Count);
         var coll = GetClosestCollider(pos, out Vector3 newPos);
         ob.transform.parent = coll;
@@ -394,18 +445,18 @@ public class PlayerHealthController : NetworkBehaviour
         inter.OnUpdate += () =>
         {
             //todo make it change depending on what your holding and stuff
-            inter.Banned = IsOwner || !Player.LocalPlayer || ((!woundEmbeddeds.ContainsKey(id) || !woundEmbeddeds[id]) && PlayerInventory.GetRightHandItem.ID.ToString() != "bandage");
+            inter.Banned = IsOwner || !Player.LocalPlayer || ((!woundObjects.ContainsKey(id) || !woundObjects[id].hasembedded) && PlayerInventory.GetRightHandItem.ID.ToString() != "bandage");
             if (!Player.LocalPlayer) { return; }
-            inter.Description = (woundEmbeddeds.ContainsKey(id) && woundEmbeddeds[id]) ? $"Remove {embeddedname}" : (PlayerInventory.GetRightHandItem.ID.ToString()=="bandage" ? $"Bandage Wound ({PlayerInventory.GetRightHandItem.SavedData[0]})" : "");
+            inter.Description = woundObjects[id].hasembedded ? $"Remove {embeddedname}" : (PlayerInventory.GetRightHandItem.ID.ToString()=="bandage" ? $"Bandage Wound ({PlayerInventory.GetRightHandItem.SavedData[0]})" : "");
             inter.InteractLength = 2f;
             inter.InteractDistance = 1.5f;
-            if(embeddedgraphic && (!woundEmbeddeds.ContainsKey(id) || !woundEmbeddeds[id])) { 
+            if(embeddedgraphic && !woundObjects[id].hasembedded) { 
                 Destroy(embeddedgraphic);
             }
-            if (!woundIntensities.ContainsKey(id)) { Destroy(ob); return; }
+            if (!woundObjects.ContainsKey(id)) { Destroy(ob); return; }
             var emission = bleed.emission;
-            emission.rateOverTime = 25 * woundIntensities[id];
-            if (woundEmbeddeds[id]) { inter.OnInteractedLocal = () => RemoveEmbeddedObject(id, embeddedItem); }
+            emission.rateOverTime = baseBleedParticleAmount * woundObjects[id].severity;
+            if (woundObjects[id].hasembedded) { inter.OnInteractedLocal = () => RemoveEmbeddedObject(id, embeddedItem); }
             else if (PlayerInventory.GetRightHandItem.ID.ToString() == "bandage") { inter.OnInteractedLocal = () => { 
                 var currdurab = int.Parse(PlayerInventory.GetRightHandSaveData[0].ToString()) - 1;
                 if(currdurab <= 0) { PlayerInventory.DeleteRighthandItem(); }
@@ -454,8 +505,7 @@ public class PlayerHealthController : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void RemoveWoundIntensityRPC(ushort wound)
     {
-        woundIntensities.Remove(wound);
-        woundEmbeddeds.Remove(wound);
+        woundObjects.Remove(wound);
     }
 
     public void RemoveEmbeddedObject(ushort wound, ItemData embeddedItem)
@@ -480,8 +530,11 @@ public class PlayerHealthController : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void IncreaseWoundIntensityRPC(ushort wound, float mult)
     {
-        woundEmbeddeds[wound] = false;
-        woundIntensities[wound] *= mult;
+        var ob = woundObjects[wound];
+        ob.hasembedded = false;
+        ob.embedded = ItemData.Empty;
+        ob.severity *= mult;
+        woundObjects[wound] = ob;
     }
 
     public void StopHeart(string reason)
@@ -642,6 +695,16 @@ public class PlayerHealthController : NetworkBehaviour
         MusicManager.SetThreatLevel(0);
         Debug.Log($"biological death: {cause}");
         player.OnDied?.Invoke();
+        ServerDieRPC(PlayerPrefs.GetInt("SKINTEX", 0), PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
+    }
+
+    [Rpc(SendTo.Server)]
+    private void ServerDieRPC(int skintex, float scarfr, float scarfg, float scarfb)
+    {
+        var corpseobj = Instantiate(corpse, transform.position, transform.rotation);
+        corpseobj.NetworkObject.Spawn();
+        corpseobj.Init(woundObjects.Values.ToList(), currentBlood.Value, lastBleedAmount, skintex, scarfr, scarfg, scarfb);
+        NetworkObject.Despawn();
     }
 
     private void OnDrawGizmosSelected()

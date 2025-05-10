@@ -49,6 +49,8 @@ public class PlayerInventory : NetworkBehaviour
         UpdateRighthandVisuals();
     }
 
+    public string GetSavedData => savedInventoryData.Value.ToString();
+
     public static void AddItemBusyTime(float amount) { localInstance.itemBusyTime = amount; }
     public static bool GetIsBusy => localInstance.itemBusyTime > 0 || localInstance.busy || localInstance.isCrafting;
 
@@ -56,8 +58,6 @@ public class PlayerInventory : NetworkBehaviour
 
     public static ItemData GetLeftHandItem => localInstance.leftHand.Value;
     public static ItemData GetRightHandItem => localInstance.rightHand.Value;
-
-    public static Dictionary<ulong, string> INVENTORY_DATA = new();
 
     public static void UpdateRightHandSaveData(List<FixedString128Bytes> data)
     {
@@ -143,26 +143,65 @@ public class PlayerInventory : NetworkBehaviour
         initialRightHandPos = RightHandOb.localPosition;
     }
 
-    private void LocalUpdateSaveableData()
-    {
-        if (!INVENTORY_DATA.ContainsKey(OwnerClientId)) { INVENTORY_DATA.Add(OwnerClientId, savedInventoryData.ToString()); }
-        else { INVENTORY_DATA[OwnerClientId] = savedInventoryData.ToString(); }
-    }
-
-    public override void OnNetworkDespawn()
-    {
-        base.OnNetworkDespawn();
-        if (INVENTORY_DATA.ContainsKey(OwnerClientId)) { INVENTORY_DATA.Remove(OwnerClientId); }
-    }
-
     private void Update()
     {
-        LocalUpdateSaveableData();
         if (!IsOwner) { LocalSync(); return; }
         UpdateSaveableData();
         UpdateItems();
         HandleInput();
         HandleSyncing();
+    }
+
+    public void InitFromSavedData(string data)
+    {
+        if (data == "null") { return; }
+        var split = data.Split('|');
+        leftHand.Value = new ItemData(split[0]);
+        currEquippedSlot = int.Parse(split[1]);
+        for (int i = 0; i < maxHotbarSize; i++)
+        {
+            hotbar[i] = new ItemData(split[i + 2]);
+        }
+        for (int i = maxHotbarSize; i < split.Length; i++)
+        {
+            backpack.Add(new ItemData(split[i]));
+        }
+        rightHand.Value = hotbar[currEquippedSlot];
+
+        if (rightHand.Value.IsValid && ItemDatabase.GetItem(rightHand.Value.ID.ToString()).ItemBehaviour != null)
+        {
+            rightHand.Value = ItemDatabase.GetItem(rightHand.Value.ID.ToString()).ItemBehaviour.OnLoaded(rightHand.Value); //call hand update
+            hotbar[currEquippedSlot] = rightHand.Value;
+        }
+
+        if (leftHand.Value.IsValid && ItemDatabase.GetItem(leftHand.Value.ID.ToString()).ItemBehaviour != null)
+        {
+            leftHand.Value = ItemDatabase.GetItem(leftHand.Value.ID.ToString()).ItemBehaviour.OnLoaded(leftHand.Value); //call hand update
+        }
+
+        for (int i = 0; i < backpack.Count; i++)
+        {
+            var item = backpack[i];
+            if (item.IsValid && ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour != null)
+            {
+                item = ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour.OnLoaded(item); //call backpack update
+            }
+            backpack[i] = item;
+        }
+
+        for (int i = 0; i < hotbar.Count; i++)
+        {
+            if (i == currEquippedSlot) { continue; }
+            var item = hotbar[i];
+            if (item.IsValid && ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour != null)
+            {
+                item = ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour.OnLoaded(item); //call hotbar update
+            }
+            hotbar[i] = item;
+        }
+
+        UpdateRighthandVisuals();
+        UpdateLefthandVisuals();
     }
 
     private void UpdateSaveableData()

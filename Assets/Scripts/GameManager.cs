@@ -16,7 +16,7 @@ public class GameManager : NetworkBehaviour
     private NetworkVariable<GameModeEnum> Gamemode = new();
     private NetworkVariable<GameStateEnum> Gamestate = new();
     private Dictionary<ulong, FixedString128Bytes> USERNAMES = new(); //for the server to keep track and stuff
-    private Dictionary<ulong, FixedString128Bytes> UNIQUEUSERIDS = new(); //for the server to keep track and stuff
+    private Dictionary<ulong, string> UNIQUEUSERIDS = new(); //for the server to keep track and stuff
     private Dictionary<ulong, string> localUserNames = new(); //for clients
     private static GameManager instance;
 
@@ -28,7 +28,7 @@ public class GameManager : NetworkBehaviour
 
     public static World GetWorld => instance.currWorld;
 
-    public static Dictionary<ulong, FixedString128Bytes> GetUUIDS => instance.UNIQUEUSERIDS;
+    public static Dictionary<ulong, string> GetUUIDS => instance.UNIQUEUSERIDS;
 
     private void Awake()
     {

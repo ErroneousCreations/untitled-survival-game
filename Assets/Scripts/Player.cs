@@ -6,6 +6,7 @@ using Unity.Services.Vivox.AudioTaps;
 using UnityEngine.Audio;
 using Unity.Collections;
 using System.Collections;
+using DitzelGames.FastIK;
 
 public class Player : NetworkBehaviour
 {
@@ -23,11 +24,14 @@ public class Player : NetworkBehaviour
     public Animator anim;
     public Renderer[] PlayermodelMeshes;
     public Renderer[] handRends;
+    public LegWalkerController legs;
+    public List<FastIKFabric> legIKSolvers;
     [SerializeField] private Renderer PlayerBody;
     [SerializeField] private int skinMaterialID;
     [SerializeField] private int scarfMaterialID;
     [SerializeField] private Renderer ScarfRend;
     [SerializeField] private GameObject speakingIndicator;
+    [SerializeField] private Cloth scarfCloth;
     [Header("Physics Settings")]
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float standupForce = 100, standupDamping = 5, falloverForce = 1, fallRecoverSpeed = 10;
@@ -53,6 +57,12 @@ public class Player : NetworkBehaviour
     [Tooltip("Severe Hunger (< 0.35)")]
     public AudioClip[] extremeHungerSounds;
 
+    [Header("Ragdoll")]
+    [SerializeField] private List<Rigidbody> bodyRbs;
+    private List<Vector3> originalBodypartPositions;
+    private List<Quaternion> originalBodypartRotations;
+    private bool ragdolled;
+
     private Coroutine hungerAudioRoutine;
 
     private Material eyesmat;
@@ -62,6 +72,7 @@ public class Player : NetworkBehaviour
     private NetworkVariable<Color> SyncedScarfColour = new(Color.white, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<float> currLookAngle = new(0, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isTalking = new(false, writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<bool> isKnockedOver = new(false, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isSprinting = new(false, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<FixedString128Bytes> username = new("", writePerm: NetworkVariableWritePermission.Owner);
     private float blinkCurr = 0;
@@ -70,6 +81,7 @@ public class Player : NetworkBehaviour
     private bool inChannel = false;
     private Material skinMat, bodyScarfMat, scarfMat;
     private float beatTimer;
+    [HideInInspector] public float MouseJitterIntensity;
 
     //events
     public System.Action OnDied;
@@ -79,7 +91,9 @@ public class Player : NetworkBehaviour
     //shock camera jitter
     private float jitterCd;
 
-    public static bool GetCanStand => LocalPlayer.ph.GetCanStand && LocalPlayer.currfalloverTime <= 0; // Can stand if not falling over and not in a fallover state
+    public static bool GetCanStand => LocalPlayer.ph.GetCanStand && !LocalPlayer.isKnockedOver.Value; // Can stand if not falling over and not in a fallover state
+
+    private bool LocalCanStand => ph.GetCanStand && !isKnockedOver.Value; // Can stand if not falling over and not in a fallover state
 
     public static Player LocalPlayer { get; private set; }
 
@@ -90,7 +104,9 @@ public class Player : NetworkBehaviour
     public Rigidbody GetRigidbody => pm.GetRigidbody;
 
     public string GetUsername => username.Value.ToString();
-    
+
+    public static Dictionary<ulong, Player> PLAYERBYID = new();
+
     private int GetFace
     {
         get
@@ -158,7 +174,6 @@ public class Player : NetworkBehaviour
             Cursor.visible = false;
             Camera.main.transform.parent = pm.CameraParent;
             Camera.main.transform.localPosition = Vector3.zero;
-            pm.ViewmodelParent.parent = Camera.main.transform;
             LocalPlayer = this;
             SyncedEyeTexture.Value = 0;
             SyncedScarfColour.Value = new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
@@ -174,6 +189,14 @@ public class Player : NetworkBehaviour
             });
             username.Value = PlayerPrefs.GetString("USERNAME", "NoName");
         }
+        pm.ViewmodelParent.parent = IsOwner ? Camera.main.transform : head.transform;
+        originalBodypartPositions = new List<Vector3>(bodyRbs.Count);
+        originalBodypartRotations = new List<Quaternion>(bodyRbs.Count);
+        for (int i = 0; i < bodyRbs.Count; i++)
+        {
+            originalBodypartPositions.Add(bodyRbs[i].transform.localPosition);
+            originalBodypartRotations.Add(bodyRbs[i].transform.localRotation);
+        }
         bodyScarfMat = PlayerBody.materials[scarfMaterialID];
         scarfMat = ScarfRend.material;
         skinMat = PlayerBody.materials[skinMaterialID];
@@ -183,6 +206,12 @@ public class Player : NetworkBehaviour
         {
             rend.material = skinMat;
         }
+        PLAYERBYID.Add(OwnerClientId, this);
+    }
+
+    private void OnDisable()
+    {
+        if(PLAYERBYID.ContainsKey(OwnerClientId)) { PLAYERBYID.Remove(OwnerClientId); } // remove player from dictionary
     }
 
     IEnumerator HungerSoundLoop()
@@ -251,13 +280,48 @@ public class Player : NetworkBehaviour
         skinMat.SetTexture("_MainTex", SkinTextures[(int)SyncedSkinTexture.Value]);
         scarfMat.color = SyncedScarfColour.Value;
         bodyScarfMat.color = SyncedScarfColour.Value;
-        head.localRotation = Quaternion.AngleAxis(Mathf.Clamp(currLookAngle.Value, headAngleRange.x, headAngleRange.y) + (pm.GetCrouching ? 49 : 0), Vector3.forward);
+        if (LocalCanStand) { head.localRotation = Quaternion.AngleAxis(Mathf.Clamp(currLookAngle.Value, headAngleRange.x, headAngleRange.y) + (pm.GetCrouching ? 49 : 0), Vector3.forward); }
         eyesmat.mainTexture = EyeTextures[(int)SyncedEyeTexture.Value];
         anim.SetBool("Crouching", pm.GetCrouching && StandingUp);
         anim.SetBool("KO", !ph.breathing.Value);
         anim.SetBool("Sprinting", isSprinting.Value);
         speakingIndicator.SetActive(isTalking.Value && !IsOwner);
         speakingIndicator.transform.forward = (Camera.main.transform.position - speakingIndicator.transform.position).normalized;
+        legs.DisableLegsMovement = !LocalCanStand;
+        scarfCloth.externalAcceleration = 20 * World.WindIntensity * World.WindDirection;
+
+        if (ragdolled && LocalCanStand)
+        {
+            ragdolled = false;
+            for (int i = 0; i < bodyRbs.Count; i++)
+            {
+                bodyRbs[i].transform.localPosition = originalBodypartPositions[i];
+                bodyRbs[i].isKinematic = true;
+                bodyRbs[i].linearVelocity = Vector3.zero;
+                bodyRbs[i].angularVelocity = Vector3.zero;
+                bodyRbs[i].gameObject.layer = LayerMask.NameToLayer("PlayerBody");
+                bodyRbs[i].transform.localRotation = originalBodypartRotations[i];
+                anim.enabled = true;
+                foreach (var solver in legIKSolvers)
+                {
+                    solver.enabled = true;
+                }
+            }
+        }
+        if (!ragdolled && !LocalCanStand)
+        {
+            ragdolled = true;
+            for (int i = 0; i < bodyRbs.Count; i++)
+            {
+                bodyRbs[i].isKinematic = false;
+                bodyRbs[i].gameObject.layer = LayerMask.NameToLayer("OnlyTerrain");
+                anim.enabled = false;
+                foreach (var solver in legIKSolvers)
+                {
+                    solver.enabled = false;
+                }
+            }
+        }
 
         if (!IsOwner) { return; }
 
@@ -293,6 +357,7 @@ public class Player : NetworkBehaviour
         if (inChannel && ph.isAlive.Value) { VivoxManager.SetPosition(gameObject); }
         UIManager.SetMuteIcon(!VivoxManager.GetisMuted && inChannel);
         isSprinting.Value = pm.GetIsSprinting;
+        isKnockedOver.Value = currfalloverTime > 0;
         isTalking.Value = ph.isConscious.Value && participant != null && participant.SpeechDetected;
         blinkCurr -= Time.deltaTime;
         if (blinkCurr <= 0) { blinkCurr = Random.Range(2.1f, 2.6f); }
@@ -319,6 +384,11 @@ public class Player : NetworkBehaviour
                 scaledInput += new Vector2(Random.Range(-shockJitterIntensityMax, shockJitterIntensityMax) * ph.shock.Value, Random.Range(-shockJitterIntensityMax, shockJitterIntensityMax) * ph.shock.Value);
                 jitterCd = Random.Range(0.025f, 1f);
             }
+        }
+        if(MouseJitterIntensity > 0)
+        {
+            scaledInput += new Vector2(Random.Range(-MouseJitterIntensity, MouseJitterIntensity), Random.Range(-MouseJitterIntensity, MouseJitterIntensity));
+            MouseJitterIntensity -= Time.deltaTime * 5;
         }
         appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, scaledInput, (1 / Smoothing) * (1/driftSmoothing));
 

@@ -8,6 +8,10 @@ public enum HandSideEnum { Left, Right }
 public interface IItemBehaviour
 {
     /// <summary>
+    /// Called when the item is loaded into the inventory, no matter where it is (backpack, hotbar, offhand)
+    /// </summary>
+    public ItemData OnLoaded(ItemData item);
+    /// <summary>
     /// Called every frame on an item that is in either of your hands. side variable is which hand it is in, owner defines whether this is being called on owner or a client.
     /// </summary>
     public ItemData OnHeldUpdate(Transform hand, HandSideEnum side, ItemData item);

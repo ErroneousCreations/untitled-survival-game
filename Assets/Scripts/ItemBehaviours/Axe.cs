@@ -114,4 +114,9 @@ public class Axe : ScriptableObject, IItemBehaviour
     {
         return item;
     }
+
+    public ItemData OnLoaded(ItemData item)
+    {
+        return item;
+    }
 }

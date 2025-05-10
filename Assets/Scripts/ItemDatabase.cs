@@ -57,11 +57,18 @@ public struct ItemData : INetworkSerializable
 
     public ItemData(string saveditem)
     {
-        var split = saveditem.Split(',');
+        if(saveditem == "null")
+        {
+            ID = string.Empty;
+            SavedData = null;
+            TempData = null;
+            return;
+        }
+        var split = saveditem.Split('`');
         ID = split[0];
         SavedData = new List<FixedString128Bytes>();
         TempData = new List<float>();
-        if (split.Length <= 0) { return; }
+        if (split.Length < 2) { return; }
         for (int i = 1; i < split.Length; i++)
         {
             SavedData.Add(split[i]);
@@ -70,13 +77,14 @@ public struct ItemData : INetworkSerializable
 
     public override string ToString()
     {
+        if (!IsValid) { return "null"; }
         var returned = "";
         returned += ID;
         if(SavedData == null || SavedData.Count <= 0) { return returned; }
-        returned += ",";
+        returned += "`";
         foreach (var data in SavedData)
         {
-            returned += data + ",";
+            returned += data + "`";
         }
         return returned[..^1];
     }
