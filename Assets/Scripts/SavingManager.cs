@@ -282,11 +282,8 @@ public class SavingManager : NetworkBehaviour
         string localdata = savedata.Split('*')[0];
         string[] splitlocaldata = localdata.Split(';');
         GameManager.GetWorld.Init(int.Parse(splitlocaldata[0]), splitlocaldata[3].Split('\\'));
-        Debug.Log(splitlocaldata[2].Length);
-        var c = CompressString(splitlocaldata[2]);
-        Debug.Log(c.Length);
         instance.DoWorldFeaturesRPC(int.Parse(splitlocaldata[0]), CompressString(splitlocaldata[3]));
-        instance.LoadOthersRPC(CompressString(splitlocaldata[1]), c, CompressString(splitlocaldata[4]));
+        instance.LoadOthersRPC(CompressString(splitlocaldata[1]), CompressString(splitlocaldata[2]), CompressString(splitlocaldata[4]));
         instance.SavedPlayerData = new();
         foreach (var playerdata in splitlocaldata[4].Split('\\'))
         {
