@@ -27,6 +27,13 @@ public class MenuController : MonoBehaviour
 
     private static string CurrUsername;
 
+    private static MenuController instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public GameObject GameUI, LoadingScreen, MenuUI, HostUI, ClientUI, LobbyHostUI, LobbyClientUI;
 
     public void CopyJoinCodeToClipboard()
@@ -114,6 +121,11 @@ public class MenuController : MonoBehaviour
     public void SetUsername(string code)
     {
         PlayerPrefs.SetString("USERNAME", string.IsNullOrWhiteSpace(code) ? "NoName" : code.Replace("\r", ""));
+    }
+
+    public static void ToggleLoadingScreen(bool value)
+    {
+        instance.LoadingScreen.SetActive(value);
     }
 
     public async void HostButton()

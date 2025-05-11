@@ -158,15 +158,16 @@ public class UIManager : MonoBehaviour
 
     public static void FadeToGame()
     {
-        instance.LobbyUI.DOFade(0, 0.1f).onComplete += () => { instance.TransitionScreen.DOFade(0, 1.9f); };
+        instance.TransitionScreen.alpha = 1;
+        instance.TransitionScreen.DOFade(0, 2);
+
+        instance.LobbyUI.alpha = 0; 
         instance.LobbyUI.interactable = false;
         instance.LobbyUI.blocksRaycasts = false;
 
         instance.GameUI.alpha = 1;
         instance.GameUI.interactable = true;
         instance.GameUI.blocksRaycasts = true;
-
-        instance.TransitionScreen.alpha = 1;
     }
 
     public void ReadyupButton()

@@ -215,18 +215,17 @@ public class GameManager : NetworkBehaviour
     {
         instance.Gamemode.Value = GameModeEnum.Survival;
         instance.currentSaveFile = 0;
-        UIManager.SetGamemodeIndicator(GameModeEnum.Survival);
-        UIManager.SetSaveIndicator(0);
+        //UIManager.SetGamemodeIndicator(GameModeEnum.Survival);
+        //UIManager.SetSaveIndicator(0);
         UIManager.SetWorldInfo(SavingManager.GetWorldInfo(SavingManager.SaveFileLocationEnum.Survival, 0, out string info), info);
     }
 
     [Rpc(SendTo.Everyone)]
     private void ExitLobbyRPC(bool spawnplayer)
     {
-        if (spawnplayer) { RespawnPlayerRPC(NetworkManager.LocalClientId); }
+        if (spawnplayer) { RespawnPlayerRPC(NetworkManager.LocalClientId); UIManager.FadeToGame(); }
         if(!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
         if (inlobbychannel) { VivoxManager.LeaveLobbyChannel(); inlobbychannel = false; }
-        UIManager.FadeToGame();
     }
 
     public static void EnableSpectator()
