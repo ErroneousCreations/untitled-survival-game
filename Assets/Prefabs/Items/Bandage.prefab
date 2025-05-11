@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8844543076385187272}
   m_Layer: 8
   m_Name: Bandage
-  m_TagString: Untagged
+  m_TagString: WorldObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

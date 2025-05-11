@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7111092231201054731}
   - component: {fileID: 5123110904353326497}
   - component: {fileID: 7874413219769980838}
+  - component: {fileID: -8533151313348766323}
   m_Layer: 3
   m_Name: ChairB
   m_TagString: Untagged
@@ -69,6 +70,28 @@ MonoBehaviour:
   drops: []
   Health: 20
   BreakParticle: particle_sparks
+  mySaver: {fileID: -8533151313348766323}
+--- !u!114 &-8533151313348766323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550798694304671740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2efb4e4366d7c44e194ee031198c0693, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SavedObjectID: chairb
+  SavedData:
+  - 20
+  DataLoaded:
+    m_PersistentCalls:
+      m_Calls: []
+  DataLoaded_Data:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4736872897992533961
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,9 @@ using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
 using Unity.Collections;
 using System.IO;
+using UnityEngine.Tilemaps;
+using System.IO.Compression;
+using System.Text;
 
 public class SavingManager : NetworkBehaviour
 {
@@ -91,6 +94,7 @@ public class SavingManager : NetworkBehaviour
 
     private static string SavedItemDataToString(NetworkList<FixedString128Bytes> list)
     {
+        if(list == null || list.Count <= 0) { return ""; }
         string final = "";
         foreach (var item in list)
         {
@@ -125,6 +129,24 @@ public class SavingManager : NetworkBehaviour
         }
     }
 
+    private static byte[] CompressString(string input)
+    {
+        var bytes = Encoding.ASCII.GetBytes(input);
+        using var output = new MemoryStream();
+        using (var gzip = new GZipStream(output, System.IO.Compression.CompressionLevel.Optimal))
+            gzip.Write(bytes, 0, bytes.Length);
+        return output.ToArray();
+    }
+
+    private static string DecompressString(byte[] input)
+    {
+        using var inputstream = new MemoryStream(input);
+        using var gzip = new GZipStream(inputstream, CompressionMode.Decompress);
+        using var output = new MemoryStream();
+        gzip.CopyTo(output);
+        return Encoding.ASCII.GetString(output.ToArray());
+    }
+
     public static void Save(SaveFileLocationEnum loc, int slot)
     {
         CheckDirectories();
@@ -137,18 +159,24 @@ public class SavingManager : NetworkBehaviour
         }
         savedata = savedata[..^1];
         savedata += ";";
-        foreach (var item in SavedObject.SAVEDOBJECTS)
+        if(SavedObject.SAVEDOBJECTS.Count <= 0) { savedata += "null"; }
+        else
         {
-            savedata += $"{item.SavedObjectID},{VecToString(item.transform.position)},{VecToString(item.transform.eulerAngles)},{StrListToString(item.SavedData)}\\";
+            foreach (var item in SavedObject.SAVEDOBJECTS)
+            {
+                var saved = StrListToString(item.SavedData);
+                savedata += $"{item.SavedObjectID},{VecToString(item.transform.position)},{VecToString(item.transform.eulerAngles)}{(saved.Length > 0 ? ","+saved : "")}\\";
+            }
+            savedata = savedata[..^1];
         }
-        savedata = savedata[..^1];
         savedata += ";";
         foreach (var wfl in World.GetWorldFeatures)
         {
             foreach (var wf in wfl)
             {
+                if (wf == null) { savedata += "-1|"; continue; }
                 var wfsaved = wf.GetSavedData;
-                savedata += wf ? $"{wf.GetFeatureType}{(string.IsNullOrEmpty(wfsaved) ? "" : ","+wfsaved)}|" : "-1|";
+                savedata += $"{wf.GetFeatureType}{(string.IsNullOrEmpty(wfsaved) ? "" : ","+wfsaved)}|";
             }
             savedata = savedata[..^1];
             savedata += "\\";
@@ -198,33 +226,48 @@ public class SavingManager : NetworkBehaviour
         }
         savedata = savedata[..^1];
         savedata += "*"; //* delineates the end of the non-networked savedata
+        bool addedanything = false;
         foreach (var item in PickupableItem.ITEMS)
         {
-            savedata += $"{item.itemCode},{VecToString(item.transform.position)},{VecToString(item.transform.eulerAngles)},{SavedItemDataToString(item.CurrentSavedData)}\\";
+            var saved = SavedItemDataToString(item.CurrentSavedData);
+            savedata += $"{item.itemCode},{VecToString(item.transform.position)},{VecToString(item.transform.eulerAngles)}{(saved.Length > 0 ? ","+saved : "")}\\";
+            addedanything = true;
         }
         foreach (var corpse in PlayerCorpseProxy.CORPSES) //save embedded items from corpses :3
         {
             savedata += corpse.GetSavedItemsFromCorpse;
+            addedanything = true;
         }
-        savedata = savedata[..^1];
+        if(!addedanything) { savedata += "null"; }
+        else { savedata = savedata[..^1]; }
         savedata += ";";
-        foreach (var wfl in World.GetNetWorldFeatures)
+        if(World.GetNetWorldFeatures.Count <= 0) { savedata += "null"; }
+        else
         {
-            foreach (var wf in wfl)
+            foreach (var wfl in World.GetNetWorldFeatures)
             {
-                var wfsaved = wf.GetSavedData;
-                savedata += wf ? $"{wf.GetFeatureType}{(string.IsNullOrEmpty(wfsaved) ? "" : "," + wfsaved)}|" : "-1|";
+                foreach (var wf in wfl)
+                {
+                    if (wf == null) { savedata += "-1|"; continue; }
+                    var wfsaved = wf.GetSavedData;
+                    savedata += $"{wf.GetFeatureType}{(string.IsNullOrEmpty(wfsaved) ? "" : "," + wfsaved)}|";
+                }
+                savedata = savedata[..^1];
+                savedata += "\\";
             }
             savedata = savedata[..^1];
-            savedata += "\\";
         }
-        savedata = savedata[..^1];
         savedata += ";";
-        foreach (var item in SavedNetObject.SAVEDNETOBJECTS)
+        if(SavedNetObject.SAVEDNETOBJECTS.Count <= 0) { savedata += "null"; }
+        else
         {
-            savedata += $"{item.SavedObjectID},{SavedItemDataToString(item.SavedData)}\\";
+            foreach (var item in SavedNetObject.SAVEDNETOBJECTS)
+            {
+                var saved = SavedItemDataToString(item.SavedData);
+                savedata += $"{item.SavedObjectID},{VecToString(item.transform.position)},{VecToString(item.transform.eulerAngles)}{(saved.Length > 0 ? "," + saved : "")}\\";
+            }
+            savedata = savedata[..^1];
         }
-        savedata = savedata[..^1];
         File.WriteAllText(targetpath, savedata);
     }
 
@@ -239,8 +282,11 @@ public class SavingManager : NetworkBehaviour
         string localdata = savedata.Split('*')[0];
         string[] splitlocaldata = localdata.Split(';');
         GameManager.GetWorld.Init(int.Parse(splitlocaldata[0]), splitlocaldata[3].Split('\\'));
-        instance.DoWorldFeaturesRPC(int.Parse(splitlocaldata[0]), splitlocaldata[3]);
-        instance.LoadOthersRPC(splitlocaldata[1], splitlocaldata[2], splitlocaldata[4]);
+        Debug.Log(splitlocaldata[2].Length);
+        var c = CompressString(splitlocaldata[2]);
+        Debug.Log(c.Length);
+        instance.DoWorldFeaturesRPC(int.Parse(splitlocaldata[0]), CompressString(splitlocaldata[3]));
+        instance.LoadOthersRPC(CompressString(splitlocaldata[1]), c, CompressString(splitlocaldata[4]));
         instance.SavedPlayerData = new();
         foreach (var playerdata in splitlocaldata[4].Split('\\'))
         {
@@ -250,48 +296,60 @@ public class SavingManager : NetworkBehaviour
 
         string serverdata = savedata.Split('*')[1];
         var splitserverdata = serverdata.Split(';');
-        foreach (var item in splitserverdata[0].Split('\\'))
+        if (splitserverdata[0] != "null")
         {
-            var split = item.Split(',');
-            if (!ItemDatabase.ItemExists(split[0])) { continue; }
-            var savedobj = Instantiate(ItemDatabase.GetItem(split[0]).ItemPrefab, new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3])), Quaternion.Euler(float.Parse(split[4]), float.Parse(split[5]), float.Parse(split[6])));
-            savedobj.NetworkObject.Spawn();
-            if(split.Length < 8) { continue; } //no saved data
-            var savedobjdata = new List<FixedString128Bytes>();
-            for (int i = 7; i < split.Length; i++)
+            foreach (var item in splitserverdata[0].Split('\\'))
             {
-                savedobjdata.Add(split[i]);
-            }
-            savedobj.InitSavedData(savedobjdata);
-        }
-        GameManager.GetWorld.LoadNetWorldFeatures(splitserverdata[1].Split('\\'));
-        foreach (var item in splitserverdata[2].Split('\\'))
-        {
-            var split = item.Split(',');
-            if (!instance.SavedNetObjects.ContainsKey(split[0])) { continue; }
-            var savedobj = Instantiate(instance.SavedNetObjects[split[0]], Vector3.zero, Quaternion.identity);
-            savedobj.NetworkObject.Spawn();
-            var savedobjdata = new List<string>();
-            if (split.Length > 7)
-            {
+                var split = item.Split(',');
+                if (!ItemDatabase.ItemExists(split[0])) { continue; }
+                var savedobj = Instantiate(ItemDatabase.GetItem(split[0]).ItemPrefab, new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3])), Quaternion.Euler(float.Parse(split[4]), float.Parse(split[5]), float.Parse(split[6])));
+                savedobj.NetworkObject.Spawn();
+                if (split.Length < 8) { continue; } //no saved data
+                var savedobjdata = new List<FixedString128Bytes>();
                 for (int i = 7; i < split.Length; i++)
                 {
                     savedobjdata.Add(split[i]);
                 }
+                savedobj.InitSavedData(savedobjdata);
             }
-            savedobj.Init(savedobjdata, new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3])), new Vector3(float.Parse(split[4]), float.Parse(split[5]), float.Parse(split[6])));
+        }
+        if(splitserverdata[1] != "null") { GameManager.GetWorld.LoadNetWorldFeatures(splitserverdata[1].Split('\\')); }
+        if (splitserverdata[2] != "null")
+        {
+            foreach (var item in splitserverdata[2].Split('\\'))
+            {
+                var split = item.Split(',');
+                if (!instance.SavedNetObjects.ContainsKey(split[0])) { continue; }
+                var savedobj = Instantiate(instance.SavedNetObjects[split[0]], Vector3.zero, Quaternion.identity);
+                savedobj.NetworkObject.Spawn();
+                var savedobjdata = new List<string>();
+                if (split.Length > 7)
+                {
+                    for (int i = 7; i < split.Length; i++)
+                    {
+                        savedobjdata.Add(split[i]);
+                    }
+                }
+                savedobj.Init(savedobjdata, new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3])), new Vector3(float.Parse(split[4]), float.Parse(split[5]), float.Parse(split[6])));
+            }
         }
     }
 
     [Rpc(SendTo.NotServer)]
-    private void DoWorldFeaturesRPC(int seed, string worldfeatures)
+    private void DoWorldFeaturesRPC(int seed, byte[] Wfeatures)
     {
-        GameManager.GetWorld.Init(seed, worldfeatures.Split('\\'));
+        GameManager.GetWorld.Init(seed, DecompressString(Wfeatures).Split('\\'));
     }
 
     [Rpc(SendTo.Everyone)]
-    private void LoadOthersRPC(string worlddata, string savedobjects, string playerdata)
+    private void LoadOthersRPC(byte[] Wdata, byte[] Sobs, byte[] Pdata)
     {
+        GameManager.RespawnPlayer();
+
+        string worlddata = DecompressString(Wdata);
+        string savedobjects = DecompressString(Sobs);
+        string playerdata = DecompressString(Pdata);
+
         string[] splitworlddata = worlddata.Split('\\');
         CurrentWorldData = new(DefaultWorldData);
         foreach (var wd in splitworlddata)
@@ -299,21 +357,24 @@ public class SavingManager : NetworkBehaviour
             var split = wd.Split(',');
             if(CurrentWorldData.ContainsKey(split[0])) { CurrentWorldData[split[0]] = split[1]; }
         }
-        string[] splitobjects = savedobjects.Split('\\');
-        foreach (var obj in splitobjects)
-        {
-            var split = obj.Split(',');
-            if (SavedObjects.ContainsKey(split[0]))
+        if(savedobjects != "null") {
+            string[] splitobjects = savedobjects.Split('\\');
+            foreach (var obj in splitobjects)
             {
-                var savedobj = Instantiate(instance.SavedObjects[split[0]], Vector3.zero, Quaternion.identity);
-                var savedobjdata = new List<string>();
-                if(split.Length > 7) {
-                    for (int i = 7; i < split.Length; i++)
+                var split = obj.Split(',');
+                if (SavedObjects.ContainsKey(split[0]))
+                {
+                    var savedobj = Instantiate(instance.SavedObjects[split[0]], Vector3.zero, Quaternion.identity);
+                    var savedobjdata = new List<string>();
+                    if (split.Length > 7)
                     {
-                        savedobjdata.Add(split[i]);
+                        for (int i = 7; i < split.Length; i++)
+                        {
+                            savedobjdata.Add(split[i]);
+                        }
                     }
-                } 
-                savedobj.Init(savedobjdata, new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3])), new Vector3(float.Parse(split[4]), float.Parse(split[5]), float.Parse(split[6])));
+                    savedobj.Init(savedobjdata, new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3])), new Vector3(float.Parse(split[4]), float.Parse(split[5]), float.Parse(split[6])));
+                }
             }
         }
         var splitplayerdata = playerdata.Split('\\');
@@ -331,11 +392,51 @@ public class SavingManager : NetworkBehaviour
                 playerobj.ph.consciousness.Value = data.consciousness;
                 playerobj.ph.shock.Value = data.shock;
                 playerobj.ph.hunger.Value = data.hunger;
-                playerobj.transform.position = data.position;
+                playerobj.Teleport(data.position);
                 playerobj.transform.eulerAngles = new Vector3(0, data.rotation, 0);
                 playerobj.pi.InitFromSavedData(data.InventoryData);
                 playerobj.ph.ApplySavedWounds(data.WoundsData);
             }
+        }
+    }
+
+    public static bool GetWorldInfo(SaveFileLocationEnum type, int save, out string info)
+    {
+        if (File.Exists(Application.dataPath + SAVE_LOCATIONS[(int)type] + $"/{save + 1}.sav"))
+        {
+            var data = File.ReadAllText(Application.dataPath + SAVE_LOCATIONS[(int)type] + $"/{save + 1}.sav");
+            var split = data.Split('*')[0].Split(';');
+            var day = "0";
+            var worlddata = split[1].Split('\\');
+            foreach (var wd in worlddata)
+            {
+                var splitwd = wd.Split(',');
+                if (splitwd[0] == "day")
+                {
+                    day = splitwd[1];
+                    break;
+                }
+            }
+            info = $"Seed: {split[0]}\nDay: {day}";
+            return true;
+        }
+        else
+        {
+            info = "Create new world";
+            return false;
+        }
+    }
+
+    public static bool WorldExists(SaveFileLocationEnum type, int save)
+    {
+        return File.Exists(Application.dataPath + SAVE_LOCATIONS[(int)type] + $"/{save + 1}.sav");
+    }
+
+    public static void DeleteWorld(SaveFileLocationEnum type, int save)
+    {
+        if (WorldExists(type, save))
+        {
+            File.Delete(Application.dataPath + SAVE_LOCATIONS[(int)type] + $"/{save + 1}.sav");
         }
     }
 }

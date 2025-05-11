@@ -7,6 +7,10 @@ using UnityEngine.Audio;
 using Unity.Collections;
 using System.Collections;
 using DitzelGames.FastIK;
+using static UnityEditor.ShaderData;
+using Unity.VisualScripting;
+using UnityEditor.TerrainTools;
+using static UnityEditor.PlayerSettings;
 
 public class Player : NetworkBehaviour
 {
@@ -98,6 +102,7 @@ public class Player : NetworkBehaviour
     public static Player LocalPlayer { get; private set; }
 
     public static Vector3 GetLocalPlayerCentre => LocalPlayer.transform.TransformPoint(LocalPlayer.pm.crouchCollider.center);
+    public  Vector3 GetPlayerCentre => transform.TransformPoint(pm.crouchCollider.center);
 
     public static bool GetLocalPlayerInvBusy => LocalPlayer.pi.GetBusy;
 
@@ -106,6 +111,8 @@ public class Player : NetworkBehaviour
     public string GetUsername => username.Value.ToString();
 
     public static Dictionary<ulong, Player> PLAYERBYID = new();
+
+    public static List<Player> PLAYERS = new();
 
     private int GetFace
     {
@@ -154,10 +161,49 @@ public class Player : NetworkBehaviour
         ph.ApplyDamage(damage, DamageType.Blunt, contactpos, contactnorm); // Or however your system takes damage
     }
 
+    private void Died()
+    {
+        if(!IsOwner) { return; }
+        if (hungerAudioRoutine != null)
+        {
+            StopCoroutine(hungerAudioRoutine);
+            hungerAudioRoutine = null;
+        }
+        Mixer.SetFloat("LowPass", 11000f);
+        Mixer.SetFloat("PitchShift", 1);
+        ScreenEffectsManager.SetVignette(0);
+        ScreenEffectsManager.SetSaturation(0);
+        ScreenEffectsManager.SetAberration(0);
+        ScreenEffectsManager.SetMotionBlur(0);
+    }
+
     public void KnockOver(float time)
     {
         currfalloverTime = time;
         currStandForce = 0;
+    }
+
+    public void Teleport(Vector3 pos)
+    {
+        TeleportRPC(pos);
+    }
+
+    [Rpc(SendTo.Owner, RequireOwnership = false)]
+    private void TeleportRPC(Vector3 pos)
+    {
+        StartCoroutine(WhattheFuck(pos)); // teleport to the position
+    }
+
+    IEnumerator WhattheFuck(Vector3 pos)
+    {
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
     }
 
     public override void OnNetworkSpawn()
@@ -207,11 +253,14 @@ public class Player : NetworkBehaviour
             rend.material = skinMat;
         }
         PLAYERBYID.Add(OwnerClientId, this);
+        PLAYERS.Add(this);
+        OnDied += Died; // subscribe to the death event
     }
 
     private void OnDisable()
     {
         if(PLAYERBYID.ContainsKey(OwnerClientId)) { PLAYERBYID.Remove(OwnerClientId); } // remove player from dictionary
+        if (PLAYERS.Contains(this)) { PLAYERS.Remove(this); } // remove player from list
     }
 
     IEnumerator HungerSoundLoop()
@@ -326,7 +375,7 @@ public class Player : NetworkBehaviour
         if (!IsOwner) { return; }
 
         // Muffle sound with low-pass filter
-        float cutoff = ph.isConscious.Value ? Mathf.Lerp(11000f, 400f, Mathf.Clamp01(1f - ph.consciousness.Value)) : 22000f;
+        float cutoff =  Mathf.Lerp(11000f, 400f, Mathf.Clamp01(1f - ph.consciousness.Value));
         Mixer.SetFloat("LowPass", cutoff);
 
         // Lower pitch slightly
@@ -334,7 +383,11 @@ public class Player : NetworkBehaviour
         Mixer.SetFloat("PitchShift", pitch);
 
         //heartbeat
-        if (ph.isConscious.Value) { ScreenEffectsManager.SetVignette(1 - ph.consciousness.Value); }
+
+        if (ph.isConscious.Value) { 
+            if(isKnockedOver.Value && PlayerPrefs.GetInt("HEADBOB", 0) == 1) { ScreenEffectsManager.SetVignette(1f); } // give tunnel vision if the motion sickness setting is on
+            else { ScreenEffectsManager.SetVignette(1 - ph.consciousness.Value); }
+        }
         else if (ph.heartBeating.Value)
         {
             beatTimer += Time.deltaTime;

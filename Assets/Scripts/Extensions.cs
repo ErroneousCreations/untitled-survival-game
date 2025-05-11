@@ -21,31 +21,32 @@ public static class Extensions
         return Mathf.Abs(hash % range);
     }
 
-    public static Vector3 GetCloseSpawnPoint
+    public static Vector3 GetSurvivalSpawnPoint
     {
         get
         {
-            var points = GameObject.FindGameObjectsWithTag("CloseSpawn");
+            var points = GameObject.FindGameObjectsWithTag("SVSpawn");
+            if (points.Length == 0) { return Vector3.zero; }
+            var result = points[Random.Range(0, points.Length)].transform.position;
+            return result;
+        }
+    }
+
+    public static Vector3 GetDeathmatchSpawnPoint
+    {
+        get
+        {
+            var points = GameObject.FindGameObjectsWithTag("DMSpawn");
             if (points.Length == 0) { return Vector3.zero; }
             return points[Random.Range(0, points.Length)].transform.position;
         }
     }
 
-    public static Vector3 GetMidSpawnPoint
+    public static Vector3 GetTeamDeathmatchSpawnPoint
     {
         get
         {
-            var points = GameObject.FindGameObjectsWithTag("MidSpawn");
-            if (points.Length == 0) { return Vector3.zero; }
-            return points[Random.Range(0, points.Length)].transform.position;
-        }
-    }
-
-    public static Vector3 GetFarSpawnPoint
-    {
-        get
-        {
-            var points = GameObject.FindGameObjectsWithTag("FarSpawn");
+            var points = GameObject.FindGameObjectsWithTag("TDMSpawn");
             if (points.Length == 0) { return Vector3.zero; }
             return points[Random.Range(0, points.Length)].transform.position;
         }

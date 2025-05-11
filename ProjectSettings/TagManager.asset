@@ -5,9 +5,12 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ladder
-  - CloseSpawn
   - Building
   - Ground
+  - SVSpawn
+  - DMSpawn
+  - TDMSpawn
+  - WorldObject
   layers:
   - Default
   - TransparentFX

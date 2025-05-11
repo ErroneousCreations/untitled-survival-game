@@ -372,7 +372,7 @@ public class PlayerHealthController : NetworkBehaviour
 
         MusicManager.AddThreatLevel(damage*1.1f);
 
-        if ((pos - transform.TransformPoint(new Vector3(heartLocalPos.x, heartLocalPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, heartLocalPos.z))).sqrMagnitude < heartRadius * heartRadius && type == DamageType.Stab && damage >= 30)
+        if ((pos - transform.TransformPoint(new Vector3(heartLocalPos.x, heartLocalPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, heartLocalPos.z))).sqrMagnitude < heartRadius * heartRadius && type == DamageType.Stab && damage >= 40)
         {
             Die("Heart pierced");
             return;
@@ -383,7 +383,7 @@ public class PlayerHealthController : NetworkBehaviour
         {
             wasinHead = true;
             consciousness.Value -= damage / 45f;
-            headHealth.Value -= damage / 75f;
+            headHealth.Value -= (damage / 70f) * (embeddedob ? 1.8f : 1);
             headhealthRegenCd = 30;
         }
         else if ((pos - transform.TransformPoint(new Vector3(legsPos.x, legsPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, legsPos.z))).sqrMagnitude < legsRadius * legsRadius)
@@ -397,7 +397,7 @@ public class PlayerHealthController : NetworkBehaviour
             bodyHealthRegenCd = 30;
         }
 
-        player.MouseJitterIntensity = damage * 0.3f;
+        player.MouseJitterIntensity = damage * 0.19f;
 
         if(damage > (type == DamageType.Stab ? 55 : 65) && Random.value <= 0.8f)
         {

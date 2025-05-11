@@ -158,6 +158,11 @@ public class PlayerInventory : NetworkBehaviour
         var split = data.Split('|');
         leftHand.Value = new ItemData(split[0]);
         currEquippedSlot = int.Parse(split[1]);
+
+        //make sure the hotbar exists
+        hotbar = new();
+        for (int i = 0; i < maxHotbarSize; i++) hotbar.Add(ItemData.Empty);
+
         for (int i = 0; i < maxHotbarSize; i++)
         {
             hotbar[i] = new ItemData(split[i + 2]);
@@ -546,7 +551,7 @@ public class PlayerInventory : NetworkBehaviour
         {
             if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + i))) //if theyre both invalid dont bother lmao
             {
-                if(!(!rightHand.Value.IsValid && !hotbar[i].IsValid)) { currEquippedSlot = i; }
+                if(!rightHand.Value.IsValid && !hotbar[i].IsValid) { currEquippedSlot = i; }
                 else { StartCoroutine(SwapHotbarItem(i)); }
             }
         }

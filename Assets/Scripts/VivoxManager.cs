@@ -39,12 +39,14 @@ public class VivoxManager : MonoBehaviour
     }
 
     public static bool InMainChannel => VivoxService.Instance.ActiveChannels.ContainsKey(DEFAULTCHANNEL) && VivoxService.Instance.ActiveChannels[DEFAULTCHANNEL].FirstOrDefault(part => part.DisplayName==Extensions.UniqueIdentifier)!=null;
+    public static bool InLobbyChannel => VivoxService.Instance.ActiveChannels.ContainsKey(LOBBYCHANNEL) && VivoxService.Instance.ActiveChannels[LOBBYCHANNEL].FirstOrDefault(part => part.DisplayName == Extensions.UniqueIdentifier) != null;
+    public static bool InSpectatorChannel => VivoxService.Instance.ActiveChannels.ContainsKey(SPECTATECHANNEL) && VivoxService.Instance.ActiveChannels[SPECTATECHANNEL].FirstOrDefault(part => part.DisplayName == Extensions.UniqueIdentifier) != null;
 
     public static int GetChannelCount => VivoxService.Instance.ActiveChannels.Count;
 
     public static async void JoinMainChannel(System.Action calledonComplete = null)
     {
-        await VivoxService.Instance.JoinPositionalChannelAsync(DEFAULTCHANNEL, ChatCapability.AudioOnly, new(30, 10, 0.1f, AudioFadeModel.ExponentialByDistance));
+        await VivoxService.Instance.JoinPositionalChannelAsync(DEFAULTCHANNEL, ChatCapability.AudioOnly, new(30, 10, 1f, AudioFadeModel.ExponentialByDistance));
         calledonComplete?.Invoke();
     }
 
@@ -54,9 +56,10 @@ public class VivoxManager : MonoBehaviour
         calledonComplete?.Invoke();
     }
 
-    public static void JoinSpectateChannel()
+    public static void JoinSpectateChannel(System.Action calledonComplete = null)
     {
         VivoxService.Instance.JoinGroupChannelAsync(SPECTATECHANNEL, ChatCapability.AudioOnly);
+        calledonComplete?.Invoke();
     }
 
     public static async void JoinTestChannel(System.Action calledonComplete = null)

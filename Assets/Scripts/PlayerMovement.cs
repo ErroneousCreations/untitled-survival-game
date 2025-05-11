@@ -1,7 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
 using System.Collections.Generic;
-using UnityEngine.SocialPlatforms;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : NetworkBehaviour
@@ -310,6 +309,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Headbob()
     {
+        if(PlayerPrefs.GetInt("HEADBOB", 0) == 1) { return; }
         Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         float speed = horizontalVelocity.magnitude;
 

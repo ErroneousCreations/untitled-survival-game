@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 using Unity.Jobs;
+using Unity.VisualScripting;
 
 public class World : NetworkBehaviour
 {
@@ -214,7 +215,7 @@ public class World : NetworkBehaviour
 
     private void LoadRaycastedWorldFeatures(string[] loadedfeatures)
     {
-        for (int i = worldFeatures.Count; i < loadedfeatures.Length; i++)
+        for (int i = worldFeatures.Count, x = 0; i < loadedfeatures.Length; i++, x++)
         {
             var split = loadedfeatures[i].Split('|');
             spawnedWorldFeatures.Add(new());
@@ -226,12 +227,13 @@ public class World : NetworkBehaviour
                 var savedataarray = new string[wfsplit.Length - 1];
                 System.Array.Copy(wfsplit, 1, savedataarray, 0, wfsplit.Length - 1);
                 string savedata = string.Join(",", savedataarray);
-                if (raycastedWorldFeatures[i].FeatureTypes[typeindex] != null)
+                if (raycastedWorldFeatures[x].FeatureTypes[typeindex] != null)
                 {
-                    var spawnedFeature = Instantiate(raycastedWorldFeatures[i].FeatureTypes[typeindex], raycastedWorldFeatures[i].SpawnCentres[j].position, raycastedWorldFeatures[i].SpawnCentres[j].rotation, raycastedWorldFeatures[i].SpawnCentres[j]);
+                    var spawnindex = j % raycastedWorldFeatures[x].SpawnCentres.Count;
+                    var spawnedFeature = Instantiate(raycastedWorldFeatures[x].FeatureTypes[typeindex], raycastedWorldFeatures[x].SpawnCentres[spawnindex].position, raycastedWorldFeatures[x].SpawnCentres[spawnindex].rotation, raycastedWorldFeatures[x].SpawnCentres[spawnindex]);
                     spawnedFeature.Init(i, j, typeindex);
                     spawnedFeature.LoadFromSavedData(savedata);
-                    spawnedFeature.name = worldFeatures[i].name + "_" + j + "_" + typeindex;
+                    spawnedFeature.name = raycastedWorldFeatures[x].name + "_" + j + "_" + typeindex;
                     spawnedWorldFeatures[i].Add(spawnedFeature);
                 }
             }

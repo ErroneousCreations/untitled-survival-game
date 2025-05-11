@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Text;
+using DG.Tweening;
 
 public class MenuController : MonoBehaviour
 {
@@ -14,12 +15,15 @@ public class MenuController : MonoBehaviour
     public Slider SensSlider;
     public TMP_Text SensTitle, JoinCodeText;
     public Button HostButtonUI, JoinButton;
-    private bool inmenu;
+    public Toggle MotionSicknessToggle;
+    private bool inmenu, reset;
 
     public TMP_Dropdown AudioInputs;
     public Slider InputVolume, OutputVolume;
     public TMP_Text InputVolumeText, OutputVolumeText;
     public GameObject LoadingIcon;
+
+    public CanvasGroup Main, Settings, Play;
 
     private static string CurrUsername;
 
@@ -63,6 +67,7 @@ public class MenuController : MonoBehaviour
         HostButtonUI.interactable = false;
         JoinButton.interactable = false;
         UsernameInput.text = PlayerPrefs.GetString("USERNAME", "NoName");
+        MotionSicknessToggle.isOn = PlayerPrefs.GetInt("HEADBOB", 0) == 1;
         VivoxManager.InitialisationComplete += () =>
         {
             HostButtonUI.interactable = true;
@@ -88,6 +93,11 @@ public class MenuController : MonoBehaviour
             options.Add(device.DeviceName);
         }
         AudioInputs.AddOptions(options);
+    }
+
+    public void ToggleHeadbob(bool value)
+    {
+        PlayerPrefs.SetInt("HEADBOB", value ? 1 : 0);
     }
 
     public void SetInputDevice(int index)
@@ -182,6 +192,7 @@ public class MenuController : MonoBehaviour
             LobbyHostUI.SetActive(NetworkManager.Singleton.IsServer);
             LobbyClientUI.SetActive(!NetworkManager.Singleton.IsServer);
             GameUI.SetActive(true);
+            if (!reset) { GameManager.ResetGamemode(); reset = true; }
             if (NetworkManager.Singleton.IsHost) { HostUI.SetActive(true); ClientUI.SetActive(false); JoinCodeText.text = Relay.CurrentJoinCode; }
             else { HostUI.SetActive(false); ClientUI.SetActive(true); }
             MenuUI.SetActive(false);
@@ -286,6 +297,54 @@ public class MenuController : MonoBehaviour
                 JoinButton.interactable = !VivoxManager.LeavingChannel;
             }
         }
+    }
+
+    public void ShowMain()
+    {
+        Main.DOKill();
+        Main.DOFade(1, 0.5f);
+        Main.interactable = true;
+        Main.blocksRaycasts = true;
+        Settings.DOKill();
+        Settings.DOFade(0, 0.5f);
+        Settings.interactable = false;
+        Settings.blocksRaycasts = false;
+        Play.DOKill();
+        Play.DOFade(0, 0.5f);
+        Play.interactable = false;
+        Play.blocksRaycasts = false;
+    }
+
+    public void ShowSettings()
+    {
+        Main.DOKill();
+        Main.DOFade(0, 0.5f);
+        Main.interactable = false;
+        Main.blocksRaycasts = false;
+        Settings.DOKill();
+        Settings.DOFade(1, 0.5f);
+        Settings.interactable = true;
+        Settings.blocksRaycasts = true;
+        Play.DOKill();
+        Play.DOFade(0, 0.5f);
+        Play.interactable = false;
+        Play.blocksRaycasts = false;
+    }
+
+    public void ShowPlay()
+    {
+        Main.DOKill();
+        Main.DOFade(0, 0.5f);
+        Main.interactable = false;
+        Main.blocksRaycasts = false;
+        Settings.DOKill();
+        Settings.DOFade(0, 0.5f);
+        Settings.interactable = false;
+        Settings.blocksRaycasts = false;
+        Play.DOKill();
+        Play.DOFade(1, 0.5f);
+        Play.interactable = true;
+        Play.blocksRaycasts = true;
     }
 
     public void Quit()

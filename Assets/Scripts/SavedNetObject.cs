@@ -8,7 +8,7 @@ public class SavedNetObject : NetworkBehaviour
     public static List<SavedNetObject> SAVEDNETOBJECTS = new();
 
     public string SavedObjectID;
-    public NetworkList<FixedString128Bytes> SavedData;
+    public NetworkList<FixedString128Bytes> SavedData = new();
 
     public System.Action OnDataLoaded;
     public UnityEngine.Events.UnityEvent DataLoaded;

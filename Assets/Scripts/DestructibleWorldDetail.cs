@@ -12,12 +12,25 @@ public class DestructibleWorldDetail : MonoBehaviour
     [SerializeField]private List<LootDropStruct> drops;
     public float Health;
     public string BreakParticle;
+    public SavedObject mySaver;
 
     private void Awake()
     {
         ObjectID = Mathf.RoundToInt(transform.position.x * 1000) + Mathf.RoundToInt(transform.position.y * 1000);
         CurrHealth = Health;
         WorldDetailManager.RegisterObject(this);
+        Invoke(nameof(SetHealth), 0.01f);
+    }
+
+    void SetHealth()
+    {
+        if (mySaver)
+        {
+            if (mySaver.SavedData.Count > 0)
+            {
+                CurrHealth = float.Parse(mySaver.SavedData[0]);
+            }
+        }
     }
 
     private void OnDestroy()
@@ -31,7 +44,8 @@ public class DestructibleWorldDetail : MonoBehaviour
     public void _RemoveHealth(float damage)
     {
         CurrHealth -= damage;
-        if(CurrHealth <= 0)
+        if (mySaver) { mySaver.SavedData[0] = System.Math.Round(CurrHealth, 2).ToString(); }
+        if (CurrHealth <= 0)
         {
             if (NetworkManager.Singleton.IsServer)
             {

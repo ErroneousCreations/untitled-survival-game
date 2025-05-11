@@ -4,6 +4,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using System.Collections;
 using TMPro;
+using Unity.Netcode;
 
 public class UIManager : MonoBehaviour
 {
@@ -42,6 +43,18 @@ public class UIManager : MonoBehaviour
                 currDisplayCoroutine = StartCoroutine(DisplayRegionTitle());
             }
         }
+        if (!NetworkManager.Singleton) { return; }
+        foreach (var butt in GamemodeButtons)
+        {
+            butt.interactable = NetworkManager.Singleton.IsServer;
+        }
+
+        foreach (var butt in SaveslotButtons)
+        {
+            butt.interactable = NetworkManager.Singleton.IsServer;
+        }
+
+        SeedInput.interactable = NetworkManager.Singleton.IsServer;
     }
 
     public static bool GetPauseMenuOpen => instance.pauseMenu.activeSelf;
@@ -70,15 +83,18 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject gameOverScreen, respawnButton;
     [SerializeField] private CanvasGroup deathText;
+    [SerializeField] private TMP_Text respawnbuttonText;
 
     public void Respawn()
     {
-        GameManager.RespawnPlayer();
+        if(GameManager.GetGameMode == GameModeEnum.Survival) { GameManager.RespawnPlayer(); }
+        else { GameManager.EnableSpectator(); }
         HideGameOverScreen();
     }
 
     public static void ShowGameOverScreen()
     {
+        instance.respawnbuttonText.text = GameManager.GetGameMode == GameModeEnum.Survival ? "Respawn" : "Spectate";
         instance.gameOverScreen.SetActive(true);
         instance.deathText.alpha = 0;
         instance.deathText.DOKill();
@@ -251,5 +267,55 @@ public class UIManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("SKINTEX", (int)value);
         LobbySkinIndicator.sprite = LobbySkinTones[PlayerPrefs.GetInt("SKINTEX", 0)];
+    }
+
+    [SerializeField] private List<Button> GamemodeButtons, SaveslotButtons;
+    [SerializeField] private Transform selectedGamemode, selectedSaveslot;
+    [SerializeField] private TMP_Text WorldInfoText;
+    [SerializeField] private TMP_InputField SeedInput;
+    [SerializeField] private GameObject DeleteWorldButton;
+
+    public void SelectGamemode(int gamemode)
+    {
+        GameManager.SetGamemode((GameModeEnum)gamemode);
+    }
+
+    public void SelectSaveslot(int slot)
+    {
+        GameManager.SetSave(slot);
+    }
+
+    public void SetSeed(string seed)
+    {
+        GameManager.SetSeed(seed);
+    }
+
+    public void DeleteSave()
+    {
+        GameManager.DeleteSave();
+    }
+
+    public static void SetSeedText(string text)
+    {
+        instance.SeedInput.text = text;
+    }
+
+    public static void SetWorldInfo(bool worldexists, string text)
+    {
+        instance.WorldInfoText.text = text;
+        instance.WorldInfoText.gameObject.SetActive(true);
+        instance.SeedInput.gameObject.SetActive(!worldexists);
+        instance.DeleteWorldButton.SetActive(worldexists);
+        instance.SeedInput.text = "";
+    }
+
+    public static void SetGamemodeIndicator(GameModeEnum mode)
+    {
+        instance.selectedGamemode.transform.position = instance.GamemodeButtons[(int)mode].transform.position;
+    }
+
+    public static void SetSaveIndicator(int save)
+    {
+        instance.selectedSaveslot.transform.position = instance.SaveslotButtons[(int)save].transform.position;
     }
 }

@@ -9,7 +9,9 @@ public class SavedObject : MonoBehaviour
     public List<string> SavedData;
 
     public System.Action OnDataLoaded;
+    public System.Action<List<string>> OnDataLoaded_Data;
     public UnityEngine.Events.UnityEvent DataLoaded;
+    public UnityEngine.Events.UnityEvent<List<string>> DataLoaded_Data;
 
     private void OnEnable()
     {
@@ -27,5 +29,7 @@ public class SavedObject : MonoBehaviour
         SavedData = new(saveddata);
         OnDataLoaded?.Invoke();
         DataLoaded?.Invoke();
+        DataLoaded_Data?.Invoke(saveddata);
+        OnDataLoaded_Data?.Invoke(saveddata);
     }
 }

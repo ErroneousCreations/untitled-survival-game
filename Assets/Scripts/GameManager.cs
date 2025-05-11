@@ -6,13 +6,16 @@ using Unity.Collections;
 using System.Text;
 using System.Linq;
 using UnityEngine.UI;
+using System.IO;
+
+public enum GameStateEnum { Lobby, Ingame }
+public enum GameModeEnum { Survival, Deathmatch, TeamDeathmatch, Arena }
 
 public class GameManager : NetworkBehaviour
 {
-    public NetworkObject ThePlayer;
+    public Player ThePlayer;
     public World world;
-    public enum GameStateEnum { Lobby, Ingame }
-    public enum GameModeEnum { Survival, Deathmatch }
+
     private NetworkVariable<GameModeEnum> Gamemode = new();
     private NetworkVariable<GameStateEnum> Gamestate = new();
     private Dictionary<ulong, FixedString128Bytes> USERNAMES = new(); //for the server to keep track and stuff
@@ -23,12 +26,17 @@ public class GameManager : NetworkBehaviour
     //lobby
     private List<ulong> readiedPlayers = new();
     private NetworkVariable<float> startTimer = new(0);
-    private bool readied, inlobbychannel;
+    private bool readied, inlobbychannel, inspectatorchannel;
     private World currWorld;
+    private int currentSaveFile, currentSeed = -1;
+
+    public static bool IsSpectating = false;
 
     public static World GetWorld => instance.currWorld;
 
     public static Dictionary<ulong, string> GetUUIDS => instance.UNIQUEUSERIDS;
+
+    public static SavingManager.SaveFileLocationEnum GetSaveFileLocation => GetGameMode == GameModeEnum.Arena ? SavingManager.SaveFileLocationEnum.Survival : (SavingManager.SaveFileLocationEnum)GetGameMode;
 
     private void Awake()
     {
@@ -50,6 +58,9 @@ public class GameManager : NetworkBehaviour
         readied = false;
         inlobbychannel = false;
         VivoxManager.JoinLobbyChannel(() => { inlobbychannel = true; });
+        UIManager.SetGamemodeIndicator(GameModeEnum.Survival);
+        UIManager.SetSaveIndicator(0);
+        UIManager.SetWorldInfo(SavingManager.GetWorldInfo(SavingManager.SaveFileLocationEnum.Survival, 0, out string info), info);
     }
 
     private void ApproveClient(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
@@ -93,7 +104,7 @@ public class GameManager : NetworkBehaviour
                 usernames[i] = USERNAMES[keys[i]];
                 ids[i] = keys[i];   
             }
-            SyncConnectedsRPC(usernames, ids, readiedPlayers.ToArray(), RpcTarget.Single(obj, RpcTargetUse.Temp));
+            SyncConnectedsRPC(usernames, ids, readiedPlayers.ToArray(), GetGameMode, currentSaveFile, SavingManager.GetWorldInfo(GetSaveFileLocation, currentSaveFile, out string info), info, RpcTarget.Single(obj, RpcTargetUse.Temp));
         }
     }
 
@@ -108,7 +119,7 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.SpecifiedInParams)]
-    private void SyncConnectedsRPC(FixedString128Bytes[] usernames, ulong[] ids, ulong[] readied, RpcParams @params)
+    private void SyncConnectedsRPC(FixedString128Bytes[] usernames, ulong[] ids, ulong[] readied, GameModeEnum gamemode, int save, bool worldexists, string info, RpcParams @params)
     {
         localUserNames = new();
         for (int i = 0; i < ids.Length; i++) {
@@ -117,6 +128,10 @@ public class GameManager : NetworkBehaviour
         var rlist = readied.ToList();
         UIManager.UpdatePlayerList(localUserNames, rlist);
         readiedPlayers = rlist;
+
+        UIManager.SetGamemodeIndicator(gamemode);
+        UIManager.SetSaveIndicator(save);
+        UIManager.SetWorldInfo(worldexists, info);
     }
 
     public static GameStateEnum GetGamestate => instance.Gamestate.Value;
@@ -133,7 +148,10 @@ public class GameManager : NetworkBehaviour
     {
         if (NetworkManager.Singleton.ConnectedClients[id].PlayerObject) { NetworkManager.Singleton.ConnectedClients[id].PlayerObject.Despawn(true); }
 
-        StartCoroutine(FinishRespawn(id));
+        //StartCoroutine(FinishRespawn(id));
+        var p = Instantiate(ThePlayer, Vector3.zero, Quaternion.identity); //todo add the other spawnpoint ranges
+        p.NetworkObject.SpawnAsPlayerObject(id);
+        p.Teleport(Gamemode.Value == GameModeEnum.Survival ? Extensions.GetSurvivalSpawnPoint : (Gamemode.Value == GameModeEnum.TeamDeathmatch ? Extensions.GetTeamDeathmatchSpawnPoint : Extensions.GetDeathmatchSpawnPoint));
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
@@ -144,8 +162,8 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator FinishRespawn(ulong id )
     {
-        yield return new WaitForSeconds(0.01f);
-        Instantiate(ThePlayer, Extensions.GetCloseSpawnPoint, Quaternion.identity).SpawnAsPlayerObject(id); //todo add the other spawnpoint ranges
+        yield return new WaitForSeconds(0.05f); //btw arena uses Deathmatch Spawn Points
+        //Instantiate(ThePlayer, Gamemode.Value == GameModeEnum.Survival ? Extensions.GetSurvivalSpawnPoint : (Gamemode.Value == GameModeEnum.TeamDeathmatch ? Extensions.GetTeamDeathmatchSpawnPoint : Extensions.GetDeathmatchSpawnPoint), Quaternion.identity).SpawnAsPlayerObject(id); //todo add the other spawnpoint ranges
     }
 
     private void Update()
@@ -170,43 +188,89 @@ public class GameManager : NetworkBehaviour
                         Gamestate.Value = GameStateEnum.Ingame;
                         currWorld = Instantiate(world, Vector3.zero, Quaternion.identity);
                         currWorld.NetworkObject.Spawn();
-                        currWorld.Init(-1); //todo seed thingy
-                        ExitLobbyRPC();
+                        var loading = SavingManager.WorldExists(GetSaveFileLocation, currentSaveFile);
+                        if (loading) { SavingManager.Load(GetSaveFileLocation, currentSaveFile); }
+                        else { currWorld.Init(currentSeed); }
+                        ExitLobbyRPC(!loading);
                     }
                 }
                 else { startTimer.Value = 5; }
                 break;
             case GameStateEnum.Ingame:
-                if(!Player.LocalPlayer) { UIManager.SetMuteIcon(false); }
+                if (inlobbychannel) { VivoxManager.LeaveLobbyChannel(); }
+                if (!Player.LocalPlayer) {
+
+                    if (inspectatorchannel)
+                    {
+                        if (Input.GetKeyDown(KeyCode.V)) { VivoxManager.ToggleInputMute(); }
+                        UIManager.SetMuteIcon(VivoxManager.initialised && !VivoxManager.GetisMuted);
+                    }
+                    else { UIManager.SetMuteIcon(false); }
+                }
                 break;
         }
     }
 
-    [Rpc(SendTo.Everyone)]
-    private void ExitLobbyRPC()
+    public static void ResetGamemode()
     {
-        RespawnPlayerRPC(NetworkManager.LocalClientId);
-        inlobbychannel = false;
+        instance.Gamemode.Value = GameModeEnum.Survival;
+        instance.currentSaveFile = 0;
+        UIManager.SetGamemodeIndicator(GameModeEnum.Survival);
+        UIManager.SetSaveIndicator(0);
+        UIManager.SetWorldInfo(SavingManager.GetWorldInfo(SavingManager.SaveFileLocationEnum.Survival, 0, out string info), info);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void ExitLobbyRPC(bool spawnplayer)
+    {
+        if (spawnplayer) { RespawnPlayerRPC(NetworkManager.LocalClientId); }
         if(!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
-        VivoxManager.LeaveLobbyChannel();
+        if (inlobbychannel) { VivoxManager.LeaveLobbyChannel(); inlobbychannel = false; }
         UIManager.FadeToGame();
+    }
+
+    public static void EnableSpectator()
+    {
+        VivoxManager.JoinSpectateChannel(() => { instance.inspectatorchannel = true; });
+        if (!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
+        IsSpectating = true;
+    }
+
+    private static void CleanUp()
+    {
+        foreach (var ob in GameObject.FindGameObjectsWithTag("WorldObject"))
+        {
+            if(ob.TryGetComponent(out NetworkObject netob))
+            {
+                netob.Despawn();
+            }
+        }
     }
 
     public static void BackToLobby()
     {
+        instance.readiedPlayers.Clear();
+        instance.startTimer.Value = 5;
+        SavingManager.Save(GetSaveFileLocation, instance.currentSaveFile);
         instance.Gamestate.Value = GameStateEnum.Lobby;
         instance.currWorld.NetworkObject.Despawn();
-
-        instance.ToLobbyRPC();
+        SavingManager.GetWorldInfo(GetSaveFileLocation, instance.currentSaveFile, out string worldinfo);
+        CleanUp();
+        instance.ToLobbyRPC(worldinfo);
     }
 
     [Rpc(SendTo.Everyone)]
-    private void ToLobbyRPC()
+    private void ToLobbyRPC(string worldinfo)
     {
+        readied = false;
         UIManager.ShowLobby();
         UIManager.HideGameOverScreen();
         if(!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
         DespawnPlayerRPC(NetworkManager.LocalClientId);
+        VivoxManager.JoinLobbyChannel(() => { inlobbychannel = true; });
+        if(inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); inspectatorchannel = false; }
+        IsSpectating = false;
+        UIManager.SetWorldInfo(true, worldinfo);
     }
 
     public static void ReadyUp()
@@ -229,5 +293,51 @@ public class GameManager : NetworkBehaviour
         var rlist = readied.ToList();
         UIManager.UpdatePlayerList(localUserNames, rlist);
         readiedPlayers = rlist;
+    }
+
+    public static void SetGamemode(GameModeEnum mode)
+    {
+        instance.Gamemode.Value = mode;
+        instance.currentSaveFile = 0;
+        instance.UpdateGamemodeRPC(mode);
+        instance.UpdateSaveRPC(0, SavingManager.GetWorldInfo(GetSaveFileLocation, 0, out string info), info);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void UpdateGamemodeRPC(GameModeEnum mode)
+    {
+        UIManager.SetGamemodeIndicator(mode);
+    }
+
+    public static void SetSave(int saveslot)
+    {
+        instance.currentSaveFile = saveslot;
+        instance.UpdateSaveRPC(saveslot, SavingManager.GetWorldInfo(GetSaveFileLocation, saveslot, out string info), info);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void UpdateSaveRPC(int slot, bool exists, string worldinfo)
+    {
+        UIManager.SetSaveIndicator(slot);
+        UIManager.SetWorldInfo(exists, worldinfo);
+    }
+
+    public static void SetSeed(string seed)
+    {
+        instance.UpdateSeedRPC(seed);
+        if (string.IsNullOrEmpty(seed)) { instance.currentSeed = -1; return; }
+        instance.currentSeed = int.Parse(seed);
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void UpdateSeedRPC(string seed)
+    {
+        UIManager.SetSeedText(seed);
+    }
+
+    public static void DeleteSave()
+    {
+        SavingManager.DeleteWorld(GetSaveFileLocation, instance.currentSaveFile);
+        instance.UpdateSaveRPC(instance.currentSaveFile, false, "Create new world");
     }
 }

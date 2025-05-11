@@ -3412,7 +3412,7 @@ GameObject:
   - component: {fileID: 2760160341062965137}
   m_Layer: 3
   m_Name: CloseSpawn (0)
-  m_TagString: CloseSpawn
+  m_TagString: SVSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5490,7 +5490,7 @@ GameObject:
   - component: {fileID: 4871728373875903779}
   m_Layer: 3
   m_Name: CloseSpawn (3)
-  m_TagString: CloseSpawn
+  m_TagString: SVSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8085,7 +8085,7 @@ GameObject:
   - component: {fileID: 7503353236878537254}
   m_Layer: 3
   m_Name: CloseSpawn (2)
-  m_TagString: CloseSpawn
+  m_TagString: SVSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8791,7 +8791,7 @@ GameObject:
   - component: {fileID: 8659221728640804975}
   m_Layer: 3
   m_Name: CloseSpawn (4)
-  m_TagString: CloseSpawn
+  m_TagString: SVSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10295,7 +10295,7 @@ GameObject:
   - component: {fileID: 1907958477971606224}
   m_Layer: 3
   m_Name: CloseSpawn (1)
-  m_TagString: CloseSpawn
+  m_TagString: SVSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15477,7 +15477,7 @@ GameObject:
   - component: {fileID: 4734234878114860342}
   m_Layer: 3
   m_Name: CloseSpawn (5)
-  m_TagString: CloseSpawn
+  m_TagString: SVSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15943,7 +15943,7 @@ GameObject:
   - component: {fileID: 4617472175357898126}
   m_Layer: 3
   m_Name: CloseSpawn (6)
-  m_TagString: CloseSpawn
+  m_TagString: SVSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16464,7 +16464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7047019562805070005}
   m_Layer: 3
-  m_Name: CloseSpawns
+  m_Name: SurvivalSpawns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20371,7 +20371,7 @@ GameObject:
   - component: {fileID: 1974288248616647226}
   m_Layer: 3
   m_Name: CloseSpawn (7)
-  m_TagString: CloseSpawn
+  m_TagString: SVSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
