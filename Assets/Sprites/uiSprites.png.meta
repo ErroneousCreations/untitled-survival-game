@@ -135,10 +135,10 @@ TextureImporter:
       name: play
       rect:
         serializedVersion: 2
-        x: 57
-        y: 771
-        width: 287
-        height: 329
+        x: 49
+        y: 763
+        width: 305
+        height: 346
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,12 +157,12 @@ TextureImporter:
       name: settings
       rect:
         serializedVersion: 2
-        x: 488
-        y: 777
-        width: 328
-        height: 314
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 480
+        y: 770
+        width: 346
+        height: 332
+      alignment: 9
+      pivot: {x: 0.5150169, y: 0.50939023}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -201,10 +201,10 @@ TextureImporter:
       name: quit
       rect:
         serializedVersion: 2
-        x: 73
-        y: 434
-        width: 242
-        height: 257
+        x: 65
+        y: 426
+        width: 259
+        height: 275
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -245,12 +245,12 @@ TextureImporter:
       name: delete
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 278
-        width: 280
-        height: 368
+        x: 1016
+        y: 269
+        width: 299
+        height: 385
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
