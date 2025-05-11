@@ -4,9 +4,10 @@ using AYellowpaper.SerializedCollections;
 using Unity.Netcode;
 using Unity.Collections;
 using System.IO;
-using UnityEngine.Tilemaps;
 using System.IO.Compression;
 using System.Text;
+using System;
+using System.Collections;
 
 public class SavingManager : NetworkBehaviour
 {
@@ -271,22 +272,46 @@ public class SavingManager : NetworkBehaviour
         File.WriteAllText(targetpath, savedata);
     }
 
+    private static List<byte[]> SplitBytes(byte[] source, int chunkSize)
+    {
+        var result = new List<byte[]>();
+        for (int i = 0; i < source.Length; i += chunkSize)
+        {
+            int length = Math.Min(chunkSize, source.Length - i);
+            byte[] chunk = new byte[length];
+            Array.Copy(source, i, chunk, 0, length);
+            result.Add(chunk);
+        }
+        return result;
+    }
+
     //loads the data from the save file, called on server btw
     public static void Load(SaveFileLocationEnum loc, int slot)
     {
+        instance.StartCoroutine(instance.LoadCoroutine(loc, slot));
+    }
+
+    private IEnumerator LoadCoroutine(SaveFileLocationEnum loc, int slot)
+    {
         CheckDirectories();
         var targetpath = Application.dataPath + SAVE_LOCATIONS[(int)loc] + $"/{slot + 1}.sav";
-        if (!File.Exists(targetpath)) { Debug.LogError("No save file found at: " + targetpath); return; }
+        if (!File.Exists(targetpath)) { Debug.LogError("No save file found at: " + targetpath); yield break; }
         string savedata = File.ReadAllText(targetpath);
+        MenuController.ToggleLoadingScreen(true);
 
         string localdata = savedata.Split('*')[0];
         string[] splitlocaldata = localdata.Split(';');
-        GameManager.GetWorld.Init(int.Parse(splitlocaldata[0]), splitlocaldata[3].Split('\\'));
-        Debug.Log(splitlocaldata[2].Length);
-        var c = CompressString(splitlocaldata[2]);
-        Debug.Log(c.Length);
-        instance.DoWorldFeaturesRPC(int.Parse(splitlocaldata[0]), CompressString(splitlocaldata[3]));
-        instance.LoadOthersRPC(CompressString(splitlocaldata[1]), c, CompressString(splitlocaldata[4]));
+
+        //split and send relevant save data to clients (please work ffs)
+        var sendtoclients = CompressString($"{splitlocaldata[0]};{splitlocaldata[3]};{splitlocaldata[1]};{splitlocaldata[2]};{splitlocaldata[4]}");
+        var chunks = SplitBytes(sendtoclients, 1024);
+        instance.PrepareForSaveFileRPC(sendtoclients.Length);
+        for (int i = 0; i < chunks.Count; i++)
+        {
+            yield return null;
+            instance.ReceiveSavefilePartRPC(chunks[i]);
+        }
+
         instance.SavedPlayerData = new();
         foreach (var playerdata in splitlocaldata[4].Split('\\'))
         {
@@ -312,8 +337,9 @@ public class SavingManager : NetworkBehaviour
                 }
                 savedobj.InitSavedData(savedobjdata);
             }
+            yield return null;
         }
-        if(splitserverdata[1] != "null") { GameManager.GetWorld.LoadNetWorldFeatures(splitserverdata[1].Split('\\')); }
+        if (splitserverdata[1] != "null") { GameManager.GetWorld.LoadNetWorldFeatures(splitserverdata[1].Split('\\')); yield return null; }
         if (splitserverdata[2] != "null")
         {
             foreach (var item in splitserverdata[2].Split('\\'))
@@ -332,23 +358,49 @@ public class SavingManager : NetworkBehaviour
                 }
                 savedobj.Init(savedobjdata, new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3])), new Vector3(float.Parse(split[4]), float.Parse(split[5]), float.Parse(split[6])));
             }
+            yield return null;
         }
-    }
-
-    [Rpc(SendTo.NotServer)]
-    private void DoWorldFeaturesRPC(int seed, byte[] Wfeatures)
-    {
-        GameManager.GetWorld.Init(seed, DecompressString(Wfeatures).Split('\\'));
+        MenuController.ToggleLoadingScreen(false);
+        UIManager.FadeToGame();
     }
 
     [Rpc(SendTo.Everyone)]
-    private void LoadOthersRPC(byte[] Wdata, byte[] Sobs, byte[] Pdata)
+    private void PrepareForSaveFileRPC(int length)
+    {
+        receivedBytes = new byte[length];
+        bytesReceived = 0;
+        if (!IsOwner) { MenuController.ToggleLoadingScreen(true); }
+    }
+
+    private static byte[] receivedBytes;
+    private static int bytesReceived = 0;
+
+    [Rpc(SendTo.Everyone)]
+    private void ReceiveSavefilePartRPC(byte[] chunk)
+    {
+        Array.Copy(chunk, 0, receivedBytes, bytesReceived, chunk.Length);
+        bytesReceived += chunk.Length;
+
+        if (bytesReceived >= receivedBytes.Length)
+        {
+            string data = DecompressString(receivedBytes);
+            string[] split = data.Split(';');
+            int seed = int.Parse(split[0]);
+            string Wfeatures = split[1];
+            string worlddata = split[2];
+            string savedobjects = split[3];
+            string playerdata = split[4];
+            GameManager.GetWorld.Init(seed, Wfeatures.Split('\\'));
+            LoadOthers(worlddata, savedobjects, playerdata);
+            receivedBytes = new byte[0];
+            bytesReceived = 0;
+            if (!IsOwner) { MenuController.ToggleLoadingScreen(false); UIManager.FadeToGame(); }
+        }
+    }
+
+    private void LoadOthers(string worlddata, string savedobjects, string playerdata)
     {
         GameManager.RespawnPlayer();
-
-        string worlddata = DecompressString(Wdata);
-        string savedobjects = DecompressString(Sobs);
-        string playerdata = DecompressString(Pdata);
 
         string[] splitworlddata = worlddata.Split('\\');
         CurrentWorldData = new(DefaultWorldData);
