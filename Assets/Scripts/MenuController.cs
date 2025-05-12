@@ -16,6 +16,7 @@ public class MenuController : MonoBehaviour
     public TMP_Text SensTitle, JoinCodeText;
     public Button HostButtonUI, JoinButton;
     public Toggle MotionSicknessToggle;
+    public AudioClip menuTheme;
     private bool inmenu, reset;
 
     public TMP_Dropdown AudioInputs;
@@ -197,8 +198,8 @@ public class MenuController : MonoBehaviour
     {
         LoadingIcon.SetActive(!VivoxManager.initialised);
         if (!NetworkManager.Singleton) { return; }
-        if (!inmenu && !NetworkManager.Singleton.IsClient) { inmenu = true; }
-        if (inmenu && NetworkManager.Singleton.IsClient) { inmenu = false; }
+        if (!inmenu && !NetworkManager.Singleton.IsClient) { inmenu = true; MusicManager.PlayMusicTrack(menuTheme, true, 0.2f); }
+        if (inmenu && NetworkManager.Singleton.IsClient) { inmenu = false; MusicManager.PlayMusicTrack(null); }
         if (!inmenu)
         {
             LobbyHostUI.SetActive(NetworkManager.Singleton.IsServer);

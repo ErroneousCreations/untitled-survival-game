@@ -2,12 +2,19 @@ using UnityEngine;
 using System.Collections.Generic;
 using EditorAttributes;
 using UnityEngine.Audio;
+using DG.Tweening;
 
 public class MusicManager : MonoBehaviour
 {
-    [SerializeField] private float fadeSpeed = 2f;
+    [SerializeField, Header("Threat Music")] private float fadeSpeed = 2f;
     [SerializeField] private float threatDecaySpeed = 2f, threatdecayCooldown = 20;
     [SerializeField] private AudioMixerGroup mixer;
+    [SerializeField, Space, Header("Music")]
+    private AudioSource musicSourceA;
+    [SerializeField] private AudioSource musicSourceB;
+    [SerializeField] private float musicFadeDuration;
+    [SerializeField] private float musicBaseVolume, musicFadeOutLength = 2f;
+
     private float volume, currDecayCd;
 
     private class LayerData
@@ -18,9 +25,55 @@ public class MusicManager : MonoBehaviour
     }
 
     private List<LayerData> layers = new();
-    [SerializeField, ReadOnly, Space]private float threatLevel;
+    [SerializeField, ReadOnly, Space] private float threatLevel;
     [SerializeField, ReadOnly] private MusicLayerProfile currentProfile;
     private static MusicManager instance;
+    private bool playingThreatMusic;
+    private bool usingsource = false;
+    private bool playingMusic => musicSourceA.isPlaying || musicSourceB.isPlaying;
+    private float currMusicVolume = 0;
+    private bool transitioning;
+
+    public static void PlayMusicTrack(AudioClip newclip, bool loop = false, float volume = -1)
+    {
+        if (volume <= 0) { volume = instance.musicBaseVolume; }
+        if (instance.playingThreatMusic) { return; } //threatmusic overrides regular music
+
+        //fade out music
+        if (!newclip)
+        {
+            instance.transitioning = true;
+            instance.musicSourceA.DOKill();
+            instance.musicSourceB.DOKill();
+            instance.musicSourceA.DOFade(0, instance.musicFadeDuration).onComplete += () => { instance.musicSourceA.Stop(); instance.transitioning = false; };
+            instance.musicSourceB.DOFade(0, instance.musicFadeDuration).onComplete += () => { instance.musicSourceA.Stop(); };
+        }
+
+        if (!instance.usingsource)
+        {
+            instance.transitioning = true;
+            instance.usingsource = true;
+            instance.musicSourceA.DOFade(0, instance.musicFadeDuration).onComplete += () => { instance.musicSourceA.Stop(); instance.transitioning = false; };
+            instance.musicSourceB.volume = volume;
+            instance.musicSourceB.clip = newclip;
+            instance.musicSourceB.loop = loop;
+            instance.currMusicVolume = volume;
+            instance.musicSourceB.Play();
+            instance.musicSourceB.DOFade(1, instance.musicFadeDuration);
+        }
+        else
+        {
+            instance.transitioning = true;
+            instance.usingsource = false;
+            instance.musicSourceB.DOFade(0, instance.musicFadeDuration).onComplete += () => { instance.musicSourceB.Stop(); instance.transitioning = false; };
+            instance.musicSourceA.volume = volume;
+            instance.musicSourceA.clip = newclip;
+            instance.musicSourceA.loop = loop;
+            instance.currMusicVolume = volume;
+            instance.musicSourceA.Play();
+            instance.musicSourceA.DOFade(1, instance.musicFadeDuration);
+        }
+    }
 
     private void Awake()
     {
@@ -31,10 +84,13 @@ public class MusicManager : MonoBehaviour
     {
         instance.currentProfile = newProfile;
         instance.ResetLayers();
+        instance.playingThreatMusic = false;
         foreach (var layer in instance.layers)
         {
             layer.targetVolume = instance.threatLevel >= layer.threshold ? instance.volume : 0f;
+            if(instance.threatLevel >= layer.threshold) { instance.playingThreatMusic = true; }
         }
+        if (instance.playingThreatMusic) { PlayMusicTrack(null); }
     }
 
     private void ResetLayers()
@@ -76,20 +132,26 @@ public class MusicManager : MonoBehaviour
     {
         instance.threatLevel = Mathf.Clamp(newThreat, 0f, 100f);
         instance.currDecayCd = instance.threatdecayCooldown;
+        instance.playingThreatMusic = false;
         foreach (var layer in instance.layers)
         {
             layer.targetVolume = instance.threatLevel >= layer.threshold ? instance.volume : 0f;
+            if (instance.threatLevel >= layer.threshold) { instance.playingThreatMusic = true; }
         }
+        if (instance.playingThreatMusic) { PlayMusicTrack(null); }
     }
 
     public static void AddThreatLevel(float amount)
     {
         instance.threatLevel = Mathf.Clamp(instance.threatLevel + amount, 0f, 100f);
         instance.currDecayCd = instance.threatdecayCooldown;
+        instance.playingThreatMusic = false;
         foreach (var layer in instance.layers)
         {
             layer.targetVolume = instance.threatLevel >= layer.threshold ? instance.volume : 0f;
+            if (instance.threatLevel >= layer.threshold) { instance.playingThreatMusic = true; }
         }
+        if (instance.playingThreatMusic) { PlayMusicTrack(null); }
     }
 
     private void Update()
@@ -112,6 +174,18 @@ public class MusicManager : MonoBehaviour
                 layer.targetVolume,
                 Time.deltaTime / fadeSpeed
             );
+        }
+
+        if(!transitioning && musicSourceA.isPlaying && !musicSourceA.loop && (musicSourceA.clip.length- musicSourceA.time > musicFadeOutLength))
+        {
+            var timeleft = musicSourceA.clip.length - musicSourceA.time;
+            musicSourceA.volume = Mathf.Lerp(currMusicVolume, 0, timeleft / musicFadeOutLength);
+        }
+
+        if (!transitioning && musicSourceB.isPlaying && !musicSourceB.loop && (musicSourceB.clip.length - musicSourceB.time > musicFadeOutLength))
+        {
+            var timeleft = musicSourceB.clip.length - musicSourceB.time;
+            musicSourceB.volume = Mathf.Lerp(currMusicVolume, 0, timeleft / musicFadeOutLength);
         }
     }
 }
