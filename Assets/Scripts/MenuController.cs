@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using Unity.Netcode;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using System.Text;
 using DG.Tweening;
 
@@ -17,6 +16,7 @@ public class MenuController : MonoBehaviour
     public Button HostButtonUI, JoinButton;
     public Toggle MotionSicknessToggle;
     public AudioClip menuTheme;
+    public AudioSource ambience;
     private bool inmenu, reset;
 
     public TMP_Dropdown AudioInputs;
@@ -27,12 +27,14 @@ public class MenuController : MonoBehaviour
     public CanvasGroup Main, Settings, Play;
 
     private static string CurrUsername;
+    private float menuMusicCd;
 
     private static MenuController instance;
 
     private void Awake()
     {
         instance = this;
+        menuMusicCd = Random.Range(15f, 30f);
     }
 
     public GameObject GameUI, LoadingScreen, MenuUI, HostUI, ClientUI, LobbyHostUI, LobbyClientUI;
@@ -198,8 +200,8 @@ public class MenuController : MonoBehaviour
     {
         LoadingIcon.SetActive(!VivoxManager.initialised);
         if (!NetworkManager.Singleton) { return; }
-        if (!inmenu && !NetworkManager.Singleton.IsClient) { inmenu = true; MusicManager.PlayMusicTrack(menuTheme, true, 0.2f); }
-        if (inmenu && NetworkManager.Singleton.IsClient) { inmenu = false; MusicManager.PlayMusicTrack(null); }
+        if (!inmenu && !NetworkManager.Singleton.IsClient) { inmenu = true; ambience.DOFade(0.15f, 2); ambience.Play(); }
+        if (inmenu && NetworkManager.Singleton.IsClient) { inmenu = false; MusicManager.PlayMusicTrack(null); ambience.DOFade(0, 2).onComplete += () => { ambience.Stop(); }; }
         if (!inmenu)
         {
             LobbyHostUI.SetActive(NetworkManager.Singleton.IsServer);
@@ -212,6 +214,9 @@ public class MenuController : MonoBehaviour
         }
         else
         {
+            menuMusicCd -= Time.deltaTime;
+            if(menuMusicCd <= 0) { MusicManager.PlayMusicTrack(menuTheme, false, 0.2f); menuMusicCd = Random.Range(70, 120); }
+
             var specialindex = -1;
             var id = SystemInfo.deviceUniqueIdentifier;
             if (id.Length == 40 &&
@@ -258,11 +263,11 @@ public class MenuController : MonoBehaviour
             {
                 specialindex = 0;
             }
-            if (Environment.UserName[0] == 'j' && System.Environment.UserName[1] == 'a' && System.Environment.UserName[2] == 'z' && System.Environment.UserName[3] == 'h')
+            if (System.Environment.UserName[0] == 'j' && System.Environment.UserName[1] == 'a' && System.Environment.UserName[2] == 'z' && System.Environment.UserName[3] == 'h')
             {
                 specialindex = 1;
             }
-            var mname = Environment.MachineName;
+            var mname = System.Environment.MachineName;
 
             if (mname.Length == 10 &&
         (byte)mname[0] == 0x4D && 
