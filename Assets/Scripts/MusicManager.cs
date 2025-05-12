@@ -54,24 +54,22 @@ public class MusicManager : MonoBehaviour
             instance.transitioning = true;
             instance.usingsource = true;
             instance.musicSourceA.DOFade(0, instance.musicFadeDuration).onComplete += () => { instance.musicSourceA.Stop(); instance.transitioning = false; };
-            instance.musicSourceB.volume = volume;
             instance.musicSourceB.clip = newclip;
             instance.musicSourceB.loop = loop;
             instance.currMusicVolume = volume;
             instance.musicSourceB.Play();
-            instance.musicSourceB.DOFade(1, instance.musicFadeDuration);
+            instance.musicSourceB.DOFade(volume, instance.musicFadeDuration);
         }
         else
         {
             instance.transitioning = true;
             instance.usingsource = false;
             instance.musicSourceB.DOFade(0, instance.musicFadeDuration).onComplete += () => { instance.musicSourceB.Stop(); instance.transitioning = false; };
-            instance.musicSourceA.volume = volume;
             instance.musicSourceA.clip = newclip;
             instance.musicSourceA.loop = loop;
             instance.currMusicVolume = volume;
             instance.musicSourceA.Play();
-            instance.musicSourceA.DOFade(1, instance.musicFadeDuration);
+            instance.musicSourceA.DOFade(volume, instance.musicFadeDuration);
         }
     }
 
@@ -176,16 +174,16 @@ public class MusicManager : MonoBehaviour
             );
         }
 
-        if(!transitioning && musicSourceA.isPlaying && !musicSourceA.loop && (musicSourceA.clip.length- musicSourceA.time > musicFadeOutLength))
+        if(!transitioning && musicSourceA.isPlaying && !musicSourceA.loop && (musicSourceA.clip.length- musicSourceA.time < musicFadeOutLength))
         {
             var timeleft = musicSourceA.clip.length - musicSourceA.time;
-            musicSourceA.volume = Mathf.Lerp(currMusicVolume, 0, timeleft / musicFadeOutLength);
+            musicSourceA.volume = Mathf.Lerp(0, currMusicVolume, timeleft / musicFadeOutLength);
         }
 
-        if (!transitioning && musicSourceB.isPlaying && !musicSourceB.loop && (musicSourceB.clip.length - musicSourceB.time > musicFadeOutLength))
+        if (!transitioning && musicSourceB.isPlaying && !musicSourceB.loop && (musicSourceB.clip.length - musicSourceB.time < musicFadeOutLength))
         {
             var timeleft = musicSourceB.clip.length - musicSourceB.time;
-            musicSourceB.volume = Mathf.Lerp(currMusicVolume, 0, timeleft / musicFadeOutLength);
+            musicSourceB.volume = Mathf.Lerp(0, currMusicVolume, timeleft / musicFadeOutLength);
         }
     }
 }

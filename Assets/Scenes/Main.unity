@@ -880,7 +880,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -86.9, y: 0}
-  m_SizeDelta: {x: 38, y: 314.03363}
+  m_SizeDelta: {x: 38, y: 37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &65143703
 MonoBehaviour:
@@ -958,7 +958,7 @@ MonoBehaviour:
   musicSourceA: {fileID: 86350928}
   musicSourceB: {fileID: 86350927}
   musicFadeDuration: 2
-  musicBaseVolume: 0.2
+  musicBaseVolume: 0.6
   musicFadeOutLength: 2
   threatLevel: 0
   currentProfile: {fileID: 0}
@@ -990,7 +990,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1087,7 +1087,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6516,7 +6516,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -42.7, y: 0}
-  m_SizeDelta: {x: 25.7, y: 329.03522}
+  m_SizeDelta: {x: 25.7, y: 30.58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &635818893
 MonoBehaviour:
@@ -10863,10 +10863,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 635c1b3b8bd853143b74606430bb3fc7, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4478b8b5d70898243b59e0d59ef83d14, type: 3}
+  m_Resource: {fileID: 8300000, guid: 4478b8b5d70898243b59e0d59ef83d14, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -14946,7 +14946,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -43.9, y: 0}
-  m_SizeDelta: {x: 38, y: 314.03363}
+  m_SizeDelta: {x: 38, y: 41.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1573346828
 MonoBehaviour:

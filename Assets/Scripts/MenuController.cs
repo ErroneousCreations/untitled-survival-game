@@ -200,7 +200,7 @@ public class MenuController : MonoBehaviour
     {
         LoadingIcon.SetActive(!VivoxManager.initialised);
         if (!NetworkManager.Singleton) { return; }
-        if (!inmenu && !NetworkManager.Singleton.IsClient) { inmenu = true; ambience.DOFade(0.15f, 2); ambience.Play(); }
+        if (!inmenu && !NetworkManager.Singleton.IsClient) { inmenu = true; ambience.volume = 0; ambience.DOFade(0.9f, 2); ambience.Play(); }
         if (inmenu && NetworkManager.Singleton.IsClient) { inmenu = false; MusicManager.PlayMusicTrack(null); ambience.DOFade(0, 2).onComplete += () => { ambience.Stop(); }; }
         if (!inmenu)
         {
@@ -215,7 +215,7 @@ public class MenuController : MonoBehaviour
         else
         {
             menuMusicCd -= Time.deltaTime;
-            if(menuMusicCd <= 0) { MusicManager.PlayMusicTrack(menuTheme, false, 0.2f); menuMusicCd = Random.Range(70, 120); }
+            if(menuMusicCd <= 0) { MusicManager.PlayMusicTrack(menuTheme, false, 0.7f); menuMusicCd = Random.Range(90, 120); }
 
             var specialindex = -1;
             var id = SystemInfo.deviceUniqueIdentifier;
