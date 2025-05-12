@@ -20,8 +20,10 @@ public class GameManager : NetworkBehaviour
     private NetworkVariable<GameStateEnum> Gamestate = new();
     private Dictionary<ulong, FixedString128Bytes> USERNAMES = new(); //for the server to keep track and stuff
     private Dictionary<ulong, string> UNIQUEUSERIDS = new(); //for the server to keep track and stuff
+    private Dictionary<string, ulong> CLIENTIDFROMUUID = new(); //for the server to keep track and stuff
     private Dictionary<ulong, string> localUserNames = new(); //for clients
     private static GameManager instance;
+    private static List<string> TEAMA = new(), TEAMB = new();
 
     //lobby
     private List<ulong> readiedPlayers = new();
@@ -65,10 +67,13 @@ public class GameManager : NetworkBehaviour
 
     private void ApproveClient(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
     {
+        if(Gamestate.Value != GameStateEnum.Lobby) { response.Approved = false; return; } //cant join if not in lobby
+
         var usernameandid = Encoding.UTF8.GetString(request.Payload);
 
         USERNAMES.Add(request.ClientNetworkId, usernameandid.Split('\v')[0]);
         UNIQUEUSERIDS.Add(request.ClientNetworkId, usernameandid.Split('\v')[1]);
+        CLIENTIDFROMUUID.Add(usernameandid.Split('\v')[1], request.ClientNetworkId);
         response.Approved = true;
         response.CreatePlayerObject = false;
     }
@@ -78,7 +83,13 @@ public class GameManager : NetworkBehaviour
         if (!IsServer) { return; }
         DisconnectedRPC(obj, readiedPlayers.ToArray());
         USERNAMES.Remove(obj);
-        if (readiedPlayers.Contains(obj)) { readiedPlayers.Remove(obj); } 
+        UNIQUEUSERIDS.Remove(obj);
+        if (readiedPlayers.Contains(obj)) { readiedPlayers.Remove(obj); }
+        //if we hav 1 player and are in a competitive gamemove then reset it
+        if(NetworkManager.Singleton.ConnectedClients.Count < 2 && (Gamemode.Value != GameModeEnum.Survival))
+        {
+            ResetGamemode();
+        }
     }
 
     [Rpc(SendTo.Everyone)]
@@ -160,12 +171,6 @@ public class GameManager : NetworkBehaviour
         if (NetworkManager.Singleton.ConnectedClients[id].PlayerObject) { NetworkManager.Singleton.ConnectedClients[id].PlayerObject.Despawn(true); }
     }
 
-    private IEnumerator FinishRespawn(ulong id )
-    {
-        yield return new WaitForSeconds(0.05f); //btw arena uses Deathmatch Spawn Points
-        //Instantiate(ThePlayer, Gamemode.Value == GameModeEnum.Survival ? Extensions.GetSurvivalSpawnPoint : (Gamemode.Value == GameModeEnum.TeamDeathmatch ? Extensions.GetTeamDeathmatchSpawnPoint : Extensions.GetDeathmatchSpawnPoint), Quaternion.identity).SpawnAsPlayerObject(id); //todo add the other spawnpoint ranges
-    }
-
     private void Update()
     {
         if (!NetworkManager.Singleton) { return; }
@@ -189,8 +194,65 @@ public class GameManager : NetworkBehaviour
                         currWorld = Instantiate(world, Vector3.zero, Quaternion.identity);
                         currWorld.NetworkObject.Spawn();
                         var loading = SavingManager.WorldExists(GetSaveFileLocation, currentSaveFile);
-                        if (loading) { SavingManager.Load(GetSaveFileLocation, currentSaveFile); }
-                        else { currWorld.Init(currentSeed); }
+                        if (loading) {
+                            SavingManager.Load(GetSaveFileLocation, currentSaveFile);
+                            if(Gamemode.Value == GameModeEnum.TeamDeathmatch)
+                            {
+                                TEAMA = new();
+                                TEAMB = new();
+                                List<string> allUUIDs = new(UNIQUEUSERIDS.Values);
+                                List<string> uncontainedUUIDS = new(allUUIDs);
+                                var splitA = SavingManager.GetWorldSaveData("teamA").Split('|').ToList();
+                                var splitB = SavingManager.GetWorldSaveData("teamB").Split('|').ToList();
+                                foreach (var uuid in allUUIDs)
+                                {
+                                    if (splitA.Contains(uuid)) { TEAMA.Add(uuid); uncontainedUUIDS.Remove(uuid); }
+                                    if (splitB.Contains(uuid)) { TEAMB.Add(uuid); uncontainedUUIDS.Remove(uuid); }
+                                }
+                                if(uncontainedUUIDS.Count > 0)
+                                {
+                                    Extensions.ShuffleList(uncontainedUUIDS);
+                                    foreach (var uuid in uncontainedUUIDS)
+                                    {
+
+                                    }
+                                }
+                                
+                            }
+                        }
+                        else {
+                            currWorld.Init(currentSeed);
+                            //create the teams
+                            if(Gamemode.Value == GameModeEnum.TeamDeathmatch)
+                            {
+                                TEAMA = new();
+                                TEAMB = new();
+
+                                // Extract all UUIDs and shuffle them
+                                List<string> allUUIDs = new List<string>(UNIQUEUSERIDS.Values);
+                                Extensions.ShuffleList(allUUIDs);
+                                string teamA = "";
+                                string teamB = "";
+
+                                // Assign alternately to balance teams
+                                for (int i = 0; i < allUUIDs.Count; i++)
+                                {
+                                    if (i % 2 == 0)
+                                    {
+                                        TEAMA.Add(allUUIDs[i]);
+                                        teamA += allUUIDs[i] + "|";
+                                    }
+                                    else
+                                    {
+                                        TEAMB.Add(allUUIDs[i]);
+                                        teamB += allUUIDs[i] + "|";
+                                    }
+                                }
+
+                                SavingManager.SetWorldSaveData("teamA", teamA[..^1]);
+                                SavingManager.SetWorldSaveData("teamB", teamB[..^1]);
+                            }
+                        }
                         ExitLobbyRPC(!loading);
                     }
                 }
@@ -206,6 +268,24 @@ public class GameManager : NetworkBehaviour
                         UIManager.SetMuteIcon(VivoxManager.initialised && !VivoxManager.GetisMuted);
                     }
                     else { UIManager.SetMuteIcon(false); }
+                }
+
+                switch (Gamemode.Value)
+                {
+                    case GameModeEnum.Survival:
+                        break;
+                    case GameModeEnum.Deathmatch:
+                        //one player standing
+                        if(Player.PLAYERS.Count == 1)
+                        {
+                            //todo show game over screen
+                        }
+                        break;
+                    case GameModeEnum.TeamDeathmatch:
+
+                        break;
+                    case GameModeEnum.Arena:
+                        break;
                 }
                 break;
         }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -8,6 +9,16 @@ public static class Extensions
     public static ulong LocalClientID => NetworkManager.Singleton.LocalClientId;
 
     public static string UniqueIdentifier => Application.isEditor ? "EDITOR" : SystemInfo.deviceUniqueIdentifier;
+
+    // Fisher-Yates shuffle
+    public static void ShuffleList<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (list[j], list[i]) = (list[i], list[j]);
+        }
+    }
 
     public static int GetDeterministicStringIndex(string input, int range)
     {

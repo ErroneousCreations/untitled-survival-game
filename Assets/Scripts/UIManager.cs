@@ -44,9 +44,12 @@ public class UIManager : MonoBehaviour
             }
         }
         if (!NetworkManager.Singleton) { return; }
+        var k = 0;
         foreach (var butt in GamemodeButtons)
         {
+            if(k>0) { butt.gameObject.SetActive(NetworkManager.Singleton.ConnectedClients.Count > 1); }
             butt.interactable = NetworkManager.Singleton.IsServer;
+            k++;
         }
 
         foreach (var butt in SaveslotButtons)
@@ -312,11 +315,13 @@ public class UIManager : MonoBehaviour
 
     public static void SetGamemodeIndicator(GameModeEnum mode)
     {
-        instance.selectedGamemode.transform.position = instance.GamemodeButtons[(int)mode].transform.position;
+        instance.selectedGamemode.transform.parent = instance.GamemodeButtons[(int)mode].transform;
+        instance.selectedGamemode.transform.localPosition = Vector3.zero;
     }
 
     public static void SetSaveIndicator(int save)
     {
-        instance.selectedSaveslot.transform.position = instance.SaveslotButtons[(int)save].transform.position;
+        instance.selectedSaveslot.transform.parent = instance.SaveslotButtons[save].transform;
+        instance.selectedGamemode.transform.localPosition = Vector3.zero;
     }
 }
