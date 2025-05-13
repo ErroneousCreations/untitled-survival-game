@@ -3,7 +3,6 @@ using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using Unity.Collections;
 using Unity.Netcode;
-using UnityEditor.Overlays;
 
 [System.Serializable]
 public struct Item

@@ -14,11 +14,11 @@ public class DestructibleWorldDetail : MonoBehaviour
     public string BreakParticle;
     public SavedObject mySaver;
 
-    private void Awake()
+    private void Start()
     {
-        ObjectID = Mathf.RoundToInt(transform.position.x * 1000) + Mathf.RoundToInt(transform.position.y * 1000);
-        CurrHealth = Health;
+        ObjectID = Mathf.RoundToInt(transform.position.x * 100) + Mathf.RoundToInt(transform.position.y * 100);
         WorldDetailManager.RegisterObject(this);
+        CurrHealth = Health;
         Invoke(nameof(SetHealth), 0.01f);
     }
 

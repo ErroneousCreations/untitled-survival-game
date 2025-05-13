@@ -69,6 +69,7 @@ public class PlayerHealthController : NetworkBehaviour
     public float bloodRegenRate = 0.003f;
     public float legHealthRegenRate, bodyHealthRegenRate, headHealthRegenRate;
     public float baseBleedParticleAmount = 25;
+    public float maxShockPerSeverity = 35f;
 
     [Header("Effects to other parts")]
     public AnimationCurve LeghealthMovementMult;
@@ -88,6 +89,7 @@ public class PlayerHealthController : NetworkBehaviour
 
     [Header("Interactors")]
     public List<Interactible> interactibles;
+    public Interactible HealYourselfInteractor;
 
     [Header("Colliders")]
     public List<Collider> bodyColliders;
@@ -129,6 +131,31 @@ public class PlayerHealthController : NetworkBehaviour
                 str += item.Value.ToString() + "|";
             }
             return str[..^1];
+        }
+    }
+
+    private ushort GetMostSevereWound
+    {
+        get
+        {
+            if (wounds == null || wounds.Count == 0)
+                return 0;
+
+            float maxSeverity = float.MinValue;
+            ushort mostSevereKey = 0;
+            bool found = false;
+
+            foreach (var pair in wounds)
+            {
+                if (pair.Value.severity > maxSeverity)
+                {
+                    maxSeverity = pair.Value.severity;
+                    mostSevereKey = pair.Key;
+                    found = true;
+                }
+            }
+
+            return found ? mostSevereKey : (ushort)0;
         }
     }
 
@@ -216,9 +243,46 @@ public class PlayerHealthController : NetworkBehaviour
                 woundObjects[key] = ob;
             }
         }
-        if (!IsOwner) { return; }
+        if (!IsOwner) { HealYourselfInteractor.Banned = true; return; }
 
-        hunger.Value = Mathf.Clamp(hunger.Value - (Time.deltaTime / HungerDepleteTime),0, HungerMax);
+        if (wounds.Count > 0 && GameManager.GetGameMode == GameModeEnum.Deathmatch)
+        {
+            var targ = GetMostSevereWound;
+            if (wounds[targ].isEmbeddedObject)
+            {
+                HealYourselfInteractor.Banned = false;
+                HealYourselfInteractor.Description = $"Remove {ItemDatabase.GetItem(woundObjects[targ].embedded.ID.ToString()).Name}";
+                HealYourselfInteractor.InteractLength = 2f;
+                HealYourselfInteractor.InteractDistance = 1.5f;
+                HealYourselfInteractor.OnInteractedLocal = () => { RemoveEmbeddedObject(targ, woundObjects[targ].embedded); };
+            }
+            else
+            {
+                HealYourselfInteractor.Banned = PlayerInventory.GetRightHandItem.ID != "bandage";
+                HealYourselfInteractor.InteractLength = 2f;
+                HealYourselfInteractor.InteractDistance = 1.5f;
+                if (PlayerInventory.GetRightHandItem.ID == "bandage")
+                {
+                    HealYourselfInteractor.Description = $"Bandage Wound ({PlayerInventory.GetRightHandItem.SavedData[0]})";
+                    HealYourselfInteractor.OnInteractedLocal = () =>
+                    {
+                        var currdurab = int.Parse(PlayerInventory.GetRightHandSaveData[0].ToString()) - 1;
+                        var durab = currdurab;
+                        if (durab <= 0) { PlayerInventory.DeleteRighthandItem(); }
+                        else { PlayerInventory.UpdateRightHandSaveData(new() { durab.ToString() }); }
+                        Bandage(targ);
+                    };
+                }
+                else
+                {
+                    HealYourselfInteractor.Description = "";
+                    HealYourselfInteractor.OnInteractedLocal = null;
+                }
+            }
+        }
+        else { HealYourselfInteractor.Banned = true; }
+
+        hunger.Value = Mathf.Clamp(hunger.Value - (Time.deltaTime / HungerDepleteTime), 0, HungerMax);
         if (hunger.Value <= 0) { Die("Hunger"); return; }
 
         if (recentDamageCd > 0) { recentDamageCd -= Time.deltaTime; } 
@@ -238,10 +302,10 @@ public class PlayerHealthController : NetworkBehaviour
         lastBleedAmount = totalBleed;
 
         currentBlood.Value -= totalBleed * Time.deltaTime;
-        if (lastBleedAmount > 0) { shockTimer += Time.deltaTime * (lastBleedAmount / (bleedRatePerWound*1.25f)); }
+        if (lastBleedAmount > 0) { shockTimer += shockTimer >= (lastBleedAmount / bleedRatePerWound) * maxShockPerSeverity ? 0 : Time.deltaTime * (lastBleedAmount / (bleedRatePerWound*1.25f)); }
         else if(shockTimer>0) { shockTimer -= Time.deltaTime * 1.5f; }
         float shockIncreaseMult = Mathf.Pow(1.02f, shockTimer) - 1;
-        shock.Value += shockIncreasePerWound * Mathf.Clamp(shockIncreaseMult, 0, lastBleedAmount * 7) * Time.deltaTime;
+        shock.Value += shockIncreasePerWound * shockIncreaseMult * Time.deltaTime;
     }
 
     void HandleVitals()
@@ -370,7 +434,7 @@ public class PlayerHealthController : NetworkBehaviour
         if (damage > 1000) { Die("Lethal damage"); return; }
         Debug.Log("dmg: " + damage);
 
-        MusicManager.AddThreatLevel(damage*1.1f);
+        MusicManager.AddThreatLevel(damage*1.35f);
 
         if ((pos - transform.TransformPoint(new Vector3(heartLocalPos.x, heartLocalPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, heartLocalPos.z))).sqrMagnitude < heartRadius * heartRadius && type == DamageType.Stab && damage >= 40)
         {
@@ -397,7 +461,7 @@ public class PlayerHealthController : NetworkBehaviour
             bodyHealthRegenCd = 30;
         }
 
-        player.MouseJitterIntensity = damage * 0.19f;
+        player.MouseJitterIntensity = damage * 0.23f;
 
         if(damage > (type == DamageType.Stab ? 55 : 65) && Random.value <= 0.8f)
         {
@@ -447,13 +511,13 @@ public class PlayerHealthController : NetworkBehaviour
             //todo make it change depending on what your holding and stuff
             inter.Banned = IsOwner || !Player.LocalPlayer || ((!woundObjects.ContainsKey(id) || !woundObjects[id].hasembedded) && PlayerInventory.GetRightHandItem.ID.ToString() != "bandage");
             if (!Player.LocalPlayer) { return; }
+            if (!woundObjects.ContainsKey(id)) { Destroy(ob); return; }
             inter.Description = woundObjects[id].hasembedded ? $"Remove {embeddedname}" : (PlayerInventory.GetRightHandItem.ID.ToString()=="bandage" ? $"Bandage Wound ({PlayerInventory.GetRightHandItem.SavedData[0]})" : "");
             inter.InteractLength = 2f;
             inter.InteractDistance = 1.5f;
             if(embeddedgraphic && !woundObjects[id].hasembedded) { 
                 Destroy(embeddedgraphic);
             }
-            if (!woundObjects.ContainsKey(id)) { Destroy(ob); return; }
             var emission = bleed.emission;
             emission.rateOverTime = baseBleedParticleAmount * woundObjects[id].severity;
             if (woundObjects[id].hasembedded) { inter.OnInteractedLocal = () => RemoveEmbeddedObject(id, embeddedItem); }
@@ -473,11 +537,7 @@ public class PlayerHealthController : NetworkBehaviour
         // Spawn logic should be synced
         var go = Instantiate(ItemDatabase.GetItem(item.ID.ToString()).ItemPrefab, position, Quaternion.identity);
         go.NetworkObject.Spawn();
-        go.CurrentSavedData = new();
-        foreach (var data in item.SavedData)
-        {
-            go.CurrentSavedData.Add(data.ToString());
-        }
+        go.InitSavedData(item.SavedData);
     }
 
     public void CheckPulse()

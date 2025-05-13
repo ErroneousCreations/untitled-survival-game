@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 public class MenuController : MonoBehaviour
 {
@@ -34,7 +35,6 @@ public class MenuController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        menuMusicCd = Random.Range(15f, 30f);
     }
 
     public GameObject GameUI, LoadingScreen, MenuUI, HostUI, ClientUI, LobbyHostUI, LobbyClientUI;
@@ -194,13 +194,23 @@ public class MenuController : MonoBehaviour
         NetworkManager.Singleton.Shutdown();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        GameManager.CleanUp();
     }
 
     private void Update()
     {
         LoadingIcon.SetActive(!VivoxManager.initialised);
         if (!NetworkManager.Singleton) { return; }
-        if (!inmenu && !NetworkManager.Singleton.IsClient) { inmenu = true; ambience.volume = 0; ambience.DOFade(0.9f, 2); ambience.Play(); }
+        if (!inmenu && !NetworkManager.Singleton.IsClient) { 
+            inmenu = true; 
+            ambience.volume = 0; 
+            ambience.DOFade(0.9f, 2); 
+            ambience.Play();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            MusicManager.SetThreatLevel(0);
+            menuMusicCd = Random.Range(10f, 20f);
+        }
         if (inmenu && NetworkManager.Singleton.IsClient) { inmenu = false; MusicManager.PlayMusicTrack(null); ambience.DOFade(0, 2).onComplete += () => { ambience.Stop(); }; }
         if (!inmenu)
         {

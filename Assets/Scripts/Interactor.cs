@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEditor.PlayerSettings;
 
 public class Interactor : MonoBehaviour
 {
@@ -67,7 +65,7 @@ public class Interactor : MonoBehaviour
 
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, PlayerUsernameDisplayLength, PlayerLayer) && hit.collider.TryGetComponent(out Player p))
         {
-            UsernameDisplay.text = p.GetUsername;
+            UsernameDisplay.text = p.GetUsername + (GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? (p.GetIsTeamA == Player.LocalPlayer.GetIsTeamA ? "(Ally)" : "(Enemy)") : "");
         }
         else { UsernameDisplay.text = ""; } 
     }

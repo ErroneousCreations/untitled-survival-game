@@ -571,6 +571,76 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &2480718806492244477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4346470357476736126}
+  - component: {fileID: 4344816743779279802}
+  m_Layer: 7
+  m_Name: HealYourselfInteractor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4346470357476736126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2480718806492244477}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000021073426, y: -0.000000059604645, z: -0.000000021073426, w: 1}
+  m_LocalPosition: {x: 0, y: 0.784, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1043143544690301207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4344816743779279802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2480718806492244477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94474589a14b8024e8ee5e38ec5db226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  Description: Perform CPR
+  InteractLength: 0.01
+  InteractDistance: 1.5
+  InteractedLocal:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractedClient:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractedServer:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractedLocal_GetUser:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractedClient_GetUser:
+    m_PersistentCalls:
+      m_Calls: []
+  InteractedServer_GetUser:
+    m_PersistentCalls:
+      m_Calls: []
+  DestroyOnInteract: 0
+  InteractOnce: 0
+  DoRpcs: 1
+  Banned: 0
 --- !u!1 &2877699756033844819
 GameObject:
   m_ObjectHideFlags: 0
@@ -3489,6 +3559,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4346470357476736126}
   - {fileID: 9002644674244720683}
   - {fileID: 8659379239455658287}
   - {fileID: 840847348880890071}
@@ -3605,7 +3676,7 @@ MonoBehaviour:
   crouchCollider: {fileID: 493793704612644366}
   forceCrouchOffset: {x: 0, y: 1.35, z: 0}
   crouchCamOffset: {x: 0, y: 0.95, z: 0}
-  forceCrouchRadius: 0.38
+  forceCrouchRadius: 0.33
   crouchSpeedMult: 0.6
   crouchHeadbobMult: 0.5
   crouchColliderSize: {x: 1.2, y: 0.6}
@@ -3799,6 +3870,7 @@ MonoBehaviour:
   - {fileID: 1859164170855289901}
   - {fileID: 6268541655512773730}
   - {fileID: 8974414521939025250}
+  MouseJitterIntensity: 0
 --- !u!114 &8816347877140501902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3847,6 +3919,7 @@ MonoBehaviour:
   bodyHealthRegenRate: 200
   headHealthRegenRate: 190
   baseBleedParticleAmount: 25
+  maxShockPerSeverity: 35
   LeghealthMovementMult:
     serializedVersion: 2
     m_Curve:
@@ -4134,6 +4207,7 @@ MonoBehaviour:
   - {fileID: 7156463506560377579}
   - {fileID: 2103040863249075367}
   - {fileID: 3800582683305286655}
+  HealYourselfInteractor: {fileID: 4344816743779279802}
   bodyColliders:
   - {fileID: 8032839553693421174}
   - {fileID: 3102655877321681284}

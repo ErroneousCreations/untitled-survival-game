@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5123110904353326497}
   - component: {fileID: 3502727309236867129}
   - component: {fileID: 3701010173489470085}
+  - component: {fileID: 3811856515651818579}
   m_Layer: 3
   m_Name: FridgeA
-  m_TagString: Untagged
+  m_TagString: WorldDetail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4
@@ -108,6 +109,23 @@ MonoBehaviour:
   DataLoaded_Data:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3811856515651818579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550798694304671740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_Size: {x: 1, y: 1.83, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &4736872897992533961
 GameObject:
   m_ObjectHideFlags: 0

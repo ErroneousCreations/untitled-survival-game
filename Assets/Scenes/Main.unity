@@ -19693,7 +19693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e239a6f9250a94f8074232314da7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ChannelUri: 
+  m_ChannelUri: sip:confctl-d-16767-goofy-79085-udash.MAIN.7958d933-ccf8-491e-ae27-539449732152!p-30-10-1.000-3@mtu1xp.vivox.com
   m_ChannelName: MAIN
 --- !u!82 &1932233208
 AudioSource:
@@ -20354,9 +20354,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1419410742}
-  - {fileID: 386677132}
   - {fileID: 670380938}
   - {fileID: 1903811378}
+  - {fileID: 386677132}
   - {fileID: 1596712726}
   m_Father: {fileID: 475354900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

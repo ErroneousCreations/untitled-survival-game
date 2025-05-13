@@ -31,6 +31,7 @@ public class GameManager : NetworkBehaviour
     private bool readied, inlobbychannel, inspectatorchannel;
     private World currWorld;
     private int currentSaveFile, currentSeed = -1;
+    private float startGameModeTimer = 0;
 
     public static bool IsSpectating = false;
 
@@ -39,6 +40,9 @@ public class GameManager : NetworkBehaviour
     public static Dictionary<ulong, string> GetUUIDS => instance.UNIQUEUSERIDS;
 
     public static SavingManager.SaveFileLocationEnum GetSaveFileLocation => GetGameMode == GameModeEnum.Arena ? SavingManager.SaveFileLocationEnum.Survival : (SavingManager.SaveFileLocationEnum)GetGameMode;
+
+    public static bool InTeamA(string uuid) => TEAMA.Contains(uuid);
+    public static bool InTeamB(string uuid) => TEAMB.Contains(uuid);
 
     private void Awake()
     {
@@ -162,7 +166,7 @@ public class GameManager : NetworkBehaviour
         //StartCoroutine(FinishRespawn(id));
         var p = Instantiate(ThePlayer, Vector3.zero, Quaternion.identity); //todo add the other spawnpoint ranges
         p.NetworkObject.SpawnAsPlayerObject(id);
-        p.Teleport(Gamemode.Value == GameModeEnum.Survival ? Extensions.GetSurvivalSpawnPoint : (Gamemode.Value == GameModeEnum.TeamDeathmatch ? Extensions.GetTeamDeathmatchSpawnPoint : Extensions.GetDeathmatchSpawnPoint));
+        p.Teleport(Gamemode.Value == GameModeEnum.Survival ? Extensions.GetSurvivalSpawnPoint : (Gamemode.Value == GameModeEnum.TeamDeathmatch ? (TEAMA.Contains(UNIQUEUSERIDS[id]) ? Extensions.GetTeamASpawnPoint : (TEAMB.Contains(UNIQUEUSERIDS[id]) ? Extensions.GetTeamBSpawnPoint : Extensions.GetDeathmatchSpawnPoint)) : Extensions.GetDeathmatchSpawnPoint));
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
@@ -193,6 +197,8 @@ public class GameManager : NetworkBehaviour
                         Gamestate.Value = GameStateEnum.Ingame;
                         currWorld = Instantiate(world, Vector3.zero, Quaternion.identity);
                         currWorld.NetworkObject.Spawn();
+                        if(GetGameMode == GameModeEnum.Deathmatch) { Extensions.RandomiseDeathmatchSpawnIndex(); }
+                        if(GetGameMode == GameModeEnum.TeamDeathmatch) { Extensions.RandomiseTeamSpawnIndexes(); }
                         var loading = SavingManager.WorldExists(GetSaveFileLocation, currentSaveFile);
                         if (loading) {
                             SavingManager.Load(GetSaveFileLocation, currentSaveFile);
@@ -202,8 +208,10 @@ public class GameManager : NetworkBehaviour
                                 TEAMB = new();
                                 List<string> allUUIDs = new(UNIQUEUSERIDS.Values);
                                 List<string> uncontainedUUIDS = new(allUUIDs);
-                                var splitA = SavingManager.GetWorldSaveData("teamA").Split('|').ToList();
-                                var splitB = SavingManager.GetWorldSaveData("teamB").Split('|').ToList();
+                                var teama = SavingManager.GetWorldSaveData("teamA");
+                                var splitA = teama.Split('|').ToList();
+                                var teamb = SavingManager.GetWorldSaveData("teamB");
+                                var splitB = teamb.Split('|').ToList();
                                 foreach (var uuid in allUUIDs)
                                 {
                                     if (splitA.Contains(uuid)) { TEAMA.Add(uuid); uncontainedUUIDS.Remove(uuid); }
@@ -214,10 +222,24 @@ public class GameManager : NetworkBehaviour
                                     Extensions.ShuffleList(uncontainedUUIDS);
                                     for (int i = 0; i < uncontainedUUIDS.Count; i++)
                                     {
-                                        if (i % 2 == 0) { TEAMA.Add(uncontainedUUIDS[i]); }
-                                        else { TEAMB.Add(uncontainedUUIDS[i]); }
+                                        if (i % 2 == 0) { TEAMA.Add(uncontainedUUIDS[i]); teama += "|"+uncontainedUUIDS[i]; }
+                                        else { TEAMB.Add(uncontainedUUIDS[i]); teamb += "|" + uncontainedUUIDS[i]; }
                                     }
+                                    SavingManager.SetWorldSaveData("teamA", teama);
+                                    SavingManager.SetWorldSaveData("teamB", teamb);
                                 }
+
+                                FixedString512Bytes[] Teama = new FixedString512Bytes[TEAMA.Count];
+                                FixedString512Bytes[] Teamb = new FixedString512Bytes[TEAMB.Count];
+                                for (int i = 0; i < TEAMA.Count; i++)
+                                {
+                                    Teama[i] = TEAMA[i];
+                                }
+                                for (int i = 0; i < TEAMB.Count; i++)
+                                {
+                                    Teamb[i] = TEAMB[i];
+                                }
+                                SyncTeamsRPC(Teama, Teamb);
                             }
                         }
                         else {
@@ -251,12 +273,28 @@ public class GameManager : NetworkBehaviour
 
                                 SavingManager.SetWorldSaveData("teamA", teamA[..^1]);
                                 SavingManager.SetWorldSaveData("teamB", teamB[..^1]);
+
+                                FixedString512Bytes[] teama = new FixedString512Bytes[TEAMA.Count];
+                                FixedString512Bytes[] teamb = new FixedString512Bytes[TEAMB.Count];
+                                for (int i = 0; i < TEAMA.Count; i++)
+                                {
+                                    teama[i] = TEAMA[i];
+                                }
+                                for (int i = 0; i < TEAMB.Count; i++)
+                                {
+                                    teamb[i] = TEAMB[i];
+                                }
+                                SyncTeamsRPC(teama, teamb);
                             }
                         }
+                        startGameModeTimer = 4f;
                         ExitLobbyRPC(!loading);
+                        return;
                     }
                 }
                 else { startTimer.Value = 5; }
+                if (inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); inspectatorchannel = false; }
+
                 break;
             case GameStateEnum.Ingame:
                 if (inlobbychannel) { VivoxManager.LeaveLobbyChannel(); }
@@ -269,7 +307,8 @@ public class GameManager : NetworkBehaviour
                     }
                     else { UIManager.SetMuteIcon(false); }
                 }
-
+                if(SavingManager.LOADING || !IsOwner) { return; }
+                if (startGameModeTimer > 0) { startGameModeTimer -= Time.deltaTime; return; }
                 switch (Gamemode.Value)
                 {
                     case GameModeEnum.Survival:
@@ -279,6 +318,8 @@ public class GameManager : NetworkBehaviour
                         //one player standing
                         if(Player.PLAYERS.Count == 1)
                         {
+                            CleanUp();
+                            DeleteSave();
                             ShowVictoryScreenRPC($"{Player.PLAYERS[0].GetUsername} is victorious.", new ulong[] { Player.PLAYERS[0].OwnerClientId });
                         }
                         break;
@@ -307,6 +348,8 @@ public class GameManager : NetworkBehaviour
                                 winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString() + ",";
                                 winnerids.Add(CLIENTIDFROMUUID[player]);
                             }
+                            CleanUp();
+                            DeleteSave();
                             ShowVictoryScreenRPC($"{winners[..^1]} are victorious.", winnerids.ToArray());
                         }
                         else if(atleastoneplayeraliveB && !atleastoneplayeraliveA)
@@ -319,12 +362,15 @@ public class GameManager : NetworkBehaviour
                                 winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString() + ",";
                                 winnerids.Add(CLIENTIDFROMUUID[player]);
                             }
+                            CleanUp();
+                            DeleteSave();
                             ShowVictoryScreenRPC($"{winners[..^1]} are victorious.", winnerids.ToArray());
                         }
                         else if(!atleastoneplayeraliveA && !atleastoneplayeraliveB)
                         {
+                            CleanUp();
+                            DeleteSave();
                             ShowVictoryScreenRPC("Nobody is victorious", new ulong[0]);
-
                         }
                         break;
                     case GameModeEnum.Arena:
@@ -338,6 +384,15 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    [Rpc(SendTo.NotServer)]
+    private void SyncTeamsRPC(FixedString512Bytes[] teamA, FixedString512Bytes[] teamB)
+    {
+        TEAMA = new();
+        TEAMB = new();
+        foreach (var uuid in teamA) { TEAMA.Add(uuid.ToString()); }
+        foreach (var uuid in teamB) { TEAMB.Add(uuid.ToString()); }
+    }
+
     [Rpc(SendTo.Everyone)]
     private void ShowVictoryScreenRPC(string winners, ulong[] winnerarray)
     {
@@ -349,6 +404,8 @@ public class GameManager : NetworkBehaviour
         VivoxManager.JoinLobbyChannel(() => { inlobbychannel = true; });
         if (inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); inspectatorchannel = false; }
         IsSpectating = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public static void BackToLobbyFromWin()
@@ -384,16 +441,26 @@ public class GameManager : NetworkBehaviour
         VivoxManager.JoinSpectateChannel(() => { instance.inspectatorchannel = true; });
         if (!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
         IsSpectating = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    private static void CleanUp()
+    public static void CleanUp()
     {
-        foreach (var ob in GameObject.FindGameObjectsWithTag("WorldObject"))
+        if (NetworkManager.Singleton.IsServer)
         {
-            if(ob.TryGetComponent(out NetworkObject netob))
+            foreach (var ob in GameObject.FindGameObjectsWithTag("WorldObject"))
             {
-                netob.Despawn();
+                if (ob.TryGetComponent(out NetworkObject netob) && netob.IsSpawned)
+                {
+                    netob.Despawn();
+                }
             }
+        }
+        
+        foreach (var ob in GameObject.FindGameObjectsWithTag("WorldDetail"))
+        {
+            Destroy(ob);
         }
     }
 
@@ -421,6 +488,8 @@ public class GameManager : NetworkBehaviour
         if(inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); inspectatorchannel = false; }
         IsSpectating = false;
         UIManager.SetWorldInfo(true, worldinfo);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public static void ReadyUp()
@@ -474,12 +543,13 @@ public class GameManager : NetworkBehaviour
 
     public static void SetSeed(string seed)
     {
+        if(!NetworkManager.Singleton || !NetworkManager.Singleton.IsServer) { return; }
         instance.UpdateSeedRPC(seed);
         if (string.IsNullOrEmpty(seed)) { instance.currentSeed = -1; return; }
         instance.currentSeed = int.Parse(seed);
     }
 
-    [Rpc(SendTo.Everyone)]
+    [Rpc(SendTo.NotServer)]
     private void UpdateSeedRPC(string seed)
     {
         UIManager.SetSeedText(seed);
@@ -487,6 +557,7 @@ public class GameManager : NetworkBehaviour
 
     public static void DeleteSave()
     {
+        if(!SavingManager.WorldExists(GetSaveFileLocation, instance.currentSaveFile)) { return; }
         SavingManager.DeleteWorld(GetSaveFileLocation, instance.currentSaveFile);
         instance.UpdateSaveRPC(instance.currentSaveFile, false, "Create new world");
     }
