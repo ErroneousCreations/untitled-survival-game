@@ -58,6 +58,8 @@ public class UIManager : MonoBehaviour
         }
 
         SeedInput.interactable = NetworkManager.Singleton.IsServer;
+
+        WinscreenHostButton.SetActive(NetworkManager.Singleton.IsServer);
     }
 
     public static bool GetPauseMenuOpen => instance.pauseMenu.activeSelf;
@@ -370,6 +372,7 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField] private TMP_Text WinnerText, YouWinText;
+    [SerializeField] private GameObject WinscreenHostButton;
 
     public static void SetWinText(string winners, string youwin)
     {
