@@ -143,7 +143,7 @@ public class UIManager : MonoBehaviour
     }
 
     //lobby and menu
-    [SerializeField] private CanvasGroup LobbyUI, GameUI, TransitionScreen;
+    [SerializeField] private CanvasGroup LobbyUI, GameUI, TransitionScreen, WinScreen;
 
     public static void ShowLobby()
     {
@@ -157,6 +157,10 @@ public class UIManager : MonoBehaviour
 
         instance.TransitionScreen.alpha = 0;
         instance.SetLobbyCustomisationSliders();
+
+        instance.WinScreen.alpha = 0;
+        instance.WinScreen.interactable = false;
+        instance.WinScreen.blocksRaycasts = false;
     }
 
     public static void FadeToGame()
@@ -171,6 +175,46 @@ public class UIManager : MonoBehaviour
         instance.GameUI.alpha = 1;
         instance.GameUI.interactable = true;
         instance.GameUI.blocksRaycasts = true;
+
+        instance.WinScreen.alpha = 0;
+        instance.WinScreen.interactable = false;
+        instance.WinScreen.blocksRaycasts = false;
+    }
+
+    public static void ShowWinScreen()
+    {
+        instance.LobbyUI.alpha = 0;
+        instance.LobbyUI.interactable = false;
+        instance.LobbyUI.blocksRaycasts = false;
+        instance.TransitionScreen.DOFade(1, 2).onComplete += () =>
+        {
+            instance.TransitionScreen.DOFade(0, 2);
+            instance.GameUI.alpha = 0;
+            instance.GameUI.interactable = false;
+            instance.GameUI.blocksRaycasts = false;
+
+            instance.WinScreen.alpha = 1;
+            instance.WinScreen.interactable = true;
+            instance.WinScreen.blocksRaycasts = true;
+        };
+    }
+
+    public static void LobbyFromWinScreen()
+    {
+        instance.GameUI.alpha = 0;
+        instance.GameUI.interactable = false;
+        instance.GameUI.blocksRaycasts = false;
+        instance.TransitionScreen.DOFade(1, 2).onComplete += () =>
+        {
+            instance.TransitionScreen.DOFade(0, 2);
+            instance.LobbyUI.alpha = 1;
+            instance.LobbyUI.interactable = true;
+            instance.LobbyUI.blocksRaycasts = true;
+
+            instance.WinScreen.alpha = 0;
+            instance.WinScreen.interactable = false;
+            instance.WinScreen.blocksRaycasts = false;
+        };
     }
 
     public void ReadyupButton()
@@ -323,5 +367,18 @@ public class UIManager : MonoBehaviour
     {
         instance.selectedSaveslot.transform.parent = instance.SaveslotButtons[save].transform;
         instance.selectedGamemode.transform.localPosition = Vector3.zero;
+    }
+
+    [SerializeField] private TMP_Text WinnerText, YouWinText;
+
+    public static void SetWinText(string winners, string youwin)
+    {
+        instance.WinnerText.text = winners;
+        instance.YouWinText.text = youwin;
+    }
+
+    public void GoToLobbyFromWin()
+    {
+        GameManager.BackToLobbyFromWin();
     }
 }

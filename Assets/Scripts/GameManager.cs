@@ -8,7 +8,7 @@ using System.Linq;
 using UnityEngine.UI;
 using System.IO;
 
-public enum GameStateEnum { Lobby, Ingame }
+public enum GameStateEnum { Lobby, Ingame, Winnerscreen }
 public enum GameModeEnum { Survival, Deathmatch, TeamDeathmatch, Arena }
 
 public class GameManager : NetworkBehaviour
@@ -212,12 +212,12 @@ public class GameManager : NetworkBehaviour
                                 if(uncontainedUUIDS.Count > 0)
                                 {
                                     Extensions.ShuffleList(uncontainedUUIDS);
-                                    foreach (var uuid in uncontainedUUIDS)
+                                    for (int i = 0; i < uncontainedUUIDS.Count; i++)
                                     {
-
+                                        if (i % 2 == 0) { TEAMA.Add(uncontainedUUIDS[i]); }
+                                        else { TEAMB.Add(uncontainedUUIDS[i]); }
                                     }
                                 }
-                                
                             }
                         }
                         else {
@@ -273,22 +273,93 @@ public class GameManager : NetworkBehaviour
                 switch (Gamemode.Value)
                 {
                     case GameModeEnum.Survival:
+                        //nothing ever happens
                         break;
                     case GameModeEnum.Deathmatch:
                         //one player standing
                         if(Player.PLAYERS.Count == 1)
                         {
-                            //todo show game over screen
+                            ShowVictoryScreenRPC($"{Player.PLAYERS[0].GetUsername} is victorious.", new ulong[] { Player.PLAYERS[0].OwnerClientId });
                         }
                         break;
                     case GameModeEnum.TeamDeathmatch:
+                        bool atleastoneplayeraliveA = false, atleastoneplayeraliveB = false;
+                        foreach (var player in Player.PLAYERBYID.Keys)
+                        {
+                            if (TEAMA.Contains(UNIQUEUSERIDS[player]))
+                            {
+                                atleastoneplayeraliveA = true;
+                            }
 
+                            if (TEAMB.Contains(UNIQUEUSERIDS[player]))
+                            {
+                                atleastoneplayeraliveB = true;
+                            }
+                        }
+
+                        if(atleastoneplayeraliveA && !atleastoneplayeraliveB)
+                        {
+                            var winners = "";
+                            var winnerids = new List<ulong>();
+                            foreach (var player in TEAMA)
+                            {
+                                if (!CLIENTIDFROMUUID.ContainsKey(player)) { continue; }
+                                winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString() + ",";
+                                winnerids.Add(CLIENTIDFROMUUID[player]);
+                            }
+                            ShowVictoryScreenRPC($"{winners[..^1]} are victorious.", winnerids.ToArray());
+                        }
+                        else if(atleastoneplayeraliveB && !atleastoneplayeraliveA)
+                        {
+                            var winners = "";
+                            var winnerids = new List<ulong>();
+                            foreach (var player in TEAMB)
+                            {
+                                if (!CLIENTIDFROMUUID.ContainsKey(player)) { continue; }
+                                winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString() + ",";
+                                winnerids.Add(CLIENTIDFROMUUID[player]);
+                            }
+                            ShowVictoryScreenRPC($"{winners[..^1]} are victorious.", winnerids.ToArray());
+                        }
+                        else if(!atleastoneplayeraliveA && !atleastoneplayeraliveB)
+                        {
+                            ShowVictoryScreenRPC("Nobody is victorious", new ulong[0]);
+
+                        }
                         break;
                     case GameModeEnum.Arena:
                         break;
                 }
                 break;
+            case GameStateEnum.Winnerscreen:
+                if (Input.GetKeyDown(KeyCode.V) && inlobbychannel) { VivoxManager.ToggleInputMute(); }
+                UIManager.SetMuteIcon(VivoxManager.initialised && !VivoxManager.GetisMuted && inlobbychannel);
+                break;
         }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void ShowVictoryScreenRPC(string winners, ulong[] winnerarray)
+    {
+        UIManager.ShowWinScreen();
+        UIManager.SetWinText(winners, winnerarray.Contains(NetworkManager.Singleton.LocalClientId) ? "You Win!" : "You Lose!");
+
+        if (!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
+        DespawnPlayerRPC(NetworkManager.LocalClientId);
+        VivoxManager.JoinLobbyChannel(() => { inlobbychannel = true; });
+        if (inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); inspectatorchannel = false; }
+        IsSpectating = false;
+    }
+
+    public static void BackToLobbyFromWin()
+    {
+        instance.LobbyFromWinRPC();
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void LobbyFromWinRPC()
+    {
+        UIManager.LobbyFromWinScreen();
     }
 
     public static void ResetGamemode()
