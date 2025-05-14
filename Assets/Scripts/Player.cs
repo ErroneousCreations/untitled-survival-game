@@ -427,7 +427,7 @@ public class Player : NetworkBehaviour
         }
         teamA.Value = GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? GameManager.InTeamA(Extensions.UniqueIdentifier) : false;
         isTalking.Value = ph.isConscious.Value && participant != null && participant.SpeechDetected;
-        participant.SetLocalVolume(0);
+        if (participant != null) { participant.SetLocalVolume(0); }
         blinkCurr -= Time.deltaTime;
         if (blinkCurr <= 0) { blinkCurr = Random.Range(2.1f, 2.6f); }
         SyncedEyeTexture.Value = GetFace;
