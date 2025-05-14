@@ -448,7 +448,7 @@ public class PlayerHealthController : NetworkBehaviour
         {
             wasinHead = true;
             consciousness.Value -= damage / 45f;
-            headHealth.Value -= (damage / 70f) * (embeddedob ? 1.8f : 1);
+            headHealth.Value -= (damage / 70f) * (type == DamageType.Blunt ? 0.8f : 1f) * (embeddedob ? 1.8f : 1);
             headhealthRegenCd = 30;
         }
         else if ((pos - transform.TransformPoint(new Vector3(legsPos.x, legsPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, legsPos.z))).sqrMagnitude < legsRadius * legsRadius)
@@ -512,8 +512,8 @@ public class PlayerHealthController : NetworkBehaviour
         {
             //todo make it change depending on what your holding and stuff
             inter.Banned = IsOwner || !Player.LocalPlayer || ((!woundObjects.ContainsKey(id) || !woundObjects[id].hasembedded) && PlayerInventory.GetRightHandItem.ID.ToString() != "bandage");
-            if (!Player.LocalPlayer) { return; }
             if (!woundObjects.ContainsKey(id)) { Destroy(ob); return; }
+            if (!Player.LocalPlayer) { return; }
             inter.Description = woundObjects[id].hasembedded ? $"Remove {embeddedname}" : (PlayerInventory.GetRightHandItem.ID.ToString()=="bandage" ? $"Bandage Wound ({PlayerInventory.GetRightHandItem.SavedData[0]})" : "");
             inter.InteractLength = 2f;
             inter.InteractDistance = 1.5f;

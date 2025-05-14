@@ -40,8 +40,7 @@ public class SpectatorCamera : MonoBehaviour
         if (NetworkManager.Singleton.IsClient && GameManager.IsSpectating)
         {
             if (!dead) { target = null; trackingpos = transform.position; dead = true; }
-            //if (distance < 2) distance = 2;
-            //distance -= Input.GetAxis("Mouse ScrollWheel") * 2;
+            distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 2, DistanceRange.x, DistanceRange.y);
 
             if (Player.PLAYERBYID.Values.Count > 0)
             {

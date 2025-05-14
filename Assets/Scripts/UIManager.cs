@@ -6,6 +6,7 @@ using System.Collections;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine.InputSystem;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
@@ -135,12 +136,28 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite[] playerIcons;
     [SerializeField] private Sprite[] specialPlayerIcons;
     [SerializeField] private Sprite ready, notready;
+
+    private Dictionary<ulong, GameObject> speakingIndicators = new();
+
+    public static void SetSpeakingIndicators(string whostalking)
+    {
+        if(instance.speakingIndicators.Count == 0) { return; }
+
+        var talkers = whostalking.Split('|');
+
+        foreach (var indicator in instance.speakingIndicators)
+        {
+            indicator.Value.SetActive(talkers.Contains(indicator.Key.ToString()));
+        }
+    }
+
     public static void UpdatePlayerList(Dictionary<ulong, string> conns, List<ulong> readied)
     {
         foreach (Transform child in instance.basePlayerIcon.transform.parent)
         {
             if (child.gameObject.activeSelf) { Destroy(child.gameObject); }
         }
+        instance.speakingIndicators = new();
 
         foreach (var conn in conns)
         {
@@ -151,6 +168,7 @@ public class UIManager : MonoBehaviour
             ob.GetComponentInChildren<TMP_Text>().text = username;
             ob.sprite = specialindex==-1? instance.playerIcons[Extensions.GetDeterministicStringIndex(username, instance.playerIcons.Length)] : instance.specialPlayerIcons[specialindex];
             ob.transform.GetChild(1).GetComponent<Image>().sprite = readied.Contains(conn.Key) ? instance.ready : instance.notready;
+            instance.speakingIndicators.Add(conn.Key, ob.transform.GetChild(2).gameObject);
         }
     }
 
@@ -464,19 +482,26 @@ public class UIManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("INPUTVOLUME", (int)value);
         VivoxManager.SetAudioInputVolume((int)value);
-        inputvolumeText.text = (100 - value).ToString();
+        inputvolumeText.text = (100 + value).ToString();
     }
 
     public void SetOutputVolume(float value)
     {
         PlayerPrefs.SetInt("OUTPUTVOLUME", (int)value);
         VivoxManager.SetAudioOutputVolume((int)value);
-        outputvolumeText.text = (100 - value).ToString();
+        outputvolumeText.text = (100 + value).ToString();
     }
 
     public void SetSens(float value)
     {
         PlayerPrefs.SetFloat("SENS", value);
         sensText.text = System.Math.Round(value, 2).ToString();
+    }
+
+    [SerializeField] private TMP_Text SpectatorTalkingText;
+
+    public static void SetSpectatorTalkingText(string text)
+    {
+        instance.SpectatorTalkingText.text = text;
     }
 }

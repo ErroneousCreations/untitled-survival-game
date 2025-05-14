@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 using Unity.Collections;
 using System.Collections;
 using DitzelGames.FastIK;
+using Unity.Netcode.Components;
 
 public class Player : NetworkBehaviour
 {
@@ -31,6 +32,7 @@ public class Player : NetworkBehaviour
     [SerializeField] private Renderer ScarfRend;
     [SerializeField] private GameObject speakingIndicator;
     [SerializeField] private Cloth scarfCloth;
+    [SerializeField] private NetworkTransform ntfm;
     [Header("Physics Settings")]
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float standupForce = 100, standupDamping = 5, falloverForce = 1, fallRecoverSpeed = 10;
@@ -190,32 +192,7 @@ public class Player : NetworkBehaviour
     [Rpc(SendTo.Owner, RequireOwnership = false)]
     private void TeleportRPC(Vector3 pos)
     {
-        StartCoroutine(WhattheFuck(pos)); // teleport to the position
-    }
-
-    //WHY THE FUCK
-    IEnumerator WhattheFuck(Vector3 pos)
-    {
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
-        yield return new WaitForSeconds(0.01f);
-        transform.position = pos;
+        ntfm.Teleport(pos, Quaternion.identity, Vector3.one);
     }
 
     private void Start()
@@ -239,7 +216,7 @@ public class Player : NetworkBehaviour
             Camera.main.transform.localPosition = Vector3.zero;
             LocalPlayer = this;
             SyncedEyeTexture.Value = 0;
-            SyncedScarfColour.Value = GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? (GameManager.InTeamA(Extensions.UniqueIdentifier) ? Color.red : Color.blue) : new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
+            SyncedScarfColour.Value = new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
             SyncedSkinTexture.Value = PlayerPrefs.GetInt("SKINTEX", 0);
             blinkCurr = Random.Range(2.1f, 2.6f);
             VivoxManager.JoinMainChannel(() =>
@@ -340,7 +317,7 @@ public class Player : NetworkBehaviour
 
     private void Update()
     {
-        skinMat.SetFloat("_Paleness", 1-ph.currentBlood.Value);
+        skinMat.SetFloat("_Paleness", 1 - ph.currentBlood.Value);
         skinMat.SetTexture("_MainTex", SkinTextures[(int)SyncedSkinTexture.Value]);
         scarfMat.color = SyncedScarfColour.Value;
         bodyScarfMat.color = SyncedScarfColour.Value;
@@ -389,15 +366,17 @@ public class Player : NetworkBehaviour
 
         if (!IsOwner) { return; }
 
-        if(GameManager.GetGameMode != GameModeEnum.Survival)
+        if (!ph.isAlive.Value) { return; }
+
+        if (GameManager.GetGameMode != GameModeEnum.Survival)
         {
             foreach (var p in PLAYERS)
             {
-                if(p == this) { continue; } // skip self
+                if (p == this) { continue; } // skip self
                 if (GameManager.GetGameMode == GameModeEnum.Deathmatch || p.GetIsTeamA != GetIsTeamA)
                 {
                     var dist = (p.GetPlayerCentre - GetPlayerCentre).magnitude;
-                    if(dist < 15)
+                    if (dist < 15)
                     {
                         MusicManager.AddThreatLevel(Mathf.Lerp(Time.deltaTime * 9, 0, dist / 15));
                     }
@@ -406,7 +385,7 @@ public class Player : NetworkBehaviour
         }
 
         // Muffle sound with low-pass filter
-        float cutoff =  Mathf.Lerp(11000f, 400f, Mathf.Clamp01(1f - ph.consciousness.Value));
+        float cutoff = Mathf.Lerp(11000f, 400f, Mathf.Clamp01(1f - ph.consciousness.Value));
         Mixer.SetFloat("LowPass", cutoff);
 
         // Lower pitch slightly
@@ -415,8 +394,8 @@ public class Player : NetworkBehaviour
 
         //heartbeat
 
-        if (ph.isConscious.Value) { 
-            if(isKnockedOver.Value && PlayerPrefs.GetInt("HEADBOB", 0) == 1) { ScreenEffectsManager.SetVignette(1f); } // give tunnel vision if the motion sickness setting is on
+        if (ph.isConscious.Value) {
+            if (isKnockedOver.Value && PlayerPrefs.GetInt("HEADBOB", 0) == 1) { ScreenEffectsManager.SetVignette(1f); } // give tunnel vision if the motion sickness setting is on
             else { ScreenEffectsManager.SetVignette(1 - ph.consciousness.Value); }
         }
         else if (ph.heartBeating.Value)
@@ -426,10 +405,10 @@ public class Player : NetworkBehaviour
             // Heartbeat as a repeated sharp pulse
             float t = Mathf.Repeat(beatTimer, 1) / 1f;
             float heartbeatvalue = Mathf.Pow(Mathf.Clamp01(1f - t), 1.5f);
-            ScreenEffectsManager.SetVignette(0.9f + (heartbeatvalue*0.1f));
+            ScreenEffectsManager.SetVignette(0.9f + (heartbeatvalue * 0.1f));
         }
         else { ScreenEffectsManager.SetVignette(1); }
-        ScreenEffectsManager.SetSaturation(1-ph.currentBlood.Value); // 0 to -100
+        ScreenEffectsManager.SetSaturation(1 - ph.currentBlood.Value); // 0 to -100
         ScreenEffectsManager.SetAberration(ph.shock.Value * 0.8f);
         ScreenEffectsManager.SetMotionBlur(ph.GetBlurriness);
         UIManager.SetBodyDamage(ph.bodyHealth.Value);
@@ -437,13 +416,18 @@ public class Player : NetworkBehaviour
         UIManager.SetFeetDamage(ph.legHealth.Value);
 
         if (inChannel && !ph.isConscious.Value && !VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
-        if(inChannel && ph.isConscious.Value && Input.GetKeyDown(KeyCode.V)) { VivoxManager.ToggleInputMute(); }
+        if (inChannel && ph.isConscious.Value && Input.GetKeyDown(KeyCode.V)) { VivoxManager.ToggleInputMute(); }
         if (inChannel && ph.isAlive.Value) { VivoxManager.SetPosition(gameObject); }
         UIManager.SetMuteIcon(!VivoxManager.GetisMuted && inChannel);
         isSprinting.Value = pm.GetIsSprinting;
         isKnockedOver.Value = currfalloverTime > 0;
+        if (GameManager.GetGameMode == GameModeEnum.TeamDeathmatch)
+        {
+            SyncedScarfColour.Value = GameManager.InTeamA(Extensions.UniqueIdentifier) ? Color.red : Color.blue;
+        }
         teamA.Value = GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? GameManager.InTeamA(Extensions.UniqueIdentifier) : false;
         isTalking.Value = ph.isConscious.Value && participant != null && participant.SpeechDetected;
+        participant.SetLocalVolume(0);
         blinkCurr -= Time.deltaTime;
         if (blinkCurr <= 0) { blinkCurr = Random.Range(2.1f, 2.6f); }
         SyncedEyeTexture.Value = GetFace;

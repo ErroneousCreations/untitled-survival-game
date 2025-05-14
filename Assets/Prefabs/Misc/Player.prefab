@@ -3817,6 +3817,7 @@ MonoBehaviour:
   ScarfRend: {fileID: 7412239047916043632}
   speakingIndicator: {fileID: 2983407331317601488}
   scarfCloth: {fileID: 6535930987975586776}
+  ntfm: {fileID: 1658169693265105205}
   rb: {fileID: 5915086949411864073}
   standupForce: 700
   standupDamping: 15

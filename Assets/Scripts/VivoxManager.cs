@@ -14,7 +14,7 @@ public class VivoxManager : MonoBehaviour
     public static System.Action InputDevicesChanged;
     public static System.Action InitialisationComplete;
     public static bool initialised;
-    private static bool wantstoQuit;
+    private static bool wantstoQuit, quitting;
 
     public static bool LeavingChannel;
 
@@ -40,50 +40,52 @@ public class VivoxManager : MonoBehaviour
         InitialisationComplete?.Invoke();
     }
 
-    public static bool InMainChannel => VivoxService.Instance.ActiveChannels.ContainsKey(DEFAULTCHANNEL) && VivoxService.Instance.ActiveChannels[DEFAULTCHANNEL].FirstOrDefault(part => part.DisplayName==Extensions.UniqueIdentifier)!=null;
-    public static bool InLobbyChannel => VivoxService.Instance.ActiveChannels.ContainsKey(LOBBYCHANNEL) && VivoxService.Instance.ActiveChannels[LOBBYCHANNEL].FirstOrDefault(part => part.DisplayName == Extensions.UniqueIdentifier) != null;
-    public static bool InSpectatorChannel => VivoxService.Instance.ActiveChannels.ContainsKey(SPECTATECHANNEL) && VivoxService.Instance.ActiveChannels[SPECTATECHANNEL].FirstOrDefault(part => part.DisplayName == Extensions.UniqueIdentifier) != null;
+    public static bool InMainChannel => VivoxService.Instance.ActiveChannels.ContainsKey(DEFAULTCHANNEL);
+    public static bool InLobbyChannel => VivoxService.Instance.ActiveChannels.ContainsKey(LOBBYCHANNEL);
+    public static bool InSpectatorChannel => VivoxService.Instance.ActiveChannels.ContainsKey(SPECTATECHANNEL);
+
+    public static ReadOnlyDictionary<string, ReadOnlyCollection<VivoxParticipant>> GetActiveChannels => VivoxService.Instance.ActiveChannels;
 
     public static int GetChannelCount => VivoxService.Instance.ActiveChannels.Count;
 
     public static async void JoinMainChannel(System.Action calledonComplete = null)
     {
+        if (InMainChannel) { return; }
         await VivoxService.Instance.JoinPositionalChannelAsync(DEFAULTCHANNEL, ChatCapability.AudioOnly, new(40, 15, 1f, AudioFadeModel.ExponentialByDistance));
         calledonComplete?.Invoke();
     }
 
     public static async void JoinLobbyChannel(System.Action calledonComplete = null)
     {
+        if (InLobbyChannel) { return; }
         await VivoxService.Instance.JoinGroupChannelAsync(LOBBYCHANNEL, ChatCapability.AudioOnly);
         calledonComplete?.Invoke();
     }
 
     public static void JoinSpectateChannel(System.Action calledonComplete = null)
     {
+        if (InSpectatorChannel) { return; }
         VivoxService.Instance.JoinGroupChannelAsync(SPECTATECHANNEL, ChatCapability.AudioOnly);
-        calledonComplete?.Invoke();
-    }
-
-    public static async void JoinTestChannel(System.Action calledonComplete = null)
-    {
-        await VivoxService.Instance.JoinEchoChannelAsync("TEST", ChatCapability.AudioOnly);
         calledonComplete?.Invoke();
     }
 
     public static async void LeaveMainChannel(System.Action calledonComplete = null)
     {
+        if (!InMainChannel) { return; }
         await VivoxService.Instance.LeaveChannelAsync(DEFAULTCHANNEL);
         calledonComplete?.Invoke();
     }
 
     public static async void LeaveLobbyChannel (System.Action calledonComplete = null)
     {
+        if (!InLobbyChannel) { return; }
         await VivoxService.Instance.LeaveChannelAsync(LOBBYCHANNEL);
         calledonComplete?.Invoke();
     }
 
     public static void LeaveSpectateChannel()
     {
+        if (!InSpectatorChannel) { return; }
         VivoxService.Instance.LeaveChannelAsync(SPECTATECHANNEL);
     }
 
@@ -134,16 +136,19 @@ public class VivoxManager : MonoBehaviour
 
     private static bool CanQuit()
     {
+        if (quitting) { return false; }
         if (!wantstoQuit) { QuitProcess(); }
         return wantstoQuit;
     }
 
     private static async void QuitProcess()
     {
+        quitting = true;
         wantstoQuit = false;
         await VivoxService.Instance.LogoutAsync();
-        Application.Quit();
         wantstoQuit = true;
+        quitting = false;
+        Application.Quit();
     }
 
     public static void LeaveAllChannels()

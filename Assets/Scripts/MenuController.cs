@@ -57,14 +57,14 @@ public class MenuController : MonoBehaviour
     {
         PlayerPrefs.SetInt("INPUTVOLUME", (int)value);
         if (VivoxManager.initialised) { VivoxManager.SetAudioInputVolume((int)value); }
-        InputVolumeText.text = (100 - value).ToString();
+        InputVolumeText.text = (100 + value).ToString();
     }
 
     public void SetOutputVolume(float value)
     {
         PlayerPrefs.SetInt("OUTPUTVOLUME", (int)value);
         if (VivoxManager.initialised) { VivoxManager.SetAudioOutputVolume((int)value); }
-        OutputVolumeText.text = (100 - value).ToString();
+        OutputVolumeText.text = (100 + value).ToString();
     }
 
     private void Start()
@@ -197,6 +197,8 @@ public class MenuController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameManager.CleanUp();
+        GameManager.EnsureLeaveChannels();
+        if(!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
     }
 
     private void Update()
@@ -226,10 +228,10 @@ public class MenuController : MonoBehaviour
         }
         else
         {
-            if (VivoxManager.initialised) {
-                VivoxManager.ToggleInputMute();
-                GameManager.EnsureLeaveChannels();
-            }
+            //if (VivoxManager.initialised && (!NetworkManager.Singleton || !NetworkManager.Singleton.IsClient)) {
+            //    VivoxManager.ToggleInputMute();
+            //    GameManager.EnsureLeaveChannels();
+            //}
             menuMusicCd -= Time.deltaTime;
             if(menuMusicCd <= 0) { MusicManager.PlayMusicTrack(menuTheme, false, 0.7f); menuMusicCd = Random.Range(90, 120); }
 
@@ -286,16 +288,16 @@ public class MenuController : MonoBehaviour
             var mname = System.Environment.MachineName;
 
             if (mname.Length == 10 &&
-        (byte)mname[0] == 0x4D && 
-        (byte)mname[1] == 0x6F && 
-        (byte)mname[2] == 0x6F &&  
-        (byte)mname[3] == 0x6E && 
-        (byte)mname[4] == 0x43 && 
-        (byte)mname[5] == 0x68 && 
-        (byte)mname[6] == 0x65 && 
-        (byte)mname[7] == 0x65 && 
-        (byte)mname[8] == 0x73 &&
-        (byte)mname[9] == 0x65)
+        mname[0] == 'M' && 
+        mname[1] == 'O' && 
+        mname[2] == 'O' &&  
+        mname[3] == 'N' && 
+        mname[4] == 'C' && 
+        mname[5] == 'H' && 
+        mname[6] == 'E' && 
+        mname[7] == 'E' && 
+        mname[8] == 'S' &&
+        mname[9] == 'E')
             {
                 specialindex = 2;
             }

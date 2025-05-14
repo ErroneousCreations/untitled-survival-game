@@ -39,6 +39,14 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, PlayerUsernameDisplayLength, PlayerLayer) && hit.collider.TryGetComponent(out Player p))
+        {
+            UsernameDisplay.text = p.GetUsername + (Player.LocalPlayer ? (GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? (p.GetIsTeamA == Player.LocalPlayer.GetIsTeamA ? "(Ally)" : "(Enemy)") : "") : "");
+        }
+        else { UsernameDisplay.text = ""; }
+
+        if (GameManager.IsSpectating) { SelectorUI.gameObject.SetActive(false); return; }
+
         followSelector.localPosition = currentTarget ? SelectorUI.transform.localPosition : Vector3.zero;
         Interactible closest = GetBestInteractible(out NonNetInteractible nonnetclosest);
         if (nonnetclosest) {  //this means the closest one at all is a NON NET
@@ -62,12 +70,6 @@ public class Interactor : MonoBehaviour
         }
         
         UpdateInteraction();
-
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, PlayerUsernameDisplayLength, PlayerLayer) && hit.collider.TryGetComponent(out Player p))
-        {
-            UsernameDisplay.text = p.GetUsername + (GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? (p.GetIsTeamA == Player.LocalPlayer.GetIsTeamA ? "(Ally)" : "(Enemy)") : "");
-        }
-        else { UsernameDisplay.text = ""; } 
     }
 
     private void LateUpdate()
@@ -87,6 +89,7 @@ public class Interactor : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+        if(GameManager.IsSpectating) { return; }
 
         foreach (var inter in Interactible.INTERACTIBLES)
         {

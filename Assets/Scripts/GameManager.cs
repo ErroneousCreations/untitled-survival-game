@@ -7,6 +7,7 @@ using System.Text;
 using System.Linq;
 using UnityEngine.UI;
 using System.IO;
+using Unity.Services.Vivox;
 
 public enum GameStateEnum { Lobby, Ingame, Winnerscreen }
 public enum GameModeEnum { Survival, Deathmatch, TeamDeathmatch, Arena }
@@ -30,9 +31,13 @@ public class GameManager : NetworkBehaviour
     private NetworkVariable<bool> allPlayersInit = new(false);
     public static bool ALL_PLAYERS_INITIALISED => instance.allPlayersInit.Value;
     private NetworkVariable<float> startTimer = new(0);
-    private bool readied, inlobbychannel, inspectatorchannel;
+    private bool readied;
     private World currWorld;
     private int currentSaveFile, currentSeed = -1;
+    private VivoxParticipant lobbyParticipant, spectatorMainParticipant, spectatorParticipant;
+    private bool isSpeaking;
+    private NetworkVariable<FixedString64Bytes> talkingPlayers = new();
+    private List<ulong> serverSpeakingList = new();
 
     public static bool IsSpectating = false;
 
@@ -63,8 +68,7 @@ public class GameManager : NetworkBehaviour
         readiedPlayers = new();
         //since we are in lobby we join the lobby channel
         readied = false;
-        inlobbychannel = false;
-        VivoxManager.JoinLobbyChannel(() => { inlobbychannel = true; });
+        VivoxManager.JoinLobbyChannel();
         UIManager.SetGamemodeIndicator(GameModeEnum.Survival);
         UIManager.SetSaveIndicator(0);
         UIManager.SetWorldInfo(SavingManager.GetWorldInfo(SavingManager.SaveFileLocationEnum.Survival, 0, out string info), info);
@@ -86,6 +90,7 @@ public class GameManager : NetworkBehaviour
     private void OnClientDisconnectCallback(ulong obj)
     {
         if (!IsServer) { return; }
+        if(serverSpeakingList.Contains(obj)) { serverSpeakingList.Remove(obj); }
         DisconnectedRPC(obj, readiedPlayers.ToArray());
         USERNAMES.Remove(obj);
         UNIQUEUSERIDS.Remove(obj);
@@ -178,17 +183,43 @@ public class GameManager : NetworkBehaviour
 
     private void Update()
     {
-        if (!NetworkManager.Singleton) { return; }
+        if (!NetworkManager.Singleton || !NetworkManager.Singleton.IsClient) { return; }
+
+        if (IsServer && (GetGamestate != GameStateEnum.Ingame || IsSpectating))
+        {
+            talkingPlayers.Value = "";
+            foreach (var id in serverSpeakingList)
+            {
+                talkingPlayers.Value += id + "|";
+            }
+            if (talkingPlayers.Value.Length > 0) { talkingPlayers.Value = talkingPlayers.Value.ToString()[..^1]; }
+            Debug.Log($"Talking players: {talkingPlayers.Value.ToString()}");
+        }
 
         switch (GetGamestate)
         {
             case GameStateEnum.Lobby:
-                if (Input.GetKeyDown(KeyCode.V) && inlobbychannel) { VivoxManager.ToggleInputMute(); }
-                UIManager.SetMuteIcon(VivoxManager.initialised && !VivoxManager.GetisMuted && inlobbychannel);
-                initialisedPlayers = 0;
-                allPlayersInit.Value = false;
+                if (Input.GetKeyDown(KeyCode.V) && VivoxManager.InLobbyChannel) { VivoxManager.ToggleInputMute(); }
+                UIManager.SetMuteIcon(VivoxManager.initialised && !VivoxManager.GetisMuted && VivoxManager.InLobbyChannel);
                 UIManager.SetReadyTimerText(startTimer.Value >= 5 ? "" : System.Math.Round(startTimer.Value, 2).ToString());
                 UIManager.SetReadyUpButtonText(readied ? "Cancel Ready" : "Ready Up");
+                UIManager.SetSpeakingIndicators(talkingPlayers.Value.ToString());
+                if (VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); spectatorParticipant = null; spectatorMainParticipant = null; }
+                if (VivoxManager.InMainChannel) { VivoxManager.LeaveMainChannel(); }
+                if (VivoxManager.InLobbyChannel) {
+                    if(lobbyParticipant == null) { lobbyParticipant = VivoxManager.GetActiveChannels[VivoxManager.LOBBYCHANNEL].FirstOrDefault(x => { return x.DisplayName == Extensions.UniqueIdentifier; }); }
+                    else {
+                        if (lobbyParticipant.SpeechDetected && !isSpeaking)
+                        {
+                            isSpeaking = true; UpdateSpeakingRPC(NetworkManager.Singleton.LocalClientId, true);
+                        }
+                        if (!lobbyParticipant.SpeechDetected && isSpeaking)
+                        {
+                            isSpeaking = false; UpdateSpeakingRPC(NetworkManager.Singleton.LocalClientId, false);
+                        }
+                    } //no talking
+                }
+
                 if (!IsServer) { return; }
                 if (readiedPlayers.Count >= NetworkManager.Singleton.ConnectedClients.Count)
                 {
@@ -196,8 +227,11 @@ public class GameManager : NetworkBehaviour
 
                     if (startTimer.Value <= 0)
                     {
+                        serverSpeakingList = new();
+                        talkingPlayers.Value = "";
                         Gamestate.Value = GameStateEnum.Ingame;
                         allPlayersInit.Value = false;
+                        initialisedPlayers = 0;
                         currWorld = Instantiate(world, Vector3.zero, Quaternion.identity);
                         currWorld.NetworkObject.Spawn();
                         Extensions.RandomiseDeathmatchSpawnIndex();
@@ -269,16 +303,52 @@ public class GameManager : NetworkBehaviour
                 else { startTimer.Value = 5; }
                 break;
             case GameStateEnum.Ingame:
-                if (inlobbychannel) { VivoxManager.LeaveLobbyChannel(); }
-                if (!Player.LocalPlayer) {
+                if (VivoxManager.InLobbyChannel) { VivoxManager.LeaveLobbyChannel(); }
+                if (IsSpectating) {
+                    var talkers = "";
+                    if(talkingPlayers.Value.Length > 0) {
+                        foreach (var id in talkingPlayers.Value.ToString().Split('|'))
+                        {
+                            var un = localUserNames[ulong.Parse(id)];
+                            talkers += (un.Contains('\r') ? un.Split('\r')[0] : un.ToString()) + "\n";
+                        }
+                        if (talkers.Length > 0) { talkers = talkers[..^1]; }
+                    }
+                    else { talkers = ""; }
+                    UIManager.SetSpectatorTalkingText(talkers);
 
-                    if (inspectatorchannel)
+                    if (VivoxManager.InMainChannel)
                     {
+                        VivoxManager.SetPosition(Camera.main.gameObject);
+                        if(spectatorMainParticipant == null) { spectatorMainParticipant = VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL].FirstOrDefault(x => { return x.DisplayName == Extensions.UniqueIdentifier; }); }
+                        else { spectatorMainParticipant.SetLocalVolume(-50); } //no talking
+                    }
+                    if (VivoxManager.InSpectatorChannel)
+                    {
+                        if(spectatorParticipant == null) { spectatorParticipant = VivoxManager.GetActiveChannels[VivoxManager.SPECTATECHANNEL].FirstOrDefault(x => { return x.DisplayName == Extensions.UniqueIdentifier; }); }
+                        else { 
+                            if (spectatorParticipant.SpeechDetected && !isSpeaking) { 
+                                isSpeaking = true; UpdateSpeakingRPC(NetworkManager.Singleton.LocalClientId, true); 
+                            } 
+                            if(!spectatorParticipant.SpeechDetected && isSpeaking)
+                            {
+                                isSpeaking = false; UpdateSpeakingRPC(NetworkManager.Singleton.LocalClientId, false);
+                            }
+                        }
+
                         if (Input.GetKeyDown(KeyCode.V)) { VivoxManager.ToggleInputMute(); }
                         UIManager.SetMuteIcon(VivoxManager.initialised && !VivoxManager.GetisMuted);
                     }
                     else { UIManager.SetMuteIcon(false); }
+                    UIManager.ToggleDamageIndicator(false);
+                    ScreenEffectsManager.SetAberration(0);
+                    ScreenEffectsManager.SetVignette(0);
+                    ScreenEffectsManager.SetSaturation(0);
+                    ScreenEffectsManager.SetMotionBlur(0);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
                 }
+                else { UIManager.SetSpectatorTalkingText(""); }
 
                 if (SavingManager.LOADING) { return; }
                 if (!IsServer) { return; }
@@ -293,7 +363,9 @@ public class GameManager : NetworkBehaviour
                         //one player standing
                         if(Player.PLAYERS.Count == 1)
                         {
+                            Gamestate.Value = GameStateEnum.Winnerscreen;
                             ShowVictoryScreenRPC($"{Player.PLAYERS[0].GetUsername} is victorious.", new ulong[] { Player.PLAYERS[0].OwnerClientId });
+                            CleanUp();
                         }
                         break;
                     case GameModeEnum.TeamDeathmatch:
@@ -321,7 +393,9 @@ public class GameManager : NetworkBehaviour
                                 winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString() + ",";
                                 winnerids.Add(CLIENTIDFROMUUID[player]);
                             }
+                            Gamestate.Value = GameStateEnum.Winnerscreen;
                             ShowVictoryScreenRPC($"{winners[..^1]} are victorious.", winnerids.ToArray());
+                            CleanUp();
                         }
                         else if(atleastoneplayeraliveB && !atleastoneplayeraliveA)
                         {
@@ -333,12 +407,15 @@ public class GameManager : NetworkBehaviour
                                 winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString() + ",";
                                 winnerids.Add(CLIENTIDFROMUUID[player]);
                             }
+                            Gamestate.Value = GameStateEnum.Winnerscreen;
                             ShowVictoryScreenRPC($"{winners[..^1]} are victorious.", winnerids.ToArray());
+                            CleanUp();
                         }
                         else if(!atleastoneplayeraliveA && !atleastoneplayeraliveB)
                         {
+                            Gamestate.Value = GameStateEnum.Winnerscreen;   
                             ShowVictoryScreenRPC("Nobody is victorious", new ulong[0]);
-
+                            CleanUp();
                         }
                         break;
                     case GameModeEnum.Arena:
@@ -346,10 +423,24 @@ public class GameManager : NetworkBehaviour
                 }
                 break;
             case GameStateEnum.Winnerscreen:
-                if (Input.GetKeyDown(KeyCode.V) && inlobbychannel) { VivoxManager.ToggleInputMute(); }
-                UIManager.SetMuteIcon(VivoxManager.initialised && !VivoxManager.GetisMuted && inlobbychannel);
+                if (VivoxManager.InLobbyChannel)
+                {
+                    if (Input.GetKeyDown(KeyCode.V) && VivoxManager.InLobbyChannel) { VivoxManager.ToggleInputMute(); }
+                    UIManager.SetMuteIcon(VivoxManager.initialised && !VivoxManager.GetisMuted && VivoxManager.InLobbyChannel);
+                }
+                else
+                {
+                    UIManager.SetMuteIcon(false);
+                }
                 break;
         }
+    }
+
+    [Rpc(SendTo.Server)]
+    private void UpdateSpeakingRPC(ulong id, bool talking)
+    {
+        if (talking && !serverSpeakingList.Contains(id)) { serverSpeakingList.Add(id); }
+        else if (!talking && serverSpeakingList.Contains(id)) { serverSpeakingList.Remove(id); }
     }
 
     [Rpc(SendTo.Everyone)]
@@ -360,9 +451,11 @@ public class GameManager : NetworkBehaviour
 
         if (!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
         DespawnPlayerRPC(NetworkManager.LocalClientId);
-        VivoxManager.JoinLobbyChannel(() => { inlobbychannel = true; });
-        if (inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); inspectatorchannel = false; }
+        VivoxManager.JoinLobbyChannel();
+        if (VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); spectatorMainParticipant = null; spectatorParticipant = null; }
+        if(VivoxManager.InMainChannel) { VivoxManager.LeaveMainChannel(); }
         IsSpectating = false;
+        isSpeaking = false;
     }
 
     private static float initialisedPlayers = 0;
@@ -380,12 +473,16 @@ public class GameManager : NetworkBehaviour
 
     public static void BackToLobbyFromWin()
     {
+        instance.startTimer.Value = 5;
+        instance.readiedPlayers.Clear();
         instance.LobbyFromWinRPC();
     }
 
     [Rpc(SendTo.Everyone)]
     private void LobbyFromWinRPC()
     {
+        readied = false;
+        UIManager.SetReadyUpButtonText("Ready Up");
         UIManager.LobbyFromWinScreen();
     }
 
@@ -403,30 +500,41 @@ public class GameManager : NetworkBehaviour
     {
         if (spawnplayer) { RespawnPlayerRPC(NetworkManager.LocalClientId); UIManager.FadeToGame(); }
         if(!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
-        if (inlobbychannel) { VivoxManager.LeaveLobbyChannel(); inlobbychannel = false; }
+        if (VivoxManager.InLobbyChannel) { VivoxManager.LeaveLobbyChannel(); }
+        lobbyParticipant = null;
+        isSpeaking = false;
     }
 
     public static void EnableSpectator()
     {
-        VivoxManager.JoinSpectateChannel(() => { instance.inspectatorchannel = true; });
+        if(GetGamestate != GameStateEnum.Ingame || (GetGameMode == GameModeEnum.Deathmatch && Player.PLAYERS.Count < 2)) { return; }
+        VivoxManager.JoinSpectateChannel();
         if (!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
         IsSpectating = true;
+        VivoxManager.JoinMainChannel(); //ok wait hear me out
+        instance.isSpeaking = false;
     }
 
     public static void EnsureLeaveChannels()
     {
-        if (instance.inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); instance.inspectatorchannel = false; }
-        if (instance.inlobbychannel) { VivoxManager.LeaveLobbyChannel(); instance.inlobbychannel = false; }
+        if (VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); }
+        if (VivoxManager.InLobbyChannel) { VivoxManager.LeaveLobbyChannel(); }
+        if (VivoxManager.InMainChannel) { VivoxManager.LeaveMainChannel(); }
     }
 
     public static void CleanUp()
     {
         foreach (var ob in GameObject.FindGameObjectsWithTag("WorldObject"))
         {
-            if(ob.TryGetComponent(out NetworkObject netob))
+            if(ob.TryGetComponent(out NetworkObject netob) && netob.IsSpawned)
             {
                 netob.Despawn();
             }
+        }
+
+        foreach (var ob in GameObject.FindGameObjectsWithTag("WorldDetail"))
+        {
+            Destroy(ob);
         }
     }
 
@@ -448,12 +556,15 @@ public class GameManager : NetworkBehaviour
         readied = false;
         UIManager.ShowLobby();
         UIManager.HideGameOverScreen();
-        if(!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
+        UIManager.SetReadyUpButtonText("Ready Up");
+        if (!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
         DespawnPlayerRPC(NetworkManager.LocalClientId);
-        VivoxManager.JoinLobbyChannel(() => { inlobbychannel = true; });
-        if(inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); inspectatorchannel = false; }
+        VivoxManager.JoinLobbyChannel();
+        if(VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); spectatorParticipant = null; spectatorMainParticipant = null; }
+        if (VivoxManager.InMainChannel) { VivoxManager.LeaveMainChannel(); }
         IsSpectating = false;
         UIManager.SetWorldInfo(true, worldinfo);
+        isSpeaking = false;
     }
 
     public static void ReadyUp()
