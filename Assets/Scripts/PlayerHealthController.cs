@@ -371,6 +371,7 @@ public class PlayerHealthController : NetworkBehaviour
         Debug.Log("dmg: " + damage);
 
         MusicManager.AddThreatLevel(damage*1.1f);
+        bool inlegs = false;
 
         if ((pos - transform.TransformPoint(new Vector3(heartLocalPos.x, heartLocalPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, heartLocalPos.z))).sqrMagnitude < heartRadius * heartRadius && type == DamageType.Stab && damage >= 40)
         {
@@ -383,11 +384,12 @@ public class PlayerHealthController : NetworkBehaviour
         {
             wasinHead = true;
             consciousness.Value -= damage / 45f;
-            headHealth.Value -= (damage / 70f) * (embeddedob ? 1.8f : 1);
+            headHealth.Value -= (damage / 70f) * (type==DamageType.Blunt ? 0.7f : 1f) * (embeddedob ? 1.8f : 1);
             headhealthRegenCd = 30;
         }
         else if ((pos - transform.TransformPoint(new Vector3(legsPos.x, legsPos.y * Player.LocalPlayer.pm.GetCrouchHeightMult, legsPos.z))).sqrMagnitude < legsRadius * legsRadius)
         {
+            inlegs = true;
             legHealth.Value -= damage / 100; 
             leghealthRegenCd = 30;
         }
@@ -399,9 +401,9 @@ public class PlayerHealthController : NetworkBehaviour
 
         player.MouseJitterIntensity = damage * 0.19f;
 
-        if(damage > (type == DamageType.Stab ? 55 : 65) && Random.value <= 0.8f)
+        if(damage > (type == DamageType.Stab ? 55 : 65) * (inlegs ? 0.8f : 1f) && Random.value <= 0.8f)
         {
-            player.KnockOver(damage * 0.125f);
+            player.KnockOver(damage * 0.08f * (inlegs?1.25f:1));
         }
 
         recentDamageCd = 0.5f;

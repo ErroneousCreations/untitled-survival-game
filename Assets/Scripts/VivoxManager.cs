@@ -14,12 +14,14 @@ public class VivoxManager : MonoBehaviour
     public static System.Action InputDevicesChanged;
     public static System.Action InitialisationComplete;
     public static bool initialised;
+    private static bool wantstoQuit;
 
     public static bool LeavingChannel;
 
     private void Awake()
     {
         UnityServicesManager.InitialisationComplete += () => { InitializeAsync(); };
+        Application.wantsToQuit += CanQuit;
     }
 
     async void InitializeAsync()
@@ -129,9 +131,18 @@ public class VivoxManager : MonoBehaviour
 
     public static bool GetisMuted => VivoxService.Instance.IsInputDeviceMuted;
 
-    private void OnApplicationQuit()
+    private static bool CanQuit()
     {
-        VivoxService.Instance.LogoutAsync();
+        QuitProcess();
+        return wantstoQuit;
+    }
+
+    private static async void QuitProcess()
+    {
+        wantstoQuit = false;
+        await VivoxService.Instance.LogoutAsync();
+        Application.Quit();
+        wantstoQuit = true;
     }
 
     public static void LeaveAllChannels()

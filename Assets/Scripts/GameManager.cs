@@ -386,6 +386,12 @@ public class GameManager : NetworkBehaviour
         IsSpectating = true;
     }
 
+    public static void EnsureLeaveChannels()
+    {
+        if (instance.inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); instance.inspectatorchannel = false; }
+        if (instance.inlobbychannel) { VivoxManager.LeaveLobbyChannel(); instance.inlobbychannel = false; }
+    }
+
     private static void CleanUp()
     {
         foreach (var ob in GameObject.FindGameObjectsWithTag("WorldObject"))
