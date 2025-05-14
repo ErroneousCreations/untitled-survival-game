@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using Unity.Netcode;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class UIManager : MonoBehaviour
         instance = this;
 
         instance.SetLobbyCustomisationSliders();
+
+        VivoxManager.InitialisationComplete += () => { VivoxManager.InputDevicesChanged += UpdateInputDevices; };
     }
 
     public static void TogglePauseMenu(bool open)
@@ -24,6 +27,7 @@ public class UIManager : MonoBehaviour
         instance.pauseMenu.SetActive(open);
         Cursor.visible = open;
         Cursor.lockState = open ? CursorLockMode.None : CursorLockMode.Locked;
+        if (open) { instance.ResetPauseSettings(); }
     }
 
     private void Update()
@@ -398,5 +402,81 @@ public class UIManager : MonoBehaviour
     public void GoToLobbyFromWin()
     {
         GameManager.BackToLobbyFromWin();
+    }
+
+    [SerializeField] private GameObject pauseMenuDefault, pauseMenuSettings;
+    [SerializeField] private Slider inputvolumeSlider, outputvolumeSlider, sensSlider;
+    [SerializeField] private TMP_Text inputvolumeText, outputvolumeText, sensText;
+    [SerializeField] private Toggle reduceMotionSickness;
+    [SerializeField] private TMP_Dropdown AudioInputs;
+
+    public void ToPauseSettings()
+    {
+        pauseMenuDefault.SetActive(false);
+        pauseMenuSettings.SetActive(true);
+    }
+
+    public void ToPauseDefault()
+    {
+        pauseMenuDefault.SetActive(true);
+        pauseMenuSettings.SetActive(false);
+    }
+
+    private void ResetPauseSettings()
+    {
+        sensSlider.value = PlayerPrefs.GetFloat("SENS", 2);
+        sensText.text = System.Math.Round(sensSlider.value, 2).ToString();
+        inputvolumeSlider.value = PlayerPrefs.GetInt("INPUTVOLUME", 0);
+        inputvolumeText.text = (100 - outputvolumeSlider.value).ToString();
+        outputvolumeSlider.value = PlayerPrefs.GetInt("OUTPUTVOLUME", 0);
+        outputvolumeText.text = (100 - outputvolumeSlider.value).ToString();
+        reduceMotionSickness.isOn = PlayerPrefs.GetInt("HEADBOB", 0) == 1;
+        UpdateInputDevices();
+        AudioInputs.value = PlayerPrefs.GetInt("INPUTDEVICE", 0);
+        pauseMenuDefault.SetActive(true);
+        pauseMenuSettings.SetActive(false);
+    }
+
+    void UpdateInputDevices()
+    {
+        AudioInputs.ClearOptions();
+        var devices = VivoxManager.GetInputDevices;
+        var options = new List<string>();
+        foreach (var device in devices)
+        {
+            options.Add(device.DeviceName);
+        }
+        AudioInputs.AddOptions(options);
+    }
+
+    public void SetMotionSickness(bool value)
+    {
+        PlayerPrefs.SetInt("HEADBOB", value ? 1 : 0);
+    }
+
+    public void SetInputDevice(int index)
+    {
+        VivoxManager.SetAudioInputDevice(VivoxManager.GetInputDevices[index]);
+        PlayerPrefs.SetInt("INPUTDEVICE", index);
+    }
+
+    public void SetInputVolume(float value)
+    {
+        PlayerPrefs.SetInt("INPUTVOLUME", (int)value);
+        VivoxManager.SetAudioInputVolume((int)value);
+        inputvolumeText.text = (100 - value).ToString();
+    }
+
+    public void SetOutputVolume(float value)
+    {
+        PlayerPrefs.SetInt("OUTPUTVOLUME", (int)value);
+        VivoxManager.SetAudioOutputVolume((int)value);
+        outputvolumeText.text = (100 - value).ToString();
+    }
+
+    public void SetSens(float value)
+    {
+        PlayerPrefs.SetFloat("SENS", value);
+        sensText.text = System.Math.Round(value, 2).ToString();
     }
 }

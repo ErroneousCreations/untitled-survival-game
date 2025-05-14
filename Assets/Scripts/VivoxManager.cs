@@ -48,7 +48,7 @@ public class VivoxManager : MonoBehaviour
 
     public static async void JoinMainChannel(System.Action calledonComplete = null)
     {
-        await VivoxService.Instance.JoinPositionalChannelAsync(DEFAULTCHANNEL, ChatCapability.AudioOnly, new(30, 10, 1f, AudioFadeModel.ExponentialByDistance));
+        await VivoxService.Instance.JoinPositionalChannelAsync(DEFAULTCHANNEL, ChatCapability.AudioOnly, new(40, 15, 1f, AudioFadeModel.ExponentialByDistance));
         calledonComplete?.Invoke();
     }
 
@@ -108,6 +108,7 @@ public class VivoxManager : MonoBehaviour
     }
 
     public static float GetInputVolume => VivoxService.Instance.InputDeviceVolume;
+    public static float GetOutputVolume => VivoxService.Instance.OutputDeviceVolume;
 
     public static ReadOnlyCollection<VivoxInputDevice> GetInputDevices => VivoxService.Instance.AvailableInputDevices;
     public static VivoxInputDevice ActiveInputDevice => VivoxService.Instance.ActiveInputDevice;

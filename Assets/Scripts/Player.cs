@@ -473,7 +473,7 @@ public class Player : NetworkBehaviour
         if(MouseJitterIntensity > 0)
         {
             scaledInput += new Vector2(Random.Range(-MouseJitterIntensity, MouseJitterIntensity), Random.Range(-MouseJitterIntensity, MouseJitterIntensity));
-            MouseJitterIntensity -= Time.deltaTime * 7;
+            MouseJitterIntensity -= Time.deltaTime * 9;
         }
         appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, scaledInput, (1 / Smoothing) * (1/driftSmoothing));
 

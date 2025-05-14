@@ -56,12 +56,14 @@ public class MenuController : MonoBehaviour
     public void SetInputVolume(float value)
     {
         PlayerPrefs.SetInt("INPUTVOLUME", (int)value);
+        if (VivoxManager.initialised) { VivoxManager.SetAudioInputVolume((int)value); }
         InputVolumeText.text = (100 - value).ToString();
     }
 
     public void SetOutputVolume(float value)
     {
         PlayerPrefs.SetInt("OUTPUTVOLUME", (int)value);
+        if (VivoxManager.initialised) { VivoxManager.SetAudioOutputVolume((int)value); }
         OutputVolumeText.text = (100 - value).ToString();
     }
 
@@ -86,8 +88,8 @@ public class MenuController : MonoBehaviour
             VivoxManager.InputDevicesChanged += UpdateInputDevices;
             AudioInputs.interactable = true;
             AudioInputs.value = PlayerPrefs.GetInt("INPUTDEVICE", 0);
-            var count = VivoxManager.GetInputDevices.Count;
-            VivoxManager.SetAudioInputDevice(VivoxManager.GetInputDevices[PlayerPrefs.GetInt("INPUTDEVICE", 0) < count ? PlayerPrefs.GetInt("INPUTDEVICE", 0) : count]);
+            var devices = VivoxManager.GetInputDevices;
+            VivoxManager.SetAudioInputDevice(devices[PlayerPrefs.GetInt("INPUTDEVICE", 0) < devices.Count ? PlayerPrefs.GetInt("INPUTDEVICE", 0) : devices.Count]);
             VivoxManager.SetAudioInputVolume(PlayerPrefs.GetInt("INPUTVOLUME", 0));
             VivoxManager.SetAudioOutputVolume(PlayerPrefs.GetInt("OUTPUTVOLUME", 0));
         };

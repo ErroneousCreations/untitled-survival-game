@@ -69,6 +69,7 @@ public class PlayerCorpseProxy : NetworkBehaviour
     }
     private string SavedItemDataToString(List<FixedString128Bytes> list)
     {
+        if (list.Count <= 0) { return ""; }
         string final = "";
         foreach (var item in list)
         {
@@ -88,7 +89,8 @@ public class PlayerCorpseProxy : NetworkBehaviour
                 if (!item.IsValid) { continue; }
                 var rand = Random.insideUnitCircle * 0.5f;
                 var pos = transform.position + Vector3.up*0.1f + new Vector3(rand.x, 0, rand.y);
-                saveditems += $"{item.ID},{VecToString(pos)},{VecToString(Vector3.zero)},{SavedItemDataToString(item.SavedData)}\\";
+                var saveddata = SavedItemDataToString(item.SavedData);
+                saveditems += $"{item.ID},{VecToString(pos)},{VecToString(Vector3.zero)}{(saveddata.Length > 0 ? ","+saveddata : "")}\\";
             }
             return saveditems;
         }
