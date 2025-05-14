@@ -133,7 +133,7 @@ public class VivoxManager : MonoBehaviour
 
     private static bool CanQuit()
     {
-        QuitProcess();
+        if (!wantstoQuit) { QuitProcess(); }
         return wantstoQuit;
     }
 

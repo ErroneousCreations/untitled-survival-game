@@ -392,7 +392,7 @@ public class GameManager : NetworkBehaviour
         if (instance.inlobbychannel) { VivoxManager.LeaveLobbyChannel(); instance.inlobbychannel = false; }
     }
 
-    private static void CleanUp()
+    public static void CleanUp()
     {
         foreach (var ob in GameObject.FindGameObjectsWithTag("WorldObject"))
         {
