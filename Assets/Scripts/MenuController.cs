@@ -224,7 +224,10 @@ public class MenuController : MonoBehaviour
         }
         else
         {
-            GameManager.EnsureLeaveChannels();
+            if (VivoxManager.initialised) {
+                VivoxManager.ToggleInputMute();
+                GameManager.EnsureLeaveChannels();
+            }
             menuMusicCd -= Time.deltaTime;
             if(menuMusicCd <= 0) { MusicManager.PlayMusicTrack(menuTheme, false, 0.7f); menuMusicCd = Random.Range(90, 120); }
 

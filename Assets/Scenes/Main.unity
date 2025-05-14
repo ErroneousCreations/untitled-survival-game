@@ -19693,7 +19693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e239a6f9250a94f8074232314da7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ChannelUri: sip:confctl-d-16767-goofy-79085-udash.MAIN.7958d933-ccf8-491e-ae27-539449732152!p-30-10-1.000-3@mtu1xp.vivox.com
+  m_ChannelUri: 
   m_ChannelName: MAIN
 --- !u!82 &1932233208
 AudioSource:
@@ -21762,7 +21762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

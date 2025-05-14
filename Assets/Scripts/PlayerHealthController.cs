@@ -624,6 +624,7 @@ public class PlayerHealthController : NetworkBehaviour
     private void TryWakeUpRPC()
     {
         recentDamageCd = 0.25f;
+        player.MouseJitterIntensity = 2f;
         if(isConscious.Value) return;
         if (heartBeating.Value && breathing.Value)
         {
@@ -654,7 +655,6 @@ public class PlayerHealthController : NetworkBehaviour
             Debug.Log("bad MtM, points are " + mmFailPoints);
             if (mmFailPoints >= 1f)
             {
-                breathing.Value = false;
                 mmFailPoints = 0f;
                 mmPoints = 0;
                 lastMouthMouthTime = -1;
@@ -705,7 +705,6 @@ public class PlayerHealthController : NetworkBehaviour
             Debug.Log("bad cpr, points are " + cprFailPoints);
             if (cprFailPoints >= 1f)
             {
-                heartBeating.Value = false;
                 cprFailPoints = 0f;
                 cprPoints = 0;
                 lastCPRTime = -1;
@@ -757,15 +756,15 @@ public class PlayerHealthController : NetworkBehaviour
         MusicManager.SetThreatLevel(0);
         Debug.Log($"biological death: {cause}");
         player.OnDied?.Invoke();
-        ServerDieRPC(PlayerPrefs.GetInt("SKINTEX", 0), PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
+        ServerDieRPC(PlayerPrefs.GetInt("SKINTEX", 0), PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0), lastBleedAmount);
     }
 
     [Rpc(SendTo.Server)]
-    private void ServerDieRPC(int skintex, float scarfr, float scarfg, float scarfb)
+    private void ServerDieRPC(int skintex, float scarfr, float scarfg, float scarfb, float bleed)
     {
         var corpseobj = Instantiate(corpse, transform.position, transform.rotation);
         corpseobj.NetworkObject.Spawn();
-        corpseobj.Init(woundObjects.Values.ToList(), currentBlood.Value, lastBleedAmount, skintex, scarfr, scarfg, scarfb);
+        corpseobj.Init(woundObjects.Values.ToList(), currentBlood.Value, bleed, skintex, scarfr, scarfg, scarfb);
         NetworkObject.Despawn();
     }
 

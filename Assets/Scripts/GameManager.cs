@@ -27,6 +27,8 @@ public class GameManager : NetworkBehaviour
 
     //lobby
     private List<ulong> readiedPlayers = new();
+    private NetworkVariable<bool> allPlayersInit = new(false);
+    public static bool ALL_PLAYERS_INITIALISED => instance.allPlayersInit.Value;
     private NetworkVariable<float> startTimer = new(0);
     private bool readied, inlobbychannel, inspectatorchannel;
     private World currWorld;
@@ -39,6 +41,9 @@ public class GameManager : NetworkBehaviour
     public static Dictionary<ulong, string> GetUUIDS => instance.UNIQUEUSERIDS;
 
     public static SavingManager.SaveFileLocationEnum GetSaveFileLocation => GetGameMode == GameModeEnum.Arena ? SavingManager.SaveFileLocationEnum.Survival : (SavingManager.SaveFileLocationEnum)GetGameMode;
+
+    public static bool InTeamA(string uuid) => TEAMA.Contains(uuid);
+    public static bool InTeamB(string uuid) => TEAMB.Contains(uuid);
 
     private void Awake()
     {
@@ -162,7 +167,7 @@ public class GameManager : NetworkBehaviour
         //StartCoroutine(FinishRespawn(id));
         var p = Instantiate(ThePlayer, Vector3.zero, Quaternion.identity); //todo add the other spawnpoint ranges
         p.NetworkObject.SpawnAsPlayerObject(id);
-        p.Teleport(Gamemode.Value == GameModeEnum.Survival ? Extensions.GetSurvivalSpawnPoint : (Gamemode.Value == GameModeEnum.TeamDeathmatch ? Extensions.GetTeamDeathmatchSpawnPoint : Extensions.GetDeathmatchSpawnPoint));
+        p.Teleport(Gamemode.Value == GameModeEnum.Survival ? Extensions.GetSurvivalSpawnPoint : (Gamemode.Value == GameModeEnum.TeamDeathmatch ? (TEAMA.Contains(UNIQUEUSERIDS[id]) ? Extensions.GetTeamASpawnPoint : (TEAMB.Contains(UNIQUEUSERIDS[id]) ? Extensions.GetTeamBSpawnPoint : Extensions.GetDeathmatchSpawnPoint)) : Extensions.GetDeathmatchSpawnPoint));
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
@@ -180,7 +185,8 @@ public class GameManager : NetworkBehaviour
             case GameStateEnum.Lobby:
                 if (Input.GetKeyDown(KeyCode.V) && inlobbychannel) { VivoxManager.ToggleInputMute(); }
                 UIManager.SetMuteIcon(VivoxManager.initialised && !VivoxManager.GetisMuted && inlobbychannel);
-
+                initialisedPlayers = 0;
+                allPlayersInit.Value = false;
                 UIManager.SetReadyTimerText(startTimer.Value >= 5 ? "" : System.Math.Round(startTimer.Value, 2).ToString());
                 UIManager.SetReadyUpButtonText(readied ? "Cancel Ready" : "Ready Up");
                 if (!IsServer) { return; }
@@ -191,6 +197,7 @@ public class GameManager : NetworkBehaviour
                     if (startTimer.Value <= 0)
                     {
                         Gamestate.Value = GameStateEnum.Ingame;
+                        allPlayersInit.Value = false;
                         currWorld = Instantiate(world, Vector3.zero, Quaternion.identity);
                         currWorld.NetworkObject.Spawn();
                         var loading = SavingManager.WorldExists(GetSaveFileLocation, currentSaveFile);
@@ -270,6 +277,10 @@ public class GameManager : NetworkBehaviour
                     else { UIManager.SetMuteIcon(false); }
                 }
 
+                if (SavingManager.LOADING) { return; }
+                if (!IsOwner) { return; }
+                allPlayersInit.Value = initialisedPlayers >= NetworkManager.Singleton.ConnectedClients.Count;
+                if (!ALL_PLAYERS_INITIALISED) { return; }
                 switch (Gamemode.Value)
                 {
                     case GameModeEnum.Survival:
@@ -349,6 +360,19 @@ public class GameManager : NetworkBehaviour
         VivoxManager.JoinLobbyChannel(() => { inlobbychannel = true; });
         if (inspectatorchannel) { VivoxManager.LeaveSpectateChannel(); inspectatorchannel = false; }
         IsSpectating = false;
+    }
+
+    private static float initialisedPlayers = 0;
+    public static void PlayerInitialisationComplete()
+    {
+        if (ALL_PLAYERS_INITIALISED) { return; }
+        instance.PlayerInitCompleteRPC();
+    }
+
+    [Rpc(SendTo.Server)]
+    private void PlayerInitCompleteRPC()
+    {
+        initialisedPlayers++;
     }
 
     public static void BackToLobbyFromWin()

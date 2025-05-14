@@ -252,6 +252,7 @@ public class Player : NetworkBehaviour
             });
             username.Value = PlayerPrefs.GetString("USERNAME", "NoName");
             UIManager.ToggleDamageIndicator(true);
+            GameManager.PlayerInitialisationComplete();
         }
         pm.ViewmodelParent.parent = IsOwner ? Camera.main.transform : head.transform;
         originalBodypartPositions = new List<Vector3>(bodyRbs.Count);
