@@ -67,8 +67,11 @@ public class SpectatorCamera : MonoBehaviour
 
             if (pos.x < 380 * dpiScale && Screen.height - pos.y < 250 * dpiScale) return;
 
-            x += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
-            y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+            if (!UIManager.GetPauseMenuOpen)
+            {
+                x += Input.GetAxis("Mouse X") * xSpeed * PlayerPrefs.GetFloat("SENS", 2) * 0.015f;
+                y -= Input.GetAxis("Mouse Y") * ySpeed * PlayerPrefs.GetFloat("SENS", 2) * 0.015f;
+            }
 
             y = ClampAngle(y, yMinLimit, yMaxLimit);
             var rotation = Quaternion.Euler(y, x, 0);

@@ -11,12 +11,16 @@ public static class Extensions
     public static string UniqueIdentifier => Application.isEditor ? "EDITOR" : SystemInfo.deviceUniqueIdentifier;
 
     // Fisher-Yates shuffle
-    public static void ShuffleList<T>(List<T> list)
+    public static void ShuffleList<T>(List<T> ts)
     {
-        for (int i = list.Count - 1; i > 0; i--)
+        var count = ts.Count;
+        var last = count - 1;
+        for (var i = 0; i < last; ++i)
         {
-            int j = Random.Range(0, i + 1);
-            (list[j], list[i]) = (list[i], list[j]);
+            var r = UnityEngine.Random.Range(i, count);
+            var tmp = ts[i];
+            ts[i] = ts[r];
+            ts[r] = tmp;
         }
     }
 
@@ -43,23 +47,60 @@ public static class Extensions
         }
     }
 
+    public static int DMSPAWNINDEX = 0;
+
+    public static void RandomiseDeathmatchSpawnIndex()
+    {
+        var points = GameObject.FindGameObjectsWithTag("DMSpawn");
+        DMSPAWNINDEX = Random.Range(0, points.Length);
+    }
+
     public static Vector3 GetDeathmatchSpawnPoint
     {
         get
         {
             var points = GameObject.FindGameObjectsWithTag("DMSpawn");
             if (points.Length == 0) { return Vector3.zero; }
-            return points[Random.Range(0, points.Length)].transform.position;
+            if (DMSPAWNINDEX >= points.Length) { DMSPAWNINDEX = 0; }
+            int ind = DMSPAWNINDEX;
+            DMSPAWNINDEX++;
+            return points[ind].transform.position;
         }
     }
 
-    public static Vector3 GetTeamDeathmatchSpawnPoint
+    public static int TEAMASPAWNINDEX = -1;
+    public static int TEAMBSPAWNINDEX = -1;
+
+    public static void RandomiseTeamSpawnIndexes()
+    {
+        var points = GameObject.FindGameObjectsWithTag("TDMSpawn");
+        TEAMASPAWNINDEX = Random.Range(0, points.Length);
+        TEAMBSPAWNINDEX = Random.Range(0, points.Length);
+        while (TEAMASPAWNINDEX == TEAMBSPAWNINDEX)
+        {
+            TEAMBSPAWNINDEX = Random.Range(0, points.Length);
+        }
+    }
+
+    public static Vector3 GetTeamASpawnPoint
     {
         get
         {
             var points = GameObject.FindGameObjectsWithTag("TDMSpawn");
             if (points.Length == 0) { return Vector3.zero; }
-            return points[Random.Range(0, points.Length)].transform.position;
+            var rand = Random.insideUnitCircle * 2;
+            return points[TEAMASPAWNINDEX].transform.position + new Vector3(rand.x, 0, rand.y);
+        }
+    }
+
+    public static Vector3 GetTeamBSpawnPoint
+    {
+        get
+        {
+            var points = GameObject.FindGameObjectsWithTag("TDMSpawn");
+            if (points.Length == 0) { return Vector3.zero; }
+            var rand = Random.insideUnitCircle * 2;
+            return points[TEAMBSPAWNINDEX].transform.position + new Vector3(rand.x, 0, rand.y);
         }
     }
 

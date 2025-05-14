@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91354c1376fb0c04c9a7343ac10c8ff9, type: 3}
   m_Name: RebarSpear
   m_EditorClassIdentifier: 
-  AttackLength: 1.5
+  AttackLength: 1.1
   ForwardTime: 0.5
   AttackForwardAmount: 2.5
   AttackJumpPower: 0.1
   RotateForwardsMelee: 1
   Damage: 23
   Type: 1
-  Range: 1.65
+  Range: 1.75
   HitWorldBreakables: 0
   WorldBreakableDamage: 0
   Sharpen: 0
   SharpenResult: 
+  SharpenParticle: 
   MaxCharge: 2
   VibrateIntensity: 0.15
   ThrowchargeUpwardAmount: 1.75

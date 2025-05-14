@@ -78,7 +78,7 @@ public class NetPrefabsList : NetworkBehaviour
     [ClientRpc]
     private void SpawnObjectExcept_ClientRPC(string ob, Vector3 pos, Quaternion rot, ulong except, float destroytime)
     {
-        if (except!=0&&NetworkManager.Singleton.LocalClientId == except) { return; }
+        if (NetworkManager.Singleton.LocalClientId == except) { return; }
         var spawned = Instantiate(GetNetPrefab(ob), pos, rot);
         if (destroytime > 0) { Destroy(spawned.gameObject, destroytime); }
     }

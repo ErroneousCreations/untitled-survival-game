@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91354c1376fb0c04c9a7343ac10c8ff9, type: 3}
   m_Name: SharpStick
   m_EditorClassIdentifier: 
-  AttackLength: 1.25
+  AttackLength: 1
   ForwardTime: 0.3
   AttackForwardAmount: 2.5
   AttackJumpPower: 0.1
   RotateForwardsMelee: 1
-  Damage: 18.5
+  Damage: 17
   Type: 1
-  Range: 1.6
+  Range: 1.7
   HitWorldBreakables: 0
   WorldBreakableDamage: 0
   Sharpen: 1

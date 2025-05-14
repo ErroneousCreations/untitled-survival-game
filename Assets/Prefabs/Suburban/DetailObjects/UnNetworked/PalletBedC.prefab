@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2996364473117859572}
   m_Layer: 3
   m_Name: PalletBedC
-  m_TagString: Untagged
+  m_TagString: WorldDetail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4

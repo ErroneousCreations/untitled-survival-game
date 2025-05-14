@@ -2,15 +2,10 @@ using UnityEngine;
 using Unity.Netcode;
 using System.Collections.Generic;
 using Unity.Services.Vivox;
-using Unity.Services.Vivox.AudioTaps;
 using UnityEngine.Audio;
 using Unity.Collections;
 using System.Collections;
 using DitzelGames.FastIK;
-using static UnityEditor.ShaderData;
-using Unity.VisualScripting;
-using UnityEditor.TerrainTools;
-using static UnityEditor.PlayerSettings;
 
 public class Player : NetworkBehaviour
 {
@@ -76,6 +71,7 @@ public class Player : NetworkBehaviour
     private NetworkVariable<Color> SyncedScarfColour = new(Color.white, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<float> currLookAngle = new(0, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isTalking = new(false, writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<bool> teamA = new(false, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isKnockedOver = new(false, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isSprinting = new(false, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<FixedString128Bytes> username = new("", writePerm: NetworkVariableWritePermission.Owner);
@@ -113,6 +109,8 @@ public class Player : NetworkBehaviour
     public static Dictionary<ulong, Player> PLAYERBYID = new();
 
     public static List<Player> PLAYERS = new();
+
+    public bool GetIsTeamA => teamA.Value;
 
     private int GetFace
     {
@@ -175,6 +173,7 @@ public class Player : NetworkBehaviour
         ScreenEffectsManager.SetSaturation(0);
         ScreenEffectsManager.SetAberration(0);
         ScreenEffectsManager.SetMotionBlur(0);
+        UIManager.ToggleDamageIndicator(false);
     }
 
     public void KnockOver(float time)
@@ -194,6 +193,7 @@ public class Player : NetworkBehaviour
         StartCoroutine(WhattheFuck(pos)); // teleport to the position
     }
 
+    //WHY THE FUCK
     IEnumerator WhattheFuck(Vector3 pos)
     {
         yield return new WaitForSeconds(0.01f);
@@ -204,6 +204,23 @@ public class Player : NetworkBehaviour
         transform.position = pos;
         yield return new WaitForSeconds(0.01f);
         transform.position = pos;
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
+        yield return new WaitForSeconds(0.01f);
+        transform.position = pos;
+    }
+
+    private void Start()
+    {
+        PLAYERS.Add(this);
     }
 
     public override void OnNetworkSpawn()
@@ -222,7 +239,7 @@ public class Player : NetworkBehaviour
             Camera.main.transform.localPosition = Vector3.zero;
             LocalPlayer = this;
             SyncedEyeTexture.Value = 0;
-            SyncedScarfColour.Value = new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
+            SyncedScarfColour.Value = GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? (GameManager.InTeamA(Extensions.UniqueIdentifier) ? Color.red : Color.blue) : new Color(PlayerPrefs.GetFloat("SCARFCOL_R", 1), PlayerPrefs.GetFloat("SCARFCOL_G", 0), PlayerPrefs.GetFloat("SCARFCOL_B", 0));
             SyncedSkinTexture.Value = PlayerPrefs.GetInt("SKINTEX", 0);
             blinkCurr = Random.Range(2.1f, 2.6f);
             VivoxManager.JoinMainChannel(() =>
@@ -234,6 +251,7 @@ public class Player : NetworkBehaviour
                 }
             });
             username.Value = PlayerPrefs.GetString("USERNAME", "NoName");
+            UIManager.ToggleDamageIndicator(true);
         }
         pm.ViewmodelParent.parent = IsOwner ? Camera.main.transform : head.transform;
         originalBodypartPositions = new List<Vector3>(bodyRbs.Count);
@@ -253,7 +271,6 @@ public class Player : NetworkBehaviour
             rend.material = skinMat;
         }
         PLAYERBYID.Add(OwnerClientId, this);
-        PLAYERS.Add(this);
         OnDied += Died; // subscribe to the death event
     }
 
@@ -310,10 +327,7 @@ public class Player : NetworkBehaviour
         base.OnNetworkDespawn();
         if (IsOwner) {
             pm.ViewmodelParent.parent = pm.CameraParent; // detach viewmodel parent
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
             Camera.main.transform.parent = null;
-            Camera.main.transform.localPosition = Vector3.zero;
             if (VivoxManager.InMainChannel && !VivoxManager.LeavingChannel)
             {
                 VivoxManager.LeavingChannel = true; // set leaving channel to true to prevent the leave channel callback from being called twice
@@ -374,6 +388,22 @@ public class Player : NetworkBehaviour
 
         if (!IsOwner) { return; }
 
+        if(GameManager.GetGameMode != GameModeEnum.Survival)
+        {
+            foreach (var p in PLAYERS)
+            {
+                if(p == this) { continue; } // skip self
+                if (GameManager.GetGameMode == GameModeEnum.Deathmatch || p.GetIsTeamA != GetIsTeamA)
+                {
+                    var dist = (p.GetPlayerCentre - GetPlayerCentre).magnitude;
+                    if(dist < 15)
+                    {
+                        MusicManager.AddThreatLevel(Mathf.Lerp(Time.deltaTime * 9, 0, dist / 15));
+                    }
+                }
+            }
+        }
+
         // Muffle sound with low-pass filter
         float cutoff =  Mathf.Lerp(11000f, 400f, Mathf.Clamp01(1f - ph.consciousness.Value));
         Mixer.SetFloat("LowPass", cutoff);
@@ -411,6 +441,7 @@ public class Player : NetworkBehaviour
         UIManager.SetMuteIcon(!VivoxManager.GetisMuted && inChannel);
         isSprinting.Value = pm.GetIsSprinting;
         isKnockedOver.Value = currfalloverTime > 0;
+        teamA.Value = GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? GameManager.InTeamA(Extensions.UniqueIdentifier) : false;
         isTalking.Value = ph.isConscious.Value && participant != null && participant.SpeechDetected;
         blinkCurr -= Time.deltaTime;
         if (blinkCurr <= 0) { blinkCurr = Random.Range(2.1f, 2.6f); }
@@ -441,7 +472,7 @@ public class Player : NetworkBehaviour
         if(MouseJitterIntensity > 0)
         {
             scaledInput += new Vector2(Random.Range(-MouseJitterIntensity, MouseJitterIntensity), Random.Range(-MouseJitterIntensity, MouseJitterIntensity));
-            MouseJitterIntensity -= Time.deltaTime * 5;
+            MouseJitterIntensity -= Time.deltaTime * 7;
         }
         appliedMouseDelta = Vector2.Lerp(appliedMouseDelta, scaledInput, (1 / Smoothing) * (1/driftSmoothing));
 

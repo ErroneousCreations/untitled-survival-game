@@ -4,6 +4,7 @@ using Unity.Netcode;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.VisualScripting;
+using Unity.AI.Navigation;
 
 public class World : NetworkBehaviour
 {
@@ -48,6 +49,8 @@ public class World : NetworkBehaviour
     public List<RandomWorldFeature> worldFeatures; //local features
     public List<RandomNetWorldFeature> netWorldFeatures; //networked features
     public List<RaycastedRandomWorldFeature> raycastedWorldFeatures;
+    [Header("Navigation")]
+    public NavMeshSurface[] navMeshSurfaces; //navmesh surfaces to bake when the world is generated
 
     //privates
     private List<List<WorldFeature>> spawnedWorldFeatures = new();
@@ -155,6 +158,11 @@ public class World : NetworkBehaviour
 
         LoadWorldFeatures(worldfeatures);
         LoadRaycastedWorldFeatures(worldfeatures);
+
+        for (int i = 0; i < navMeshSurfaces.Length; i++)
+        {
+            navMeshSurfaces[i].BuildNavMesh();
+        }
     }
 
     public void LoadNetWorldFeatures(string[] loadedfeatures)
@@ -245,6 +253,11 @@ public class World : NetworkBehaviour
         DoWorldFeaturesRPC();
         DoRaycastedWorldFeaturesRPC();
         DoNetWorldFeatures();
+
+        for (int i = 0; i < navMeshSurfaces.Length; i++)
+        {
+            navMeshSurfaces[i].BuildNavMesh();
+        }
     }
 
     [Rpc(SendTo.Everyone)]

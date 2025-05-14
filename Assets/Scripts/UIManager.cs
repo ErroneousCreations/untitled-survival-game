@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && Player.LocalPlayer && Player.LocalPlayer.ph.isAlive.Value)
+        if (Input.GetKeyDown(KeyCode.Escape) && (Player.LocalPlayer || GameManager.IsSpectating))
         {
             TogglePauseMenu(!GetPauseMenuOpen);
         }
@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
         var k = 0;
         foreach (var butt in GamemodeButtons)
         {
-            if(k>0) { butt.gameObject.SetActive(NetworkManager.Singleton.ConnectedClients.Count > 1); }
+            if(k>0) { butt.gameObject.SetActive(NetworkManager.Singleton.ConnectedClients.Count > 1); } 
             butt.interactable = NetworkManager.Singleton.IsServer;
             k++;
         }
@@ -60,6 +60,12 @@ public class UIManager : MonoBehaviour
         SeedInput.interactable = NetworkManager.Singleton.IsServer;
 
         WinscreenHostButton.SetActive(NetworkManager.Singleton.IsServer);
+
+        if(GameManager.GetGamestate == GameStateEnum.Lobby)
+        {
+            instance.selectedSaveslot.transform.position = instance.SaveslotButtons[currSave].transform.position;
+            instance.selectedGamemode.transform.position = instance.GamemodeButtons[(int)currMode].transform.position;
+        }
     }
 
     public static bool GetPauseMenuOpen => instance.pauseMenu.activeSelf;
@@ -267,6 +273,13 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Image HeadDamageIndicator, BodyDamageIndicator, FeetDamageIndicator;
 
+    public static void ToggleDamageIndicator(bool value)
+    {
+        instance.HeadDamageIndicator.gameObject.SetActive(value);
+        instance.BodyDamageIndicator.gameObject.SetActive(value);
+        instance.FeetDamageIndicator.gameObject.SetActive(value);
+    }
+
     public static void SetHeadDamage(float amount)
     {
         instance.HeadDamageIndicator.color = amount <= 0 ? Color.Lerp(Color.red, Color.black, Mathf.Abs(amount / 0.25f)) : Color.Lerp(Color.white, Color.red, 1 - amount);
@@ -324,6 +337,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text WorldInfoText;
     [SerializeField] private TMP_InputField SeedInput;
     [SerializeField] private GameObject DeleteWorldButton;
+    private GameModeEnum currMode;
+    private int currSave;
 
     public void SelectGamemode(int gamemode)
     {
@@ -361,14 +376,14 @@ public class UIManager : MonoBehaviour
 
     public static void SetGamemodeIndicator(GameModeEnum mode)
     {
-        instance.selectedGamemode.transform.parent = instance.GamemodeButtons[(int)mode].transform;
-        instance.selectedGamemode.transform.localPosition = Vector3.zero;
+        instance.selectedGamemode.transform.position = instance.GamemodeButtons[(int)mode].transform.position;
+        instance.currMode = mode;
     }
 
     public static void SetSaveIndicator(int save)
     {
-        instance.selectedSaveslot.transform.parent = instance.SaveslotButtons[save].transform;
-        instance.selectedGamemode.transform.localPosition = Vector3.zero;
+        instance.selectedSaveslot.transform.position = instance.SaveslotButtons[save].transform.position;
+        instance.currSave = save;
     }
 
     [SerializeField] private TMP_Text WinnerText, YouWinText;

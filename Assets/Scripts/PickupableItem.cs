@@ -59,7 +59,7 @@ public class PickupableItem : Interactible
     public void OnCollisionEnter(Collision collision)
     {
         if (!IsThrown || !IsOwner) { return; }
-        AddThreatRPC(rb.linearVelocity.magnitude * DamagePerVelocity * 0.6f, collision.contacts[0].point);
+        AddThreatRPC(rb.linearVelocity.magnitude * DamagePerVelocity * 1f, collision.contacts[0].point);
         IsThrown = false;
         rb.angularVelocity = Random.insideUnitSphere * 15f;
         thrower.Value = 0;
@@ -119,7 +119,7 @@ public class PickupableItem : Interactible
     [Rpc(SendTo.Everyone)]
     private void AddThreatRPC(float amount, Vector3 impactpos)
     {
-        MusicManager.AddThreatLevel(amount * Mathf.Clamp01(Mathf.Pow(-2, (impactpos - Player.GetLocalPlayerCentre).magnitude - 5) + 1));
+        MusicManager.AddThreatLevel(amount * Mathf.Lerp(1, 0, (impactpos - Player.GetLocalPlayerCentre).magnitude / 5));
     }
 
     public void DestroyItem() {

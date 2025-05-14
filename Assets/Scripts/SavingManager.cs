@@ -20,6 +20,8 @@ public class SavingManager : NetworkBehaviour
     [SerializeField] private SerializedDictionary<string, SavedNetObject> SavedNetObjects;
     private Dictionary<string, PlayerSavedData> SavedPlayerData = new();
 
+    public static bool LOADING = false;
+
     public struct PlayerSavedData
     {
         public string UUID;
@@ -215,7 +217,7 @@ public class SavingManager : NetworkBehaviour
                     true,
                     Vector3.zero,
                     0,
-                    ""
+                    "null"
                     );
             }
             if (instance.SavedPlayerData.ContainsKey(player.Value)) { instance.SavedPlayerData[player.Value] = playerdata; }
@@ -293,6 +295,7 @@ public class SavingManager : NetworkBehaviour
 
     private IEnumerator LoadCoroutine(SaveFileLocationEnum loc, int slot)
     {
+        LOADING = true;
         CheckDirectories();
         var targetpath = Application.dataPath + SAVE_LOCATIONS[(int)loc] + $"/{slot + 1}.sav";
         if (!File.Exists(targetpath)) { Debug.LogError("No save file found at: " + targetpath); yield break; }
@@ -362,6 +365,7 @@ public class SavingManager : NetworkBehaviour
         }
         MenuController.ToggleLoadingScreen(false);
         UIManager.FadeToGame();
+        LOADING = false;
     }
 
     [Rpc(SendTo.Everyone)]
@@ -369,7 +373,7 @@ public class SavingManager : NetworkBehaviour
     {
         receivedBytes = new byte[length];
         bytesReceived = 0;
-        if (!IsOwner) { MenuController.ToggleLoadingScreen(true); }
+        if (!IsOwner) { MenuController.ToggleLoadingScreen(true); LOADING = true; }
     }
 
     private static byte[] receivedBytes;
@@ -394,14 +398,12 @@ public class SavingManager : NetworkBehaviour
             LoadOthers(worlddata, savedobjects, playerdata);
             receivedBytes = new byte[0];
             bytesReceived = 0;
-            if (!IsOwner) { MenuController.ToggleLoadingScreen(false); UIManager.FadeToGame(); }
+            if (!IsOwner) { MenuController.ToggleLoadingScreen(false); UIManager.FadeToGame(); LOADING = false; }
         }
     }
 
     private void LoadOthers(string worlddata, string savedobjects, string playerdata)
     {
-        GameManager.RespawnPlayer();
-
         string[] splitworlddata = worlddata.Split('\\');
         CurrentWorldData = new(DefaultWorldData);
         foreach (var wd in splitworlddata)
@@ -429,27 +431,40 @@ public class SavingManager : NetworkBehaviour
                 }
             }
         }
+        bool playerisnew = true;
+        var data = new PlayerSavedData(Extensions.UniqueIdentifier, "null", 1, 1, 1, 1, 1, 1, 1, true, Vector3.zero, 0, "null");
+
         var splitplayerdata = playerdata.Split('\\');
         foreach (var player in splitplayerdata)
         {
             if (player.Split(',')[0] == Extensions.UniqueIdentifier)
             {
-                var data = new PlayerSavedData(player);
-                if (data.respawnOnLoad) { break; } //it already just respawns the player at a random spawn, so we dont need to do anything else
-                var playerobj = Player.LocalPlayer;
-                playerobj.ph.headHealth.Value = data.headHP;
-                playerobj.ph.bodyHealth.Value = data.bodyHP;
-                playerobj.ph.legHealth.Value = data.legsHP;
-                playerobj.ph.currentBlood.Value = data.blood;
-                playerobj.ph.consciousness.Value = data.consciousness;
-                playerobj.ph.shock.Value = data.shock;
-                playerobj.ph.hunger.Value = data.hunger;
-                playerobj.Teleport(data.position);
-                playerobj.transform.eulerAngles = new Vector3(0, data.rotation, 0);
-                playerobj.pi.InitFromSavedData(data.InventoryData);
-                playerobj.ph.ApplySavedWounds(data.WoundsData);
+                data = new PlayerSavedData(player);
+                playerisnew = false;
+                break;
             }
         }
+
+        if(!playerisnew && data.respawnOnLoad && GameManager.GetGameMode != GameModeEnum.Survival)
+        {
+            GameManager.EnableSpectator();
+            return;
+        }
+
+        GameManager.RespawnPlayer();
+        if (data.respawnOnLoad) { return; } //they just need to respawn other data is irrelevant
+        var playerobj = Player.LocalPlayer;
+        playerobj.ph.headHealth.Value = data.headHP;
+        playerobj.ph.bodyHealth.Value = data.bodyHP;
+        playerobj.ph.legHealth.Value = data.legsHP;
+        playerobj.ph.currentBlood.Value = data.blood;
+        playerobj.ph.consciousness.Value = data.consciousness;
+        playerobj.ph.shock.Value = data.shock;
+        playerobj.ph.hunger.Value = data.hunger;
+        playerobj.Teleport(data.position);
+        playerobj.transform.eulerAngles = new Vector3(0, data.rotation, 0);
+        playerobj.pi.InitFromSavedData(data.InventoryData);
+        playerobj.ph.ApplySavedWounds(data.WoundsData);
     }
 
     public static bool GetWorldInfo(SaveFileLocationEnum type, int save, out string info)
