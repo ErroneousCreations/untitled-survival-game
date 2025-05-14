@@ -200,6 +200,8 @@ public class GameManager : NetworkBehaviour
                         allPlayersInit.Value = false;
                         currWorld = Instantiate(world, Vector3.zero, Quaternion.identity);
                         currWorld.NetworkObject.Spawn();
+                        Extensions.RandomiseDeathmatchSpawnIndex();
+                        Extensions.RandomiseTeamSpawnIndexes();
                         var loading = SavingManager.WorldExists(GetSaveFileLocation, currentSaveFile);
                         if (loading) {
                             SavingManager.Load(GetSaveFileLocation, currentSaveFile);
@@ -256,11 +258,12 @@ public class GameManager : NetworkBehaviour
                                     }
                                 }
 
-                                SavingManager.SetWorldSaveData("teamA", teamA[..^1]);
-                                SavingManager.SetWorldSaveData("teamB", teamB[..^1]);
+                                SavingManager.SetWorldSaveData("teamA", teamA .Length>0 ? teamA[..^1] : "");
+                                SavingManager.SetWorldSaveData("teamB", teamB.Length > 0 ? teamB[..^1] : "");
                             }
                         }
                         ExitLobbyRPC(!loading);
+                        return;
                     }
                 }
                 else { startTimer.Value = 5; }
@@ -278,7 +281,7 @@ public class GameManager : NetworkBehaviour
                 }
 
                 if (SavingManager.LOADING) { return; }
-                if (!IsOwner) { return; }
+                if (!IsServer) { return; }
                 allPlayersInit.Value = initialisedPlayers >= NetworkManager.Singleton.ConnectedClients.Count;
                 if (!ALL_PLAYERS_INITIALISED) { return; }
                 switch (Gamemode.Value)

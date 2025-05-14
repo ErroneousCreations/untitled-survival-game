@@ -3,7 +3,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 using Unity.Jobs;
-using Unity.VisualScripting;
+using System.Collections;
 using Unity.AI.Navigation;
 
 public class World : NetworkBehaviour
@@ -60,6 +60,7 @@ public class World : NetworkBehaviour
     private int seed;
 
     public static bool LoadingFromSave = false;
+    public static bool Loading = false;
 
     public static Vector3 WindDirection { get; private set; }
     public static float WindIntensity { get; private set; }
@@ -127,7 +128,7 @@ public class World : NetworkBehaviour
         return instance.netWorldFeatures[wftype].FeatureTypes[typeindex];
     }
 
-    public void Init(int seed) //todo feed savefile to load from
+    public void Init(int seed)
     {
         if(seed == -1) { seed = Random.Range(0, 999999); }
         InitSeedRPC(seed);
@@ -252,22 +253,33 @@ public class World : NetworkBehaviour
     {
         DoWorldFeaturesRPC();
         DoRaycastedWorldFeaturesRPC();
-        DoNetWorldFeatures();
+        StartCoroutine(GenerateNetWorldFeaturesCoroutine());
 
+        StartCoroutine(GenerateNavMeshesCoroutine());
+    }
+
+    private IEnumerator GenerateNavMeshesCoroutine()
+    {
         for (int i = 0; i < navMeshSurfaces.Length; i++)
         {
             navMeshSurfaces[i].BuildNavMesh();
+            yield return null;
         }
+
+        Loading = false;
+        MenuController.ToggleLoadingScreen(false);
     }
 
     [Rpc(SendTo.Everyone)]
     private void InitSeedRPC(int seed)
     {
+        Loading = true;
+        MenuController.ToggleLoadingScreen(true);
         rand = new System.Random(seed);
         this.seed = seed;
     }
 
-    private void DoNetWorldFeatures()
+    private IEnumerator GenerateNetWorldFeaturesCoroutine()
     {
         for (int i = 0; i < netWorldFeatures.Count; i++)
         {
@@ -286,11 +298,17 @@ public class World : NetworkBehaviour
                 }
                 else { spawnedWorldFeatures[i].Add(null); }
             }
+            yield return null;
         }
     }
 
     [Rpc(SendTo.Everyone)]
     private void DoWorldFeaturesRPC()
+    {
+        StartCoroutine(GenerateWorldFeaturesCoroutine());
+    }
+
+    private IEnumerator GenerateWorldFeaturesCoroutine()
     {
         for (int i = 0; i < worldFeatures.Count; i++)
         {
@@ -309,11 +327,17 @@ public class World : NetworkBehaviour
                 }
                 else { spawnedWorldFeatures[i].Add(null); }
             }
+            yield return null;
         }
     }
 
     [Rpc(SendTo.Everyone)]
     private void DoRaycastedWorldFeaturesRPC()
+    {
+        StartCoroutine(GenerateRaycastedWorldFeaturesCoroutine());
+    }
+
+    private IEnumerator GenerateRaycastedWorldFeaturesCoroutine()
     {
         var initiallength = spawnedWorldFeatures.Count;
         for (int i = 0; i < raycastedWorldFeatures.Count; i++)
@@ -348,10 +372,10 @@ public class World : NetworkBehaviour
             {
                 for (int j = 0; j < feature.Amount; j++)
                 {
-                    if (results[k].collider==null || (needstag && !results[k].collider.CompareTag(feature.RequiredTag))) { continue; }
+                    if (results[k].collider == null || (needstag && !results[k].collider.CompareTag(feature.RequiredTag))) { continue; }
 
                     var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
-                    if(feature.SpawnPool[spawnedindex] != -1)
+                    if (feature.SpawnPool[spawnedindex] != -1)
                     {
                         Random.InitState(seed + (int)results[k].point.x + (int)results[k].point.z);
                         var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], results[k].point, Quaternion.identity, point);
@@ -369,6 +393,13 @@ public class World : NetworkBehaviour
             // Dispose the buffers
             results.Dispose();
             commands.Dispose();
+            yield return null;
+        }
+
+        if (!IsServer)
+        {
+            Loading = false;
+            MenuController.ToggleLoadingScreen(false);
         }
     }
 
