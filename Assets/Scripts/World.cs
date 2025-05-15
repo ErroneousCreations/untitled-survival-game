@@ -363,7 +363,10 @@ public class World : NetworkBehaviour
 
             //do the job
             JobHandle handle = RaycastCommand.ScheduleBatch(commands, results, feature.Amount * feature.SpawnCentres.Count, 1, default);
-            handle.Complete();
+            while (!handle.IsCompleted)
+            {
+                yield return null;
+            }
 
             //actually spawn them
             bool needstag = feature.RequiredTag != "";
@@ -388,12 +391,12 @@ public class World : NetworkBehaviour
                     else { spawnedWorldFeatures[initiallength + i].Add(null); }
                     k++;
                 }
+                yield return null;
             }
 
             // Dispose the buffers
             results.Dispose();
             commands.Dispose();
-            yield return null;
         }
 
         if (!IsServer)

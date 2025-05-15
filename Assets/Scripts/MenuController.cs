@@ -142,8 +142,8 @@ public class MenuController : MonoBehaviour
         }
 
         LoadingScreen.SetActive(true);
-        await Relay.instance.CreateRelay();
-
+        bool success = await Relay.instance.CreateRelay();
+        if (!success) { LoadingScreen.SetActive(false); return; }
         NetworkManager.Singleton.StartHost();
         LoadingScreen.SetActive(false);
     }
@@ -159,8 +159,8 @@ public class MenuController : MonoBehaviour
         if (string.IsNullOrWhiteSpace(currJoinCode)) { return; }
 
         LoadingScreen.SetActive(true);
-        await Relay.instance.JoinRelay(currJoinCode);
-
+        bool success = await Relay.instance.JoinRelay(currJoinCode);
+        if (!success) { LoadingScreen.SetActive(false); return; }
         NetworkManager.Singleton.StartClient();
         StartCoroutine(AttemptConnection());
     }
@@ -180,7 +180,7 @@ public class MenuController : MonoBehaviour
                 break;
             }
 
-            if (conntime > 15)
+            if (conntime > 10)
             {
                 LoadingScreen.SetActive(false);
                 NetworkManager.Singleton.Shutdown();
@@ -193,10 +193,11 @@ public class MenuController : MonoBehaviour
 
     public void Shutdown()
     {
+        UIManager.ResetUI();
         NetworkManager.Singleton.Shutdown();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        GameManager.CleanUp();
+        GameManager.LocalCleanup();
         GameManager.EnsureLeaveChannels();
         if(!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
     }

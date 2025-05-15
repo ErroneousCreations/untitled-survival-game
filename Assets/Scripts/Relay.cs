@@ -21,12 +21,12 @@ public class Relay : MonoBehaviour
         instance = this;
     }
 
-    public async Task CreateRelay()
+    public async Task<bool> CreateRelay()
     {
         if(!UnityServicesManager.initialised)
         {
             Debug.Log("Services not initialised");
-            return;
+            return false;
         }
         try
         {
@@ -45,19 +45,21 @@ public class Relay : MonoBehaviour
                 allj.Key,
                 allj.ConnectionData
             );
+            return true;
         }
         catch(RelayServiceException ex)
         {
             Debug.Log(ex);
+            return false;
         }
     }
 
-    public async Task JoinRelay(string joincode)
+    public async Task<bool> JoinRelay(string joincode)
     {
         if (!UnityServicesManager.initialised)
         {
             Debug.Log("Services not initialised");
-            return;
+            return false;
         }
         try
         {
@@ -72,10 +74,12 @@ public class Relay : MonoBehaviour
                 allj.ConnectionData,
                 allj.HostConnectionData
             );
+            return true;
         }
         catch(RelayServiceException e)
         {
             Debug.Log(e);
+            return false;
         }
     }
 }

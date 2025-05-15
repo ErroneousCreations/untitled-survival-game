@@ -23,6 +23,7 @@ public class GameManager : NetworkBehaviour
     private Dictionary<ulong, string> UNIQUEUSERIDS = new(); //for the server to keep track and stuff
     private Dictionary<string, ulong> CLIENTIDFROMUUID = new(); //for the server to keep track and stuff
     private Dictionary<ulong, string> localUserNames = new(); //for clients
+    private Dictionary<string, ulong> localUUIDtoID = new(); //for clients
     private static GameManager instance;
     [EditorAttributes.ReadOnly]public List<string> TEAMA = new(), TEAMB = new();
 
@@ -97,7 +98,7 @@ public class GameManager : NetworkBehaviour
     {
         if (!IsServer) { return; }
         if(serverSpeakingList.Contains(obj)) { serverSpeakingList.Remove(obj); }
-        DisconnectedRPC(obj, readiedPlayers.ToArray());
+        DisconnectedRPC(obj, readiedPlayers.ToArray(), UNIQUEUSERIDS[obj]);
         USERNAMES.Remove(obj);
         CLIENTIDFROMUUID.Remove(UNIQUEUSERIDS[obj]);
         UNIQUEUSERIDS.Remove(obj);
@@ -110,10 +111,11 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    private void DisconnectedRPC(ulong id, ulong[] readied)
+    private void DisconnectedRPC(ulong id, ulong[] readied, string uuid)
     {
         if(Extensions.LocalClientID == id) { return; }
         if (localUserNames.ContainsKey(id)) { localUserNames.Remove(id); }
+        if (localUUIDtoID.ContainsKey(uuid)) { localUUIDtoID.Remove(uuid); }
         var rlist = readied.ToList();
         UIManager.UpdatePlayerList(localUserNames, rlist);
         readiedPlayers = rlist;
@@ -122,14 +124,14 @@ public class GameManager : NetworkBehaviour
     private void OnClientConnectedCallback(ulong obj)
     {
         if (!IsServer) { return; }
-        NewPlayerRPC(USERNAMES[obj].ToString(), readiedPlayers.ToArray(), obj);
+        NewPlayerRPC(USERNAMES[obj].ToString(), readiedPlayers.ToArray(), obj, UNIQUEUSERIDS[obj]);
         if (obj != 0) {
-            var usernames = new FixedString128Bytes[USERNAMES.Count];
+            var usernames = new FixedString512Bytes[USERNAMES.Count];
             var ids = new ulong[USERNAMES.Count];
             var keys = USERNAMES.Keys.ToList();
             for (int i = 0; i < usernames.Length; i++)
             {
-                usernames[i] = USERNAMES[keys[i]];
+                usernames[i] = USERNAMES[keys[i]] + "\v" + UNIQUEUSERIDS[keys[i]];
                 ids[i] = keys[i];   
             }
             SyncConnectedsRPC(usernames, ids, readiedPlayers.ToArray(), GetGameMode, currentSaveFile, SavingManager.GetWorldInfo(GetSaveFileLocation, currentSaveFile, out string info), info, RpcTarget.Single(obj, RpcTargetUse.Temp));
@@ -137,21 +139,23 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    private void NewPlayerRPC(string username, ulong[] readied, ulong id)
+    private void NewPlayerRPC(string username, ulong[] readied, ulong id, string uuid)
     {
         if (Extensions.LocalClientID == id && id != 0) { return; }
         localUserNames.Add(id, username);
+        localUUIDtoID.Add(uuid, id);
         var rlist = readied.ToList();
         UIManager.UpdatePlayerList(localUserNames, rlist);
         readiedPlayers = rlist;
     }
 
     [Rpc(SendTo.SpecifiedInParams)]
-    private void SyncConnectedsRPC(FixedString128Bytes[] usernames, ulong[] ids, ulong[] readied, GameModeEnum gamemode, int save, bool worldexists, string info, RpcParams @params)
+    private void SyncConnectedsRPC(FixedString512Bytes[] usernames, ulong[] ids, ulong[] readied, GameModeEnum gamemode, int save, bool worldexists, string info, RpcParams @params)
     {
         localUserNames = new();
         for (int i = 0; i < ids.Length; i++) {
-            localUserNames.Add(ids[i], usernames[i].ToString());
+            localUserNames.Add(ids[i], usernames[i].ToString().Split('\v')[0]);
+            localUUIDtoID.Add(usernames[i].ToString().Split('\v')[1], ids[i]);
         }
         var rlist = readied.ToList();
         UIManager.UpdatePlayerList(localUserNames, rlist);
@@ -348,8 +352,12 @@ public class GameManager : NetworkBehaviour
                     if (VivoxManager.InMainChannel)
                     {
                         VivoxManager.SetPosition(Camera.main.gameObject);
-                        if(spectatorMainParticipant == null) { spectatorMainParticipant = VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL].FirstOrDefault(x => { return x.DisplayName == Extensions.UniqueIdentifier; }); }
-                        else { spectatorMainParticipant.SetLocalVolume(-50); } //no talking
+                        foreach (var participant in VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL])
+                        {
+                            participant.SetLocalVolume(0);
+                        }
+                        //if(spectatorMainParticipant == null) { spectatorMainParticipant = VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL].FirstOrDefault(x => { return x.DisplayName == Extensions.UniqueIdentifier; }); }
+                        //else { spectatorMainParticipant.SetLocalVolume(-50); } //no talking
                     }
                     if (VivoxManager.InSpectatorChannel)
                     {
@@ -376,7 +384,18 @@ public class GameManager : NetworkBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                 }
-                else { UIManager.SetSpectatorTalkingText(""); }
+                else if (Player.LocalPlayer) {
+                    UIManager.SetSpectatorTalkingText("");
+
+                    //mute spectators as a player
+                    if (VivoxManager.InMainChannel)
+                    {
+                        foreach (var participant in VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL])
+                        {
+                            participant.SetLocalVolume(Player.PLAYERBYID.ContainsKey(localUUIDtoID[participant.DisplayName]) ? 0 : (Player.LocalPlayer.ph.isConscious.Value ? -50 : -20)); //if you are dying you can hear the dead cuz ur losing it lol
+                        }
+                    }
+                }
 
                 if (SavingManager.LOADING) { return; }
                 if (!IsServer) { return; }
@@ -471,7 +490,7 @@ public class GameManager : NetworkBehaviour
     {
         if (!SpectatorCamera.spectatingTarget) { UIManager.SetBottomscreenText(""); return; }
 
-        UIManager.SetBottomscreenText((hauntCooldown <= 0 ? "F - Haunt" : "") + (doxCooldown <= 0 ? "\nSpace - Mark for Death" : ""));
+        UIManager.SetBottomscreenText((hauntCooldown <= 0 ? "F - Haunt" : "") + (doxCooldown <= 0 && timeSinceLastDeath.Value<=0 ? "\nSpace - Mark for Death" : ""));
         if(hauntCooldown <= 0 && Input.GetKeyDown(KeyCode.F))
         {
             var rand = Random.value;
@@ -479,22 +498,30 @@ public class GameManager : NetworkBehaviour
             {
                 SpectatorCamera.spectatingTarget.ph.TryWakeUp();
             }
-            else if(rand > 0.3 && rand <= 0.8)
+            else if(rand > 0.3 && rand <= 0.6)
             {
                 SpectatorCamera.spectatingTarget.Haunted(false);
             }
-            else if(rand > 0.8f && rand <= 0.98f)
+            else if(rand > 0.6 && rand <= 0.74f)
+            {
+                SpectatorCamera.spectatingTarget.pm.GetRigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            }
+            else if(rand > 0.74f && rand <= 0.8f)
+            {
+                PlayerInventory.DropRightHandItem();
+            }
+            else if(rand > 0.8f && rand <= 0.95f)
             {
                 SpectatorCamera.spectatingTarget.Haunted(true);
             }
-            else if(rand > 0.98f)
+            else if(rand > 0.95f)
             {
                 SpectatorCamera.spectatingTarget.KnockOver(1);
             }
             hauntCooldown = 5f;
         }
 
-        if (doxCooldown <= 0 && Input.GetKeyDown(KeyCode.Space))
+        if (doxCooldown <= 0 && Input.GetKeyDown(KeyCode.Space) && timeSinceLastDeath.Value <= 0)
         {
             MarkPlayerRPC(SpectatorCamera.spectatingTarget.OwnerClientId);
             doxCooldown = 15f;
@@ -517,6 +544,7 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void ShowVictoryScreenRPC(string winners, ulong[] winnerarray)
     {
+        UIManager.ResetUI();
         UIManager.ShowWinScreen();
         UIManager.SetWinText(winners, winnerarray.Contains(NetworkManager.Singleton.LocalClientId) ? "You Win!" : "You Lose!");
 
@@ -592,6 +620,7 @@ public class GameManager : NetworkBehaviour
         instance.ResetCooldownRPC();
         instance.doxCooldown = 15f;
         instance.hauntCooldown = 1f;
+        instance.timeSinceLastDeath.Value = 30;
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
@@ -617,6 +646,20 @@ public class GameManager : NetworkBehaviour
             }
         }
 
+        instance.CleanupRPC();
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void CleanupRPC()
+    {
+        foreach (var ob in GameObject.FindGameObjectsWithTag("WorldDetail"))
+        {
+            Destroy(ob);
+        }
+    }
+
+    public static void LocalCleanup()
+    {
         foreach (var ob in GameObject.FindGameObjectsWithTag("WorldDetail"))
         {
             Destroy(ob);
@@ -626,7 +669,7 @@ public class GameManager : NetworkBehaviour
     public static void BackToLobby()
     {
         instance.readiedPlayers.Clear();
-        instance.startTimer.Value = 5;
+        instance.startTimer.Value = 5.1f;
         SavingManager.Save(GetSaveFileLocation, instance.currentSaveFile);
         instance.Gamestate.Value = GameStateEnum.Lobby;
         instance.currWorld.NetworkObject.Despawn();
@@ -639,6 +682,7 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     private void ToLobbyRPC(string worldinfo)
     {
+        UIManager.ResetUI();
         readied = false;
         UIManager.ShowLobby();
         UIManager.HideGameOverScreen();

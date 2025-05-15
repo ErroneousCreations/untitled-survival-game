@@ -89,6 +89,18 @@ public class PlayerInventory : NetworkBehaviour
         localInstance.UpdateLefthandVisuals();
     }
 
+    public static void DropLeftHandItem()
+    {
+        if (!localInstance.leftHand.Value.IsValid) { return; }
+        localInstance.ForcedropLeft();
+    }
+
+    public static void DropRightHandItem()
+    {
+        if (!localInstance.rightHand.Value.IsValid) { return; }
+        localInstance.ForcedropRight();
+    }
+
     public static List<FixedString128Bytes> GetLeftHandSaveData => localInstance.leftHand.Value.SavedData;
     public static List<FixedString128Bytes> GetRightHandSaveData => localInstance.rightHand.Value.SavedData;
 

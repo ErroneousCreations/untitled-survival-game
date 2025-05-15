@@ -303,9 +303,9 @@ public class PlayerHealthController : NetworkBehaviour
 
         currentBlood.Value -= totalBleed * Time.deltaTime;
         if (lastBleedAmount > 0) { shockTimer += shockTimer >= (lastBleedAmount / bleedRatePerWound) * maxShockPerSeverity ? 0 : Time.deltaTime * (lastBleedAmount / (bleedRatePerWound*1.25f)); }
-        else if(shockTimer>0) { shockTimer -= Time.deltaTime * 1.5f; }
+        else if(shockTimer>0) { shockTimer -= Time.deltaTime * 1.1f; }
         float shockIncreaseMult = Mathf.Pow(1.02f, shockTimer) - 1;
-        shock.Value += shockIncreasePerWound * shockIncreaseMult * Time.deltaTime;
+        shock.Value += (Time.deltaTime / shockIncreasePerWound) * shockIncreaseMult;
     }
 
     void HandleVitals()

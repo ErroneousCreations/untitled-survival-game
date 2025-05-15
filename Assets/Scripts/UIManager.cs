@@ -26,6 +26,21 @@ public class UIManager : MonoBehaviour
         VivoxManager.InitialisationComplete += () => { VivoxManager.InputDevicesChanged += UpdateInputDevices; };
     }
 
+    public static void ResetUI()
+    {
+        ShowVitalsIndication(false);
+        HideGameOverScreen();
+        SetReadyTimerText("");
+        SetReadyUpButtonText("Ready Up");
+        instance.StopAllCoroutines();
+        instance.RegionTitleText.text = "";
+        instance.regiontitlecountdown = 0;
+        instance.markedForDeathIcon.alpha = 0;
+        instance.markedForDeathIcon.DOKill();
+        instance.markedTargetTime = 0;
+        instance.markedTarget = null;
+    }
+
     public static void TogglePauseMenu(bool open)
     {
         instance.pauseMenu.SetActive(open);
