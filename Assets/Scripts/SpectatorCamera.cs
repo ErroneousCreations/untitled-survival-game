@@ -24,6 +24,8 @@ public class SpectatorCamera : MonoBehaviour
     private Vector3 trackingpos;
     private static SpectatorCamera instance;
 
+    public static Player spectatingTarget => instance.target;
+
     void Start()
     {
         instance = this;

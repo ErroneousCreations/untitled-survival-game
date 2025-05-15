@@ -38,6 +38,8 @@ public class GameManager : NetworkBehaviour
     private bool isSpeaking;
     private NetworkVariable<FixedString64Bytes> talkingPlayers = new();
     private List<ulong> serverSpeakingList = new();
+    private NetworkVariable<float> timeSinceLastDeath = new(0);
+    private float doxCooldown, hauntCooldown;
 
     public static bool IsSpectating = false;
 
@@ -336,7 +338,7 @@ public class GameManager : NetworkBehaviour
                     }
                     else { talkers = ""; }
                     UIManager.SetSpectatorTalkingText(talkers);
-
+                    SpectatorControls();
                     if (VivoxManager.InMainChannel)
                     {
                         VivoxManager.SetPosition(Camera.main.gameObject);
@@ -372,6 +374,9 @@ public class GameManager : NetworkBehaviour
 
                 if (SavingManager.LOADING) { return; }
                 if (!IsServer) { return; }
+                if (timeSinceLastDeath.Value > 0) { timeSinceLastDeath.Value -= Time.deltaTime; }
+                if (doxCooldown > 0) { doxCooldown -= Time.deltaTime; }
+                if (hauntCooldown > 0) { hauntCooldown -= Time.deltaTime; }
                 allPlayersInit.Value = initialisedPlayers >= NetworkManager.Singleton.ConnectedClients.Count;
                 if (!ALL_PLAYERS_INITIALISED) { return; }
                 switch (Gamemode.Value)
@@ -443,6 +448,8 @@ public class GameManager : NetworkBehaviour
                 }
                 break;
             case GameStateEnum.Winnerscreen:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 if (VivoxManager.InLobbyChannel)
                 {
                     if (Input.GetKeyDown(KeyCode.V) && VivoxManager.InLobbyChannel) { VivoxManager.ToggleInputMute(); }
@@ -454,6 +461,13 @@ public class GameManager : NetworkBehaviour
                 }
                 break;
         }
+    }
+
+    private void SpectatorControls()
+    {
+        if (!SpectatorCamera.spectatingTarget) { UIManager.SetBottomscreenText(""); return; }
+
+
     }
 
     [Rpc(SendTo.Server)]
@@ -497,6 +511,7 @@ public class GameManager : NetworkBehaviour
         instance.readiedPlayers.Clear();
         instance.LobbyFromWinRPC();
         if (instance.currWorld) { instance.currWorld.NetworkObject.Despawn(); }
+        instance.timeSinceLastDeath.Value = 0;
     }
 
     [Rpc(SendTo.Everyone)]
@@ -506,6 +521,8 @@ public class GameManager : NetworkBehaviour
         UIManager.SetReadyUpButtonText("Ready Up");
         UIManager.LobbyFromWinScreen();
         UIManager.UpdatePlayerList(localUserNames, new());
+        instance.doxCooldown = 0;
+        instance.hauntCooldown = 0;
     }
 
     public static void ResetGamemode()
@@ -535,6 +552,15 @@ public class GameManager : NetworkBehaviour
         IsSpectating = true;
         VivoxManager.JoinMainChannel(); //ok wait hear me out
         instance.isSpeaking = false;
+        instance.ResetCooldownRPC();
+        instance.doxCooldown = 15f;
+        instance.hauntCooldown = 1f;
+    }
+
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    private void ResetCooldownRPC()
+    {
+        timeSinceLastDeath.Value = 70;
     }
 
     public static void EnsureLeaveChannels()
@@ -570,6 +596,7 @@ public class GameManager : NetworkBehaviour
         SavingManager.GetWorldInfo(GetSaveFileLocation, instance.currentSaveFile, out string worldinfo);
         CleanUp();
         instance.ToLobbyRPC(worldinfo);
+        instance.timeSinceLastDeath.Value = 0;
     }
 
     [Rpc(SendTo.Everyone)]
@@ -588,6 +615,8 @@ public class GameManager : NetworkBehaviour
         UIManager.SetWorldInfo(true, worldinfo);
         isSpeaking = false;
         UIManager.UpdatePlayerList(localUserNames, new());
+        instance.doxCooldown = 0;
+        instance.hauntCooldown = 0;
     }
 
     public static void ReadyUp()

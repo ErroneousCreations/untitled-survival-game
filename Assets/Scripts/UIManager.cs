@@ -504,4 +504,11 @@ public class UIManager : MonoBehaviour
     {
         instance.SpectatorTalkingText.text = text;
     }
+
+    [SerializeField] private TMP_Text BottomscreenText;
+
+    public static void SetBottomscreenText(string text)
+    {
+        instance.BottomscreenText.text = text;
+    }
 }
