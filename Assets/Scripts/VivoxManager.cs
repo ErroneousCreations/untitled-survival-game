@@ -7,6 +7,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Unity.Services.Vivox.AudioTaps;
 
 public class VivoxManager : MonoBehaviour
 {
@@ -30,6 +31,21 @@ public class VivoxManager : MonoBehaviour
         DEFAULTCHANNEL = allocation + "_MAIN";
         SPECTATECHANNEL = allocation + "_SPECTATE";
         LOBBYCHANNEL = allocation + "_LOBBY";
+    }
+
+    public static void OverwriteAllocationID(string allocation)
+    {
+        DEFAULTCHANNEL = allocation + "_MAIN";
+        SPECTATECHANNEL = allocation + "_SPECTATE";
+        LOBBYCHANNEL = allocation + "_LOBBY";
+    }
+
+    public static void UpdateChannelAudioTaps()
+    {
+        foreach (var item in FindObjectsByType<VivoxChannelAudioTap>(FindObjectsSortMode.None))
+        {
+            item.ChannelName = DEFAULTCHANNEL;
+        }
     }
 
     async void InitializeAsync()

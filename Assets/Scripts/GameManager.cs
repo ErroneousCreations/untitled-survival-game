@@ -24,7 +24,7 @@ public class GameManager : NetworkBehaviour
     private Dictionary<string, ulong> CLIENTIDFROMUUID = new(); //for the server to keep track and stuff
     private Dictionary<ulong, string> localUserNames = new(); //for clients
     private static GameManager instance;
-    private static List<string> TEAMA = new(), TEAMB = new();
+    [EditorAttributes.ReadOnly]public List<string> TEAMA = new(), TEAMB = new();
 
     //lobby
     private List<ulong> readiedPlayers = new();
@@ -49,8 +49,10 @@ public class GameManager : NetworkBehaviour
 
     public static SavingManager.SaveFileLocationEnum GetSaveFileLocation => GetGameMode == GameModeEnum.Arena ? SavingManager.SaveFileLocationEnum.Survival : (SavingManager.SaveFileLocationEnum)GetGameMode;
 
-    public static bool InTeamA(string uuid) => TEAMA.Contains(uuid);
-    public static bool InTeamB(string uuid) => TEAMB.Contains(uuid);
+    public static bool InTeamA(string uuid) => instance.TEAMA.Contains(uuid);
+    public static bool InTeamB(string uuid) => instance.TEAMB.Contains(uuid);
+
+    private NetworkVariable<FixedString512Bytes> allocID = new();
 
     private void Awake()
     {
@@ -68,13 +70,15 @@ public class GameManager : NetworkBehaviour
     {
         UIManager.ShowLobby();
         readiedPlayers = new();
-        //since we are in lobby we join the lobby channel
+        Invoke(nameof(Wait), 0.01f); //wait for the UI to load
         readied = false;
-        VivoxManager.JoinLobbyChannel();
         UIManager.SetGamemodeIndicator(GameModeEnum.Survival);
         UIManager.SetSaveIndicator(0);
         UIManager.SetWorldInfo(SavingManager.GetWorldInfo(SavingManager.SaveFileLocationEnum.Survival, 0, out string info), info);
+        if (IsOwner) { allocID.Value = Relay.CurrentAllocationId; }
     }
+
+    void Wait() { if (!IsOwner) { VivoxManager.OverwriteAllocationID(allocID.Value.ToString()); } VivoxManager.JoinLobbyChannel(); }
 
     private void ApproveClient(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
     {
@@ -174,8 +178,8 @@ public class GameManager : NetworkBehaviour
 
         //StartCoroutine(FinishRespawn(id));
         var p = Instantiate(ThePlayer, Vector3.zero, Quaternion.identity); //todo add the other spawnpoint ranges
-        p.NetworkObject.SpawnAsPlayerObject(id);
         var spawnpoint = Vector3.zero;
+        p.SetSpawnPos(spawnpoint);
         switch (GetGameMode)
         {
             case GameModeEnum.Survival:
@@ -193,6 +197,7 @@ public class GameManager : NetworkBehaviour
                 spawnpoint = Extensions.GetDeathmatchSpawnPoint;
                 break;
         }
+        p.NetworkObject.SpawnAsPlayerObject(id);
         p.Teleport(spawnpoint);
     }
 
@@ -214,7 +219,6 @@ public class GameManager : NetworkBehaviour
                 talkingPlayers.Value += id + "|";
             }
             if (talkingPlayers.Value.Length > 0) { talkingPlayers.Value = talkingPlayers.Value.ToString()[..^1]; }
-            Debug.Log($"Talking players: {talkingPlayers.Value.ToString()}");
         }
 
         switch (GetGamestate)
@@ -327,6 +331,8 @@ public class GameManager : NetworkBehaviour
             case GameStateEnum.Ingame:
                 if (VivoxManager.InLobbyChannel) { VivoxManager.LeaveLobbyChannel(); }
                 if (IsSpectating) {
+                    if (doxCooldown > 0) { doxCooldown -= Time.deltaTime; }
+                    if (hauntCooldown > 0) { hauntCooldown -= Time.deltaTime; }
                     var talkers = "";
                     if(talkingPlayers.Value.Length > 0) {
                         foreach (var id in talkingPlayers.Value.ToString().Split('|'))
@@ -375,8 +381,6 @@ public class GameManager : NetworkBehaviour
                 if (SavingManager.LOADING) { return; }
                 if (!IsServer) { return; }
                 if (timeSinceLastDeath.Value > 0) { timeSinceLastDeath.Value -= Time.deltaTime; }
-                if (doxCooldown > 0) { doxCooldown -= Time.deltaTime; }
-                if (hauntCooldown > 0) { hauntCooldown -= Time.deltaTime; }
                 allPlayersInit.Value = initialisedPlayers >= NetworkManager.Singleton.ConnectedClients.Count;
                 if (!ALL_PLAYERS_INITIALISED) { return; }
                 switch (Gamemode.Value)
@@ -467,7 +471,40 @@ public class GameManager : NetworkBehaviour
     {
         if (!SpectatorCamera.spectatingTarget) { UIManager.SetBottomscreenText(""); return; }
 
+        UIManager.SetBottomscreenText((hauntCooldown <= 0 ? "F - Haunt" : "") + (doxCooldown <= 0 ? "\nSpace - Mark for Death" : ""));
+        if(hauntCooldown <= 0 && Input.GetKeyDown(KeyCode.F))
+        {
+            var rand = Random.value;
+            if (rand <= 0.3)
+            {
+                SpectatorCamera.spectatingTarget.ph.TryWakeUp();
+            }
+            else if(rand > 0.3 && rand <= 0.8)
+            {
+                SpectatorCamera.spectatingTarget.Haunted(false);
+            }
+            else if(rand > 0.8f && rand <= 0.98f)
+            {
+                SpectatorCamera.spectatingTarget.Haunted(true);
+            }
+            else if(rand > 0.98f)
+            {
+                SpectatorCamera.spectatingTarget.KnockOver(1);
+            }
+            hauntCooldown = 5f;
+        }
 
+        if (doxCooldown <= 0 && Input.GetKeyDown(KeyCode.Space))
+        {
+            MarkPlayerRPC(SpectatorCamera.spectatingTarget.OwnerClientId);
+            doxCooldown = 15f;
+        }
+    }
+
+    [Rpc(SendTo.Everyone, RequireOwnership = false)]
+    private void MarkPlayerRPC(ulong targ)
+    {
+        UIManager.SetMarkedForDeathIcon(targ);
     }
 
     [Rpc(SendTo.Server)]

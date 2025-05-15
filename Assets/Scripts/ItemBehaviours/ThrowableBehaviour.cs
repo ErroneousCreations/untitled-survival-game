@@ -127,23 +127,17 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
             else if (HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out WorldFeature wf) && wf.Destroyable)
             {
                 wf.Attack(WorldBreakableDamage);
-                NetPrefabsList.SpawnObjectExcept(wf.Breakparticle, hit.point, Quaternion.LookRotation(hit.normal), Extensions.LocalClientID, 1);
-                var ob = Instantiate(NetPrefabsList.GetNetPrefab(wf.Breakparticle), hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(ob, 1);
+                PlayerInventory.SpawnNetOb(wf.Breakparticle, hit.point, Quaternion.LookRotation(hit.normal));
             }
             else if(HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out DestructibleWorldDetail det))
             {
                 det.Attack(WorldBreakableDamage);
-                NetPrefabsList.SpawnObjectExcept(det.BreakParticle, hit.point, Quaternion.LookRotation(hit.normal), Extensions.LocalClientID, 1);
-                var ob = Instantiate(NetPrefabsList.GetNetPrefab(det.BreakParticle), hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(ob, 1);
+                PlayerInventory.SpawnNetOb(det.BreakParticle, hit.point, Quaternion.LookRotation(hit.normal));
             }
             else if(Sharpen)
             {
                 if (int.TryParse(item.SavedData[0].ToString(), out int sharphitsleft)) {
-                    NetPrefabsList.SpawnObjectExcept(SharpenParticle, hit.point, Quaternion.LookRotation(hit.normal), Extensions.LocalClientID, 1);
-                    var ob = Instantiate(NetPrefabsList.GetNetPrefab(SharpenParticle), hit.point, Quaternion.LookRotation(hit.normal));
-                    Destroy(ob, 1);
+                   PlayerInventory.SpawnNetOb(SharpenParticle, hit.point, Quaternion.LookRotation(hit.normal));
                     sharphitsleft--; 
                     item.SavedData[0] = sharphitsleft.ToString();  
                     if(sharphitsleft <= 0)

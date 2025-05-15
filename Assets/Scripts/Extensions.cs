@@ -23,6 +23,13 @@ public static class Extensions
         }
     }
 
+    public static Vector3 TransformToHUDSpace(Vector3 worldSpace)
+    {
+        var scalefactor = UIManager.GetCanvas.transform.localScale.x;
+        var screenSpace = Camera.main.WorldToScreenPoint(worldSpace);
+        return (screenSpace - new Vector3(Screen.width / 2, Screen.height / 2)) / scalefactor;
+    }
+
     public static int GetDeterministicStringIndex(string input, int range)
     {
         if (range <= 0) return 0;

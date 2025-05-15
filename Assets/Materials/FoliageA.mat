@@ -103,7 +103,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ClipThreshold: 0.35
+    - _ClipThreshold: 0.43
     - _ColourVariation: 0.09
     - _Cull: 2
     - _Cutoff: 0.5
@@ -116,12 +116,12 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _InnerColour: 0.67
-    - _InnerLeavesNoiseScale: 10
+    - _InnerLeavesNoiseScale: 14.02
     - _InnerLeavesThresh: 0.59
     - _InnerOffset: 99.99
-    - _LeavesNoiseScale: 10
+    - _LeavesNoiseScale: 18.23
     - _Metallic: 0
-    - _NoiseScale: 19.21
+    - _NoiseScale: 22.54
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0

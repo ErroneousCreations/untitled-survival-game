@@ -94,6 +94,13 @@ public class PlayerInventory : NetworkBehaviour
 
     #region Stuff for the items to use since they cant have their own variables and be networked etc
 
+    public static void SpawnNetOb(string prefab, Vector3 pos, Quaternion rot)
+    {
+        NetPrefabsList.SpawnObjectExcept(prefab, pos, rot, Extensions.LocalClientID, 1);
+        var ob = Instantiate(NetPrefabsList.GetNetPrefab(prefab), pos, rot);
+        Destroy(ob, 1);
+    }
+
     public static void SpawnItemWithVelocity(ItemData item, Vector3 position, Vector3 velocity, ulong thrower, Vector3 angular = default)
     {
         localInstance.SpawnItemVelocityWorldRPC(item, position, velocity, thrower, angular);

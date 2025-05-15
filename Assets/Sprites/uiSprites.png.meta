@@ -263,6 +263,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: markedfordeath
+      rect:
+        serializedVersion: 2
+        x: 1489
+        y: 631
+        width: 631
+        height: 417
+      alignment: 9
+      pivot: {x: 0.49999943, y: 0.49999955}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a570cbdabe3ef64fa4a08e4d1b480ff
+      internalID: -1605661704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -280,6 +302,7 @@ TextureImporter:
       circle: -616680749
       delete: 1676461358
       gametitle: 1637486850
+      markedfordeath: -1605661704
       play: -2147455156
       quit: -216738200
       settings: -1110145745

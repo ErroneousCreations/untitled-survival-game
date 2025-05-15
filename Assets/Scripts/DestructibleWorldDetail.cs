@@ -16,7 +16,7 @@ public class DestructibleWorldDetail : MonoBehaviour
 
     private void Start()
     {
-        ObjectID = Mathf.RoundToInt(transform.position.x * 100) + Mathf.RoundToInt(transform.position.y * 100);
+        ObjectID = Mathf.RoundToInt(transform.position.x * 100) + Mathf.RoundToInt(transform.position.z * 100) + Mathf.RoundToInt(transform.position.y);
         WorldDetailManager.RegisterObject(this);
         CurrHealth = Health;
         Invoke(nameof(SetHealth), 0.01f);

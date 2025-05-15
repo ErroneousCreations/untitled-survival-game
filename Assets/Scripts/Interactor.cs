@@ -96,7 +96,7 @@ public class Interactor : MonoBehaviour
             if(!inter.GetBannedFromInteracting && (inter.transform.position - transform.position).sqrMagnitude < inter.InteractDistance * inter.InteractDistance && Player.LocalPlayer.ph.isConscious.Value)
             {
                 withinRange.Add(inter);
-                var pos = TransformToHUDSpace(inter.transform.position);
+                var pos = Extensions.TransformToHUDSpace(inter.transform.position);
                 if(pos.z < 0) { continue; }
                 var ob = Instantiate(InteractibleUIBase, InteractibleUIBase.transform.parent);
                 ob.SetActive(true);
@@ -109,7 +109,7 @@ public class Interactor : MonoBehaviour
             if (!inter.GetBannedFromInteracting && (inter.transform.position - transform.position).sqrMagnitude < inter.InteractDistance * inter.InteractDistance && Player.LocalPlayer.ph.isConscious.Value)
             {
                 withinRangeNonNet.Add(inter);
-                var pos = TransformToHUDSpace(inter.transform.position);
+                var pos = Extensions.TransformToHUDSpace(inter.transform.position);
                 if (pos.z < 0) { continue; }
                 var ob = Instantiate(InteractibleUIBase, InteractibleUIBase.transform.parent);
                 ob.SetActive(true);
@@ -127,7 +127,7 @@ public class Interactor : MonoBehaviour
         foreach (var inter in withinRange)
         {
             if(!inter) { continue; }
-            var pos = TransformToHUDSpace(inter.transform.position);
+            var pos = Extensions.TransformToHUDSpace(inter.transform.position);
             if (pos.z < 0) { continue; }
             var dist = (UIcentre.localPosition - pos).sqrMagnitude;
             if (dist < closestScreenDist)
@@ -140,7 +140,7 @@ public class Interactor : MonoBehaviour
         foreach (var inter in withinRangeNonNet)
         {
             if (!inter) { continue; }
-            var pos = TransformToHUDSpace(inter.transform.position);
+            var pos = Extensions.TransformToHUDSpace(inter.transform.position);
             if (pos.z < 0) { continue; }
             var dist = (UIcentre.localPosition - pos).sqrMagnitude;
             if (dist < closestScreenDist)
@@ -163,7 +163,7 @@ public class Interactor : MonoBehaviour
                 SelectorUI.gameObject.SetActive(false);
                 return;
             }
-            SelectorUI.transform.localPosition = TransformToHUDSpace(currentTarget.transform.position);
+            SelectorUI.transform.localPosition = Extensions.TransformToHUDSpace(currentTarget.transform.position);
             SelectorUI.gameObject.SetActive(true);
             InteractorTitle.text = currentTarget.Description;
             InteractionSlider.value = GetHoldProgressNormalized;
@@ -203,7 +203,7 @@ public class Interactor : MonoBehaviour
         }
         else
         {
-            SelectorUI.transform.localPosition = TransformToHUDSpace(altCurrentTarget.transform.position);
+            SelectorUI.transform.localPosition = Extensions.TransformToHUDSpace(altCurrentTarget.transform.position);
             SelectorUI.gameObject.SetActive(true);
             InteractorTitle.text = altCurrentTarget.Description;
             InteractionSlider.value = GetHoldProgressNormalized;
@@ -223,13 +223,6 @@ public class Interactor : MonoBehaviour
                 if (holdProgress > 0) { holdProgress -= Time.deltaTime * 0.75f; }
             }
         }
-    }
-
-    private Vector3 TransformToHUDSpace(Vector3 worldSpace)
-    {
-        var scalefactor = canvas.transform.localScale.x;
-        var screenSpace = Camera.main.WorldToScreenPoint(worldSpace);
-        return (screenSpace - new Vector3(Screen.width / 2, Screen.height / 2)) / scalefactor;
     }
 
     public float GetHoldProgressNormalized

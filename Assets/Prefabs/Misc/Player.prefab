@@ -775,6 +775,135 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 0.00001
+--- !u!1 &2878532245988258067
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7053927102525643388}
+  - component: {fileID: 2451565269490545509}
+  m_Layer: 7
+  m_Name: HauntAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7053927102525643388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2878532245988258067}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 840847348880890071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &2451565269490545509
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2878532245988258067}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 635c1b3b8bd853143b74606430bb3fc7, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2983407331317601488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,6 +1234,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8563772181461386608}
+  - {fileID: 7053927102525643388}
   m_Father: {fileID: 1043143544690301207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4083452252552727916
@@ -1487,7 +1617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   Description: Slap
-  InteractLength: 1
+  InteractLength: 0.333
   InteractDistance: 1.5
   InteractedLocal:
     m_PersistentCalls:
@@ -3844,6 +3974,29 @@ MonoBehaviour:
   - {fileID: 2800000, guid: aa381fe2c97d2274597689b92cc9e637, type: 3}
   - {fileID: 2800000, guid: aa26b98e81adfd24aa64dea7a1e364cc, type: 3}
   Mixer: {fileID: 24100000, guid: 635c1b3b8bd853143b74606430bb3fc7, type: 2}
+  hauntSource: {fileID: 2451565269490545509}
+  hauntSounds:
+  - {fileID: 8300000, guid: 205908915d5afc047a60d6668446c737, type: 3}
+  - {fileID: 8300000, guid: 0e2ec8a25fd92fa459609a27ac7a2cf8, type: 3}
+  - {fileID: 8300000, guid: 6f2568d3f2d349d4894bbd3a73bbeefc, type: 3}
+  - {fileID: 8300000, guid: 2090011295aaef048a9902642a3f51d3, type: 3}
+  - {fileID: 8300000, guid: b2070afdce3ea5b47b56c309136edc5e, type: 3}
+  - {fileID: 8300000, guid: 683fd7fbd9ce68844bf63b27ddd094d4, type: 3}
+  - {fileID: 8300000, guid: 0a47369fcf57de4468fad030963e09af, type: 3}
+  sillyHauntSounds:
+  - {fileID: 8300000, guid: ed53090c0498c2744be59746125eb4f0, type: 3}
+  - {fileID: 8300000, guid: b23964d94fad81d4e89205fbd6738646, type: 3}
+  - {fileID: 8300000, guid: 972d8a03380d3e94cac829a83d18a1ff, type: 3}
+  - {fileID: 8300000, guid: 88ff60b541a7ae24694e34bf04fe3c88, type: 3}
+  - {fileID: 8300000, guid: 40a3cd7814cc45742989adc018fd5071, type: 3}
+  - {fileID: 8300000, guid: fddf04eee51623848b4361e4c76c22f2, type: 3}
+  - {fileID: 8300000, guid: 5a61d29b923b1a34285fc6cb61750ea7, type: 3}
+  - {fileID: 8300000, guid: f08ab01765fc5e0468dd818709342f9a, type: 3}
+  - {fileID: 8300000, guid: 19a2e807beabcd94ab3b4b7dcd174fe0, type: 3}
+  - {fileID: 8300000, guid: 34f950db3e065784c94c8fdb54d578f6, type: 3}
+  - {fileID: 8300000, guid: 9dd08a394fea1244d983739bf0155d70, type: 3}
+  - {fileID: 8300000, guid: a06a9e1c21326774394e5be412730561, type: 3}
+  - {fileID: 8300000, guid: 2749ea83355c84d4e8d594f397092a1d, type: 3}
   hungryAudiosource: {fileID: 4467407709081242012}
   stomachRumbles:
   - {fileID: 8300000, guid: 285f7f046a9a2914688c0846307f4702, type: 3}

@@ -617,6 +617,7 @@ public class PlayerHealthController : NetworkBehaviour
 
     public void TryWakeUp()
     {
+        NetworkAudioManager.PlayNetworkedAudioClip(Random.Range(0.8f, 1.1f), 0.15f, 1, transform.position + Vector3.up * 1.6f, "slap");
         TryWakeUpRPC();
     }
 

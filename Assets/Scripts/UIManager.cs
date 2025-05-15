@@ -12,7 +12,10 @@ public class UIManager : MonoBehaviour
 {
     private static UIManager instance;
 
+    [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject pauseMenu;
+
+    public static Canvas GetCanvas => instance.canvas;
 
     private void Awake()
     {
@@ -70,6 +73,20 @@ public class UIManager : MonoBehaviour
         {
             instance.selectedSaveslot.transform.position = instance.SaveslotButtons[currSave].transform.position;
             instance.selectedGamemode.transform.position = instance.GamemodeButtons[(int)currMode].transform.position;
+        }
+
+        if (markedTarget)
+        {
+            markedForDeathIcon.transform.localPosition = Extensions.TransformToHUDSpace(markedTarget.position);
+            markedForDeathIcon.transform.localScale = new Vector3(1, 1, 1) * (1 + Mathf.PingPong(Time.time * 2, 0.5f));
+            markedForDeathIcon.gameObject.SetActive(markedForDeathIcon.transform.position.z >= 0);
+            markedTargetTime -= Time.deltaTime;
+            if (markedTargetTime <= 0)
+            {
+                markedForDeathIcon.DOKill();
+                markedForDeathIcon.DOFade(0, 1f);
+                markedTarget = null;
+            }
         }
     }
 
@@ -510,5 +527,20 @@ public class UIManager : MonoBehaviour
     public static void SetBottomscreenText(string text)
     {
         instance.BottomscreenText.text = text;
+    }
+
+    [SerializeField] private CanvasGroup markedForDeathIcon;
+    private float markedTargetTime;
+    private Transform markedTarget;
+
+    public static void SetMarkedForDeathIcon(ulong target)
+    {
+        var pos = Extensions.TransformToHUDSpace(Player.PLAYERBYID[target].transform.position);
+        instance.markedTarget = Player.PLAYERBYID[target].transform;
+        instance.markedForDeathIcon.transform.position = pos;
+        instance.markedTargetTime = 5;
+        instance.markedForDeathIcon.DOKill();
+        instance.markedForDeathIcon.alpha = 0;
+        instance.markedForDeathIcon.DOFade(1, 1f);
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91354c1376fb0c04c9a7343ac10c8ff9, type: 3}
   m_Name: Stick
   m_EditorClassIdentifier: 
-  AttackLength: 1
+  AttackLength: 0.9
   ForwardTime: 0.3
   AttackForwardAmount: 2.5
   AttackJumpPower: 0.1

@@ -49,6 +49,9 @@ public class Player : NetworkBehaviour
     [SerializeField]private List<Texture2D> SkinTextures;
     [Header("Misc")]
     public AudioMixer Mixer;
+    public AudioSource hauntSource;
+    public List<AudioClip> hauntSounds;
+    public List<AudioClip> sillyHauntSounds;
     [Header("Hunger effects")]
     public AudioSource hungryAudiosource;
 
@@ -83,6 +86,9 @@ public class Player : NetworkBehaviour
     private bool inChannel = false;
     private Material skinMat, bodyScarfMat, scarfMat;
     private float beatTimer;
+    private float deadTime;
+    Vector3 spawnpos;
+    public void SetSpawnPos(Vector3 pos) { spawnpos = pos; } // set spawn position for teleporting
     [HideInInspector] public float MouseJitterIntensity;
 
     //events
@@ -127,6 +133,20 @@ public class Player : NetworkBehaviour
             if(!ph.heartBeating.Value) { returned = 5; }
             return returned;
         }
+    }
+
+    public void Haunted(bool special)
+    {
+        HauntedRPC(special);
+    }
+
+    [Rpc(SendTo.Owner, RequireOwnership = false)]
+    private void HauntedRPC(bool special)
+    {
+        hauntSource.Stop();
+        hauntSource.clip = special ? sillyHauntSounds[Random.Range(0, sillyHauntSounds.Count)] : hauntSounds[Random.Range(0, hauntSounds.Count)];
+        hauntSource.pitch = Random.Range(0.8f, 1.2f);
+        hauntSource.Play();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -221,6 +241,7 @@ public class Player : NetworkBehaviour
             blinkCurr = Random.Range(2.1f, 2.6f);
             VivoxManager.JoinMainChannel(() =>
             {
+                VivoxManager.UpdateChannelAudioTaps();
                 inChannel = true;
                 foreach (var kvp in VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL])
                 {
@@ -250,6 +271,7 @@ public class Player : NetworkBehaviour
         }
         PLAYERBYID.Add(OwnerClientId, this);
         OnDied += Died; // subscribe to the death event
+        if (IsServer) { Teleport(spawnpos); } //double fucking check
     }
 
     private void OnDisable()
@@ -376,13 +398,22 @@ public class Player : NetworkBehaviour
                 if (GameManager.GetGameMode == GameModeEnum.Deathmatch || p.GetIsTeamA != GetIsTeamA)
                 {
                     var dist = (p.GetPlayerCentre - GetPlayerCentre).magnitude;
-                    if (dist < 15)
+                    if (dist < 20)
                     {
-                        MusicManager.AddThreatLevel(Mathf.Lerp(Time.deltaTime * 9, 0, dist / 15));
+                        MusicManager.AddThreatLevel(Mathf.Lerp(Time.deltaTime * 12, 0, dist / 20));
                     }
                 }
             }
         }
+
+        if (!ph.isConscious.Value) { deadTime += Time.deltaTime; }
+        else { deadTime = 0; }
+
+        if(deadTime > 20) { 
+            UIManager.SetBottomscreenText("X - Give Up");
+            if (Input.GetKeyDown(KeyCode.X)) { ph.Die("Lost the will to live"); }
+        }
+        else { UIManager.SetBottomscreenText(""); }
 
         // Muffle sound with low-pass filter
         float cutoff = Mathf.Lerp(11000f, 400f, Mathf.Clamp01(1f - ph.consciousness.Value));

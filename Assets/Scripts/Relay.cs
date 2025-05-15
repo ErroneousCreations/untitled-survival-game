@@ -64,7 +64,6 @@ public class Relay : MonoBehaviour
             Debug.Log("Joining relay " + joincode);
             JoinAllocation allj = await RelayService.Instance.JoinAllocationAsync(joincode);
             CurrentAllocationId = allj.AllocationId.ToString();
-            AllocationCreated?.Invoke(CurrentAllocationId);
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(
                 allj.RelayServer.IpV4,
                 (ushort)allj.RelayServer.Port,
