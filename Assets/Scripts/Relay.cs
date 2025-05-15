@@ -13,6 +13,8 @@ public class Relay : MonoBehaviour
 {
     public static Relay instance;
     public static string CurrentJoinCode { get; private set; }
+    public static string CurrentAllocationId;
+    public static System.Action<string> AllocationCreated;
 
     private void Awake()
     {
@@ -29,6 +31,8 @@ public class Relay : MonoBehaviour
         try
         {
             Allocation allj = await RelayService.Instance.CreateAllocationAsync(99);
+            CurrentAllocationId = allj.AllocationId.ToString();
+            AllocationCreated?.Invoke(CurrentAllocationId);
             string code = await RelayService.Instance.GetJoinCodeAsync(allj.AllocationId);
             Debug.Log(code);
             CurrentJoinCode = code;
@@ -59,6 +63,8 @@ public class Relay : MonoBehaviour
         {
             Debug.Log("Joining relay " + joincode);
             JoinAllocation allj = await RelayService.Instance.JoinAllocationAsync(joincode);
+            CurrentAllocationId = allj.AllocationId.ToString();
+            AllocationCreated?.Invoke(CurrentAllocationId);
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(
                 allj.RelayServer.IpV4,
                 (ushort)allj.RelayServer.Port,

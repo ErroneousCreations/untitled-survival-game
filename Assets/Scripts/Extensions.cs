@@ -10,8 +10,7 @@ public static class Extensions
 
     public static string UniqueIdentifier => Application.isEditor ? "EDITOR" : SystemInfo.deviceUniqueIdentifier;
 
-    // Fisher-Yates shuffle
-    public static void ShuffleList<T>(List<T> ts)
+    public static void ShuffleList<T>(ref List<T> ts)
     {
         var count = ts.Count;
         var last = count - 1;

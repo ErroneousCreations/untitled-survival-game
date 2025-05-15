@@ -222,7 +222,7 @@ public class Player : NetworkBehaviour
             VivoxManager.JoinMainChannel(() =>
             {
                 inChannel = true;
-                foreach (var kvp in VivoxService.Instance.ActiveChannels[VivoxManager.DEFAULTCHANNEL])
+                foreach (var kvp in VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL])
                 {
                     FindOwnParticipant(kvp);
                 }

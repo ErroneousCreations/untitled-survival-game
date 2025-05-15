@@ -93,6 +93,7 @@ public class GameManager : NetworkBehaviour
         if(serverSpeakingList.Contains(obj)) { serverSpeakingList.Remove(obj); }
         DisconnectedRPC(obj, readiedPlayers.ToArray());
         USERNAMES.Remove(obj);
+        CLIENTIDFROMUUID.Remove(UNIQUEUSERIDS[obj]);
         UNIQUEUSERIDS.Remove(obj);
         if (readiedPlayers.Contains(obj)) { readiedPlayers.Remove(obj); }
         //if we hav 1 player and are in a competitive gamemove then reset it
@@ -172,7 +173,25 @@ public class GameManager : NetworkBehaviour
         //StartCoroutine(FinishRespawn(id));
         var p = Instantiate(ThePlayer, Vector3.zero, Quaternion.identity); //todo add the other spawnpoint ranges
         p.NetworkObject.SpawnAsPlayerObject(id);
-        p.Teleport(Gamemode.Value == GameModeEnum.Survival ? Extensions.GetSurvivalSpawnPoint : (Gamemode.Value == GameModeEnum.TeamDeathmatch ? (TEAMA.Contains(UNIQUEUSERIDS[id]) ? Extensions.GetTeamASpawnPoint : (TEAMB.Contains(UNIQUEUSERIDS[id]) ? Extensions.GetTeamBSpawnPoint : Extensions.GetDeathmatchSpawnPoint)) : Extensions.GetDeathmatchSpawnPoint));
+        var spawnpoint = Vector3.zero;
+        switch (GetGameMode)
+        {
+            case GameModeEnum.Survival:
+                spawnpoint = Extensions.GetSurvivalSpawnPoint;
+                break;
+            case GameModeEnum.Deathmatch:
+                spawnpoint = Extensions.GetDeathmatchSpawnPoint;
+                break;
+            case GameModeEnum.TeamDeathmatch:
+                if (TEAMA.Contains(UNIQUEUSERIDS[id])) { spawnpoint = Extensions.GetTeamASpawnPoint; }
+                else if (TEAMB.Contains(UNIQUEUSERIDS[id])) { spawnpoint = Extensions.GetTeamBSpawnPoint; }
+                else { spawnpoint = Extensions.GetDeathmatchSpawnPoint; }
+                break;
+            case GameModeEnum.Arena:
+                spawnpoint = Extensions.GetDeathmatchSpawnPoint;
+                break;
+        }
+        p.Teleport(spawnpoint);
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
@@ -254,11 +273,12 @@ public class GameManager : NetworkBehaviour
                                 }
                                 if(uncontainedUUIDS.Count > 0)
                                 {
-                                    Extensions.ShuffleList(uncontainedUUIDS);
+                                    Extensions.ShuffleList(ref uncontainedUUIDS);
+                                    bool BLess = TEAMB.Count < TEAMA.Count;
                                     for (int i = 0; i < uncontainedUUIDS.Count; i++)
                                     {
-                                        if (i % 2 == 0) { TEAMA.Add(uncontainedUUIDS[i]); }
-                                        else { TEAMB.Add(uncontainedUUIDS[i]); }
+                                        if (i % 2 == 0) { if (BLess) { TEAMB.Add(uncontainedUUIDS[i]); } else { TEAMA.Add(uncontainedUUIDS[i]); } }
+                                        else { if (BLess) { TEAMA.Add(uncontainedUUIDS[i]); } else { TEAMB.Add(uncontainedUUIDS[i]); } }
                                     }
                                 }
                             }
@@ -272,8 +292,8 @@ public class GameManager : NetworkBehaviour
                                 TEAMB = new();
 
                                 // Extract all UUIDs and shuffle them
-                                List<string> allUUIDs = new List<string>(UNIQUEUSERIDS.Values);
-                                Extensions.ShuffleList(allUUIDs);
+                                List<string> allUUIDs = new(UNIQUEUSERIDS.Values);
+                                Extensions.ShuffleList(ref allUUIDs);
                                 string teamA = "";
                                 string teamB = "";
 
@@ -476,6 +496,7 @@ public class GameManager : NetworkBehaviour
         instance.startTimer.Value = 5;
         instance.readiedPlayers.Clear();
         instance.LobbyFromWinRPC();
+        if (instance.currWorld) { instance.currWorld.NetworkObject.Despawn(); }
     }
 
     [Rpc(SendTo.Everyone)]
@@ -484,6 +505,7 @@ public class GameManager : NetworkBehaviour
         readied = false;
         UIManager.SetReadyUpButtonText("Ready Up");
         UIManager.LobbyFromWinScreen();
+        UIManager.UpdatePlayerList(localUserNames, new());
     }
 
     public static void ResetGamemode()
@@ -565,6 +587,7 @@ public class GameManager : NetworkBehaviour
         IsSpectating = false;
         UIManager.SetWorldInfo(true, worldinfo);
         isSpeaking = false;
+        UIManager.UpdatePlayerList(localUserNames, new());
     }
 
     public static void ReadyUp()

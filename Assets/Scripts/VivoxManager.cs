@@ -10,7 +10,7 @@ using System.Linq;
 
 public class VivoxManager : MonoBehaviour
 {
-    public const string DEFAULTCHANNEL = "MAIN", SPECTATECHANNEL = "SPECTATE", LOBBYCHANNEL = "LOBBY";
+    public static string DEFAULTCHANNEL = "MAIN", SPECTATECHANNEL = "SPECTATE", LOBBYCHANNEL = "LOBBY";
     public static System.Action InputDevicesChanged;
     public static System.Action InitialisationComplete;
     public static bool initialised;
@@ -22,6 +22,14 @@ public class VivoxManager : MonoBehaviour
     {
         UnityServicesManager.InitialisationComplete += () => { InitializeAsync(); };
         Application.wantsToQuit += CanQuit;
+        Relay.AllocationCreated += AllocationCreated;
+    }
+
+    private void AllocationCreated(string allocation)
+    {
+        DEFAULTCHANNEL = allocation + "_MAIN";
+        SPECTATECHANNEL = allocation + "_SPECTATE";
+        LOBBYCHANNEL = allocation + "_LOBBY";
     }
 
     async void InitializeAsync()
