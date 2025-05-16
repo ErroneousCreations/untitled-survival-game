@@ -274,8 +274,9 @@ public class GameManager : NetworkBehaviour
                                 TEAMB = new();
                                 List<string> allUUIDs = new(UNIQUEUSERIDS.Values);
                                 List<string> uncontainedUUIDS = new(allUUIDs);
-                                var splitA = SavingManager.GetWorldSaveData("teamA").Split('|').ToList();
-                                var splitB = SavingManager.GetWorldSaveData("teamB").Split('|').ToList();
+                                string loadeda = SavingManager.GetWorldSaveData("teamA"), loadedb = SavingManager.GetWorldSaveData("teamB");
+                                var splitA = loadeda.Split('|').ToList();
+                                var splitB = loadedb.Split('|').ToList();
                                 foreach (var uuid in allUUIDs)
                                 {
                                     if (splitA.Contains(uuid)) { TEAMA.Add(uuid); uncontainedUUIDS.Remove(uuid); }
@@ -287,10 +288,13 @@ public class GameManager : NetworkBehaviour
                                     bool BLess = TEAMB.Count < TEAMA.Count;
                                     for (int i = 0; i < uncontainedUUIDS.Count; i++)
                                     {
-                                        if (i % 2 == 0) { if (BLess) { TEAMB.Add(uncontainedUUIDS[i]); } else { TEAMA.Add(uncontainedUUIDS[i]); } }
-                                        else { if (BLess) { TEAMA.Add(uncontainedUUIDS[i]); } else { TEAMB.Add(uncontainedUUIDS[i]); } }
+                                        if (i % 2 == 0) { if (BLess) { TEAMB.Add(uncontainedUUIDS[i]); loadedb += "|" + uncontainedUUIDS[i]; } else { TEAMA.Add(uncontainedUUIDS[i]); loadeda += "|" + uncontainedUUIDS[i]; } }
+                                        else { if (BLess) { TEAMA.Add(uncontainedUUIDS[i]); loadeda += "|" + uncontainedUUIDS[i]; } else { TEAMB.Add(uncontainedUUIDS[i]); loadedb += "|" + uncontainedUUIDS[i]; } }
                                     }
+                                    SavingManager.SetWorldSaveData("teamA", loadeda);
+                                    SavingManager.SetWorldSaveData("teamB", loadedb);
                                 }
+                                SyncTeamsRPC(loadeda, loadedb);
                             }
                         }
                         else {
@@ -324,6 +328,7 @@ public class GameManager : NetworkBehaviour
 
                                 SavingManager.SetWorldSaveData("teamA", teamA .Length>0 ? teamA[..^1] : "");
                                 SavingManager.SetWorldSaveData("teamB", teamB.Length > 0 ? teamB[..^1] : "");
+                                SyncTeamsRPC(teamA, teamB);
                             }
                         }
                         ExitLobbyRPC(!loading);
@@ -483,6 +488,21 @@ public class GameManager : NetworkBehaviour
                     UIManager.SetMuteIcon(false);
                 }
                 break;
+        }
+    }
+
+    [Rpc(SendTo.NotServer)]
+    private void SyncTeamsRPC(string teama, string teamb)
+    {
+        TEAMA = new();
+        TEAMB = new();
+        foreach (var p in teama.Split('|'))
+        {
+            TEAMA.Add(p);
+        }
+        foreach (var p in teamb.Split('|'))
+        {
+            TEAMB.Add(p);
         }
     }
 
