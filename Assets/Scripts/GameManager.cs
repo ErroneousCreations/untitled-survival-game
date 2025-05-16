@@ -443,7 +443,7 @@ public class GameManager : NetworkBehaviour
                             foreach (var player in TEAMA)
                             {
                                 if (!CLIENTIDFROMUUID.ContainsKey(player)) { continue; }
-                                winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString() + ",";
+                                winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString().Split('\r')[0] + ",";
                                 winnerids.Add(CLIENTIDFROMUUID[player]);
                             }
                             Gamestate.Value = GameStateEnum.Winnerscreen;
@@ -457,7 +457,7 @@ public class GameManager : NetworkBehaviour
                             foreach (var player in TEAMB)
                             {
                                 if (!CLIENTIDFROMUUID.ContainsKey(player)) { continue; }
-                                winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString() + ",";
+                                winners += USERNAMES[CLIENTIDFROMUUID[player]].ToString().Split('\r')[0] + ",";
                                 winnerids.Add(CLIENTIDFROMUUID[player]);
                             }
                             Gamestate.Value = GameStateEnum.Winnerscreen;
