@@ -24367,6 +24367,7 @@ GameObject:
   - component: {fileID: 1932233206}
   - component: {fileID: 1932233208}
   - component: {fileID: 1932233207}
+  - component: {fileID: 1932233209}
   m_Layer: 0
   m_Name: VivoxManager
   m_TagString: Untagged
@@ -24420,13 +24421,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1932233203}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4e239a6f9250a94f8074232314da7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ChannelUri: 
-  m_ChannelName: MAIN
+  m_ChannelName: 
 --- !u!82 &1932233208
 AudioSource:
   m_ObjectHideFlags: 0
@@ -24524,6 +24525,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1932233209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932233203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b27105a392acc42ecbe254a6e4469e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Channel: 0
+  Tap: {fileID: 1932233207}
 --- !u!1 &1945978738
 GameObject:
   m_ObjectHideFlags: 0

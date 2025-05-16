@@ -241,7 +241,6 @@ public class Player : NetworkBehaviour
             blinkCurr = Random.Range(2.1f, 2.6f);
             VivoxManager.JoinMainChannel(() =>
             {
-                VivoxManager.UpdateChannelAudioTaps();
                 inChannel = true;
                 foreach (var kvp in VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL])
                 {

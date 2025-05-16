@@ -14,7 +14,7 @@ public class VivoxManager : MonoBehaviour
     public static string DEFAULTCHANNEL = "MAIN", SPECTATECHANNEL = "SPECTATE", LOBBYCHANNEL = "LOBBY";
     public static System.Action InputDevicesChanged;
     public static System.Action InitialisationComplete;
-    public static bool initialised;
+    public static bool initialised, allocated;
     private static bool wantstoQuit, quitting;
 
     public static bool LeavingChannel;
@@ -31,6 +31,7 @@ public class VivoxManager : MonoBehaviour
         DEFAULTCHANNEL = allocation + "_MAIN";
         SPECTATECHANNEL = allocation + "_SPECTATE";
         LOBBYCHANNEL = allocation + "_LOBBY";
+        allocated = true;
     }
 
     public static void OverwriteAllocationID(string allocation)
@@ -38,14 +39,7 @@ public class VivoxManager : MonoBehaviour
         DEFAULTCHANNEL = allocation + "_MAIN";
         SPECTATECHANNEL = allocation + "_SPECTATE";
         LOBBYCHANNEL = allocation + "_LOBBY";
-    }
-
-    public static void UpdateChannelAudioTaps()
-    {
-        foreach (var item in FindObjectsByType<VivoxChannelAudioTap>(FindObjectsSortMode.None))
-        {
-            item.ChannelName = DEFAULTCHANNEL;
-        }
+        allocated = true;
     }
 
     async void InitializeAsync()
