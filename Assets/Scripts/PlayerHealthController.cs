@@ -621,6 +621,11 @@ public class PlayerHealthController : NetworkBehaviour
         TryWakeUpRPC();
     }
 
+    public void SetRecentDamage(float amount)
+    {
+        recentDamageCd = amount;
+    }
+
     [Rpc(SendTo.Owner, RequireOwnership = false)]
     private void TryWakeUpRPC()
     {

@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 4385692141758039441}
   - component: {fileID: 2866408296268637230}
   - component: {fileID: 5491271481402289347}
-  - component: {fileID: 2433233971494989924}
   m_Layer: 8
   m_Name: Axe
   m_TagString: WorldObject
@@ -281,17 +280,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.042862922, y: 0.49079007, z: 0.041374806}
   m_Center: {x: 0.0007136576, y: 0.13088414, z: 0.002529582}
---- !u!114 &2433233971494989924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4369783712094552356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45bda3d671f26b14db0225dddefdd897, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  VisibilityDistance: 50

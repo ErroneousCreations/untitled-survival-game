@@ -39,13 +39,13 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.IsSpectating) { UsernameDisplay.text = ""; SelectorUI.gameObject.SetActive(false); return; }
+
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, PlayerUsernameDisplayLength, PlayerLayer) && hit.collider.TryGetComponent(out Player p))
         {
             UsernameDisplay.text = p.GetUsername + (Player.LocalPlayer ? (GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? (p.GetIsTeamA == Player.LocalPlayer.GetIsTeamA ? "(Ally)" : "(Enemy)") : "") : "");
         }
         else { UsernameDisplay.text = ""; }
-
-        if (GameManager.IsSpectating) { SelectorUI.gameObject.SetActive(false); return; }
 
         followSelector.localPosition = currentTarget ? SelectorUI.transform.localPosition : Vector3.zero;
         Interactible closest = GetBestInteractible(out NonNetInteractible nonnetclosest);

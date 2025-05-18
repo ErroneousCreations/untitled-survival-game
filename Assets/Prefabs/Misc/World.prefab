@@ -27802,7 +27802,7 @@ GameObject:
   - component: {fileID: 2880895682625487176}
   - component: {fileID: 8454202265858518504}
   - component: {fileID: 689592948730888691}
-  m_Layer: 3
+  m_Layer: 2
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

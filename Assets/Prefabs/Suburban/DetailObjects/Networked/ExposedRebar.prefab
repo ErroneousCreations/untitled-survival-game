@@ -121,7 +121,6 @@ GameObject:
   - component: {fileID: 1345743028560808027}
   - component: {fileID: 8566845925601389641}
   - component: {fileID: -6879085823454684277}
-  - component: {fileID: 2034907812494223832}
   m_Layer: 0
   m_Name: ExposedRebar
   m_TagString: WorldObject
@@ -250,17 +249,3 @@ MonoBehaviour:
   DataLoaded:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2034907812494223832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7350001299646303314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45bda3d671f26b14db0225dddefdd897, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  VisibilityDistance: 50

@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 4385692141758039441}
   - component: {fileID: 2866408296268637230}
   - component: {fileID: 5491271481402289347}
-  - component: {fileID: -3087460432198465262}
   m_Layer: 8
   m_Name: Rope
   m_TagString: WorldObject
@@ -279,17 +278,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.042565756, y: 0.16507679, z: 0.16511123}
   m_Center: {x: 0.005441378, y: 0.0150398165, z: 0.0005551949}
---- !u!114 &-3087460432198465262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4369783712094552356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45bda3d671f26b14db0225dddefdd897, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  VisibilityDistance: 50

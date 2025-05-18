@@ -173,7 +173,7 @@ MonoBehaviour:
         - {fileID: 2100000, guid: a3f46c7a8194fb643912ee426163d5cd, type: 2}
     - Key: rebarspear
       Value:
-        Name: RebarSpear
+        Name: Rebar Spear
         ID: rebarspear
         Volume: 2
         BaseSavedData: []
@@ -216,6 +216,28 @@ MonoBehaviour:
         HeldMesh: {fileID: 8254687373856176130, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
         HeldMats:
         - {fileID: 2100000, guid: a3f46c7a8194fb643912ee426163d5cd, type: 2}
+    - Key: plank
+      Value:
+        Name: Plank
+        ID: plank
+        Volume: 1.5
+        BaseSavedData: []
+        ItemPrefab: {fileID: 8701911266804393704, guid: e63ea04a245691745ade2095f7427685, type: 3}
+        _itemBehaviour: {fileID: 0}
+        HeldMesh: {fileID: -3481501719365375840, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        HeldMats:
+        - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}
+    - Key: plankshield
+      Value:
+        Name: Plank Shield
+        ID: plankshield
+        Volume: 1.5
+        BaseSavedData: []
+        ItemPrefab: {fileID: 8701911266804393704, guid: a67d9c0f0dfc331449eb2f10b4296a8c, type: 3}
+        _itemBehaviour: {fileID: 11400000, guid: 64afa4145fb98024eb6ea74fc1b76960, type: 2}
+        HeldMesh: {fileID: 5928256943029937742, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        HeldMats:
+        - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}
   recipes:
   - Result: rope
     Ingredient1: grass
@@ -235,3 +257,6 @@ MonoBehaviour:
   - Result: spear
     Ingredient1: sharperrock
     Ingredient2: ropestick
+  - Result: plankshield
+    Ingredient1: plank
+    Ingredient2: ropeshortstick

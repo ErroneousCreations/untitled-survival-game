@@ -204,9 +204,10 @@ GameObject:
   - component: {fileID: 3606258808601950730}
   - component: {fileID: 4973268310077073224}
   - component: {fileID: 6957443970320383900}
+  - component: {fileID: 965520250925973703}
   m_Layer: 7
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -280,6 +281,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &965520250925973703
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363332844900746249}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &598916683181269853
 GameObject:
   m_ObjectHideFlags: 0
@@ -976,7 +998,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3066135733410683786}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!23 &6129284394315814707
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3325,9 +3347,10 @@ GameObject:
   - component: {fileID: 5621873611395350332}
   - component: {fileID: 8461193571871397566}
   - component: {fileID: 187230797577766747}
+  - component: {fileID: 2858478838911048683}
   m_Layer: 7
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3401,6 +3424,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2858478838911048683
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8024337369588485700}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8466860738817114368
 GameObject:
   m_ObjectHideFlags: 0
@@ -4532,7 +4576,7 @@ MonoBehaviour:
       SavedData: []
       TempData: []
   hotbar: []
-  backpackCapacity: 30
+  backpackCapacity: 10
   maxHotbarSize: 4
   currEquippedSlot: 0
   LeftHandOb: {fileID: 2084981248630276892}
@@ -4541,6 +4585,8 @@ MonoBehaviour:
   RighthandItemRend: {fileID: 6129284394315814707}
   LefthandItemMesh: {fileID: 6934959158906728973}
   RIghthandItemMesh: {fileID: 6476868121463405184}
+  LefthandColl: {fileID: 2858478838911048683}
+  RighthandColl: {fileID: 965520250925973703}
 --- !u!1 &8934730555983697630
 GameObject:
   m_ObjectHideFlags: 0

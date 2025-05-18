@@ -162,7 +162,6 @@ public class PlayerCorpseProxy : NetworkBehaviour
             var i = index;
             //todo make it change depending on what your holding and stuff
             inter.Banned = !Player.LocalPlayer || !embeddeds[i];
-            if (!Player.LocalPlayer) { return; }
             inter.Description = embeddeds[i] ? $"Remove {ItemDatabase.GetItem(item.ID.ToString()).Name}" : "";
             inter.InteractLength = 2f;
             inter.InteractDistance = 1.5f;
@@ -172,7 +171,7 @@ public class PlayerCorpseProxy : NetworkBehaviour
             }
             var emission = bleed.emission;
             emission.rateOverTime = 25 * (blood>0 ? intensity : 0);
-            if (embeddeds[i]) { inter.OnInteractedLocal = () => RemoveEmbeddedObject(i, item); }
+            if (embeddeds[i] && Player.LocalPlayer) { inter.OnInteractedLocal = () => RemoveEmbeddedObject(i, item); }
             else { inter.OnInteractedLocal = null; }
         };
     }

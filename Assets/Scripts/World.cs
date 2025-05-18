@@ -251,8 +251,7 @@ public class World : NetworkBehaviour
 
     private void GenerateWorld()
     {
-        DoWorldFeaturesRPC();
-        DoRaycastedWorldFeaturesRPC();
+        DoNormalWorldFeaturesRPC();
         StartCoroutine(GenerateNetWorldFeaturesCoroutine());
 
         StartCoroutine(GenerateNavMeshesCoroutine());
@@ -277,10 +276,17 @@ public class World : NetworkBehaviour
         MenuController.ToggleLoadingScreen(true);
         rand = new System.Random(seed);
         this.seed = seed;
+
+        Random.InitState(seed);
+        var dir = Random.insideUnitCircle.normalized;
+        SetSwayDir(new Vector3(dir.x, 0, dir.y));
+        SetSwayIntensity(1f);
+        SetSwaySpeed(1f);
     }
 
     private IEnumerator GenerateNetWorldFeaturesCoroutine()
     {
+        yield return new WaitForSeconds(0.75f);
         for (int i = 0; i < netWorldFeatures.Count; i++)
         {
             spawnedNetWorldFeatures.Add(new());
@@ -300,12 +306,6 @@ public class World : NetworkBehaviour
             }
             yield return null;
         }
-    }
-
-    [Rpc(SendTo.Everyone)]
-    private void DoWorldFeaturesRPC()
-    {
-        StartCoroutine(GenerateWorldFeaturesCoroutine());
     }
 
     private IEnumerator GenerateWorldFeaturesCoroutine()
@@ -332,8 +332,15 @@ public class World : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    private void DoRaycastedWorldFeaturesRPC()
+    private void DoNormalWorldFeaturesRPC()
     {
+        StartCoroutine(DoNormalWorldFeatures());
+    }
+
+    private IEnumerator DoNormalWorldFeatures()
+    {
+        yield return StartCoroutine(GenerateWorldFeaturesCoroutine()); //wait for it to be done btw
+        yield return null;
         StartCoroutine(GenerateRaycastedWorldFeaturesCoroutine());
     }
 
@@ -391,7 +398,6 @@ public class World : NetworkBehaviour
                     else { spawnedWorldFeatures[initiallength + i].Add(null); }
                     k++;
                 }
-                yield return null;
             }
 
             // Dispose the buffers

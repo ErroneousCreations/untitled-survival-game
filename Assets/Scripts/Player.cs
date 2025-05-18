@@ -152,14 +152,16 @@ public class Player : NetworkBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Debug.Log(collision.relativeVelocity.magnitude);
+        var tempvel = collision.relativeVelocity;
+        var finalvel = new Vector3(tempvel.x, 0, tempvel.z) * 0.25f;
+        finalvel.y = tempvel.y;
+        float fallVelocity = finalvel.magnitude;
 
         // Filter out minor scrapes
-        if (collision.relativeVelocity.magnitude < minimumFallVelocity) return;
+        if (fallVelocity < minimumFallVelocity) return;
 
         // Optional: Only consider ground collisions
         if (collision.gameObject.layer != LayerMask.NameToLayer("Terrain")) return;
-
-        float fallVelocity = collision.relativeVelocity.magnitude;
 
         float damage = (fallVelocity - minimumFallVelocity) * damageMultiplier;
 
@@ -198,10 +200,17 @@ public class Player : NetworkBehaviour
         UIManager.ToggleDamageIndicator(false);
     }
 
-    public void KnockOver(float time)
+    public void KnockOver(float time, bool dropitems = false)
+    {
+        KnockOverRPC(time, dropitems);
+    }
+
+    [Rpc(SendTo.Owner, RequireOwnership = false)]   
+    private void KnockOverRPC(float time, bool dropitems)
     {
         currfalloverTime = time;
         currStandForce = 0;
+        if (dropitems) { PlayerInventory.DropLeftHandItem(); PlayerInventory.DropRightHandItem(); }
     }
 
     public void Teleport(Vector3 pos)
@@ -213,6 +222,18 @@ public class Player : NetworkBehaviour
     private void TeleportRPC(Vector3 pos)
     {
         ntfm.Teleport(pos, Quaternion.identity, Vector3.one);
+    }
+
+    public void DamageEffects(float blinktime, float jitterintensity)
+    {
+        DamageEffectsRPC(blinktime, jitterintensity);
+    }
+
+    [Rpc(SendTo.Owner, RequireOwnership = false)]
+    private void DamageEffectsRPC(float blinktime, float jitterintensity)
+    {
+        MouseJitterIntensity = jitterintensity;
+        ph.SetRecentDamage(blinktime);
     }
 
     private void Start()
@@ -242,6 +263,7 @@ public class Player : NetworkBehaviour
             VivoxManager.JoinMainChannel(() =>
             {
                 inChannel = true;
+                VivoxManager.SetAudioTaps();
                 foreach (var kvp in VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL])
                 {
                     FindOwnParticipant(kvp);
@@ -250,8 +272,8 @@ public class Player : NetworkBehaviour
             username.Value = PlayerPrefs.GetString("USERNAME", "NoName");
             UIManager.ToggleDamageIndicator(true);
             GameManager.PlayerInitialisationComplete();
+            pm.ViewmodelParent.parent = Camera.main.transform;
         }
-        pm.ViewmodelParent.parent = IsOwner ? Camera.main.transform : head.transform;
         originalBodypartPositions = new List<Vector3>(bodyRbs.Count);
         originalBodypartRotations = new List<Quaternion>(bodyRbs.Count);
         for (int i = 0; i < bodyRbs.Count; i++)
@@ -342,7 +364,12 @@ public class Player : NetworkBehaviour
         skinMat.SetTexture("_MainTex", SkinTextures[(int)SyncedSkinTexture.Value]);
         scarfMat.color = SyncedScarfColour.Value;
         bodyScarfMat.color = SyncedScarfColour.Value;
-        if (LocalCanStand) { head.localRotation = Quaternion.AngleAxis(Mathf.Clamp(currLookAngle.Value, headAngleRange.x, headAngleRange.y) + (pm.GetCrouching ? 49 : 0), Vector3.forward); }
+        if (LocalCanStand) { 
+            head.localRotation = Quaternion.AngleAxis(Mathf.Clamp(currLookAngle.Value, headAngleRange.x, headAngleRange.y) + (pm.GetCrouching ? 49 : 0), Vector3.forward);
+            if (!IsOwner) {
+                pm.ViewmodelParent.SetLocalPositionAndRotation(pm.GetCrouching ? new Vector3(0, -0.594f, 0) : new Vector3(0, 0, 0), Quaternion.AngleAxis(-currLookAngle.Value, Vector3.right));
+            }
+        }
         eyesmat.mainTexture = EyeTextures[(int)SyncedEyeTexture.Value];
         anim.SetBool("Crouching", pm.GetCrouching && StandingUp);
         anim.SetBool("KO", !ph.breathing.Value);

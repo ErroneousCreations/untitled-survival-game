@@ -129,7 +129,7 @@ public class FoodItem : ScriptableObject, IItemBehaviour
         return item;
     }
 
-    public ItemData OnLoaded(ItemData item)
+    public ItemData OnLoaded(ItemData item, LoadedLocationEnum location)
     {
         item.TempData = new()
         {

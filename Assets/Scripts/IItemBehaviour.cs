@@ -5,12 +5,14 @@ using Unity.Collections;
 public enum InventoryItemStatus { InHotbar, InBackpack }
 public enum HandSideEnum { Left, Right }
 
+public enum LoadedLocationEnum { Backpack, Hotbar, Righthand, Lefthand }
+
 public interface IItemBehaviour
 {
     /// <summary>
     /// Called when the item is loaded into the inventory, no matter where it is (backpack, hotbar, offhand)
     /// </summary>
-    public ItemData OnLoaded(ItemData item);
+    public ItemData OnLoaded(ItemData item, LoadedLocationEnum location);
     /// <summary>
     /// Called every frame on an item that is in either of your hands. side variable is which hand it is in, owner defines whether this is being called on owner or a client.
     /// </summary>

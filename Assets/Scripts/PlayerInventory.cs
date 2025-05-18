@@ -28,10 +28,11 @@ public class PlayerInventory : NetworkBehaviour
     [SerializeField] private Transform RightHandOb;
     [SerializeField] private MeshRenderer LefthandItemRend, RighthandItemRend;
     [SerializeField] private MeshFilter LefthandItemMesh, RIghthandItemMesh;
+    [SerializeField] private BoxCollider LefthandColl, RighthandColl;
     private Vector3 initialLeftHandPos, initialRightHandPos;
 
     //syncing visuals
-    private NetworkVariable<Vector3> currLefthandParentPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandParentPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currLefthandPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currLeftHandRot = new(default, writePerm: NetworkVariableWritePermission.Owner), currRightHandRot = new(default, writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<Vector3> currLefthandParentPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandParentPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currLefthandPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandPos = new(default, writePerm: NetworkVariableWritePermission.Owner), currLeftHandRot = new(default, writePerm: NetworkVariableWritePermission.Owner), currRightHandRot = new(default, writePerm: NetworkVariableWritePermission.Owner), currRightHandCollSize = new(default, writePerm: NetworkVariableWritePermission.Owner), currLeftHandCollSize = new(default, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> currLefthandVisible = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandVisible = new(default, writePerm: NetworkVariableWritePermission.Owner), currLefthandItemVisible = new(default, writePerm: NetworkVariableWritePermission.Owner), currRighthandItemVisible = new(default, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<FixedString4096Bytes> savedInventoryData = new(default, writePerm: NetworkVariableWritePermission.Owner);
 
@@ -93,12 +94,14 @@ public class PlayerInventory : NetworkBehaviour
     {
         if (!localInstance.leftHand.Value.IsValid) { return; }
         localInstance.ForcedropLeft();
+        localInstance.UpdateLefthandVisuals();
     }
 
     public static void DropRightHandItem()
     {
         if (!localInstance.rightHand.Value.IsValid) { return; }
         localInstance.ForcedropRight();
+        localInstance.UpdateRighthandVisuals();
     }
 
     public static List<FixedString128Bytes> GetLeftHandSaveData => localInstance.leftHand.Value.SavedData;
@@ -106,7 +109,29 @@ public class PlayerInventory : NetworkBehaviour
 
     #region Stuff for the items to use since they cant have their own variables and be networked etc
 
+    public static void SetRightHandCollSize(Vector3 size)
+    {
+        localInstance.currRightHandCollSize.Value = size;
+        localInstance.RighthandColl.size = size;
+        localInstance.RighthandColl.enabled = size != Vector3.zero;
+    }
+
+    public static void SetLeftHandCollSize(Vector3 size)
+    {
+        localInstance.currLeftHandCollSize.Value = size;
+        localInstance.LefthandColl.size = size;
+        localInstance.LefthandColl.enabled = size != Vector3.zero;
+    }
+
+    public static Transform GetRightHand => localInstance.RightHandOb.GetChild(0);
+    public static Transform GetLeftHand => localInstance.LeftHandOb.GetChild(0);
+
     public static void SpawnNetOb(string prefab, Vector3 pos, Quaternion rot)
+    {
+        localInstance.InstSpawnNetOb(prefab, pos, rot);
+    }
+
+    private void InstSpawnNetOb(string prefab, Vector3 pos, Quaternion rot)
     {
         NetPrefabsList.SpawnObjectExcept(prefab, pos, rot, Extensions.LocalClientID, 1);
         var ob = Instantiate(NetPrefabsList.GetNetPrefab(prefab), pos, rot);
@@ -194,13 +219,13 @@ public class PlayerInventory : NetworkBehaviour
 
         if (rightHand.Value.IsValid && ItemDatabase.GetItem(rightHand.Value.ID.ToString()).ItemBehaviour != null)
         {
-            rightHand.Value = ItemDatabase.GetItem(rightHand.Value.ID.ToString()).ItemBehaviour.OnLoaded(rightHand.Value); //call hand update
+            rightHand.Value = ItemDatabase.GetItem(rightHand.Value.ID.ToString()).ItemBehaviour.OnLoaded(rightHand.Value, LoadedLocationEnum.Righthand); //call hand update
             hotbar[currEquippedSlot] = rightHand.Value;
         }
 
         if (leftHand.Value.IsValid && ItemDatabase.GetItem(leftHand.Value.ID.ToString()).ItemBehaviour != null)
         {
-            leftHand.Value = ItemDatabase.GetItem(leftHand.Value.ID.ToString()).ItemBehaviour.OnLoaded(leftHand.Value); //call hand update
+            leftHand.Value = ItemDatabase.GetItem(leftHand.Value.ID.ToString()).ItemBehaviour.OnLoaded(leftHand.Value, LoadedLocationEnum.Lefthand); //call hand update
         }
 
         for (int i = 0; i < backpack.Count; i++)
@@ -208,7 +233,7 @@ public class PlayerInventory : NetworkBehaviour
             var item = backpack[i];
             if (item.IsValid && ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour != null)
             {
-                item = ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour.OnLoaded(item); //call backpack update
+                item = ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour.OnLoaded(item, LoadedLocationEnum.Backpack); //call backpack update
             }
             backpack[i] = item;
         }
@@ -219,7 +244,7 @@ public class PlayerInventory : NetworkBehaviour
             var item = hotbar[i];
             if (item.IsValid && ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour != null)
             {
-                item = ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour.OnLoaded(item); //call hotbar update
+                item = ItemDatabase.GetItem(item.ID.ToString()).ItemBehaviour.OnLoaded(item, LoadedLocationEnum.Hotbar); //call hotbar update
             }
             hotbar[i] = item;
         }
@@ -291,7 +316,10 @@ public class PlayerInventory : NetworkBehaviour
         RightHandOb.gameObject.SetActive(currRighthandVisible.Value);
         LefthandItemMesh.gameObject.SetActive(currLefthandItemVisible.Value);
         RIghthandItemMesh.gameObject.SetActive(currRighthandItemVisible.Value);
-
+        LefthandColl.size = currLeftHandCollSize.Value;
+        RighthandColl.size = currRightHandCollSize.Value;
+        LefthandColl.enabled = currLeftHandCollSize.Value != Vector3.zero;
+        RighthandColl.enabled = currRightHandCollSize.Value != Vector3.zero;
     }
 
     private void HandleSyncing()

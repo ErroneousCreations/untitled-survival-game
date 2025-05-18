@@ -118,10 +118,16 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
 
     private void DoMeleeDamage(ItemData item)
     {
-        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, Range, Extensions.DefaultMeleeLayermask))
+        if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, Range, Extensions.DefaultMeleeLayermask, QueryTriggerInteraction.Collide))
         {
-            if (hit.collider.TryGetComponent(out PlayerHealthController ph))
+            if (hit.collider.attachedRigidbody && hit.collider.attachedRigidbody.TryGetComponent(out PlayerHealthController ph))
             {
+                if (hit.collider.CompareTag("Shield"))
+                {
+                    NetworkAudioManager.PlayNetworkedAudioClip(Random.Range(0.9f, 1.1f), 0.2f, 1, hit.point, "shieldbonk");
+                    ph.player.DamageEffects(0.35f, Damage / 7.5f);
+                    return;
+                }
                 ph.ApplyDamage(Damage, Type, hit.point, hit.normal, false);
             }
             else if (HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out WorldFeature wf) && wf.Destroyable)
@@ -129,18 +135,19 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
                 wf.Attack(WorldBreakableDamage);
                 PlayerInventory.SpawnNetOb(wf.Breakparticle, hit.point, Quaternion.LookRotation(hit.normal));
             }
-            else if(HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out DestructibleWorldDetail det))
+            else if (HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out DestructibleWorldDetail det))
             {
                 det.Attack(WorldBreakableDamage);
                 PlayerInventory.SpawnNetOb(det.BreakParticle, hit.point, Quaternion.LookRotation(hit.normal));
             }
-            else if(Sharpen)
+            else if (Sharpen)
             {
-                if (int.TryParse(item.SavedData[0].ToString(), out int sharphitsleft)) {
-                   PlayerInventory.SpawnNetOb(SharpenParticle, hit.point, Quaternion.LookRotation(hit.normal));
-                    sharphitsleft--; 
-                    item.SavedData[0] = sharphitsleft.ToString();  
-                    if(sharphitsleft <= 0)
+                if (int.TryParse(item.SavedData[0].ToString(), out int sharphitsleft))
+                {
+                    PlayerInventory.SpawnNetOb(SharpenParticle, hit.point, Quaternion.LookRotation(hit.normal));
+                    sharphitsleft--;
+                    item.SavedData[0] = sharphitsleft.ToString();
+                    if (sharphitsleft <= 0)
                     {
                         item.ID = SharpenResult;
                         item.SavedData = new List<FixedString128Bytes>();
@@ -210,7 +217,7 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
         return item;
     }
 
-    public ItemData OnLoaded(ItemData item)
+    public ItemData OnLoaded(ItemData item, LoadedLocationEnum location)
     {
         item.TempData = new()
         {

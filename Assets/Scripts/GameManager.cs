@@ -35,7 +35,7 @@ public class GameManager : NetworkBehaviour
     private bool readied;
     private World currWorld;
     private int currentSaveFile, currentSeed = -1;
-    private VivoxParticipant lobbyParticipant, spectatorMainParticipant, spectatorParticipant;
+    private VivoxParticipant lobbyParticipant, spectatorParticipant;
     private bool isSpeaking;
     private NetworkVariable<FixedString64Bytes> talkingPlayers = new();
     private List<ulong> serverSpeakingList = new();
@@ -233,7 +233,7 @@ public class GameManager : NetworkBehaviour
                 UIManager.SetReadyTimerText(startTimer.Value >= 5 ? "" : System.Math.Round(startTimer.Value, 2).ToString());
                 UIManager.SetReadyUpButtonText(readied ? "Cancel Ready" : "Ready Up");
                 UIManager.SetSpeakingIndicators(talkingPlayers.Value.ToString());
-                if (VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); spectatorParticipant = null; spectatorMainParticipant = null; }
+                if (VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); spectatorParticipant = null; }
                 if (VivoxManager.InMainChannel) { VivoxManager.LeaveMainChannel(); }
                 if (VivoxManager.InLobbyChannel) {
                     if(lobbyParticipant == null) { lobbyParticipant = VivoxManager.GetActiveChannels[VivoxManager.LOBBYCHANNEL].FirstOrDefault(x => { return x.DisplayName == Extensions.UniqueIdentifier; }); }
@@ -397,7 +397,7 @@ public class GameManager : NetworkBehaviour
                     {
                         foreach (var participant in VivoxManager.GetActiveChannels[VivoxManager.DEFAULTCHANNEL])
                         {
-                            participant.SetLocalVolume(Player.PLAYERBYID.ContainsKey(localUUIDtoID[participant.DisplayName]) ? 0 : (Player.LocalPlayer.ph.isConscious.Value ? -50 : -20)); //if you are dying you can hear the dead cuz ur losing it lol
+                            participant.SetLocalVolume(Player.PLAYERBYID.ContainsKey(localUUIDtoID[participant.DisplayName]) ? 0 : (Player.LocalPlayer.ph.isConscious.Value ? -50 : -30)); //if you are dying you can hear the dead cuz ur losing it lol
                         }
                     }
                 }
@@ -510,7 +510,7 @@ public class GameManager : NetworkBehaviour
     {
         if (!SpectatorCamera.spectatingTarget) { UIManager.SetBottomscreenText(""); return; }
 
-        UIManager.SetBottomscreenText((hauntCooldown <= 0 ? "F - Haunt" : "") + (doxCooldown <= 0 && timeSinceLastDeath.Value<=0 ? "\nSpace - Mark for Death" : ""));
+        UIManager.SetBottomscreenText(SpectatorCamera.spectatingTarget.GetUsername + (hauntCooldown <= 0 ? "\nF - Haunt" : "") + (doxCooldown <= 0 && timeSinceLastDeath.Value<=0 ? "\nSpace - Mark for Death" : ""));
         if(hauntCooldown <= 0 && Input.GetKeyDown(KeyCode.F))
         {
             var rand = Random.value;
@@ -522,29 +522,29 @@ public class GameManager : NetworkBehaviour
             {
                 SpectatorCamera.spectatingTarget.Haunted(false);
             }
-            else if(rand > 0.6 && rand <= 0.74f)
+            else if(rand > 0.6 && rand <= 0.76f)
             {
                 SpectatorCamera.spectatingTarget.pm.GetRigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
             }
-            else if(rand > 0.74f && rand <= 0.8f)
+            else if(rand > 0.76f && rand <= 0.8f)
             {
                 PlayerInventory.DropRightHandItem();
             }
-            else if(rand > 0.8f && rand <= 0.95f)
+            else if(rand > 0.8f && rand <= 0.97f)
             {
                 SpectatorCamera.spectatingTarget.Haunted(true);
             }
-            else if(rand > 0.95f)
+            else if(rand > 0.97f)
             {
                 SpectatorCamera.spectatingTarget.KnockOver(1);
             }
-            hauntCooldown = 5f;
+            hauntCooldown = 30f;
         }
 
         if (doxCooldown <= 0 && Input.GetKeyDown(KeyCode.Space) && timeSinceLastDeath.Value <= 0)
         {
             MarkPlayerRPC(SpectatorCamera.spectatingTarget.OwnerClientId);
-            doxCooldown = 15f;
+            doxCooldown = 50f;
         }
     }
 
@@ -571,8 +571,9 @@ public class GameManager : NetworkBehaviour
         if (!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
         DespawnPlayerRPC(NetworkManager.LocalClientId);
         VivoxManager.JoinLobbyChannel();
-        if (VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); spectatorMainParticipant = null; spectatorParticipant = null; }
+        if (VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); spectatorParticipant = null; }
         if(VivoxManager.InMainChannel) { VivoxManager.LeaveMainChannel(); }
+        UIManager.UpdatePlayerList(localUserNames, new());
         IsSpectating = false;
         isSpeaking = false;
     }
@@ -638,15 +639,14 @@ public class GameManager : NetworkBehaviour
         VivoxManager.JoinMainChannel(); //ok wait hear me out
         instance.isSpeaking = false;
         instance.ResetCooldownRPC();
-        instance.doxCooldown = 15f;
-        instance.hauntCooldown = 1f;
-        instance.timeSinceLastDeath.Value = 30;
+        instance.doxCooldown = 50f;
+        instance.hauntCooldown = 30f;
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
     private void ResetCooldownRPC()
     {
-        timeSinceLastDeath.Value = 70;
+        timeSinceLastDeath.Value = 40;
     }
 
     public static void EnsureLeaveChannels()
@@ -710,7 +710,7 @@ public class GameManager : NetworkBehaviour
         if (!VivoxManager.GetisMuted) { VivoxManager.ToggleInputMute(); }
         DespawnPlayerRPC(NetworkManager.LocalClientId);
         VivoxManager.JoinLobbyChannel();
-        if(VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); spectatorParticipant = null; spectatorMainParticipant = null; }
+        if(VivoxManager.InSpectatorChannel) { VivoxManager.LeaveSpectateChannel(); spectatorParticipant = null; }
         if (VivoxManager.InMainChannel) { VivoxManager.LeaveMainChannel(); }
         IsSpectating = false;
         UIManager.SetWorldInfo(true, worldinfo);

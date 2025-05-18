@@ -42,6 +42,14 @@ public class VivoxManager : MonoBehaviour
         allocated = true;
     }
 
+    public static void SetAudioTaps()
+    {
+        foreach (var tap in FindObjectsByType<VivoxChannelAudioTap>(FindObjectsSortMode.None))
+        {
+            tap.ChannelName = DEFAULTCHANNEL;
+        }
+    }
+
     async void InitializeAsync()
     {
         await VivoxService.Instance.InitializeAsync();

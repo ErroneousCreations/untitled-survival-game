@@ -73,16 +73,16 @@ MonoBehaviour:
   - ItemID: stick
     Chance: 1
   - ItemID: stick
-    Chance: 1
-  - ItemID: stick
-    Chance: 1
-  - ItemID: stick
     Chance: 0.7
   - ItemID: stick
     Chance: 0.7
   - ItemID: bandage
     Chance: 0.7
   - ItemID: bandage
+    Chance: 0.7
+  - ItemID: plank
+    Chance: 1
+  - ItemID: plank
     Chance: 0.7
   Health: 5
   BreakParticle: particle_splinters

@@ -103,13 +103,23 @@ public class PickupableItem : Interactible
 
             if (Physics.BoxCast(lastPos, HitRegSize, (transform.position - lastPos).normalized, out RaycastHit hit, transform.rotation, Vector3.Distance(lastPos, transform.position)+0.1f, Extensions.DefaultThrownHitregLayermask))
             {
-                if (hit.collider.TryGetComponent(out PlayerHealthController ph) && (ph.OwnerClientId !=thrower.Value || ignoreThrowerTime <= 0))
+                if (hit.collider.attachedRigidbody.TryGetComponent(out PlayerHealthController ph) && (ph.OwnerClientId !=thrower.Value || ignoreThrowerTime <= 0))
                 {
+                    if (hit.collider.CompareTag("Shield"))
+                    {
+                        NetworkAudioManager.PlayNetworkedAudioClip(Random.Range(0.9f, 1.1f), 0.2f, 1, hit.point, "shieldbonk");
+                        if(rb.linearVelocity.magnitude * DamagePerVelocity >= 40) { ph.player.KnockOver(1, true); }
+                        Vector3 vel = rb.linearVelocity; rb.linearVelocity = Vector3.zero; rb.linearVelocity = 0.25f * vel.magnitude * -hit.normal;
+                        thrower.Value = 0;
+                        IsThrown = false;
+                        return;
+                    }
+
                     thrower.Value = 0;
                     IsThrown = false;
                     ph.ApplyDamage(rb.linearVelocity.magnitude * DamagePerVelocity, Type, hit.point, hit.normal, StickIntoPlayers, ItemDatabase.GetItem(itemCode).Name, ConvertToItemData);
                     if (StickIntoPlayers) { DestroyItem(); }
-                    else { Vector3 vel = rb.linearVelocity; rb.linearVelocity = Vector3.zero; rb.linearVelocity = 0.1f * vel.magnitude * -hit.normal; }
+                    else { Vector3 vel = rb.linearVelocity; rb.linearVelocity = Vector3.zero; rb.linearVelocity = 0.25f * vel.magnitude * -hit.normal; }
                 }
             }
             lastPos = transform.position;
@@ -119,6 +129,7 @@ public class PickupableItem : Interactible
     [Rpc(SendTo.Everyone)]
     private void AddThreatRPC(float amount, Vector3 impactpos)
     {
+        if (!Player.LocalPlayer) { return; }    
         MusicManager.AddThreatLevel(amount * Mathf.Lerp(1, 0, (impactpos - Player.GetLocalPlayerCentre).magnitude / 5));
     }
 

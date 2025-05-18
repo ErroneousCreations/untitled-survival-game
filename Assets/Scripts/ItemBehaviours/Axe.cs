@@ -64,10 +64,16 @@ public class Axe : ScriptableObject, IItemBehaviour
 
     private void DoMeleeDamage()
     {
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, Range, Extensions.DefaultMeleeLayermask))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, Range, Extensions.DefaultMeleeLayermask, QueryTriggerInteraction.Collide))
         {
-            if (hit.collider.TryGetComponent(out PlayerHealthController ph))
+            if (hit.collider.attachedRigidbody && hit.collider.attachedRigidbody.TryGetComponent(out PlayerHealthController ph))
             {
+                if (hit.collider.CompareTag("Shield"))
+                {
+                    NetworkAudioManager.PlayNetworkedAudioClip(Random.Range(0.9f, 1.1f), 0.2f, 1, hit.point, "shieldbonk");
+                    ph.player.DamageEffects(0.35f, Damage / 2);
+                    return;
+                }
                 ph.ApplyDamage(Damage, Type, hit.point, hit.normal, false);
             }
             else if (hit.collider.transform.parent.TryGetComponent(out WorldFeature wf) && wf.Destroyable)
@@ -113,7 +119,7 @@ public class Axe : ScriptableObject, IItemBehaviour
         return item;
     }
 
-    public ItemData OnLoaded(ItemData item)
+    public ItemData OnLoaded(ItemData item, LoadedLocationEnum location)
     {
         return item;
     }

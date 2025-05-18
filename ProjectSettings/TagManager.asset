@@ -12,6 +12,7 @@ TagManager:
   - TDMSpawn
   - WorldObject
   - WorldDetail
+  - Shield
   layers:
   - Default
   - TransparentFX
