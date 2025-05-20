@@ -773,9 +773,9 @@ public class PlayerInventory : NetworkBehaviour
     {
         if (a == string.Empty || b == string.Empty) return;
 
-        if (ItemDatabase.GetCraft(a, b, out string result))
+        if (ItemDatabase.GetCraft(a, b, out string result, out List<string> resultitemdata))
         {
-            rightHand.Value = new ItemData(result, ItemDatabase.GetItem(result).BaseSavedData);
+            rightHand.Value = new ItemData(result, resultitemdata);
             if (rightHand.Value.IsValid && ItemDatabase.GetItem(rightHand.Value.ID.ToString()).ItemBehaviour != null)
             {
                 rightHand.Value = ItemDatabase.GetItem(rightHand.Value.ID.ToString()).ItemBehaviour.OnWasCrafted(rightHand.Value);

@@ -103,8 +103,8 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _ClipThreshold: 0.43
-    - _ColourVariation: 0.09
+    - _ClipThreshold: 0.37
+    - _ColourVariation: 0.02
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1

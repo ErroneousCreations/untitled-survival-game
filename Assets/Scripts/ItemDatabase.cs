@@ -155,6 +155,7 @@ public class ItemDatabase : ScriptableObject
     public struct CraftingRecipe
     {
         public string Result;
+        public List<string> SAVEDATAOVERRIDE;
         public string Ingredient1, Ingredient2;
     }
 
@@ -217,7 +218,7 @@ public class ItemDatabase : ScriptableObject
         }
     }
 
-    public static bool GetCraft(string itema, string itemb, out string result)
+    public static bool GetCraft(string itema, string itemb, out string result, out List<string> resultitemdata)
     {
         if (instance == null)
         {
@@ -237,11 +238,13 @@ public class ItemDatabase : ScriptableObject
         var thepair = new ItemPair(itema, itemb);
         if (instance.recipeLookup.TryGetValue(thepair, out CraftingRecipe temp))
         {
+            resultitemdata = temp.SAVEDATAOVERRIDE != null && temp.SAVEDATAOVERRIDE.Count > 0 ? temp.SAVEDATAOVERRIDE : GetItem(temp.Result).BaseSavedData;
             result = temp.Result;
             return true;
         }
         else
         {
+            resultitemdata = null;
             result = string.Empty;
             return false;
         }
