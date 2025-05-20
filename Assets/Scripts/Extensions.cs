@@ -53,6 +53,15 @@ public static class Extensions
         }
     }
 
+    public static Vector3 RandomCircle
+    {
+        get
+        {
+            var rand = Random.insideUnitCircle;
+            return new Vector3(rand.x, 0, rand.y);
+        }
+    }
+
     public static int DMSPAWNINDEX = 0;
 
     public static void RandomiseDeathmatchSpawnIndex()

@@ -111,6 +111,11 @@ public class PlayerMovement : NetworkBehaviour
 
     private bool GetMovestateAllowsCrouch => currMoveState == MoveStateEnum.Walking || currMoveState == MoveStateEnum.Sliding;
 
+    public void ToggleViewmodel(bool value)
+    {
+        ViewmodelParent.gameObject.SetActive(value);
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -309,7 +314,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Headbob()
     {
-        if(PlayerPrefs.GetInt("HEADBOB", 0) == 1) { return; }
+        var disabled = PlayerPrefs.GetInt("HEADBOB", 0) == 1 ? 0 : 1;
         Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         float speed = horizontalVelocity.magnitude;
 
@@ -321,11 +326,11 @@ public class PlayerMovement : NetworkBehaviour
                 {
                     bobTimer += Time.deltaTime * bobFrequency * (speed * bobSpeedMultiplier * (GetCrouching ? crouchHeadbobMult : 1) * Player.LocalPlayer.ph.GetHeadbobSpeedMult) * (CanSprint ? 1.75f : 1);
                     float bobX = Mathf.Sin(bobTimer) * bobHorizontalAmplitude * (GetCrouching ? crouchHeadbobMult : 1);
-                    float bobY = Mathf.Cos(bobTimer * 2) * bobVerticalAmplitude * (GetCrouching ? crouchHeadbobMult : 1) * (CanSprint ? 1.75f : 1);
+                    float bobY = Mathf.Cos(bobTimer * 2) * bobVerticalAmplitude * (GetCrouching ? crouchHeadbobMult : 1) * (CanSprint ? 1.75f : 1) ;
 
                     float rotZ = Mathf.Sin(bobTimer) * rotationAmplitude * (GetCrouching ? crouchHeadbobMult : 1) * Player.LocalPlayer.ph.GetHeadbobMult;
 
-                    CameraParent.SetLocalPositionAndRotation(Vector3.Lerp(CameraParent.localPosition, (GetCrouching ? crouchCamOffset : initialLocalPos) + new Vector3(bobX, bobY, 0), Time.deltaTime * 5), Quaternion.Slerp(CameraParent.localRotation, Quaternion.Euler(0, 0, rotZ), Time.deltaTime * 8f));
+                    CameraParent.SetLocalPositionAndRotation(Vector3.Lerp(CameraParent.localPosition, (GetCrouching ? crouchCamOffset : initialLocalPos) + new Vector3(bobX*disabled, bobY*disabled, 0), Time.deltaTime * 5), Quaternion.Slerp(CameraParent.localRotation, Quaternion.Euler(0, 0, rotZ*disabled), Time.deltaTime * 8f));
 
                     ViewmodelParent.SetLocalPositionAndRotation(Vector3.Lerp(ViewmodelParent.localPosition, new Vector3(bobX * 0.5f, bobY * 0.5f, 0), Time.deltaTime * 5), Quaternion.Slerp(ViewmodelParent.localRotation, Quaternion.Euler(0, 0, -rotZ * 0.5f), Time.deltaTime * 8f));
                 }

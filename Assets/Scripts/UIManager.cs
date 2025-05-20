@@ -105,6 +105,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public static void ToggleCanvasEnabled(bool value)
+    {
+        instance.canvas.enabled = value;
+    }
+
     public static bool GetPauseMenuOpen => instance.pauseMenu.activeSelf;
 
     [SerializeField] private GameObject muteIcon;

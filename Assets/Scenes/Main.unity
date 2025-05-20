@@ -14221,6 +14221,8 @@ MonoBehaviour:
     Value: {fileID: 8300000, guid: b86de8daf13c49f4d917fb87f0e3465b, type: 3}
   - Key: shieldbonk
     Value: {fileID: 8300000, guid: 192425fb0ff42b44dbc974e3f20ff81a, type: 3}
+  - Key: cameraclick
+    Value: {fileID: 8300000, guid: bf4eaadafc2398642a9a8f46b7df35f3, type: 3}
   DefAudioOb: {fileID: 887336806245285577, guid: e6046388bd15ad146bd026a9cac4c990, type: 3}
 --- !u!114 &1090251059
 MonoBehaviour:

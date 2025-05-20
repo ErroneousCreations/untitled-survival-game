@@ -238,25 +238,71 @@ MonoBehaviour:
         HeldMesh: {fileID: 5928256943029937742, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
         HeldMats:
         - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}
+    - Key: camera
+      Value:
+        Name: Camera
+        ID: camera
+        Volume: 0.5
+        BaseSavedData:
+        - 0
+        ItemPrefab: {fileID: 8701911266804393704, guid: 62d16b3a7c7614516bf8d0bd1908967b, type: 3}
+        _itemBehaviour: {fileID: 11400000, guid: 3adaaeb3ead71a6438d5e454c0edd7cc, type: 2}
+        HeldMesh: {fileID: 3907663580498856572, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        HeldMats:
+        - {fileID: 2100000, guid: 3dbf6cce5a0e7e74a90f66110dee0618, type: 2}
+    - Key: film
+      Value:
+        Name: Film
+        ID: film
+        Volume: 0.5
+        BaseSavedData: []
+        ItemPrefab: {fileID: 8701911266804393704, guid: b800a7fcb11819d45ba8af5be9ac5cd3, type: 3}
+        _itemBehaviour: {fileID: 0}
+        HeldMesh: {fileID: -5752819588630484326, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        HeldMats:
+        - {fileID: 2100000, guid: 3dbf6cce5a0e7e74a90f66110dee0618, type: 2}
+    - Key: ball
+      Value:
+        Name: Ball
+        ID: ball
+        Volume: 0.5
+        BaseSavedData: []
+        ItemPrefab: {fileID: 8701911266804393704, guid: 1e5768e45837e4648a466726e2cc748c, type: 3}
+        _itemBehaviour: {fileID: 0}
+        HeldMesh: {fileID: 6935877506589290101, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        HeldMats:
+        - {fileID: 2100000, guid: a3f46c7a8194fb643912ee426163d5cd, type: 2}
   recipes:
   - Result: rope
+    SAVEDATAOVERRIDE: []
     Ingredient1: grass
     Ingredient2: grass
   - Result: ropestick
+    SAVEDATAOVERRIDE: []
     Ingredient1: rope
     Ingredient2: stick
   - Result: ropeshortstick
+    SAVEDATAOVERRIDE: []
     Ingredient1: rope
     Ingredient2: shortstick
   - Result: knife
+    SAVEDATAOVERRIDE: []
     Ingredient1: sharperrock
     Ingredient2: ropeshortstick
   - Result: axe
+    SAVEDATAOVERRIDE: []
     Ingredient1: sharprock
     Ingredient2: ropestick
   - Result: spear
+    SAVEDATAOVERRIDE: []
     Ingredient1: sharperrock
     Ingredient2: ropestick
   - Result: plankshield
+    SAVEDATAOVERRIDE: []
     Ingredient1: plank
     Ingredient2: ropeshortstick
+  - Result: camera
+    SAVEDATAOVERRIDE:
+    - 2
+    Ingredient1: camera
+    Ingredient2: film

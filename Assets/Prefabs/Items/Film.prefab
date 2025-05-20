@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 3509864747825368290}
   - component: {fileID: 4385692141758039441}
   - component: {fileID: 2866408296268637230}
-  - component: {fileID: 5491271481402289347}
+  - component: {fileID: 8844543076385187272}
   m_Layer: 8
-  m_Name: Camera
+  m_Name: Film
   m_TagString: WorldObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369783712094552356}
-  m_Mesh: {fileID: 3907663580498856572, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+  m_Mesh: {fileID: -5752819588630484326, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
 --- !u!23 &6150065194565044251
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 225623705
+  GlobalObjectIdHash: 1125926410
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  Description: Camera
+  Description: Film
   InteractLength: 1
   InteractDistance: 2
   InteractedLocal:
@@ -155,13 +155,13 @@ MonoBehaviour:
   InteractOnce: 0
   DoRpcs: 1
   Banned: 0
-  itemCode: camera
+  itemCode: film
   rb: {fileID: 3509864747825368290}
   colliders:
-  - {fileID: 5491271481402289347}
-  DamagePerVelocity: 2.3
+  - {fileID: 8844543076385187272}
+  DamagePerVelocity: 2.5
   MaxThrowFlyTime: 100
-  HitRegSize: {x: 0.1, y: 0.1, z: 0.1}
+  HitRegSize: {x: 0, y: 0, z: 0}
   FaceThrown: 0
   StickIntoPlayers: 0
   Type: 0
@@ -257,7 +257,7 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
---- !u!65 &5491271481402289347
+--- !u!65 &8844543076385187272
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,5 +276,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.23175903, y: 0.16542712, z: 0.14482185}
-  m_Center: {x: -0.027752511, y: 0.07069914, z: 0.017568938}
+  m_Size: {x: 0.12040881, y: 0.17485166, z: 0.12040882}
+  m_Center: {x: 0, y: 0.07777931, z: -0.0000000037252903}

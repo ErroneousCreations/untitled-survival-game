@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 3509864747825368290}
   - component: {fileID: 4385692141758039441}
   - component: {fileID: 2866408296268637230}
-  - component: {fileID: 5491271481402289347}
+  - component: {fileID: 9126977922798785231}
   m_Layer: 8
-  m_Name: Camera
+  m_Name: Ball
   m_TagString: WorldObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4369783712094552356}
-  m_Mesh: {fileID: 3907663580498856572, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+  m_Mesh: {fileID: 6935877506589290101, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
 --- !u!23 &6150065194565044251
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3dbf6cce5a0e7e74a90f66110dee0618, type: 2}
+  - {fileID: 2100000, guid: a3f46c7a8194fb643912ee426163d5cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 225623705
+  GlobalObjectIdHash: 3391747404
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  Description: Camera
+  Description: Ball
   InteractLength: 1
   InteractDistance: 2
   InteractedLocal:
@@ -155,11 +155,11 @@ MonoBehaviour:
   InteractOnce: 0
   DoRpcs: 1
   Banned: 0
-  itemCode: camera
+  itemCode: ball
   rb: {fileID: 3509864747825368290}
   colliders:
-  - {fileID: 5491271481402289347}
-  DamagePerVelocity: 2.3
+  - {fileID: 9126977922798785231}
+  DamagePerVelocity: 0.0001
   MaxThrowFlyTime: 100
   HitRegSize: {x: 0.1, y: 0.1, z: 0.1}
   FaceThrown: 0
@@ -257,8 +257,8 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
---- !u!65 &5491271481402289347
-BoxCollider:
+--- !u!135 &9126977922798785231
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -276,5 +276,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.23175903, y: 0.16542712, z: 0.14482185}
-  m_Center: {x: -0.027752511, y: 0.07069914, z: 0.017568938}
+  m_Radius: 0.16530198
+  m_Center: {x: 0, y: 0.0846089, z: 0.000000007450581}
