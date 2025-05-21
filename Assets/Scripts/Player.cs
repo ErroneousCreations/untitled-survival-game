@@ -21,6 +21,7 @@ public class Player : NetworkBehaviour
     public PlayerMovement pm;
     public PlayerHealthController ph;
     public PlayerInventory pi;
+    public AITarget at;
     public Animator anim;
     public Renderer[] PlayermodelMeshes;
     public Renderer[] handRends;
@@ -75,6 +76,7 @@ public class Player : NetworkBehaviour
     private NetworkVariable<float> SyncedSkinTexture = new(0, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<Color> SyncedScarfColour = new(Color.white, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<float> currLookAngle = new(0, writePerm: NetworkVariableWritePermission.Owner);
+    private NetworkVariable<float> audioEnergy = new(0, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isTalking = new(false, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> teamA = new(false, writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<bool> isKnockedOver = new(false, writePerm: NetworkVariableWritePermission.Owner);
@@ -378,6 +380,8 @@ public class Player : NetworkBehaviour
         speakingIndicator.transform.forward = (Camera.main.transform.position - speakingIndicator.transform.position).normalized;
         legs.DisableLegsMovement = !LocalCanStand;
         scarfCloth.externalAcceleration = 20 * World.WindIntensity * World.WindDirection;
+        at.AudioEnergy = audioEnergy.Value;
+        at.ScarinessModifier = ItemDatabase.GetItem(pi.rightHand.Value.ID.ToString()).ScareFactor * ItemDatabase.GetItem(pi.leftHand.Value.ID.ToString()).ScareFactor;
 
         if (ragdolled && LocalCanStand)
         {
@@ -482,9 +486,10 @@ public class Player : NetworkBehaviour
         {
             SyncedScarfColour.Value = GameManager.InTeamA(Extensions.UniqueIdentifier) ? Color.red : Color.blue;
         }
-        teamA.Value = GameManager.GetGameMode == GameModeEnum.TeamDeathmatch ? GameManager.InTeamA(Extensions.UniqueIdentifier) : false;
+        audioEnergy.Value = (participant!=null?(float)participant.AudioEnergy*0.5f:0) + pm.AudioEnergy;
+        teamA.Value = GameManager.GetGameMode == GameModeEnum.TeamDeathmatch && GameManager.InTeamA(Extensions.UniqueIdentifier);
         isTalking.Value = ph.isConscious.Value && participant != null && participant.SpeechDetected;
-        if (participant != null) { participant.SetLocalVolume(0); }
+        participant?.SetLocalVolume(0);
         blinkCurr -= Time.deltaTime;
         if (blinkCurr <= 0) { blinkCurr = Random.Range(2.1f, 2.6f); }
         SyncedEyeTexture.Value = GetFace;

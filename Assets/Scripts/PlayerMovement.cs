@@ -111,6 +111,10 @@ public class PlayerMovement : NetworkBehaviour
 
     private bool GetMovestateAllowsCrouch => currMoveState == MoveStateEnum.Walking || currMoveState == MoveStateEnum.Sliding;
 
+    public float AudioEnergy => currHorizontalSpeed * bobSpeedMultiplier;
+
+    private float currHorizontalSpeed;
+
     public void ToggleViewmodel(bool value)
     {
         ViewmodelParent.gameObject.SetActive(value);
@@ -317,6 +321,7 @@ public class PlayerMovement : NetworkBehaviour
         var disabled = PlayerPrefs.GetInt("HEADBOB", 0) == 1 ? 0 : 1;
         Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         float speed = horizontalVelocity.magnitude;
+        currHorizontalSpeed = speed;
 
         switch (currMoveState)
         {

@@ -576,8 +576,10 @@ GameObject:
   - component: {fileID: 7700510548736699236}
   - component: {fileID: 4803769793850197178}
   - component: {fileID: -3753293093806743543}
+  - component: {fileID: 8658247353726662644}
+  - component: {fileID: 1343742214335439988}
   m_Layer: 6
-  m_Name: Enemy
+  m_Name: Femtanyl
   m_TagString: WorldObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -805,9 +807,71 @@ MonoBehaviour:
     m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  model: {fileID: 0}
-  BodyRenderer: {fileID: 0}
-  HandRends: []
+  model: {fileID: 2278140075317487527}
+  BodyRenderer: {fileID: 4326499595566188688}
+  HandRends:
+  - {fileID: 5250840890399955014}
+  - {fileID: 7358638882902208277}
+--- !u!114 &8658247353726662644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731325250863673971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f52a6e0fb7b5e4b9d17c3dc0b05338, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetType: femtanyl
+  ScarinessModifier: 1
+  AggroModifier: 1
+  AudioEnergy: 0
+--- !u!114 &1343742214335439988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731325250863673971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01aa055d0dafc604b972fc0bd61715c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanSee: 1
+  EyesPosition: {fileID: 4636867748778098247}
+  ViewRange: 50
+  ViewAngle: 70
+  ViewMask:
+    serializedVersion: 2
+    m_Bits: 200
+  CanHear: 0
+  HearRange: 0
+  HearingPower: 0
+  HeardSound:
+    m_PersistentCalls:
+      m_Calls: []
+  DistanceWeight: 0.1
+  FearModifier: 1
+  AggressionModifier: 1
+  DefaultRelationship:
+    Fear: 0
+    Aggression: 0
+    Ignore: 1
+  Relationships:
+    _serializedList:
+    - Key: axolotl
+      Value:
+        Fear: 0.1
+        Aggression: 0.6
+        Ignore: 0
+    - Key: femtanyl
+      Value:
+        Fear: 0
+        Aggression: 0
+        Ignore: 1
 --- !u!1 &6245712610641838472
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1291,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8980623688404360751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4636867748778098247}
+  m_Layer: 0
+  m_Name: EyePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4636867748778098247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980623688404360751}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.54, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2454289389137926440}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &9130889426734361900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,6 +1352,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5103873608143076244}
+  - {fileID: 4636867748778098247}
   - {fileID: 6924125125786986372}
   - {fileID: 2416074867055496715}
   m_Father: {fileID: 377179502079738035}

@@ -121,5 +121,6 @@ public static class Extensions
 
     public static LayerMask DefaultMeleeLayermask => LayerMask.GetMask("Player", "Creature", "Terrain");
     public static LayerMask DefaultThrownHitregLayermask => LayerMask.GetMask("Player", "Creature");
-
+    public static LayerMask ItemLayermask => LayerMask.GetMask("Item");
+    public static LayerMask CreatureLayermask => LayerMask.GetMask("Creature");
 }

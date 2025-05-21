@@ -13,6 +13,7 @@ public struct Item
     /// In litres for backpack capacity
     /// </summary>
     public float Volume;
+    public float ScareFactor;
     public List<string> BaseSavedData;
     public PickupableItem ItemPrefab;
     [SerializeField] private Object _itemBehaviour;

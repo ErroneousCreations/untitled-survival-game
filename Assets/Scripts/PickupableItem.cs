@@ -3,6 +3,11 @@ using UnityEngine;
 using Unity.Collections;
 using Unity.Netcode;
 
+/// <summary>
+/// For AI to know what item it is.
+/// </summary>
+public enum ItemTypeEnum { CraftingMaterial, ThrowingBluntWeapon, ThrowingSharpWeapon, MeleeWeapon }
+
 public class PickupableItem : Interactible
 {
     public string itemCode;
@@ -14,6 +19,7 @@ public class PickupableItem : Interactible
     public bool FaceThrown, StickIntoPlayers;
     public DamageType Type;
     public NetworkVariable<ulong> thrower = new(0);
+    public ItemTypeEnum ItemType;
 
     private bool IsThrown;
     private float currDisableThrowTime = 0, ignoreThrowerTime;
@@ -46,6 +52,18 @@ public class PickupableItem : Interactible
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         this.thrower.Value = thrower;
         ignoreThrowerTime = 0.65f;
+    }
+
+    /// <summary>
+    /// For when a creature throws it
+    /// </summary>
+    public void InitThrown()
+    {
+        IsThrown = true;
+        currDisableThrowTime = MaxThrowFlyTime;
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        thrower.Value = ulong.MaxValue;
+        ignoreThrowerTime = 0f;
     }
 
     public void InitSavedData()
