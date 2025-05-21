@@ -17,12 +17,12 @@ MonoBehaviour:
   AttackForwardAmount: 1.5
   AttackJumpPower: 0.4
   RotateForwardsMelee: 0
-  Damage: 15
+  Damage: 0.01
   Type: 0
   Range: 1.4
-  HitWorldBreakables: 1
+  HitWorldBreakables: 0
   WorldBreakableDamage: 0.4
-  Sharpen: 1
+  Sharpen: 0
   SharpenResult: sharprock
   SharpenParticle: particle_sparks
   MaxCharge: 1

@@ -19,6 +19,7 @@ MonoBehaviour:
         Name: Rock
         ID: rock
         Volume: 0.75
+        ScareFactor: 0
         BaseSavedData:
         - 20
         ItemPrefab: {fileID: 8701911266804393704, guid: 1d20778006a83874992629ca28b3a67a, type: 3}
@@ -31,6 +32,7 @@ MonoBehaviour:
         Name: Sharp Rock
         ID: sharprock
         Volume: 0.75
+        ScareFactor: 0
         BaseSavedData:
         - 15
         ItemPrefab: {fileID: 8701911266804393704, guid: eb5c1ef3cb51da946814c01d1bfe23d0, type: 3}
@@ -43,6 +45,7 @@ MonoBehaviour:
         Name: Sharper Rock
         ID: sharperrock
         Volume: 0.75
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: 05ae218675b48ab40ae009282f480892, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: 0bf7c470b7f0f974bb640511cacab232, type: 2}
@@ -54,6 +57,7 @@ MonoBehaviour:
         Name: Stick
         ID: stick
         Volume: 1
+        ScareFactor: 0
         BaseSavedData:
         - 15
         ItemPrefab: {fileID: 8701911266804393704, guid: 204a73991ab97b343b527d5faf38c56b, type: 3}
@@ -66,6 +70,7 @@ MonoBehaviour:
         Name: Short Stick
         ID: shortstick
         Volume: 0.75
+        ScareFactor: 0
         BaseSavedData:
         - 13
         ItemPrefab: {fileID: 8701911266804393704, guid: dc0b3f0a201488e41959bf33031e4f26, type: 3}
@@ -78,6 +83,7 @@ MonoBehaviour:
         Name: Sharp Short Stick
         ID: sharpshortstick
         Volume: 0.75
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: a05668bb07f109149904450c7c4effdd, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: 3e049454775a70e4d9cdc82f4013c17d, type: 2}
@@ -89,6 +95,7 @@ MonoBehaviour:
         Name: Sharp Stick
         ID: sharpstick
         Volume: 1
+        ScareFactor: 0
         BaseSavedData:
         - 10
         ItemPrefab: {fileID: 8701911266804393704, guid: 0a715335ec8ea67458b9c387386ede0d, type: 3}
@@ -101,6 +108,7 @@ MonoBehaviour:
         Name: Rope Stick
         ID: ropestick
         Volume: 1
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: b5fc35dc10cae7c49aaf0013dec2221f, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: f0b75a4b6f3b33341bdf4c6910704969, type: 2}
@@ -113,6 +121,7 @@ MonoBehaviour:
         Name: Rope Short Stick
         ID: ropeshortstick
         Volume: 0.75
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: 9b0d9f89028ce8e468aa5f09a302b5ae, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: f0b75a4b6f3b33341bdf4c6910704969, type: 2}
@@ -125,6 +134,7 @@ MonoBehaviour:
         Name: Spear
         ID: spear
         Volume: 1.1
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: adb22aad2fb29634bb7ac2708fa6922d, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: 5b916e7a13eefe74cb444a33da4f59a9, type: 2}
@@ -137,6 +147,7 @@ MonoBehaviour:
         Name: Axe
         ID: axe
         Volume: 0.9
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: f29e76ce7573b2a4eba39c72d032e42f, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: f6ebde51e34abad469453416e4224936, type: 2}
@@ -150,6 +161,7 @@ MonoBehaviour:
         Name: Knife
         ID: axe
         Volume: 0.5
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: 1b95e946c497da446babbb52725e4130, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: e6e0d1d4550aaed4cbfe87171240c15d, type: 2}
@@ -162,6 +174,7 @@ MonoBehaviour:
         Name: Berry
         ID: berry
         Volume: 0.015
+        ScareFactor: 0
         BaseSavedData:
         - 3
         ItemPrefab: {fileID: 8701911266804393704, guid: 58e647c54d67de14c98a4f367ac40faf, type: 3}
@@ -176,6 +189,7 @@ MonoBehaviour:
         Name: Rebar Spear
         ID: rebarspear
         Volume: 2
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: 3e31bfbd3b97f4f4895799c4777599ff, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: 5b916e7a13eefe74cb444a33da4f59a9, type: 2}
@@ -187,6 +201,7 @@ MonoBehaviour:
         Name: Bandage
         ID: bandage
         Volume: 1
+        ScareFactor: 0
         BaseSavedData:
         - 3
         ItemPrefab: {fileID: 8701911266804393704, guid: b1ae2cd1873f7e441aa95bdf9b5a7f14, type: 3}
@@ -199,6 +214,7 @@ MonoBehaviour:
         Name: Rope
         ID: rope
         Volume: 0.5
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: f165028931c62f14c816bb70858828e1, type: 3}
         _itemBehaviour: {fileID: 0}
@@ -210,6 +226,7 @@ MonoBehaviour:
         Name: Grass
         ID: grass
         Volume: 0.1
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: 812058c4ac5a0064dbf3148e723a2d23, type: 3}
         _itemBehaviour: {fileID: 0}
@@ -221,6 +238,7 @@ MonoBehaviour:
         Name: Plank
         ID: plank
         Volume: 1.5
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: e63ea04a245691745ade2095f7427685, type: 3}
         _itemBehaviour: {fileID: 0}
@@ -232,6 +250,7 @@ MonoBehaviour:
         Name: Plank Shield
         ID: plankshield
         Volume: 1.5
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: a67d9c0f0dfc331449eb2f10b4296a8c, type: 3}
         _itemBehaviour: {fileID: 11400000, guid: 64afa4145fb98024eb6ea74fc1b76960, type: 2}
@@ -243,6 +262,7 @@ MonoBehaviour:
         Name: Camera
         ID: camera
         Volume: 0.5
+        ScareFactor: 0
         BaseSavedData:
         - 0
         ItemPrefab: {fileID: 8701911266804393704, guid: 62d16b3a7c7614516bf8d0bd1908967b, type: 3}
@@ -255,6 +275,7 @@ MonoBehaviour:
         Name: Film
         ID: film
         Volume: 0.5
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: b800a7fcb11819d45ba8af5be9ac5cd3, type: 3}
         _itemBehaviour: {fileID: 0}
@@ -266,9 +287,10 @@ MonoBehaviour:
         Name: Ball
         ID: ball
         Volume: 0.5
+        ScareFactor: 0
         BaseSavedData: []
         ItemPrefab: {fileID: 8701911266804393704, guid: 1e5768e45837e4648a466726e2cc748c, type: 3}
-        _itemBehaviour: {fileID: 0}
+        _itemBehaviour: {fileID: 11400000, guid: 55d9b58d14c0eff4bbf98e445603080c, type: 2}
         HeldMesh: {fileID: 6935877506589290101, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
         HeldMats:
         - {fileID: 2100000, guid: a3f46c7a8194fb643912ee426163d5cd, type: 2}
