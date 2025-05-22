@@ -381,7 +381,7 @@ public class Player : NetworkBehaviour
         legs.DisableLegsMovement = !LocalCanStand;
         scarfCloth.externalAcceleration = 20 * World.WindIntensity * World.WindDirection;
         at.AudioEnergy = audioEnergy.Value;
-        at.ScarinessModifier = ItemDatabase.GetItem(pi.rightHand.Value.ID.ToString()).ScareFactor * ItemDatabase.GetItem(pi.leftHand.Value.ID.ToString()).ScareFactor;
+        at.ScarinessModifier = (pi.rightHand.Value.IsValid ? ItemDatabase.GetItem(pi.rightHand.Value.ID.ToString()).ScareFactor : 1) * (pi.leftHand.Value.IsValid ? ItemDatabase.GetItem(pi.leftHand.Value.ID.ToString()).ScareFactor : 1);
 
         if (ragdolled && LocalCanStand)
         {

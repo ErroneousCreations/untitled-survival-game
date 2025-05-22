@@ -119,6 +119,11 @@ public static class Extensions
         }
     }
 
+    public static string VecToString(Vector3 pos)
+    {
+        return System.Math.Round(pos.x, 2).ToString() + "," + System.Math.Round(pos.y, 2).ToString() + "," + System.Math.Round(pos.z, 2).ToString();
+    }
+
     public static LayerMask DefaultMeleeLayermask => LayerMask.GetMask("Player", "Creature", "Terrain");
     public static LayerMask DefaultThrownHitregLayermask => LayerMask.GetMask("Player", "Creature");
     public static LayerMask ItemLayermask => LayerMask.GetMask("Item");

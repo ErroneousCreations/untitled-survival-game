@@ -253,8 +253,6 @@ public class World : NetworkBehaviour
     {
         DoNormalWorldFeaturesRPC();
         StartCoroutine(GenerateNetWorldFeaturesCoroutine());
-
-        StartCoroutine(GenerateNavMeshesCoroutine());
     }
 
     private IEnumerator GenerateNavMeshesCoroutine()
@@ -342,6 +340,11 @@ public class World : NetworkBehaviour
         yield return StartCoroutine(GenerateWorldFeaturesCoroutine()); //wait for it to be done btw
         yield return null;
         StartCoroutine(GenerateRaycastedWorldFeaturesCoroutine());
+        if (IsOwner)
+        {
+            yield return null;
+            StartCoroutine(GenerateNavMeshesCoroutine());
+        }
     }
 
     private IEnumerator GenerateRaycastedWorldFeaturesCoroutine()

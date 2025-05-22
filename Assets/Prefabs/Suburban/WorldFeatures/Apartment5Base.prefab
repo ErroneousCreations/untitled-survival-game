@@ -204,6 +204,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8686592227143317044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +243,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &7426555401254937729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +267,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &3121068941662894754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +294,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8592976110581906299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +325,62 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
+--- !u!1 &1131764608945290673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8571436551489425957}
+  - component: {fileID: 8890393738372455336}
+  m_Layer: 3
+  m_Name: FemtanylSpawnerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8571436551489425957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131764608945290673}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.068, y: 0, z: -0.534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6064148975952647805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8890393738372455336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131764608945290673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8cc3f42438816408fba1125b81be45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Networked: 0
+  netSpawnPool: []
+  spawnPool:
+  - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
+  spawnPoints:
+  - {fileID: 8571436551489425957}
+  spawnProbability: 0.05
+  onlySpawnBeforeSave: 1
+  drawGizmos: 0
+  parentOnSpawnpoint: 0
+  onlyForServer: 1
 --- !u!1 &1306016173430295827
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +443,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6279707328863877174}
   m_LocalEulerAnglesHint: {x: 0, y: 115.9, z: 0}
+--- !u!1 &1870915226224474333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2655123924007283532}
+  - component: {fileID: 1898886957742972006}
+  m_Layer: 3
+  m_Name: FemtanylSpawnerSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2655123924007283532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870915226224474333}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.978, y: 0, z: -0.409}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6064148975952647805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1898886957742972006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870915226224474333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8cc3f42438816408fba1125b81be45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Networked: 0
+  netSpawnPool: []
+  spawnPool:
+  - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
+  spawnPoints:
+  - {fileID: 2655123924007283532}
+  spawnProbability: 0.05
+  onlySpawnBeforeSave: 1
+  drawGizmos: 0
+  parentOnSpawnpoint: 0
+  onlyForServer: 1
 --- !u!1 &1924208663938896750
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,6 +928,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &4294785671674484913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,6 +967,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &3970884252267721214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -874,6 +991,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &4524467366836287905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,6 +1018,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &6537291211103786704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,6 +1048,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &4060487658385772862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1225,6 +1345,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 0
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &5664909624974655568
 GameObject:
   m_ObjectHideFlags: 0
@@ -1555,6 +1676,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &7223385341025023878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,6 +1934,8 @@ Transform:
   - {fileID: 2357356997012346906}
   - {fileID: 6279707328863877174}
   - {fileID: 8741963621452238134}
+  - {fileID: 8571436551489425957}
+  - {fileID: 2655123924007283532}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7617056786148103879

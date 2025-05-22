@@ -3975,6 +3975,7 @@ MonoBehaviour:
   pm: {fileID: 7477904968007123634}
   ph: {fileID: 8816347877140501902}
   pi: {fileID: 5415022680192728191}
+  at: {fileID: 3635892032301116065}
   anim: {fileID: 3534567065541119482}
   PlayermodelMeshes:
   - {fileID: 5895422202403721210}
@@ -4600,7 +4601,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f52a6e0fb7b5e4b9d17c3dc0b05338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetType: ax
+  TargetType: axolotl
+  CentreOffset: {x: 0, y: 1, z: 0}
   ScarinessModifier: 1
   AggroModifier: 1
   AudioEnergy: 0

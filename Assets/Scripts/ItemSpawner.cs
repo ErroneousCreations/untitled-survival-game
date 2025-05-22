@@ -14,7 +14,7 @@ public class ItemSpawner : MonoBehaviour
     {
         if (!NetworkManager.Singleton || !NetworkManager.Singleton.IsServer) { return; }
         if(OnlySpawnBeforeSave && World.LoadingFromSave) { return; }
-        Random.InitState(World.CurrentSeed + (int)(transform.position.x * 100) + (int)(transform.position.y * 100));
+        Random.InitState(World.CurrentSeed + (int)(transform.position.x * 100) + (int)(transform.position.z * 100) + (int)transform.position.y);
         foreach (var spawnPoint in SpawnPoints)
         {
             if (Random.value < SpawnProbability)

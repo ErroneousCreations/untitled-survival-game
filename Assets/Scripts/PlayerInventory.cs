@@ -153,11 +153,7 @@ public class PlayerInventory : NetworkBehaviour
         go.rb.linearVelocity = velocity;
         go.rb.angularVelocity = angular;
         go.InitThrown(thrower);
-        go.CurrentSavedData.Clear();
-        foreach (var data in item.SavedData)
-        {
-            go.CurrentSavedData.Add(data.ToString());
-        }
+        go.InitSavedData(item.SavedData);
     }
 
     public static void DeleteLefthandItem()

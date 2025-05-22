@@ -54,7 +54,8 @@ public class AITargeter : MonoBehaviour
 
     private void Update()
     {
-        if(!GetDoUpdate || !NetworkManager.Singleton.IsServer) { return; }
+        if (!NetworkManager.Singleton) { return; } //if we are not networked, just return
+        if (!GetDoUpdate || !NetworkManager.Singleton.IsServer) { return; }
 
         updateInterval -= Time.deltaTime;
         if (updateInterval <= 0)
@@ -80,7 +81,7 @@ public class AITargeter : MonoBehaviour
             if (relation.Ignore) { continue; }
 
             var dist = (target.transform.position - transform.position).sqrMagnitude;
-            var dir = (target.transform.position - EyesPosition.transform.position).normalized;
+            var dir = (target.GetPosition - EyesPosition.transform.position).normalized;
 
             //seeing is believing
             if (CanSee && dist < ViewRange*ViewRange &&

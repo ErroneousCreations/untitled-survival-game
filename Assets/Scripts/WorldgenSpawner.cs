@@ -2,6 +2,7 @@ using UnityEngine;
 using EditorAttributes;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 
 public class WorldgenSpawner : MonoBehaviour
@@ -13,7 +14,7 @@ public class WorldgenSpawner : MonoBehaviour
     [SerializeField] private List<Transform> spawnPoints;
     [SerializeField] private float spawnProbability = 0.95f;
     [SerializeField] private bool onlySpawnBeforeSave = true, drawGizmos = true;
-    [SerializeField, HideField(nameof(Networked))] private bool parentOnSpawnpoint = true;
+    [SerializeField, HideField(nameof(Networked))] private bool parentOnSpawnpoint = true, onlyForServer =false;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class WorldgenSpawner : MonoBehaviour
         if (Networked)
         {
             if(!NetworkManager.Singleton.IsServer) { Destroy(this); return; }
-            Random.InitState(World.CurrentSeed + (int)(transform.position.x * 100) + (int)(transform.position.y * 100));
+            Random.InitState(World.CurrentSeed + (int)(transform.position.x * 100) + (int)(transform.position.z * 100) + (int)transform.position.y);
             foreach (var spawnPoint in spawnPoints)
             {
                 if (Random.value < spawnProbability)
@@ -33,7 +34,8 @@ public class WorldgenSpawner : MonoBehaviour
         }
         else
         {
-            Random.InitState(World.CurrentSeed + (int)(transform.position.x * 100) + (int)(transform.position.y * 100));
+            if (onlyForServer && !NetworkManager.Singleton.IsServer) { Destroy(this); return; }
+            Random.InitState(World.CurrentSeed + (int)(transform.position.x * 100) + (int)(transform.position.z * 100) + (int)transform.position.y);
             foreach (var spawnPoint in spawnPoints)
             {
                 if (Random.value < spawnProbability)

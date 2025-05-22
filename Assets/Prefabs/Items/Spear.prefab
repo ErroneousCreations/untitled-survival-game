@@ -168,6 +168,7 @@ MonoBehaviour:
   Type: 1
   thrower:
     m_InternalValue: 0
+  ItemType: 2
 --- !u!54 &3509864747825368290
 Rigidbody:
   m_ObjectHideFlags: 0

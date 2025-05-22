@@ -14343,6 +14343,8 @@ MonoBehaviour:
       Value: {fileID: 6815528384840627532, guid: 79aa5966c4c57014eb823d51b1c5e66b, type: 3}
     - Key: potc
       Value: {fileID: 9061161901992282508, guid: bce1d296d56f2994eb6322c2ae63a14b, type: 3}
+    - Key: fspawn
+      Value: {fileID: 310755185837899003, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
   SavedNetObjects:
     _serializedList:
     - Key: wallrebar

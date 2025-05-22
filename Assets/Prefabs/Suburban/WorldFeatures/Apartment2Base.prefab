@@ -88,6 +88,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &1290526722696415285
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +566,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &5611185643728822799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,6 +605,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8642405809902847368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,6 +629,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &5372985754471274324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,6 +656,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &498559761692712038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -681,6 +686,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &4827910041784663266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,6 +1238,61 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7171356807785168412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 617253643233749082}
+  - component: {fileID: 4662135016818114764}
+  m_Layer: 3
+  m_Name: FemtanylSpawnerSpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &617253643233749082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7171356807785168412}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.978, y: 0, z: -0.409}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6064148975952647805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4662135016818114764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7171356807785168412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8cc3f42438816408fba1125b81be45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Networked: 0
+  netSpawnPool: []
+  spawnPool:
+  - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
+  spawnPoints:
+  - {fileID: 617253643233749082}
+  spawnProbability: 0.05
+  onlySpawnBeforeSave: 1
+  drawGizmos: 0
+  parentOnSpawnpoint: 0
+  onlyForServer: 1
 --- !u!1 &7284265487871883740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,6 +1404,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &1006891219566901012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1381,6 +1443,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &5552407306563300036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,6 +1467,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &5139064999269869962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,6 +1494,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &3658184360869612765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1460,6 +1525,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &7865620533775196443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,6 +1619,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7074742085520476935}
   m_LocalEulerAnglesHint: {x: 23.57, y: 145.76, z: 0}
+--- !u!1 &8395032523250420875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2382251738815601790}
+  - component: {fileID: 4731339352115897047}
+  m_Layer: 3
+  m_Name: FemtanylSpawnerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2382251738815601790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8395032523250420875}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.068, y: 0, z: -0.534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6064148975952647805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4731339352115897047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8395032523250420875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8cc3f42438816408fba1125b81be45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Networked: 0
+  netSpawnPool: []
+  spawnPool:
+  - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
+  spawnPoints:
+  - {fileID: 2382251738815601790}
+  spawnProbability: 0.05
+  onlySpawnBeforeSave: 1
+  drawGizmos: 0
+  parentOnSpawnpoint: 0
+  onlyForServer: 1
 --- !u!1 &8409211911894368206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,6 +1800,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 0
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &8777670277592932549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1843,6 +1965,8 @@ Transform:
   - {fileID: 3193479070850134659}
   - {fileID: 3386485342216938466}
   - {fileID: 7074742085520476935}
+  - {fileID: 2382251738815601790}
+  - {fileID: 617253643233749082}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7617056786148103879
