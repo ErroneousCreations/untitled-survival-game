@@ -1,12 +1,11 @@
 using UnityEngine;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using System.Collections.Generic;
 using DG.Tweening;
 
 public class AI_Femtanyl : NetworkBehaviour
 {
-    public enum FemtanylAIState { Idle, Scouting, ReturningWithNews, Searching, FightingTarget, LostTarget, GrabbingItem, Retreating, Fleeing }
+    public enum FemtanylAIState { Idle, Scouting, ReturningWithNews, Searching, FightingTarget, LostTarget, GrabbingItem, Retreating, Fleeing, Reacting }
 
     [Header("AI Settings")]
     public FemtanylAIState state;
@@ -19,8 +18,10 @@ public class AI_Femtanyl : NetworkBehaviour
     public Gradient SkinColourGradient;
     public Gradient ClothesColourGradient;
     public Transform model;
-    public Renderer BodyRenderer;
+    public Renderer BodyRenderer, EyeRenderer;
     public Renderer[] HandRends;
+    public Texture2D[] EyeTextures;
+    public Transform Leftear, Rightear;
 
     [Header("Inventory")]
     public MeshFilter LefthandF;
@@ -30,6 +31,7 @@ public class AI_Femtanyl : NetworkBehaviour
     private NetworkVariable<ItemData> LefthandItem = new(), RighthandItem = new();
     private NetworkVariable<Vector3> LeftHandPosition = new(), RightHandPosition = new();
     private NetworkVariable<Vector3> LeftHandRotation = new(), RightHandRotation = new();
+    private NetworkVariable<float> eyetex = new(), earrot = new();
 
     public ItemData GetLefthandItem => LefthandItem.Value;
     public ItemData GetRighthandItem => RighthandItem.Value;
@@ -53,27 +55,52 @@ public class AI_Femtanyl : NetworkBehaviour
         this.scout = scout;
     }
 
+    public int GetFaceTexture
+    {
+        get
+        {
+            int face = 0;
+            if(currBlinkTime <= 0.15f) { face = 1; }
+            if(state == FemtanylAIState.Fleeing) { face = 1; }
+            return face;
+        }
+    }
+
+    public float GetEarRotation
+    {
+        get
+        {
+            float rot = 0;
+            if (state == FemtanylAIState.Reacting) { rot = 20; }
+            if (state == FemtanylAIState.Fleeing) { rot = 40; }
+            return rot;
+        }
+    }
+
     //characteristics
     private float speedmod = 1, eyeblinktime = 2.5f, throwwindup = 2f, reactiontime = 0.5f, aggression = 1, fear = 1;
     //other privates
+    private FemtanylAIState nextState;
     private PickupableItem currItemTarget;
-    private float scoutcooldown, checkItemCooldown, currThrowWindup;
-    private Vector3 homelocation, wanderposition, newsPosition;
+    private float scoutcooldown, checkItemCooldown, currThrowWindup, currBlinkTime, currReactionTime;
+    private Vector3 homelocation, wanderposition, newsPosition, lookdirection;
     private bool scout, scoutcheckedforitems;
     private AITarget currFightingTarget, currFleeingTarget;
     private Vector3 lastseenpos;
     private float losttargetcooldown = 0;
+    private Material eyemat;
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        eyemat = EyeRenderer.material;
         if (IsOwner) { 
             SyncIDRPC(ID);
             Random.InitState(ID);
             speedmod = Random.Range(0.96f, 1.05f);
             eyeblinktime = Random.Range(2f, 3f);
-            throwwindup = Random.Range(1.9f, 2.2f);
-            reactiontime = Random.Range(0.4f, 0.6f);
+            throwwindup = Random.Range(0.9f, 1.4f);
+            reactiontime = Random.Range(0.3f, 0.5f);
             aggression = Random.Range(0.8f, 1.2f);
             fear = Random.Range(0.8f, 1.2f);
             targeter.FearModifier = fear;
@@ -101,15 +128,22 @@ public class AI_Femtanyl : NetworkBehaviour
 
     private void UpdateSyncing()
     {
+        eyemat.mainTexture = EyeTextures[(int)eyetex.Value];
         LefthandF.mesh = LefthandItem.Value.IsValid ? ItemDatabase.GetItem(LefthandItem.Value.ID.ToString()).HeldMesh : null;
         RighthandF.mesh = RighthandItem.Value.IsValid ? ItemDatabase.GetItem(RighthandItem.Value.ID.ToString()).HeldMesh : null;
         if(LefthandItem.Value.IsValid) { LefthandR.materials = ItemDatabase.GetItem(LefthandItem.Value.ID.ToString()).HeldMats; }
         if (RighthandItem.Value.IsValid) { RighthandR.materials = ItemDatabase.GetItem(RighthandItem.Value.ID.ToString()).HeldMats; }
         LeftHand.gameObject.SetActive(LefthandItem.Value.IsValid);
         RightHand.gameObject.SetActive(RighthandItem.Value.IsValid);
+        Leftear.localRotation = Quaternion.Lerp(Leftear.localRotation, Quaternion.Euler(-earrot.Value, 0, 0), Time.deltaTime*5);
+        Rightear.localRotation = Quaternion.Lerp(Rightear.localRotation, Quaternion.Euler(earrot.Value, 0, 0), Time.deltaTime * 5);
 
         if (IsOwner)
         {
+            eyetex.Value = GetFaceTexture;
+            currBlinkTime -= Time.deltaTime;
+            earrot.Value = GetEarRotation;
+            if (currBlinkTime <= 0) { currBlinkTime = eyeblinktime; }
             if (LeftHandPosition.Value != LeftHand.localPosition) { LeftHandPosition.Value = LeftHand.localPosition; }
             if (RightHandPosition.Value != RightHand.localPosition) { RightHandPosition.Value = RightHand.localPosition; }
             if (LeftHandRotation.Value != LeftHand.localEulerAngles) { LeftHandRotation.Value = LeftHand.localEulerAngles; }
@@ -175,7 +209,18 @@ public class AI_Femtanyl : NetworkBehaviour
             case FemtanylAIState.Fleeing:
                 FleeingUpdate();
                 break;
+            case FemtanylAIState.Reacting:
+                ReactingUpdate();
+                break;
         }
+    }
+
+    private void ReactingUpdate()
+    {
+        currReactionTime -= Time.deltaTime;
+        locomotor.Stop();
+        locomotor.SetTurnDirection(lookdirection);
+        if (currReactionTime <= 0) { locomotor.ResetTurnDirection(); state = nextState; }
     }
 
     void IdleUpdate()
@@ -236,7 +281,10 @@ public class AI_Femtanyl : NetworkBehaviour
         //check if we need to RUN TF AWAY
         if (targeter.GetScaredTargets.Count > 0 && targeter.GetFearFactor(targeter.TopScaredTarget) > FleeFearThreshold)
         {
-            state = FemtanylAIState.Fleeing;
+            state = FemtanylAIState.Reacting;
+            nextState = FemtanylAIState.Fleeing;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopScaredTarget.transform.position - transform.position).normalized;
             currFleeingTarget = targeter.TopScaredTarget;
             losttargetcooldown = Random.Range(5f, 10f);
             return;
@@ -245,7 +293,10 @@ public class AI_Femtanyl : NetworkBehaviour
         //check for offensive targets
         if (targeter.TopAggroTarget && (RighthandItem.Value.IsValid || LefthandItem.Value.IsValid))
         {
-            state = FemtanylAIState.FightingTarget;
+            state = FemtanylAIState.Reacting;
+            nextState = FemtanylAIState.FightingTarget;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopAggroTarget.transform.position - transform.position).normalized;
             currFightingTarget = targeter.TopAggroTarget;
             losttargetcooldown = Random.Range(5f, 10f);
             return;
@@ -287,7 +338,10 @@ public class AI_Femtanyl : NetworkBehaviour
         if (targeter.TopAggroTarget)
         {
             scoutcheckedforitems = false;
-            state = FemtanylAIState.ReturningWithNews;
+            state = FemtanylAIState.Reacting;
+            nextState = FemtanylAIState.ReturningWithNews;
+            lookdirection = (targeter.TopAggroTarget.transform.position - transform.position).normalized;
+            currReactionTime = reactiontime;
             newsPosition = targeter.TopAggroTarget.transform.position;
             scoutcooldown = Random.Range(120f, 180f);
             return;
@@ -340,8 +394,11 @@ public class AI_Femtanyl : NetworkBehaviour
 
         if (targeter.GetScaredTargets.Count > 0 && targeter.GetFearFactor(targeter.TopScaredTarget) > FleeFearThreshold)
         {
-            state = FemtanylAIState.Fleeing;
+            state = FemtanylAIState.Reacting;
             currFleeingTarget = targeter.TopScaredTarget;
+            nextState = FemtanylAIState.Fleeing;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopScaredTarget.transform.position - transform.position).normalized;
             return;
         }
     }
@@ -354,15 +411,21 @@ public class AI_Femtanyl : NetworkBehaviour
         RightHand.localRotation = Quaternion.identity;
         if (targeter.TopAggroTarget && (RighthandItem.Value.IsValid || LefthandItem.Value.IsValid))
         {
-            state = FemtanylAIState.FightingTarget;
+            state = FemtanylAIState.Reacting;
             currFightingTarget = targeter.TopAggroTarget;
             losttargetcooldown = Random.Range(5f, 10f);
+            nextState = FemtanylAIState.FightingTarget;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopAggroTarget.transform.position - transform.position).normalized;
             return;
         }
         if (targeter.GetScaredTargets.Count > 0 && targeter.GetFearFactor(targeter.TopScaredTarget) > FleeFearThreshold)
         {
-            state = FemtanylAIState.Fleeing;
+            state = FemtanylAIState.Reacting;
             currFleeingTarget = targeter.TopScaredTarget;
+            nextState = FemtanylAIState.Fleeing;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopScaredTarget.transform.position - transform.position).normalized;
             return;
         }
 
@@ -416,16 +479,22 @@ public class AI_Femtanyl : NetworkBehaviour
         RightHand.localRotation = Quaternion.identity;
         if (targeter.TopAggroTarget && (RighthandItem.Value.IsValid || LefthandItem.Value.IsValid))
         {
-            state = FemtanylAIState.FightingTarget;
+            state = FemtanylAIState.Reacting;
             currFightingTarget = targeter.TopAggroTarget;
             losttargetcooldown = Random.Range(5f, 10f);
+            nextState = FemtanylAIState.FightingTarget;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopAggroTarget.transform.position - transform.position).normalized;
             return;
         }
         if (targeter.GetScaredTargets.Count > 0 && targeter.GetFearFactor(targeter.TopScaredTarget) > FleeFearThreshold)
         {
-            state = FemtanylAIState.Fleeing;
+            state = FemtanylAIState.Reacting;
             currFleeingTarget = targeter.TopScaredTarget;
             losttargetcooldown = Random.Range(5f, 10f);
+            nextState = FemtanylAIState.Fleeing;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopScaredTarget.transform.position - transform.position).normalized;
             return;
         }
         var dist = (transform.position - wanderposition).sqrMagnitude;
@@ -526,9 +595,12 @@ public class AI_Femtanyl : NetworkBehaviour
 
         if (targeter.GetScaredTargets.Count > 0 && targeter.GetFearFactor(targeter.TopScaredTarget) > FleeFearThreshold*1.25f)
         {
-            state = FemtanylAIState.Fleeing;
+            state = FemtanylAIState.Reacting;
             losttargetcooldown = Random.Range(5f, 10f);
             currFleeingTarget = targeter.TopScaredTarget;
+            nextState = FemtanylAIState.Fleeing;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopScaredTarget.transform.position - transform.position).normalized;
             return;
         }
 
@@ -557,7 +629,7 @@ public class AI_Femtanyl : NetworkBehaviour
             (hand == 0 ? RightHand : LeftHand).SetLocalPositionAndRotation(new Vector3(0, Mathf.Lerp(0.1f, 0, currThrowWindup / throwwindup), Mathf.Lerp(-0.5f, 0, currThrowWindup / throwwindup)), Quaternion.Lerp(Quaternion.Euler(90, 0, 0), Quaternion.identity, currThrowWindup / throwwindup));
             if (currThrowWindup <= 0)
             {
-                var velocity = ((currFightingTarget.CentreOffset) - (transform.position + Vector3.up + 0.45f * transform.forward)).normalized * ThrowVelocity;
+                var velocity = ((currFightingTarget.GetPosition + currFightingTarget.GetVelocity) - (transform.position + Vector3.up + 0.45f * transform.forward)).normalized * ThrowVelocity;
                 var go = Instantiate(ItemDatabase.GetItem((hand == 0 ? RighthandItem.Value : LefthandItem.Value).ID.ToString()).ItemPrefab, transform.position + Vector3.up + 0.45f * transform.forward, Quaternion.identity);
                 go.NetworkObject.Spawn();
                 go.transform.up = velocity.normalized;
@@ -601,9 +673,12 @@ public class AI_Femtanyl : NetworkBehaviour
 
         if (targeter.TopAggroTarget && (RighthandItem.Value.IsValid || LefthandItem.Value.IsValid))
         {
-            state = FemtanylAIState.FightingTarget;
+            state = FemtanylAIState.Reacting;
             currFightingTarget = targeter.TopAggroTarget;
             losttargetcooldown = Random.Range(5f, 10f);
+            nextState = FemtanylAIState.FightingTarget;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopAggroTarget.transform.position - transform.position).normalized;
             return;
         }
 
@@ -656,8 +731,11 @@ public class AI_Femtanyl : NetworkBehaviour
 
         if (targeter.TopAggroTarget && (RighthandItem.Value.IsValid || LefthandItem.Value.IsValid))
         {
-            state = FemtanylAIState.FightingTarget;
+            state = FemtanylAIState.Reacting;
             currFightingTarget = targeter.TopAggroTarget;
+            nextState = FemtanylAIState.FightingTarget;
+            currReactionTime = reactiontime;
+            lookdirection = (targeter.TopAggroTarget.transform.position - transform.position).normalized;
             return;
         }
 

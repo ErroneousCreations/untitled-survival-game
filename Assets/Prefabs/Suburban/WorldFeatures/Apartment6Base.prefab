@@ -842,7 +842,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2169345240919658448}
-  - component: {fileID: 4765138177229761313}
+  - component: {fileID: 5650773350543244956}
   m_Layer: 3
   m_Name: FemtanylSpawnerSpawner (1)
   m_TagString: Untagged
@@ -865,7 +865,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6064148975952647805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4765138177229761313
+--- !u!114 &5650773350543244956
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -874,20 +874,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3492080636544236267}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d8cc3f42438816408fba1125b81be45, type: 3}
+  m_Script: {fileID: 11500000, guid: 771a23873d2d0466a9d0e1b7906ab663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Networked: 0
-  netSpawnPool: []
-  spawnPool:
-  - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
-  spawnPoints:
-  - {fileID: 2169345240919658448}
-  spawnProbability: 0.05
-  onlySpawnBeforeSave: 1
-  drawGizmos: 0
-  parentOnSpawnpoint: 0
-  onlyForServer: 1
+  SpawnIndex: femtanylspawn
 --- !u!1 &4035476881050111652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,7 +1836,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6607289336923453284}
-  - component: {fileID: 1912076814338454057}
+  - component: {fileID: 66758961780048430}
   m_Layer: 3
   m_Name: FemtanylSpawnerSpawner
   m_TagString: Untagged
@@ -1869,7 +1859,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6064148975952647805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1912076814338454057
+--- !u!114 &66758961780048430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1878,20 +1868,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8583390117319155516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d8cc3f42438816408fba1125b81be45, type: 3}
+  m_Script: {fileID: 11500000, guid: 771a23873d2d0466a9d0e1b7906ab663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Networked: 0
-  netSpawnPool: []
-  spawnPool:
-  - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
-  spawnPoints:
-  - {fileID: 6607289336923453284}
-  spawnProbability: 0.05
-  onlySpawnBeforeSave: 1
-  drawGizmos: 0
-  parentOnSpawnpoint: 0
-  onlyForServer: 1
+  SpawnIndex: femtanylspawn
 --- !u!1 &9123157488418446806
 GameObject:
   m_ObjectHideFlags: 0

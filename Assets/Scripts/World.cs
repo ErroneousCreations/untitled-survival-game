@@ -45,16 +45,29 @@ public class World : NetworkBehaviour
         [Tooltip("-1 is empty btw")] public List<int> SpawnPool;
     }
 
+    [System.Serializable]
+    public struct SpawnedWorldObject
+    {
+        public string SpawnLocationIndex;
+        public List<GameObject> spawnPool;
+        public Vector2Int SpawnAmount;
+        public bool RandomiseRotation;
+        public bool OnlyBeforeSave;
+    }
+
     [Header("World Features")]
     public List<RandomWorldFeature> worldFeatures; //local features
     public List<RandomNetWorldFeature> netWorldFeatures; //networked features
     public List<RaycastedRandomWorldFeature> raycastedWorldFeatures;
     [Header("Navigation")]
     public NavMeshSurface[] navMeshSurfaces; //navmesh surfaces to bake when the world is generated
+    [Header("Spawning")]
+    public List<SpawnedWorldObject> Spawned;
 
     //privates
     private List<List<WorldFeature>> spawnedWorldFeatures = new();
     private List<List<NetWorldFeature>> spawnedNetWorldFeatures = new();
+    private Dictionary<string, List<Transform>> spawnLocations = new();
     private System.Random rand;
     private static World instance;
     private int seed;
@@ -64,6 +77,12 @@ public class World : NetworkBehaviour
 
     public static Vector3 WindDirection { get; private set; }
     public static float WindIntensity { get; private set; }
+
+    public static void RegisterSpawnLocation(string id, Transform pos)
+    {
+        if (instance.spawnLocations.ContainsKey(id)) { instance.spawnLocations[id].Add(pos); }
+        else { instance.spawnLocations.Add(id, new() { pos }); }
+    }
 
     /// <summary>
     /// Multiplier for the sway intensity of foliage mateirals (mostly on trees)
@@ -145,6 +164,9 @@ public class World : NetworkBehaviour
         GenerateWorld();
     }
 
+    /// <summary>
+    /// called on client from the saving manager
+    /// </summary>
     public void Init(int seed, string[] worldfeatures)
     {
         //initialise tree swaying stuff
@@ -156,14 +178,13 @@ public class World : NetworkBehaviour
 
         LoadingFromSave = true;
         rand = new System.Random(seed);
+        Loading = true;
+        MenuController.ToggleLoadingScreen(true);
 
         LoadWorldFeatures(worldfeatures);
         LoadRaycastedWorldFeatures(worldfeatures);
 
-        for (int i = 0; i < navMeshSurfaces.Length; i++)
-        {
-            navMeshSurfaces[i].BuildNavMesh();
-        }
+        StartCoroutine(DoWorldSpawned());
     }
 
     public void LoadNetWorldFeatures(string[] loadedfeatures)
@@ -262,9 +283,6 @@ public class World : NetworkBehaviour
             navMeshSurfaces[i].BuildNavMesh();
             yield return null;
         }
-
-        Loading = false;
-        MenuController.ToggleLoadingScreen(false);
     }
 
     [Rpc(SendTo.Everyone)]
@@ -274,6 +292,7 @@ public class World : NetworkBehaviour
         MenuController.ToggleLoadingScreen(true);
         rand = new System.Random(seed);
         this.seed = seed;
+        spawnLocations = new();
 
         Random.InitState(seed);
         var dir = Random.insideUnitCircle.normalized;
@@ -339,12 +358,40 @@ public class World : NetworkBehaviour
     {
         yield return StartCoroutine(GenerateWorldFeaturesCoroutine()); //wait for it to be done btw
         yield return null;
-        StartCoroutine(GenerateRaycastedWorldFeaturesCoroutine());
+        yield return StartCoroutine(GenerateRaycastedWorldFeaturesCoroutine());
         if (IsOwner)
         {
             yield return null;
-            StartCoroutine(GenerateNavMeshesCoroutine());
+            yield return StartCoroutine(GenerateNavMeshesCoroutine());
+            StartCoroutine(DoWorldSpawned());
         }
+        else { StartCoroutine(DoWorldSpawned()); }
+    }
+
+    private IEnumerator DoWorldSpawned()
+    {
+        var k = 0;
+        foreach (var spawn in Spawned)
+        {
+            if (!spawnLocations.ContainsKey(spawn.SpawnLocationIndex)) { k++; continue; }
+            if(LoadingFromSave && spawn.OnlyBeforeSave) { k++; continue; }
+            Random.InitState(seed + k);
+            var amount = Random.Range(spawn.SpawnAmount.x, spawn.SpawnAmount.y + 1);
+            List<int> usedindexes = new();
+            for (int i = 0; i < amount; i++)
+            {
+                if(usedindexes.Count >= spawnLocations[spawn.SpawnLocationIndex].Count) { break; }
+                var spawnindex = Random.Range(0, spawnLocations[spawn.SpawnLocationIndex].Count);
+                while (usedindexes.Contains(spawnindex)) { spawnindex = Random.Range(0, spawnLocations[spawn.SpawnLocationIndex].Count); }
+                usedindexes.Add(spawnindex);
+                Instantiate(spawn.spawnPool[Random.Range(0, spawn.spawnPool.Count)], spawnLocations[spawn.SpawnLocationIndex][spawnindex].position, spawn.RandomiseRotation ? Quaternion.Euler(0, Random.Range(0, 360), 0) : spawnLocations[spawn.SpawnLocationIndex][spawnindex].rotation);
+            }
+            k++;
+            yield return null;
+        }
+
+        Loading = false;
+        MenuController.ToggleLoadingScreen(false);
     }
 
     private IEnumerator GenerateRaycastedWorldFeaturesCoroutine()
@@ -406,12 +453,6 @@ public class World : NetworkBehaviour
             // Dispose the buffers
             results.Dispose();
             commands.Dispose();
-        }
-
-        if (!IsServer)
-        {
-            Loading = false;
-            MenuController.ToggleLoadingScreen(false);
         }
     }
 
