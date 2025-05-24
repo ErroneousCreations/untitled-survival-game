@@ -13,7 +13,7 @@ public class Shield : ScriptableObject, IItemBehaviour
     public float AttackForwardAmount = 0.75f;
 
     [Header("Melee Stats")]
-    public float Damage;
+    public float Damage, Stun;
     [Tooltip("From camera, ray length")] public float Range = 1f;
 
     [Header("Shield Stats")]
@@ -88,6 +88,10 @@ public class Shield : ScriptableObject, IItemBehaviour
                     return;
                 }
                 ph.ApplyDamage(Damage, DamageType.Blunt, hit.point, hit.normal, false);
+            }
+            else if (hit.collider.TryGetComponent(out HealthBodyPart hp))
+            {
+                hp.TakeDamage(Damage, Stun, DamageType.Blunt, hit.point, hit.normal);
             }
         }
     }

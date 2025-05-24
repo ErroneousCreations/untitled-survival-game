@@ -13,6 +13,11 @@ public class SavedObject : MonoBehaviour
     public UnityEngine.Events.UnityEvent DataLoaded;
     public UnityEngine.Events.UnityEvent<List<string>> DataLoaded_Data;
 
+    /// <summary>
+    /// Gets if the Init function was called by SavingManager, never called when not loading from a save
+    /// </summary>
+    public bool GetLoaded { get; private set; } = false;
+
     private void OnEnable()
     {
         SAVEDOBJECTS.Add(this);
@@ -25,6 +30,7 @@ public class SavedObject : MonoBehaviour
 
     public void Init(List<string> saveddata, Vector3 pos, Vector3 rot)
     {
+        GetLoaded = true;
         transform.SetPositionAndRotation(pos, Quaternion.Euler(rot));
         SavedData = new(saveddata);
         OnDataLoaded?.Invoke();

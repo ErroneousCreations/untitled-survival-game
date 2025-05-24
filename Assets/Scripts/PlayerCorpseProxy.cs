@@ -195,11 +195,8 @@ public class PlayerCorpseProxy : NetworkBehaviour
         // Spawn logic should be synced
         var go = Instantiate(ItemDatabase.GetItem(item.ID.ToString()).ItemPrefab, position, Quaternion.identity);
         go.NetworkObject.Spawn();
-        go.CurrentSavedData = new();
-        foreach (var data in item.SavedData)
-        {
-            go.CurrentSavedData.Add(data.ToString());
-        }
+        go.InitSavedData(item.SavedData);
+
     }
 
     private void Update()

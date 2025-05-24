@@ -4110,7 +4110,7 @@ MonoBehaviour:
   HungerDepleteTime: 900
   HungerMax: 1.25
   bleedRatePerWound: 0.005
-  shockIncreasePerWound: 120
+  shockIncreasePerWound: 240
   instantShockIncrease: 0.004
   shockReduceRate: 210
   consciousnessRegenRate: 120

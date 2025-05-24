@@ -9445,8 +9445,9 @@ MonoBehaviour:
     spawnPool:
     - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
     SpawnAmount: {x: 9, y: 12}
-    RandomiseRotation: 1
+    RandomiseRotation: 0
     OnlyBeforeSave: 1
+    OnlyForServer: 1
 --- !u!114 &-3752908936989674390
 MonoBehaviour:
   m_ObjectHideFlags: 0

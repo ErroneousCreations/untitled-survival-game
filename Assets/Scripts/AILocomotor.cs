@@ -159,7 +159,7 @@ public class AILocomotor : MonoBehaviour
         rb.AddForce(force, ForceMode.Acceleration);
 
         // Rotate to face movement
-        if (faceMovement && !isTurning && rb.linearVelocity.sqrMagnitude > 0.1f)
+        if (faceMovement && !isTurning && dir.sqrMagnitude > 0.25f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(desiredDir);
             Quaternion deltaRotation = targetRotation * Quaternion.Inverse(transform.rotation);

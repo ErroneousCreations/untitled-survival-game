@@ -14,7 +14,7 @@ public class PickupableItem : Interactible
     public NetworkList<FixedString128Bytes> CurrentSavedData = new(writePerm: NetworkVariableWritePermission.Server, readPerm: NetworkVariableReadPermission.Everyone);
     public Rigidbody rb;
     public List<Collider> colliders;
-    public float DamagePerVelocity = 2, MaxThrowFlyTime;
+    public float DamagePerVelocity = 2, StunPerVelocity = 0.1f, MaxThrowFlyTime;
     public Vector3 HitRegSize;
     public bool FaceThrown, StickIntoPlayers;
     public DamageType Type;
@@ -136,6 +136,15 @@ public class PickupableItem : Interactible
                     thrower.Value = 0;
                     IsThrown = false;
                     ph.ApplyDamage(rb.linearVelocity.magnitude * DamagePerVelocity, Type, hit.point, hit.normal, StickIntoPlayers, ItemDatabase.GetItem(itemCode).Name, ConvertToItemData);
+                    if (StickIntoPlayers) { DestroyItem(); }
+                    else { Vector3 vel = rb.linearVelocity; rb.linearVelocity = Vector3.zero; rb.linearVelocity = 0.25f * vel.magnitude * -hit.normal; }
+                }
+                else if(hit.collider.TryGetComponent(out HealthBodyPart hp))
+                {
+                    var spd = rb.linearVelocity.magnitude;
+                    hp.TakeDamage(spd * DamagePerVelocity, spd * StunPerVelocity, Type, hit.point, hit.normal, StickIntoPlayers, ConvertToItemData);
+                    thrower.Value = 0;
+                    IsThrown = false;
                     if (StickIntoPlayers) { DestroyItem(); }
                     else { Vector3 vel = rb.linearVelocity; rb.linearVelocity = Vector3.zero; rb.linearVelocity = 0.25f * vel.magnitude * -hit.normal; }
                 }

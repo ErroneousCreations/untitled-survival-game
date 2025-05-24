@@ -706,6 +706,8 @@ GameObject:
   - component: {fileID: -3753293093806743543}
   - component: {fileID: 8658247353726662644}
   - component: {fileID: 1343742214335439988}
+  - component: {fileID: 3633660691485679775}
+  - component: {fileID: 7754059738197054235}
   m_Layer: 6
   m_Name: Femtanyl
   m_TagString: WorldObject
@@ -880,7 +882,8 @@ MonoBehaviour:
   FleeFearThreshold: 1
   SearchForTargetRange: 8
   ThrowRange: 12
-  ThrowVelocity: 19
+  ThrowVelocity: 17
+  health: {fileID: 0}
   SkinColourGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.9927333, b: 0.7311321, a: 1}
@@ -991,13 +994,13 @@ MonoBehaviour:
   CanSee: 1
   EyesPosition: {fileID: 4636867748778098247}
   ViewRange: 50
-  ViewAngle: 70
+  ViewAngle: 89
   ViewMask:
     serializedVersion: 2
     m_Bits: 200
-  CanHear: 0
-  HearRange: 0
-  HearingPower: 0
+  CanHear: 1
+  HearRange: 40
+  HearingPower: 0.5
   HeardSound:
     m_PersistentCalls:
       m_Calls: []
@@ -1012,7 +1015,7 @@ MonoBehaviour:
     _serializedList:
     - Key: axolotl
       Value:
-        Fear: 0.1
+        Fear: 0.2
         Aggression: 0.6
         Ignore: 0
     - Key: femtanyl
@@ -1020,6 +1023,69 @@ MonoBehaviour:
         Fear: 0
         Aggression: 0
         Ignore: 1
+--- !u!114 &3633660691485679775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731325250863673971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 885c9fc2ea94b5a4f820fd1e9194e215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  MaxHealth: 100
+  DeathChanceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.0008544922
+      inSlope: 0.01259164
+      outSlope: 0.01259164
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.013600161
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.2026925
+      outSlope: 3.2026925
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.033138394
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Corpse: {fileID: 0}
+  StunResistance: 0
+  StunThreshold: 3
+  Parts:
+  - {fileID: 7754059738197054235}
+--- !u!114 &7754059738197054235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5731325250863673971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ebfb3abddda1f4da39675525995380, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageModifier: 1
+  StunModifier: 1
+  health: {fileID: 3633660691485679775}
+  ModifierAreas:
+  - Position: {x: 0, y: 1.54, z: 0}
+    Size: 0.45
+    DamageModifier: 1.5
+    StunModifier: 2
 --- !u!1 &6245712610641838472
 GameObject:
   m_ObjectHideFlags: 0

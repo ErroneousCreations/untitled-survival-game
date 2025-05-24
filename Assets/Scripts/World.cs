@@ -52,7 +52,7 @@ public class World : NetworkBehaviour
         public List<GameObject> spawnPool;
         public Vector2Int SpawnAmount;
         public bool RandomiseRotation;
-        public bool OnlyBeforeSave;
+        public bool OnlyBeforeSave, OnlyForServer;
     }
 
     [Header("World Features")]
@@ -374,7 +374,8 @@ public class World : NetworkBehaviour
         foreach (var spawn in Spawned)
         {
             if (!spawnLocations.ContainsKey(spawn.SpawnLocationIndex)) { k++; continue; }
-            if(LoadingFromSave && spawn.OnlyBeforeSave) { k++; continue; }
+            if(!NetworkManager.Singleton.IsServer && spawn.OnlyForServer) { k++; continue; }
+            if (LoadingFromSave && spawn.OnlyBeforeSave) { k++; continue; }
             Random.InitState(seed + k);
             var amount = Random.Range(spawn.SpawnAmount.x, spawn.SpawnAmount.y + 1);
             List<int> usedindexes = new();

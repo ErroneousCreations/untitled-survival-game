@@ -14,6 +14,7 @@ public struct Item
     /// </summary>
     public float Volume;
     public float ScareFactor;
+    public ItemTypeEnum ItemType;
     public List<string> BaseSavedData;
     public PickupableItem ItemPrefab;
     [SerializeField] private Object _itemBehaviour;

@@ -13,7 +13,7 @@ public class Axe : ScriptableObject, IItemBehaviour
     public float AttackForwardAmount = 0.75f;
 
     [Header("Melee Stats")]
-    public float Damage;
+    public float Damage, Stun;
     public DamageType Type;
     [Tooltip("From camera, ray length")] public float Range = 1f;
     public float WorldBreakableDamage;
@@ -75,6 +75,10 @@ public class Axe : ScriptableObject, IItemBehaviour
                     return;
                 }
                 ph.ApplyDamage(Damage, Type, hit.point, hit.normal, false);
+            }
+            else if (hit.collider.TryGetComponent(out HealthBodyPart hp))
+            {
+                hp.TakeDamage(Damage, Stun, Type, hit.point, hit.normal);
             }
             else if (hit.collider.transform.parent.TryGetComponent(out WorldFeature wf) && wf.Destroyable)
             {
