@@ -14,6 +14,7 @@ public class AI_Femtanyl : NetworkBehaviour
     public float IdleWanderRange;
     public float ScoutRange, GetItemRange, FleeFearThreshold, SearchForTargetRange, ThrowRange = 5, ThrowVelocity;
     public Health health;
+    public Collider coll;
 
     [Header("Visuals")]
     public Gradient SkinColourGradient;
@@ -33,6 +34,7 @@ public class AI_Femtanyl : NetworkBehaviour
     private NetworkVariable<Vector3> LeftHandPosition = new(), RightHandPosition = new();
     private NetworkVariable<Vector3> LeftHandRotation = new(), RightHandRotation = new();
     private NetworkVariable<float> eyetex = new(), earrot = new();
+    private float tookDamageTime;
 
     public ItemData GetLefthandItem => LefthandItem.Value;
     public ItemData GetRighthandItem => RighthandItem.Value;
@@ -65,6 +67,9 @@ public class AI_Femtanyl : NetworkBehaviour
             int face = 0;
             if(currBlinkTime <= 0.15f) { face = 1; }
             if(state == FemtanylAIState.Fleeing) { face = 1; }
+            if(health.GetNormalisedHealth <= 0.1f) { face = 1; } //scared, close eyes
+            if(tookDamageTime > 0) { face = 1; }
+            if(health.GetStunned) { face = 1; } //stunned, eyes closed
             return face;
         }
     }
@@ -76,28 +81,33 @@ public class AI_Femtanyl : NetworkBehaviour
             float rot = 0;
             if (state == FemtanylAIState.Reacting) { rot = 20; }
             if (state == FemtanylAIState.Fleeing) { rot = 40; }
+            if (tookDamageTime > 0) { rot = 30; }
+            if (health.GetStunned) { rot = 30; } //stunned, lower ears
+            if (health.GetNormalisedHealth <= 0.25f) { rot = 40; } //scared, lower ears
             return rot;
         }
     }
 
     //characteristics
-    private float speedmod = 1, eyeblinktime = 2.5f, throwwindup = 2f, reactiontime = 0.5f, aggression = 1, fear = 1, inaccuracy;
+    private float speedmod = 1, eyeblinktime = 2.5f, throwwindup = 2f, reactiontime = 0.5f, aggression = 1, fear = 1, inaccuracy, paintolerance;
     //other privates
     private FemtanylAIState nextState;
     private PickupableItem currItemTarget;
-    private float scoutcooldown, checkItemCooldown, currThrowWindup, currBlinkTime, currReactionTime, currGiveUpTime;
+    private float scoutcooldown, checkItemCooldown, currThrowWindup, currBlinkTime, currReactionTime, currGiveUpTime, healingCooldown;
     private Vector3 homelocation, wanderposition, newsPosition, lookdirection;
     private bool scout, scoutcheckedforitems;
     private AITarget currFightingTarget, currFleeingTarget;
     private Vector3 lastseenpos;
     private float losttargetcooldown = 0;
     private Material eyemat;
+    private bool tooScaredToEngage;
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
         eyemat = EyeRenderer.material;
-        if (IsOwner) { 
+        if (IsOwner) {
+            health.OnTakeDamage += (_, _, _) => OnTakeDamage();
             SyncIDRPC(ID);
             Random.InitState(ID);
             speedmod = Random.Range(0.96f, 1.05f);
@@ -105,6 +115,7 @@ public class AI_Femtanyl : NetworkBehaviour
             throwwindup = Random.Range(0.9f, 1.4f);
             reactiontime = Random.Range(0.5f, 0.8f);
             aggression = Random.Range(0.8f, 1.2f);
+            paintolerance = Random.Range(0.1f, 0.8f);
             fear = Random.Range(0.8f, 1.2f);
             inaccuracy = Random.Range(0.1f, 0.4f);
             targeter.FearModifier = fear;
@@ -178,13 +189,30 @@ public class AI_Femtanyl : NetworkBehaviour
         }
     }
 
+    private float GetFearFromHealth => health.GetHealth < 0 ? 10 : Mathf.Lerp(3, 0, health.GetNormalisedHealth);
+
+    private void OnTakeDamage()
+    {
+        tookDamageTime = 0.5f;
+        if (health.GetNormalisedHealth < paintolerance) { state = FemtanylAIState.Retreating; tooScaredToEngage = true; }
+        healingCooldown = 30;
+    }
+
     private void Update()
     {
         if(!IsSpawned) { return; }
         UpdateSyncing();
         if (!IsOwner) { return; }
-        targeter.FearModifier = fear + GetFearFromItems; //update the fear modifier based on if we are holding items (scaredy if we dont have any)
+        locomotor.StandingUp = !health.GetStunned;
+        targeter.FearModifier = fear + GetFearFromItems + GetFearFromHealth; //update the fear modifier based on if we are holding items (scaredy if we dont have any)
         targeter.AggressionModifier = aggression;
+        if(tookDamageTime > 0) { tookDamageTime -= Time.deltaTime; }
+        if(healingCooldown > 0) { healingCooldown -= Time.deltaTime; }
+        else
+        {
+            health.Heal(health.MaxHealth*0.02f * Time.deltaTime); //heal 0.1% of health per second
+        }
+        if (health.GetStunned) { return; }
         switch (state)
         {
             case FemtanylAIState.Idle:
@@ -424,7 +452,7 @@ public class AI_Femtanyl : NetworkBehaviour
         RightHand.localPosition = Vector3.zero;
         LeftHand.localRotation = Quaternion.identity;
         RightHand.localRotation = Quaternion.identity;
-        if (targeter.TopAggroTarget && (RighthandItem.Value.IsValid || LefthandItem.Value.IsValid))
+        if (targeter.TopAggroTarget && (RighthandItem.Value.IsValid || LefthandItem.Value.IsValid) && !tooScaredToEngage)
         {
             state = FemtanylAIState.Reacting;
             currFightingTarget = targeter.TopAggroTarget;
@@ -447,6 +475,7 @@ public class AI_Femtanyl : NetworkBehaviour
         locomotor.SetDestination(homelocation);
         if ((transform.position - homelocation).sqrMagnitude < IdleWanderRange*IdleWanderRange)
         {
+            tooScaredToEngage = false; //reset the too scared to engage flag
             state = FemtanylAIState.Idle;
             wanderposition = homelocation + Extensions.RandomCircle * IdleWanderRange;
             locomotor.SetDestination(wanderposition);
@@ -458,6 +487,7 @@ public class AI_Femtanyl : NetworkBehaviour
         if (checkItemCooldown <= 0)
         {
             checkItemCooldown = Random.Range(1.5f, 3f);
+            if(tooScaredToEngage) { return; } //if we are too scared to engage, we dont look for items
             //make sure we have a free hand
             if (!LefthandItem.Value.IsValid || !RighthandItem.Value.IsValid)
             {
@@ -637,8 +667,9 @@ public class AI_Femtanyl : NetworkBehaviour
             return;
         }
 
-        locomotor.SetDestination(lastseenpos);
         var dist = (transform.position - currFightingTarget.transform.position).sqrMagnitude;
+        if(dist > 4 || !visible) { locomotor.SetDestination(lastseenpos); }
+        else {locomotor.Stop(); }
         if (dist < ThrowRange * ThrowRange && visible)
         {
             var hand = RighthandItem.Value.IsValid ? 0 : 1;
@@ -648,23 +679,24 @@ public class AI_Femtanyl : NetworkBehaviour
             {
                 var isblunt = ItemDatabase.GetItem((hand == 0 ? RighthandItem : LefthandItem).Value.ID.ToString()).ItemType == ItemTypeEnum.ThrowingBluntWeapon;
                 var rootdist = Mathf.Sqrt(dist);
-                var aboveamount = (isblunt ? 1.4f : 1) * (rootdist / 12) * Vector3.up;
+                var aboveamount = (isblunt ? 2.7f : 1.3f) * (rootdist / 12) * Vector3.up;
                 var forwardamount = (isblunt ? 0.86f : 0.25f) * (rootdist / 10) * currFightingTarget.GetVelocity;
-                var targetpos = (currFightingTarget.GetPosition + forwardamount + aboveamount) + Random.insideUnitSphere*inaccuracy;
+                var targetpos = (currFightingTarget.GetPosition + forwardamount + aboveamount) + Random.insideUnitSphere * inaccuracy;
                 var velocity = (isblunt ? 0.6f : 1) * ThrowVelocity * (targetpos - (transform.position + Vector3.up + 0.45f * transform.forward)).normalized;
                 var go = Instantiate(ItemDatabase.GetItem((hand == 0 ? RighthandItem.Value : LefthandItem.Value).ID.ToString()).ItemPrefab, transform.position + Vector3.up + 0.45f * transform.forward, Quaternion.identity);
                 go.NetworkObject.Spawn();
                 go.transform.up = velocity.normalized;
                 go.rb.linearVelocity = velocity;
                 go.rb.angularVelocity = Vector3.zero;
-                go.InitThrown();
+                go.InitThrown(coll);
                 go.InitSavedData((hand == 0 ? RighthandItem.Value : LefthandItem.Value).SavedData);
                 (hand == 0 ? RighthandItem : LefthandItem).Value = ItemData.Empty;
                 (hand == 0 ? RightHand : LeftHand).DOLocalMove(Vector3.zero, 0.25f);
                 currThrowWindup = throwwindup;
             }
         }
-        else {
+        else
+        {
             currThrowWindup = throwwindup;
             LeftHand.localPosition = Vector3.zero;
             RightHand.localPosition = Vector3.zero;

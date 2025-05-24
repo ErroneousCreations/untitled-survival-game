@@ -164,7 +164,7 @@ public class SavingManager : NetworkBehaviour
             foreach (var item in SavedObject.SAVEDOBJECTS)
             {
                 var saved = StrListToString(item.SavedData);
-                savedata += $"{item.SavedObjectID},{Extensions.VecToString(item.transform.position)},{Extensions.VecToString(item.transform.eulerAngles)}{(saved.Length > 0 ? ","+saved : "")}\\";
+                savedata += $"{item.SavedObjectID},{Extensions.VecToString(item.transform.position, ",")} , {Extensions.VecToString(item.transform.eulerAngles, ",")}{(saved.Length > 0 ? ","+saved : "")}\\";
             }
             savedata = savedata[..^1];
         }
@@ -229,7 +229,7 @@ public class SavingManager : NetworkBehaviour
         foreach (var item in PickupableItem.ITEMS)
         {
             var saved = SavedItemDataToString(item.CurrentSavedData);
-            savedata += $"{item.itemCode},{Extensions.VecToString(item.transform.position)},{Extensions.VecToString(item.transform.eulerAngles)}{(saved.Length > 0 ? ","+saved : "")}\\";
+            savedata += $"{item.itemCode},{Extensions.VecToString(item.transform.position, ",")} , {Extensions.VecToString(item.transform.eulerAngles, ",")}{(saved.Length > 0 ? ","+saved : "")}\\";
             addedanything = true;
         }
         foreach (var corpse in PlayerCorpseProxy.CORPSES) //save embedded items from corpses :3
@@ -263,7 +263,7 @@ public class SavingManager : NetworkBehaviour
             foreach (var item in SavedNetObject.SAVEDNETOBJECTS)
             {
                 var saved = SavedItemDataToString(item.SavedData);
-                savedata += $"{item.SavedObjectID},{Extensions.VecToString(item.transform.position)},{Extensions.VecToString(item.transform.eulerAngles)}{(saved.Length > 0 ? "," + saved : "")}\\";
+                savedata += $"{item.SavedObjectID},{Extensions.VecToString(item.transform.position, ",")},{Extensions.VecToString(item.transform.eulerAngles, ",")}{(saved.Length > 0 ? "," + saved : "")}\\";
             }
             savedata = savedata[..^1];
         }

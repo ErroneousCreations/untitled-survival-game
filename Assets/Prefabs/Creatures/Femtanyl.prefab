@@ -883,22 +883,23 @@ MonoBehaviour:
   SearchForTargetRange: 8
   ThrowRange: 12
   ThrowVelocity: 17
-  health: {fileID: 0}
+  health: {fileID: 3633660691485679775}
+  coll: {fileID: 1214964031899247643}
   SkinColourGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0.9927333, b: 0.7311321, a: 1}
-    key1: {r: 0.8403597, g: 0.7311321, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 1, g: 0.9913613, b: 0.7028302, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0.6462264, g: 0.9634027, b: 1, a: 0}
+    key3: {r: 0.5424528, g: 1, b: 0.57547176, a: 0}
+    key4: {r: 0.77917534, g: 0.6273585, b: 1, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
+    ctime1: 15035
+    ctime2: 33539
+    ctime3: 48766
+    ctime4: 65535
     ctime5: 0
     ctime6: 0
     ctime7: 0
@@ -912,22 +913,22 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_ColorSpace: 0
-    m_NumColorKeys: 2
+    m_NumColorKeys: 5
     m_NumAlphaKeys: 2
   ClothesColourGradient:
     serializedVersion: 2
     key0: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
+    key1: {r: 0.764151, g: 0.5298594, b: 0.5298594, a: 1}
+    key2: {r: 0.6698113, g: 0.60590816, b: 0.48972055, a: 0}
+    key3: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 7132
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
+    ctime1: 30262
+    ctime2: 47417
+    ctime3: 65535
     ctime4: 0
     ctime5: 0
     ctime6: 0
@@ -942,7 +943,7 @@ MonoBehaviour:
     atime7: 0
     m_Mode: 0
     m_ColorSpace: 0
-    m_NumColorKeys: 2
+    m_NumColorKeys: 4
     m_NumAlphaKeys: 2
   model: {fileID: 2278140075317487527}
   BodyRenderer: {fileID: 4326499595566188688}
@@ -1061,7 +1062,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Corpse: {fileID: 0}
+  Corpse: {fileID: 89690372261719815, guid: 1e5768e45837e4648a466726e2cc748c, type: 3}
   StunResistance: 0
   StunThreshold: 3
   Parts:
@@ -1081,6 +1082,7 @@ MonoBehaviour:
   DamageModifier: 1
   StunModifier: 1
   health: {fileID: 3633660691485679775}
+  PartIndex: 0
   ModifierAreas:
   - Position: {x: 0, y: 1.54, z: 0}
     Size: 0.45

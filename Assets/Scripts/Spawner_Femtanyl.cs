@@ -67,7 +67,7 @@ public class Spawner_Femtanyl : BaseCreatureSpawner<AI_Femtanyl>
         base.OnRespawn();
         for (int i = 0; i < enemyCount - mySaver.SavedData.Count - 1; i++)
         {
-            var data = $"{Extensions.VecToString(transform.position + Extensions.RandomCircle*SpawnRange)}|{Random.Range(0, 9999)}|{!hasScout}|null|null|null";
+            var data = $"{Extensions.VecToString(transform.position + Extensions.RandomCircle*SpawnRange, "|")}|{Random.Range(0, 9999)}|{!hasScout}|null|null|null";
             mySaver.SavedData.Add(data);
             if (spawned) { LoadCreature(0, data.Split('|')); } //spawn the actual creature if we want to do that
             if (!hasScout) { hasScout = true; } // Set hasScout to true after we spawn a new scout
@@ -93,7 +93,7 @@ public class Spawner_Femtanyl : BaseCreatureSpawner<AI_Femtanyl>
             if(i+1 >= mySaver.SavedData.Count) { mySaver.SavedData.Add(""); } //ensure it exists
             if (spawnedCreatures[i] != null)
             {
-                mySaver.SavedData[i + 1] = $"{Extensions.VecToString(spawnedCreatures[i].transform.position)}|{spawnedCreatures[i].GetID}|{(spawnedCreatures[i].GetIsScout ? "1" : "0")}|{spawnedCreatures[i].GetRighthandItem}|{spawnedCreatures[i].GetLefthandItem}|{spawnedCreatures[i].health.GetSavedData}";
+                mySaver.SavedData[i + 1] = $"{Extensions.VecToString(spawnedCreatures[i].transform.position, "|")}|{spawnedCreatures[i].GetID}|{(spawnedCreatures[i].GetIsScout ? "1" : "0")}|{spawnedCreatures[i].GetRighthandItem}|{spawnedCreatures[i].GetLefthandItem}|{spawnedCreatures[i].health.GetSavedData}";
             }
             else
             {

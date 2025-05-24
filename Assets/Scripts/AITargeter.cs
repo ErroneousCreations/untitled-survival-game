@@ -101,7 +101,8 @@ public class AITargeter : MonoBehaviour
                 var aggression = relation.Aggression * AggressionModifier * target.AggroModifier;
                 if (fear > aggression) { scaredOf.Add(target); }
                 else { aggressiveTo.Add(target); }
-                foundvalues.Add(target, new Vector3(dist, fear, aggression));
+                if(!foundvalues.ContainsKey(target)) //if we haven't already added this target from vision
+                    foundvalues.Add(target, new Vector3(dist, fear, aggression));
             }
 
             aggressiveTo.Sort((a,b) => { return SortAggressiveTargets(a, b, foundvalues); });

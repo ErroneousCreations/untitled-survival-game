@@ -24,6 +24,7 @@ public class PickupableItem : Interactible
     private bool IsThrown;
     private float currDisableThrowTime = 0, ignoreThrowerTime;
     private Vector3 lastPos;
+    private Collider creatureThrower;
 
     public static List<PickupableItem> ITEMS = new();
 
@@ -57,13 +58,14 @@ public class PickupableItem : Interactible
     /// <summary>
     /// For when a creature throws it
     /// </summary>
-    public void InitThrown()
+    public void InitThrown(Collider coll)
     {
         IsThrown = true;
         currDisableThrowTime = MaxThrowFlyTime;
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         thrower.Value = ulong.MaxValue;
         ignoreThrowerTime = 0f;
+        creatureThrower = coll;
     }
 
     public void InitSavedData()
@@ -130,6 +132,7 @@ public class PickupableItem : Interactible
                         Vector3 vel = rb.linearVelocity; rb.linearVelocity = Vector3.zero; rb.linearVelocity = 0.25f * vel.magnitude * -hit.normal;
                         thrower.Value = 0;
                         IsThrown = false;
+                        creatureThrower = null; //reset creature thrower so we dont hit the same creature again
                         return;
                     }
 
@@ -139,12 +142,13 @@ public class PickupableItem : Interactible
                     if (StickIntoPlayers) { DestroyItem(); }
                     else { Vector3 vel = rb.linearVelocity; rb.linearVelocity = Vector3.zero; rb.linearVelocity = 0.25f * vel.magnitude * -hit.normal; }
                 }
-                else if(hit.collider.TryGetComponent(out HealthBodyPart hp))
+                else if((hit.collider != creatureThrower || currDisableThrowTime <= 0) && hit.collider.TryGetComponent(out HealthBodyPart hp))
                 {
                     var spd = rb.linearVelocity.magnitude;
                     hp.TakeDamage(spd * DamagePerVelocity, spd * StunPerVelocity, Type, hit.point, hit.normal, StickIntoPlayers, ConvertToItemData);
                     thrower.Value = 0;
                     IsThrown = false;
+                    creatureThrower = null; //reset creature thrower so we dont hit the same creature again
                     if (StickIntoPlayers) { DestroyItem(); }
                     else { Vector3 vel = rb.linearVelocity; rb.linearVelocity = Vector3.zero; rb.linearVelocity = 0.25f * vel.magnitude * -hit.normal; }
                 }

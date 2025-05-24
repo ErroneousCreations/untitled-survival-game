@@ -1,10 +1,6 @@
 using Unity.Netcode;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
-using static Unity.Collections.AllocatorManager;
-using static UnityEditor.PlayerSettings;
-using static UnityEditor.Progress;
 
 public class Health : NetworkBehaviour
 {
@@ -12,10 +8,17 @@ public class Health : NetworkBehaviour
 
     private float _currentHealth = 0;
     public float GetHealth => _currentHealth;
+    public float GetNormalisedHealth => Mathf.Clamp01(_currentHealth / MaxHealth);
     public AnimationCurve DeathChanceCurve;
     public NetworkObject Corpse;
     public float StunResistance, StunThreshold;
     public List<HealthBodyPart> Parts;
+
+    /// <summary>
+    /// Damage, Stunamount, Is Embedded
+    /// </summary>
+    public System.Action<float, float, bool> OnTakeDamage;
+
     public bool GetStunned => stunTime > StunThreshold;
     private float stunTime;
     private Dictionary<int,Wound> _wounds = new Dictionary<int,Wound>();
@@ -37,7 +40,7 @@ public class Health : NetworkBehaviour
 
         public Wound(string data)
         {
-            var split = data.Split('&');
+            var split = data.Split('`');
             embeddedItem = new ItemData(split[0]);
             Part = int.Parse(split[1]);
             localPosition = new Vector3(float.Parse(split[2]), float.Parse(split[3]), float.Parse(split[4]));
@@ -46,11 +49,24 @@ public class Health : NetworkBehaviour
 
         public override string ToString()
         {
-            return $"{embeddedItem.ID}`{Part}`{Extensions.VecToString(localPosition)}`{Extensions.VecToString(localRotation)}";
+            return $"{embeddedItem.ID}`{Part}`{Extensions.VecToString(localPosition, "`")}`{Extensions.VecToString(localRotation, "`")}";
         }
     }
 
-    public string GetSavedData => $"{_currentHealth}~{stunTime}~{string.Join("~", _wounds)}";
+    private string WoundsToString
+    {
+        get
+        {
+            var r = "";
+            foreach (var wound in _wounds.Values)
+            {
+                r += wound.ToString() + "~";
+            }
+            return r.Length>0 ? r[..^1] : r;
+        }
+    }
+
+    public string GetSavedData => $"{System.Math.Round(_currentHealth,1)}~{System.Math.Round(stunTime, 1)}{(_wounds.Count > 0 ? "~"+WoundsToString : "")}";
 
     public void ApplySavedData(string data)
     {
@@ -96,7 +112,7 @@ public class Health : NetworkBehaviour
         {
             var i = index;
             if (!_wounds.ContainsKey(i)) { Destroy(ob); return; } // Ensure the wound still exists
-            inter.Banned = !Player.LocalPlayer || _wounds.ContainsKey(i);
+            inter.Banned = !Player.LocalPlayer || !_wounds.ContainsKey(i);
             inter.Description = $"Remove {ItemDatabase.GetItem(wound.embeddedItem.ID.ToString()).Name}";
             inter.InteractLength = 2f;
             inter.InteractDistance = 1.5f;
@@ -151,12 +167,23 @@ public class Health : NetworkBehaviour
     {
         _currentHealth -= damage;
         stunTime += stun * (1 - StunResistance);
-
         if (embedded) {
             // Add a new wound to the list
             var newWound = new Wound(embeddeditem, part, pos, localrot);
             ApplyNewWoundRPC(newWound.ToString()); // Apply the wound visuals and interactor
         }
+        OnTakeDamage?.Invoke(damage, stun, embedded);
+    }
+
+    public void Heal(float amount)
+    {
+        HealRPC(amount);
+    }
+
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    private void HealRPC(float amount)
+    {
+        _currentHealth = Mathf.Min(_currentHealth + amount, MaxHealth);
     }
 
     private void Update()
