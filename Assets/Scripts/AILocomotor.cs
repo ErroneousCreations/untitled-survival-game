@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using EditorAttributes;
+using Unity.Netcode;
 
 [RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent))]
 public class AILocomotor : MonoBehaviour
@@ -89,6 +90,8 @@ public class AILocomotor : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!NetworkManager.Singleton) { return; } //if we are not networked, just return
+        if (!NetworkManager.Singleton.IsServer) { return; }
         agent.updatePosition = false;
         agent.updateRotation = false;
         agent.updateUpAxis = false;

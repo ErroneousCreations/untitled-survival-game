@@ -8,7 +8,7 @@ using Unity.Netcode;
 
 public class AITargeter : MonoBehaviour
 {
-    public const float AudioEnergyFalloffDistanceModifer = 0.036f;
+    public const float AudioEnergyFalloffDistanceModifer = 0.03f;
 
     [System.Serializable]
     public struct RelationshipStruct
