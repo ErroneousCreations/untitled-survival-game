@@ -695,7 +695,7 @@ public class PlayerHealthController : NetworkBehaviour
     [Rpc(SendTo.Owner, RequireOwnership = false)]
     private void MtMRecuscitateRPC()
     {
-        player.GetRigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
+        player.GetRigidbody.AddForce(Vector3.up * 0.8f, ForceMode.Impulse);
         stopBreathignTime = 30f;
         breathing.Value = true;
         consciousness.Value = 0.15f;
@@ -743,7 +743,7 @@ public class PlayerHealthController : NetworkBehaviour
     private void CPRRecuscitateRPC()
     {
         if(heartBeating.Value) return;
-        player.GetRigidbody.AddForce(Vector3.up * 3, ForceMode.Impulse);
+        player.GetRigidbody.AddForce(Vector3.up * 0.8f, ForceMode.Impulse);
         heartBeating.Value = true;
         breathing.Value = true;
         consciousness.Value = 0.15f;

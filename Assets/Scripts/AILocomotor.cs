@@ -83,7 +83,6 @@ public class AILocomotor : MonoBehaviour
     private void Start()
     {
         transform.position = ClosestOnNavmesh(transform.position);
-        agent.enabled = false;
     }
 
     private bool GetUpright => Vector3.Angle(transform.up, Vector3.up) < 10;

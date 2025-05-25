@@ -8,7 +8,7 @@ public class RegionTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.transform == Player.LocalPlayer.transform)
         {
             UIManager.ShowRegionTitle(RegionName, RegionTitleCountdown);
             MusicManager.Init(threatMusicProfile);

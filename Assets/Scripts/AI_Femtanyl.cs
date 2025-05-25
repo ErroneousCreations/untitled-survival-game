@@ -117,7 +117,7 @@ public class AI_Femtanyl : NetworkBehaviour
             aggression = Random.Range(0.8f, 1.2f);
             paintolerance = Random.Range(0.1f, 0.8f);
             fear = Random.Range(0.8f, 1.2f);
-            inaccuracy = Random.Range(0.1f, 0.4f);
+            inaccuracy = Random.Range(0.2f, 0.5f);
             targeter.FearModifier = fear;
             targeter.AggressionModifier = aggression;
             locomotor.maxSpeed *= speedmod;
