@@ -49,9 +49,9 @@ MonoBehaviour:
   creature: {fileID: -3753293093806743543, guid: 3227d74f05689014baece1554dd16a73, type: 3}
   SpawnAmount: {x: 3, y: 5}
   SpawnRange: 4
-  RespawnTime: 300
+  RespawnTime: 900
   mySaver: {fileID: 310755185837899003}
-  ItemAmountRange: {x: 14, y: 17}
+  ItemAmountRange: {x: 10, y: 13}
   itemPool:
   - {fileID: 8701911266804393704, guid: 3e31bfbd3b97f4f4895799c4777599ff, type: 3}
   - {fileID: 8701911266804393704, guid: 0a715335ec8ea67458b9c387386ede0d, type: 3}
@@ -101,5 +101,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 125
+  m_Radius: 150
   m_Center: {x: 0, y: 0, z: 0}

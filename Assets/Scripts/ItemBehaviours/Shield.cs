@@ -13,7 +13,8 @@ public class Shield : ScriptableObject, IItemBehaviour
     public float AttackForwardAmount = 0.75f;
 
     [Header("Melee Stats")]
-    public float Damage, Stun;
+    public float Damage;
+    public float Stun;
     [Tooltip("From camera, ray length")] public float Range = 1f;
 
     [Header("Shield Stats")]

@@ -382,6 +382,7 @@ public class Player : NetworkBehaviour
         scarfCloth.externalAcceleration = 20 * World.WindIntensity * World.WindDirection;
         at.AudioEnergy = audioEnergy.Value;
         at.ScarinessModifier = (pi.rightHand.Value.IsValid ? ItemDatabase.GetItem(pi.rightHand.Value.ID.ToString()).ScareFactor : 1) * (pi.leftHand.Value.IsValid ? ItemDatabase.GetItem(pi.leftHand.Value.ID.ToString()).ScareFactor : 1);
+        at.SetCentreOffset(new Vector3(0, pm.GetCrouching ? 0.55f : 1, 0));
 
         if (ragdolled && LocalCanStand)
         {
@@ -432,6 +433,18 @@ public class Player : NetworkBehaviour
                     {
                         MusicManager.AddThreatLevel(Mathf.Lerp(Time.deltaTime * 12, 0, dist / 20));
                     }
+                }
+            }
+        }
+        else
+        {
+            foreach(var t in AITarget.targets)
+            {
+                if(t.TargetType == "axolotl") { continue; }
+                var dist = (t.GetPosition - GetPlayerCentre).magnitude;
+                if(dist < 20)
+                {
+                    MusicManager.AddThreatLevel(Mathf.Lerp(Time.deltaTime * 10 * t.ThreatLevel, 0, dist / 20));
                 }
             }
         }

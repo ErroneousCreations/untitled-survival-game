@@ -89,10 +89,10 @@ public class AILocomotor : MonoBehaviour
 
     private void FixedUpdate()
     {
-        agent.enabled = StandingUp;
         agent.updatePosition = false;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        agent.isStopped = !(!traversingLink && (StandingUp || alwaysStanding) && isNavigating);
 
         if (!StandingUp && !alwaysStanding)
         {

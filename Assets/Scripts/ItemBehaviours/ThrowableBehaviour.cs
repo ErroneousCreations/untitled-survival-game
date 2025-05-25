@@ -15,7 +15,8 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
     public bool RotateForwardsMelee;
 
     [Header("Melee Stats")]
-    public float Damage, Stun;
+    public float Damage;
+    public float Stun;
     public DamageType Type;
     [Tooltip("From camera, ray length")]public float Range = 1f;
     public bool HitWorldBreakables;
@@ -134,12 +135,12 @@ public class MeleeThrowBehaviour : ScriptableObject, IItemBehaviour
             {
                 hp.TakeDamage(Damage, Stun, Type, hit.point, hit.normal);
             }
-            else if (HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out WorldFeature wf) && wf.Destroyable)
+            else if (HitWorldBreakables && hit.collider.transform.parent && hit.collider.transform.parent.TryGetComponent(out WorldFeature wf) && wf.Destroyable)
             {
                 wf.Attack(WorldBreakableDamage);
                 PlayerInventory.SpawnNetOb(wf.Breakparticle, hit.point, Quaternion.LookRotation(hit.normal));
             }
-            else if (HitWorldBreakables && hit.collider.transform.parent.TryGetComponent(out DestructibleWorldDetail det))
+            else if (HitWorldBreakables && hit.collider.transform.parent && hit.collider.transform.parent.TryGetComponent(out DestructibleWorldDetail det))
             {
                 det.Attack(WorldBreakableDamage);
                 PlayerInventory.SpawnNetOb(det.BreakParticle, hit.point, Quaternion.LookRotation(hit.normal));

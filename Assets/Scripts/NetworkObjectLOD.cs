@@ -20,6 +20,8 @@ public class NetworkObjectLOD : NetworkBehaviour
             return false;
         }
 
+        if (!(NetworkManager.ConnectedClients[clientId].PlayerObject)) { return false; }
+
         // We can do a simple distance check between the NetworkObject instance position and the client
         return (NetworkManager.ConnectedClients[clientId].PlayerObject.transform.position - transform.position).sqrMagnitude <= cacheVisDist;
     }

@@ -18,12 +18,14 @@ MonoBehaviour:
   AttackJumpPower: 0.4
   RotateForwardsMelee: 1
   Damage: 18.5
+  Stun: 0.1
   Type: 1
   Range: 1.4
   HitWorldBreakables: 1
   WorldBreakableDamage: 0.1
   Sharpen: 0
   SharpenResult: 
+  SharpenParticle: 
   MaxCharge: 1
   VibrateIntensity: 0.15
   ThrowchargeUpwardAmount: 1

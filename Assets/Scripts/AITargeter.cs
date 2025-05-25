@@ -35,10 +35,15 @@ public class AITargeter : MonoBehaviour
     public RelationshipStruct DefaultRelationship;
     public SerializedDictionary<string, RelationshipStruct> Relationships;
 
-    protected List<AITarget> aggressiveTo = new(), scaredOf = new();
+    protected List<AITarget> aggressiveTo = new(), scaredOf = new(), visualTargets = new(), audioTargets = new();
 
     public List<AITarget> GetAggroTargets => aggressiveTo;
     public List<AITarget> GetScaredTargets => scaredOf;
+    public List<AITarget> GetVisualTargets => visualTargets;
+    public List<AITarget> GetAudioTargets => audioTargets;
+
+    public bool GetCanSee(AITarget targ) { return visualTargets.Contains(targ); }
+    public bool GetCanHear(AITarget targ) { return audioTargets.Contains(targ); }
 
     public AITarget TopAggroTarget => aggressiveTo.Count > 0 ? aggressiveTo[0] : null;
     public AITarget TopScaredTarget => scaredOf.Count > 0 ? scaredOf[0] : null;
@@ -70,6 +75,8 @@ public class AITargeter : MonoBehaviour
     {
         aggressiveTo.Clear();
         scaredOf.Clear();
+        visualTargets.Clear();
+        audioTargets.Clear();
         Dictionary<AITarget, Vector3> foundvalues = new();
 
         foreach (var target in AITarget.targets)
@@ -91,6 +98,7 @@ public class AITargeter : MonoBehaviour
                 var aggression = relation.Aggression * AggressionModifier * target.AggroModifier;
                 if (fear > aggression) { scaredOf.Add(target); }
                 else { aggressiveTo.Add(target); }
+                visualTargets.Add(target);
                 foundvalues.Add(target, new Vector3(dist, fear, aggression));
             }
 
@@ -101,7 +109,8 @@ public class AITargeter : MonoBehaviour
                 var aggression = relation.Aggression * AggressionModifier * target.AggroModifier;
                 if (fear > aggression) { scaredOf.Add(target); }
                 else { aggressiveTo.Add(target); }
-                if(!foundvalues.ContainsKey(target)) //if we haven't already added this target from vision
+                audioTargets.Add(target);
+                if (!foundvalues.ContainsKey(target)) //if we haven't already added this target from vision
                     foundvalues.Add(target, new Vector3(dist, fear, aggression));
             }
 

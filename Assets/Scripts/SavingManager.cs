@@ -234,10 +234,17 @@ public class SavingManager : NetworkBehaviour
         }
         foreach (var corpse in PlayerCorpseProxy.CORPSES) //save embedded items from corpses :3
         {
-            savedata += corpse.GetSavedItemsFromCorpse;
-            addedanything = true;
+            var stuff = corpse.GetSavedItemsFromCorpse;
+            savedata += stuff;
+            if(!addedanything && stuff.Length > 0) { addedanything = true; } //if we added something from a corpse, set addedanything to true
         }
-        if(!addedanything) { savedata += "null"; }
+        foreach (var corpse in CreatureCorpseProxy.CORPSES) //save embedded items from corpses :3
+        {
+            var stuff = corpse.GetSavedItemsFromCorpse;
+            savedata += stuff;
+            if (!addedanything && stuff.Length > 0) { addedanything = true; } //if we added something from a corpse, set addedanything to true
+        }
+        if (!addedanything) { savedata += "null"; }
         else { savedata = savedata[..^1]; }
         savedata += ";";
         if(World.GetNetWorldFeatures.Count <= 0) { savedata += "null"; }

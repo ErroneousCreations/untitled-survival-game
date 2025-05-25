@@ -6,41 +6,6 @@ using UnityEngine;
 public enum DamageType { Blunt, Stab }
 public enum BodyPart { Head, Body, Arm, Leg }
 
-[System.Serializable]
-public struct Wound
-{
-    public float severity;
-    public bool isEmbeddedObject;
-
-    public Wound(float damage, bool embedded)
-    {
-        severity = damage;
-        isEmbeddedObject = embedded;
-    }
-}
-
-public struct WoundObject
-{
-    public ParticleSystem particles;
-    public ItemData embedded;
-    public bool hasembedded;
-    public float severity;
-    public Vector3 originalhitpos;
-
-    public WoundObject(ParticleSystem particles, ItemData embedded, bool hasembedded, Vector3 hitpos, float severity)
-    {
-        this.particles = particles;
-        this.embedded = embedded;
-        this.hasembedded = hasembedded;
-        originalhitpos = hitpos;
-        this.severity = severity;
-    }
-
-    public override string ToString()
-    {
-        return $"{System.Math.Round(originalhitpos.x, 2)}~{System.Math.Round(originalhitpos.y)}~{System.Math.Round(originalhitpos.z)}~{System.Math.Round(severity,2)}~{(hasembedded ? 1 : 0)}~{embedded}~{System.Math.Round(particles.transform.forward.x, 2)}~{System.Math.Round(particles.transform.forward.y, 2)}~{System.Math.Round(particles.transform.forward.z, 2)}";
-    }
-}
 
 public class PlayerHealthController : NetworkBehaviour
 {
@@ -56,6 +21,41 @@ public class PlayerHealthController : NetworkBehaviour
 
     private Dictionary<ushort, Wound> wounds = new();
     private Dictionary<ushort, WoundObject> woundObjects = new();
+
+    public struct Wound
+    {
+        public float severity;
+        public bool isEmbeddedObject;
+
+        public Wound(float damage, bool embedded)
+        {
+            severity = damage;
+            isEmbeddedObject = embedded;
+        }
+    }
+
+    public struct WoundObject
+    {
+        public ParticleSystem particles;
+        public ItemData embedded;
+        public bool hasembedded;
+        public float severity;
+        public Vector3 originalhitpos;
+
+        public WoundObject(ParticleSystem particles, ItemData embedded, bool hasembedded, Vector3 hitpos, float severity)
+        {
+            this.particles = particles;
+            this.embedded = embedded;
+            this.hasembedded = hasembedded;
+            originalhitpos = hitpos;
+            this.severity = severity;
+        }
+
+        public override string ToString()
+        {
+            return $"{System.Math.Round(originalhitpos.x, 2)}~{System.Math.Round(originalhitpos.y)}~{System.Math.Round(originalhitpos.z)}~{System.Math.Round(severity, 2)}~{(hasembedded ? 1 : 0)}~{embedded}~{System.Math.Round(particles.transform.forward.x, 2)}~{System.Math.Round(particles.transform.forward.y, 2)}~{System.Math.Round(particles.transform.forward.z, 2)}";
+        }
+    }
 
     public Player player;
 

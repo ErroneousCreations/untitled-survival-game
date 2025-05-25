@@ -160,6 +160,7 @@ MonoBehaviour:
   colliders:
   - {fileID: 5491271481402289347}
   DamagePerVelocity: 2.3
+  StunPerVelocity: 0.13
   MaxThrowFlyTime: 100
   HitRegSize: {x: 0.1, y: 0.1, z: 0.1}
   FaceThrown: 0

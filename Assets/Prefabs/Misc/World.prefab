@@ -9444,7 +9444,7 @@ MonoBehaviour:
   - SpawnLocationIndex: femtanylspawn
     spawnPool:
     - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
-    SpawnAmount: {x: 9, y: 12}
+    SpawnAmount: {x: 8, y: 10}
     RandomiseRotation: 0
     OnlyBeforeSave: 1
     OnlyForServer: 1

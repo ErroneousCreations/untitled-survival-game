@@ -16,6 +16,7 @@ MonoBehaviour:
   ForwardTime: 0.175
   AttackForwardAmount: 1.25
   Damage: 20
+  Stun: 0.4
   Type: 0
   Range: 1.5
   WorldBreakableDamage: 1.1

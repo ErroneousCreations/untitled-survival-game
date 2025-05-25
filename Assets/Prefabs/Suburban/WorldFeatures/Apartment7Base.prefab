@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &43275401637487979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3718319130047712620}
+  m_Layer: 3
+  m_Name: SpawnPoint (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3718319130047712620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43275401637487979}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.883, y: 0, z: -0.564}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5186013180075769042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &163741347776472746
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +170,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &2028583985720186807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +209,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &7481879997966415102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +233,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &125386258251923916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +260,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8545299246505709259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +290,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &629123773344387787
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +446,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3352010867802335348}
   m_LocalEulerAnglesHint: {x: 0, y: -47.8, z: 0}
+--- !u!1 &884337342699203918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3562914073254726663}
+  m_Layer: 3
+  m_Name: SpawnPoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3562914073254726663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884337342699203918}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.7, y: 0, z: 1.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5186013180075769042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1052043522402182385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,6 +1116,38 @@ MonoBehaviour:
   onlySpawnBeforeSave: 0
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
+--- !u!1 &3115991188496380166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 177324731420551530}
+  m_Layer: 3
+  m_Name: SpawnPoint (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &177324731420551530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3115991188496380166}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.981001, y: 0, z: 1.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5186013180075769042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3164284297306220360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,6 +1391,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 17836348609231864}
   m_LocalEulerAnglesHint: {x: 0, y: -47.8, z: 0}
+--- !u!1 &3814832023990962172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5186013180075769042}
+  - component: {fileID: 732132448499991499}
+  m_Layer: 3
+  m_Name: CameraSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5186013180075769042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814832023990962172}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.871, y: 7.838, z: -0.525}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1018196887778322936}
+  - {fileID: 3562914073254726663}
+  - {fileID: 6062427281619769673}
+  - {fileID: 383307020298815770}
+  - {fileID: 177324731420551530}
+  - {fileID: 3718319130047712620}
+  m_Father: {fileID: 6064148975952647805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &732132448499991499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814832023990962172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25691b9dce36ec14d8218dd76efc2de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnPoints:
+  - {fileID: 1018196887778322936}
+  - {fileID: 3562914073254726663}
+  - {fileID: 6062427281619769673}
+  - {fileID: 383307020298815770}
+  - {fileID: 177324731420551530}
+  - {fileID: 3718319130047712620}
+  SpawnPool:
+  - {fileID: 8701911266804393704, guid: 62d16b3a7c7614516bf8d0bd1908967b, type: 3}
+  - {fileID: 8701911266804393704, guid: 1e5768e45837e4648a466726e2cc748c, type: 3}
+  - {fileID: 8701911266804393704, guid: b800a7fcb11819d45ba8af5be9ac5cd3, type: 3}
+  SpawnProbability: 0.09
+  OnlySpawnBeforeSave: 1
+  DrawGizmos: 1
 --- !u!1 &3981922002878849168
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,7 +1532,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7346928870960638236
 Transform:
   m_ObjectHideFlags: 0
@@ -1446,6 +1609,37 @@ MonoBehaviour:
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
   m_Area: 0
+--- !u!1 &4414050032982863368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1018196887778322936}
+  m_Layer: 3
+  m_Name: SpawnPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1018196887778322936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4414050032982863368}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.12, y: 0, z: 1.146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5186013180075769042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4513764733200870578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,6 +1843,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &4935993307342371370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1687,6 +1882,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8630862831224061993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1710,6 +1906,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &981904389906091747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1736,6 +1933,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &6582353131277377222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1765,6 +1963,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &4720811575742806192
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,6 +2227,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1599922730175838100}
   m_LocalEulerAnglesHint: {x: 0, y: 160.9, z: 0}
+--- !u!1 &5473032725215613896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383307020298815770}
+  m_Layer: 3
+  m_Name: SpawnPoint (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &383307020298815770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473032725215613896}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.161001, y: 0, z: 1.146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5186013180075769042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5579424182652785723
 GameObject:
   m_ObjectHideFlags: 0
@@ -2658,6 +2888,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1599922730175838100}
   m_LocalEulerAnglesHint: {x: 0, y: 111.4, z: 0}
+--- !u!1 &6309677604742538616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6062427281619769673}
+  m_Layer: 3
+  m_Name: SpawnPoint (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6062427281619769673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6309677604742538616}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.398, y: 0, z: -0.564}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5186013180075769042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6404540947276044515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,6 +3029,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &1906231687005948012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2806,6 +3068,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &7354502589528862798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2829,6 +3092,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &1485755745831066157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2855,6 +3119,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8700243985709066774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2884,6 +3149,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &6622841925387689620
 GameObject:
   m_ObjectHideFlags: 0
@@ -3027,6 +3293,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8190138983969208629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3065,6 +3332,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &4902965628368663183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3088,6 +3356,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &2885815289894970386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3114,6 +3383,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8873996369574414351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3143,6 +3413,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &6657559411788778377
 GameObject:
   m_ObjectHideFlags: 0
@@ -3441,6 +3712,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &7105619765743299948
 GameObject:
   m_ObjectHideFlags: 0
@@ -4208,6 +4480,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &3556794086428070544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4246,6 +4519,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &4272396996298701197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4269,6 +4543,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &4931539801537238686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4295,6 +4570,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &6711950387568030056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4325,6 +4601,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &9022735624380201236
 GameObject:
   m_ObjectHideFlags: 0
@@ -4403,6 +4680,7 @@ Transform:
   - {fileID: 1599922730175838100}
   - {fileID: 840623472334437825}
   - {fileID: 7346928870960638236}
+  - {fileID: 5186013180075769042}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7617056786148103879
@@ -4563,6 +4841,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &1317550423383176747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4601,6 +4880,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &2395288660886466034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4624,6 +4904,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8339560331250695069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4650,6 +4931,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!114 &8710775488056267252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4679,6 +4961,7 @@ MonoBehaviour:
   onlySpawnBeforeSave: 1
   drawGizmos: 1
   parentOnSpawnpoint: 1
+  onlyForServer: 0
 --- !u!1 &9172623989818750443
 GameObject:
   m_ObjectHideFlags: 0

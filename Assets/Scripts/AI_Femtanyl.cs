@@ -94,7 +94,7 @@ public class AI_Femtanyl : NetworkBehaviour
     private FemtanylAIState nextState;
     private PickupableItem currItemTarget;
     private float scoutcooldown, checkItemCooldown, currThrowWindup, currBlinkTime, currReactionTime, currGiveUpTime, healingCooldown;
-    private Vector3 homelocation, wanderposition, newsPosition, lookdirection;
+    private Vector3 homelocation, wanderposition, newsPosition, lookdirection, fightingOffset;
     private bool scout, scoutcheckedforitems;
     private AITarget currFightingTarget, currFleeingTarget;
     private Vector3 lastseenpos;
@@ -123,6 +123,7 @@ public class AI_Femtanyl : NetworkBehaviour
             locomotor.maxSpeed *= speedmod;
             checkItemCooldown = Random.Range(1.5f, 3f);
             scoutcooldown = Random.Range(10f, 30f);
+            fightingOffset = Extensions.RandomCircle * 2f; //offset for fighting target, so we dont just stand still and get hit
             currGiveUpTime = 30;
         }
     }
@@ -595,6 +596,8 @@ public class AI_Femtanyl : NetworkBehaviour
         }
     }
 
+    public bool GetEngagingPlayer => currFightingTarget && currFightingTarget.TargetType == "axolotl";
+
     public void InformOfNews(Vector3 position)
     {
         if (state == FemtanylAIState.Idle || state == FemtanylAIState.GrabbingItem)
@@ -614,6 +617,7 @@ public class AI_Femtanyl : NetworkBehaviour
             if (!currFightingTarget)
             {
                 state = FemtanylAIState.Retreating;
+                locomotor.ResetTurnDirection();
                 return;
             }
             losttargetcooldown = Random.Range(5f, 10f);
@@ -637,6 +641,7 @@ public class AI_Femtanyl : NetworkBehaviour
         if (!LefthandItem.Value.IsValid && !RighthandItem.Value.IsValid)
         {
             state = FemtanylAIState.Retreating;
+            locomotor.ResetTurnDirection();
             return;
         }
 
@@ -651,7 +656,7 @@ public class AI_Femtanyl : NetworkBehaviour
             return;
         }
 
-        bool visible = targeter.GetAggroTargets.Contains(currFightingTarget);
+        bool visible = targeter.GetCanSee(currFightingTarget);
         if (visible) //if we can see them
         {
             lastseenpos = currFightingTarget.transform.position;
@@ -664,22 +669,27 @@ public class AI_Femtanyl : NetworkBehaviour
             losttargetcooldown = Random.Range(10f, 15f);
             wanderposition = lastseenpos + Extensions.RandomCircle * SearchForTargetRange;
             locomotor.SetDestination(wanderposition);
+            locomotor.ResetTurnDirection();
             return;
         }
-
-        var dist = (transform.position - currFightingTarget.transform.position).sqrMagnitude;
-        if(dist > 4 || !visible) { locomotor.SetDestination(lastseenpos); }
-        else {locomotor.Stop(); }
+        var dir = (currFightingTarget.transform.position - transform.position);
+        var dist = dir.sqrMagnitude;
+        dir.Normalize();
+        locomotor.SetTurnDirection(new Vector3(dir.x, 0, dir.z));
+        locomotor.SetDestination(lastseenpos + (visible ? fightingOffset : Vector3.zero));
         if (dist < ThrowRange * ThrowRange && visible)
         {
             var hand = RighthandItem.Value.IsValid ? 0 : 1;
+            var rootdist = Mathf.Sqrt(dist);
             currThrowWindup -= Time.deltaTime;
+            if(currThrowWindup <= -throwwindup) { currThrowWindup = throwwindup*0.9f; }
             (hand == 0 ? RightHand : LeftHand).SetLocalPositionAndRotation(new Vector3(0, Mathf.Lerp(0.1f, 0, currThrowWindup / throwwindup), Mathf.Lerp(-0.5f, 0, currThrowWindup / throwwindup)), Quaternion.Lerp(Quaternion.Euler(90, 0, 0), Quaternion.identity, currThrowWindup / throwwindup));
-            if (currThrowWindup <= 0)
+            bool willfriendlyfire = Physics.Raycast(transform.position + Vector3.up + 0.45f * transform.forward, ((currFightingTarget.GetPosition + currFightingTarget.GetVelocity * 0.4f) - (transform.position + Vector3.up + 0.45f * transform.forward)).normalized, out RaycastHit hit, rootdist, Extensions.CreatureLayermask) && hit.collider.attachedRigidbody && hit.collider.attachedRigidbody.TryGetComponent(out AI_Femtanyl _);
+            if (currThrowWindup <= 0 && !willfriendlyfire)
             {
-                var isblunt = ItemDatabase.GetItem((hand == 0 ? RighthandItem : LefthandItem).Value.ID.ToString()).ItemType == ItemTypeEnum.ThrowingBluntWeapon;
-                var rootdist = Mathf.Sqrt(dist);
-                var aboveamount = (isblunt ? 2.7f : 1.3f) * (rootdist / 12) * Vector3.up;
+                var id = (hand == 0 ? RighthandItem : LefthandItem).Value.ID.ToString();
+                var isblunt = ItemDatabase.GetItem(id).ItemType == ItemTypeEnum.ThrowingBluntWeapon || id=="sharperrock" || id=="sharpstick"||id=="sharpshortstick";
+                var aboveamount = (isblunt ? 3.5f : 1.6f) * (rootdist / 12) * Vector3.up;
                 var forwardamount = (isblunt ? 0.86f : 0.25f) * (rootdist / 10) * currFightingTarget.GetVelocity;
                 var targetpos = (currFightingTarget.GetPosition + forwardamount + aboveamount) + Random.insideUnitSphere * inaccuracy;
                 var velocity = (isblunt ? 0.6f : 1) * ThrowVelocity * (targetpos - (transform.position + Vector3.up + 0.45f * transform.forward)).normalized;
@@ -692,6 +702,7 @@ public class AI_Femtanyl : NetworkBehaviour
                 go.InitSavedData((hand == 0 ? RighthandItem.Value : LefthandItem.Value).SavedData);
                 (hand == 0 ? RighthandItem : LefthandItem).Value = ItemData.Empty;
                 (hand == 0 ? RightHand : LeftHand).DOLocalMove(Vector3.zero, 0.25f);
+                (hand == 0 ? RightHand : LeftHand).DOLocalRotate(Vector3.zero, 0.25f);
                 currThrowWindup = throwwindup;
             }
         }
@@ -803,7 +814,7 @@ public class AI_Femtanyl : NetworkBehaviour
             return;
         }
 
-        if (currItemTarget == null) { state = FemtanylAIState.Retreating; return; }
+        if (currItemTarget == null || !currItemTarget.IsSpawned) { state = FemtanylAIState.Retreating; return; }
         var dist = (transform.position - currItemTarget.transform.position).sqrMagnitude;
         if (dist < 1)
         {

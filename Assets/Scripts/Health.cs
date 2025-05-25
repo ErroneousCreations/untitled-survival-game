@@ -1,6 +1,14 @@
 using Unity.Netcode;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
+[System.Serializable]
+public struct SyncedMaterialStruct
+{
+    public Renderer rend;
+    public int index;
+}
 
 public class Health : NetworkBehaviour
 {
@@ -10,9 +18,13 @@ public class Health : NetworkBehaviour
     public float GetHealth => _currentHealth;
     public float GetNormalisedHealth => Mathf.Clamp01(_currentHealth / MaxHealth);
     public AnimationCurve DeathChanceCurve;
-    public NetworkObject Corpse;
+    public CreatureCorpseProxy Corpse;
     public float StunResistance, StunThreshold;
     public List<HealthBodyPart> Parts;
+    /// <summary>
+    /// For if the creature has colour variation so we can apply that to the corpse as well!!!
+    /// </summary>
+    public List<SyncedMaterialStruct> SyncedMats;
 
     /// <summary>
     /// Damage, Stunamount, Is Embedded
@@ -24,7 +36,7 @@ public class Health : NetworkBehaviour
     private Dictionary<int,Wound> _wounds = new Dictionary<int,Wound>();
     private int next;
 
-    private struct Wound
+    public struct Wound
     {
         public ItemData embeddedItem;
         public int Part;
@@ -196,7 +208,14 @@ public class Health : NetworkBehaviour
         {
             if(Random.value < DeathChanceCurve.Evaluate(Mathf.Clamp01(Mathf.Abs(_currentHealth) / MaxHealth)))
             {
-                Instantiate(Corpse, transform.position, transform.rotation).Spawn();
+                var corpse = Instantiate(Corpse, transform.position, transform.rotation);
+                corpse.NetworkObject.Spawn();
+                List<Color > colours = new List<Color>();
+                foreach (var synced in SyncedMats)
+                {
+                    colours.Add(synced.rend.materials[synced.index].color);
+                }
+                corpse.Init(_wounds.Values.ToList(), Parts, colours);
                 NetworkObject.Despawn();
             }
         }

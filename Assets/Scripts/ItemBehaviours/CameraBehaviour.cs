@@ -4,8 +4,6 @@ using UnityEngine;
 using DG.Tweening;
 using EditorAttributes;
 using Unity.Collections;
-using Unity.VisualScripting;
-using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "New CameraBehaviour", menuName = "ItemBehaviours/CameraBehaviour")]
 public class CameraBehaviour : ScriptableObject, IItemBehaviour

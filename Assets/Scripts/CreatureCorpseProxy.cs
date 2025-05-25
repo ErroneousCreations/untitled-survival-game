@@ -1,57 +1,32 @@
 using UnityEngine;
-using System.Collections.Generic;
 using Unity.Netcode;
+using System.Collections.Generic;
 using Unity.Collections;
 
-public class PlayerCorpseProxy : NetworkBehaviour
+public class CreatureCorpseProxy : NetworkBehaviour
 {
     [Header("Values")]
-    public float baseDespawnTime = 300;
+    public float baseDespawnTime = 150;
     public float fastDespawnRange = 50;
-    public int playerSkinMatIndex, playerScarfMatIndex;
-
-    [Header("Visuals")]
-    public ParticleSystem bleedingEffect;
-    public Renderer PlayerRend, ScarfRend, EyeRend;
-    public List<Texture2D> skinTextures;
-    public Texture2D eyeTex;
 
     [Header("Physics and Colliders")]
     public Rigidbody rb;
-    public List<Collider> bodyColliders;
+    public List<Rigidbody> HealthParts;
+
+    [Header("Visuals")]
+    public List<SyncedMaterialStruct> syncedMats;
 
     //statics
-    public static List<PlayerCorpseProxy> CORPSES = new();
+    public static List<CreatureCorpseProxy> CORPSES = new();
 
     //privates
-    private float blood;
-    private float losingbloodrate;
-    private List<bool> embeddeds = new();
     private List<ItemData> embeddedItems = new();
+    private List<bool> embeddeds = new();
     private float despawnTimer;
     private float checkRangesTimer = 0;
     private float despawnSpeedMult = 1;
     private Material skinMat;
 
-    private Transform GetClosestCollider(Vector3 startpos, out Vector3 newPos)
-    {
-        float closestDist = Mathf.Infinity;
-        Transform closest = null;
-        newPos = startpos;
-
-        foreach (var coll in bodyColliders)
-        {
-            var closestpos = coll.ClosestPoint(startpos);
-            float dist = (startpos - closestpos).sqrMagnitude;
-            if (dist < closestDist)
-            {
-                closest = coll.transform;
-                closestDist = dist;
-                newPos = closestpos;
-            }
-        }
-        return closest;
-    }
 
     private void OnEnable()
     {
@@ -82,96 +57,73 @@ public class PlayerCorpseProxy : NetworkBehaviour
     {
         get
         {
-            if(embeddedItems.Count <= 0) { return ""; }
+            if (embeddedItems.Count <= 0) { return ""; }
             string saveditems = "";
             foreach (var item in embeddedItems)
             {
                 if (!item.IsValid) { continue; }
                 var rand = Random.insideUnitCircle * 0.5f;
-                var pos = transform.position + Vector3.up*0.1f + new Vector3(rand.x, 0, rand.y);
+                var pos = transform.position + Vector3.up * 0.1f + new Vector3(rand.x, 0, rand.y);
                 var saveddata = SavedItemDataToString(item.SavedData);
-                saveditems += $"{item.ID},{VecToString(pos)},{VecToString(Vector3.zero)}{(saveddata.Length > 0 ? ","+saveddata : "")}\\";
+                saveditems += $"{item.ID},{VecToString(pos)},{VecToString(Vector3.zero)}{(saveddata.Length > 0 ? "," + saveddata : "")}\\";
             }
             return saveditems;
         }
     }
 
-    public void Init(List<PlayerHealthController.WoundObject> woundObjects, float blood, float losingbloodrate, int skintex, float scarfr, float scarfg, float scarfb)
+    public void Init(List<Health.Wound> woundObjects, List<HealthBodyPart> parts, List<Color> syncedCols)
     {
-        //sync this
-        SyncBleedRateRPC(blood, losingbloodrate);
-
+        var k = 0;
+        foreach (var part in parts)
+        {
+            if (!part.transform.parent) { k++; continue; }
+            HealthParts[k].transform.SetLocalPositionAndRotation(part.transform.localPosition, part.transform.localRotation);
+        }
         //spawn the objects
         foreach (var wound in woundObjects)
         {
-            SpawnWoundObjectRPC(wound.particles.transform.position, wound.particles.transform.forward, wound.severity, wound.embedded, wound.hasembedded);
+            SpawnWoundObjectRPC(wound.Part, wound.localPosition, wound.localRotation, wound.embeddedItem);
+        }
+        for (var i = 0; i< syncedMats.Count; i++)
+        {
+            if(i >= syncedCols.Count) { break; }
+            syncedMats[i].rend.materials[syncedMats[i].index].color = syncedCols[i];
         }
         despawnTimer = baseDespawnTime;
-        checkRangesTimer = 10;
+        checkRangesTimer = Random.Range(4.5f, 6.5f);
         despawnSpeedMult = 1;
-
-        SyncVisualsRPC(skintex, scarfr, scarfg, scarfb);
     }
 
     [Rpc(SendTo.Everyone)]
-    private void SyncVisualsRPC(int skintex, float scarfr, float scarfg, float scarfb)
+    private void SpawnWoundObjectRPC(int part, Vector3 pos, Vector3 normal, ItemData item)
     {
-        PlayerRend.materials[playerScarfMatIndex].color = new Color(scarfr, scarfg, scarfb);
-        ScarfRend.material.color = new Color(scarfr, scarfg, scarfb);
-        skinMat = PlayerRend.materials[playerSkinMatIndex];
-        skinMat.SetTexture("_MainTex", skinTextures[skintex]);
-        EyeRend.material.mainTexture = eyeTex;
-    }
-
-    [Rpc(SendTo.Everyone)]
-    private void SyncBleedRateRPC(float blood, float losingbloodrate)
-    {
-        this.blood = blood;
-        this.losingbloodrate = losingbloodrate;
-    }
-
-    [Rpc(SendTo.Everyone)]
-    private void SpawnWoundObjectRPC(Vector3 pos, Vector3 normal, float intensity, ItemData item, bool embedded)
-    {
-        var index = embeddeds.Count;
-        embeddeds.Add(embedded);
+        var index = embeddedItems.Count;
         embeddedItems.Add(item);
+        embeddeds.Add(true);
         //spawn the objects
-        var bleed = Instantiate(bleedingEffect, Vector3.zero, Quaternion.identity);
         var ob = new GameObject("Wound");
-        var coll = GetClosestCollider(pos, out var newPos);
-        ob.transform.parent = coll;
-        ob.transform.SetPositionAndRotation(newPos, Quaternion.LookRotation(normal));
+        ob.transform.parent = HealthParts[part].transform;
+        ob.transform.SetLocalPositionAndRotation(pos, Quaternion.LookRotation(normal));
+
         GameObject embeddedgraphic = null;
-        if (embedded)
-        {
-            embeddedgraphic = new GameObject("EmbeddedGraphic");
-            embeddedgraphic.transform.parent = ob.transform;
-            embeddedgraphic.transform.localPosition = Vector3.zero;
-            embeddedgraphic.transform.up = -normal;
-            embeddedgraphic.AddComponent<MeshFilter>().mesh = ItemDatabase.GetItem(item.ID.ToString()).HeldMesh;
-            embeddedgraphic.AddComponent<MeshRenderer>().materials = ItemDatabase.GetItem(item.ID.ToString()).HeldMats;
-        }
-        bleed.transform.parent = ob.transform;
-        bleed.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-        var initialpos = ob.transform.localPosition;
+        embeddedgraphic = new GameObject("EmbeddedGraphic");
+        embeddedgraphic.transform.parent = ob.transform;
+        embeddedgraphic.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(-90, 0, 0));
+        embeddedgraphic.AddComponent<MeshFilter>().mesh = ItemDatabase.GetItem(item.ID.ToString()).HeldMesh;
+        embeddedgraphic.AddComponent<MeshRenderer>().materials = ItemDatabase.GetItem(item.ID.ToString()).HeldMats;
+
 
         var inter = ob.AddComponent<Interactible>();
         inter.OnUpdate += () =>
         {
             var i = index;
+            if (!embeddeds[i]) { Destroy(ob); return; } // Ensure the wound still exists
             //todo make it change depending on what your holding and stuff
             inter.Banned = !Player.LocalPlayer || !embeddeds[i];
-            inter.Description = embeddeds[i] ? $"Remove {ItemDatabase.GetItem(item.ID.ToString()).Name}" : "";
+            inter.Description = $"Remove {ItemDatabase.GetItem(item.ID.ToString()).Name}";
             inter.InteractLength = 2f;
             inter.InteractDistance = 1.5f;
-            if (embeddedgraphic && !embeddeds[i])
-            {
-                Destroy(embeddedgraphic);
-            }
-            var emission = bleed.emission;
-            emission.rateOverTime = 25 * (blood>0 ? intensity : 0);
-            if (embeddeds[i] && Player.LocalPlayer) { inter.OnInteractedLocal = () => RemoveEmbeddedObject(i, item); }
+            if ( Player.LocalPlayer) { inter.OnInteractedLocal = () => RemoveEmbeddedObject(i, item); }
             else { inter.OnInteractedLocal = null; }
         };
     }
@@ -201,21 +153,16 @@ public class PlayerCorpseProxy : NetworkBehaviour
 
     private void Update()
     {
-        if(blood > 0)
-        {
-            blood -= losingbloodrate * Time.deltaTime;
-        }
-        skinMat.SetFloat("_Paleness", 1-blood);
         if (!IsOwner) { return; }
-        despawnTimer -= Time.deltaTime*despawnSpeedMult;
-        if(despawnTimer <= 0) { DespawnCorpse(); }
+        despawnTimer -= Time.deltaTime * despawnSpeedMult;
+        if (despawnTimer <= 0) { DespawnCorpse(); }
         if (checkRangesTimer > 0)
         {
             checkRangesTimer -= Time.deltaTime;
         }
         else
         {
-            checkRangesTimer = 5;
+            checkRangesTimer = Random.Range(4.5f, 6.5f);
             var players = Player.PLAYERBYID.Values;
             int inrange = 0;
             foreach (var player in players)
@@ -246,7 +193,7 @@ public class PlayerCorpseProxy : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if(!IsOwner) { return; }
+        if (!IsOwner) { return; }
 
         if (StandingUp) { rb.AddForceAtPosition(transform.forward, transform.TransformPoint(new Vector3(0, 1.7f, 0)), ForceMode.Force); }
         else

@@ -106,6 +106,19 @@ public class Spawner_Femtanyl : BaseCreatureSpawner<AI_Femtanyl>
         }
     }
 
+    protected override bool GetCanDespawnCreatures
+    {
+        get
+        {
+            if(spawnedCreatures.Count <= 0) { return true; } //if there are no creatures, we can't despawn
+            foreach (var creature in spawnedCreatures)
+            {
+                if (creature != null && creature.GetEngagingPlayer) { return false; } //if any creature is fighting the player, dont despawn yet!
+            }
+            return true;
+        }
+    }
+
     protected override void DrawGizmos()
     {
         base.DrawGizmos();

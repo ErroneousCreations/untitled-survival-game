@@ -43,6 +43,8 @@ public class BaseCreatureSpawner<T> : MonoBehaviour
         enemyCount = Random.Range(SpawnAmount.x, SpawnAmount.y + 1);
     }
 
+    protected virtual bool GetCanDespawnCreatures => true;
+
     protected virtual void SpawnCreatures()
     {
         spawned = true;
@@ -110,7 +112,7 @@ public class BaseCreatureSpawner<T> : MonoBehaviour
             SpawnCreatures();
         }
 
-        if (spawned && playersNearby.Count == 0)
+        if (spawned && playersNearby.Count == 0 && GetCanDespawnCreatures)
         {
             DespawnCreatures();
         }

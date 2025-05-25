@@ -7549,7 +7549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: alpha 0.1
+  m_text: alpha 0.2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -14244,6 +14244,8 @@ MonoBehaviour:
     prefab: {fileID: 3918460742249407562, guid: 8b92f707bc1e77b4781719c425cffe03, type: 3}
   - ID: particle_splinters
     prefab: {fileID: 3918460742249407562, guid: eae4e8bcaa1e2184eb53796cde173447, type: 3}
+  - ID: particle_bloodsplash
+    prefab: {fileID: 4756778655431166634, guid: 6f0248de4575799419d6d36619cff880, type: 3}
 --- !u!114 &1090251060
 MonoBehaviour:
   m_ObjectHideFlags: 0
