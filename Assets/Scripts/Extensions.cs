@@ -5,6 +5,7 @@ using UnityEngine;
 public static class Extensions
 {
     public static float GetEstimatedRTT => (NetworkManager.Singleton.LocalTime - NetworkManager.Singleton.ServerTime).TimeAsFloat;
+    public static float GetFramerate => 1 / Time.unscaledDeltaTime;
 
     public static ulong LocalClientID => NetworkManager.Singleton.LocalClientId;
 
@@ -48,7 +49,7 @@ public static class Extensions
         {
             var points = GameObject.FindGameObjectsWithTag("SVSpawn");
             if (points.Length == 0) { return Vector3.zero; }
-            var result = points[Random.Range(0, points.Length)].transform.position;
+            var result = points[Random.Range(0, points.Length)].transform.position + RandomCircle*3;
             return result;
         }
     }
@@ -79,7 +80,7 @@ public static class Extensions
             if (DMSPAWNINDEX >= points.Length) { DMSPAWNINDEX = 0; }
             int ind = DMSPAWNINDEX;
             DMSPAWNINDEX++;
-            return points[ind].transform.position;
+            return points[ind].transform.position + RandomCircle*3;
         }
     }
 

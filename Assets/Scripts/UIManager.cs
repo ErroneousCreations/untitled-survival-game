@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Canvas canvas;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private TMP_Text PingText, FPSText;
 
     public static Canvas GetCanvas => instance.canvas;
 
@@ -56,6 +57,7 @@ public class UIManager : MonoBehaviour
             TogglePauseMenu(!GetPauseMenuOpen);
         }
         respawnButton.SetActive(!VivoxManager.LeavingChannel);
+        //FPSText.text =  finish this
 
         if (regiontitlecountdown > 0)
         {

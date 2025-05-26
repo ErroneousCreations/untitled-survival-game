@@ -179,11 +179,7 @@ public class GameManager : NetworkBehaviour
     private void RespawnPlayerRPC(ulong id)
     {
         if (NetworkManager.Singleton.ConnectedClients[id].PlayerObject) { NetworkManager.Singleton.ConnectedClients[id].PlayerObject.Despawn(true); }
-
-        //StartCoroutine(FinishRespawn(id));
-        var p = Instantiate(ThePlayer, Vector3.zero, Quaternion.identity); //todo add the other spawnpoint ranges
         var spawnpoint = Vector3.zero;
-        p.SetSpawnPos(spawnpoint);
         switch (GetGameMode)
         {
             case GameModeEnum.Survival:
@@ -201,6 +197,9 @@ public class GameManager : NetworkBehaviour
                 spawnpoint = Extensions.GetDeathmatchSpawnPoint;
                 break;
         }
+        //StartCoroutine(FinishRespawn(id));
+        var p = Instantiate(ThePlayer, spawnpoint, Quaternion.identity); //todo add the other spawnpoint ranges
+        p.SetSpawnPos(spawnpoint);
         p.NetworkObject.SpawnAsPlayerObject(id);
         p.Teleport(spawnpoint);
     }

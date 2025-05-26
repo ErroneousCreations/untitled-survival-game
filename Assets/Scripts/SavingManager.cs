@@ -91,6 +91,48 @@ public class SavingManager : NetworkBehaviour
         CheckDirectories();
     }
 
+    private void Update()
+    {
+        if(!IsSpawned || LOADING || !IsServer) { return; }
+        foreach (var player in GameManager.GetUUIDS)
+        {
+            var pexists = Player.PLAYERBYID.TryGetValue(player.Key, out var playerobj);
+            var playerdata = new PlayerSavedData();
+            if (pexists)
+            {
+                playerdata = new PlayerSavedData(
+                    player.Value,
+                    playerobj.pi.GetSavedData,
+                    playerobj.ph.headHealth.Value,
+                    playerobj.ph.bodyHealth.Value,
+                    playerobj.ph.legHealth.Value,
+                    playerobj.ph.currentBlood.Value,
+                    playerobj.ph.consciousness.Value,
+                    playerobj.ph.shock.Value,
+                    playerobj.ph.hunger.Value,
+                    !playerobj.ph.isConscious.Value,
+                    playerobj.transform.position,
+                    playerobj.transform.eulerAngles.y,
+                    playerobj.ph.GetSavedWounds
+                    );
+            }
+            else
+            {
+                playerdata = new PlayerSavedData(
+                    player.Value,
+                    "null",
+                    1, 1, 1, 1, 1, 0, 1,
+                    true,
+                    Vector3.zero,
+                    0,
+                    "null"
+                    );
+            }
+            if (instance.SavedPlayerData.ContainsKey(player.Value)) { instance.SavedPlayerData[player.Value] = playerdata; }
+            else { instance.SavedPlayerData.Add(player.Value, playerdata); }
+        }
+    }
+
     private static string SavedItemDataToString(NetworkList<FixedString128Bytes> list)
     {
         if(list == null || list.Count <= 0) { return ""; }
