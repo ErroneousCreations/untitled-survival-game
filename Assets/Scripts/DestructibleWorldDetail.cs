@@ -18,6 +18,8 @@ public class DestructibleWorldDetail : MonoBehaviour
     {
         CurrHealth = Health;
         mySaver.OnDataLoaded_Data += SetHealth;
+        ObjectID = Extensions.HashVector3ToInt(transform.position);
+        WorldDetailManager.RegisterObject(this);
     }
 
     void SetHealth(List<string> data)
@@ -28,9 +30,6 @@ public class DestructibleWorldDetail : MonoBehaviour
             {
                 CurrHealth = float.Parse(data[0]);
             }
-
-            ObjectID = mySaver.GetUID; //surely guys
-            WorldDetailManager.RegisterObject(this);
         }
     }
 

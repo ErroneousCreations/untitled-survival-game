@@ -124,9 +124,28 @@ public static class Extensions
         return System.Math.Round(pos.x, rounding).ToString() + delimiter + System.Math.Round(pos.y, rounding).ToString() + delimiter + System.Math.Round(pos.z, rounding).ToString();
     }
 
-    public static LayerMask DefaultMeleeLayermask = LayerMask.GetMask("Player", "Creature", "Terrain");
+    public static int HashVector3ToInt(Vector3 position, float precision = 0.01f)
+    {
+        // Scale to reduce floating-point noise (e.g., 0.01 = centimeter precision)
+        int x = Mathf.RoundToInt(position.x / precision);
+        int y = Mathf.RoundToInt(position.y / precision);
+        int z = Mathf.RoundToInt(position.z / precision);
+
+        // Use a simple but solid spatial hash function
+        unchecked
+        {
+            int hash = 17;
+            hash = hash * 31 + x;
+            hash = hash * 31 + y;
+            hash = hash * 31 + z;
+            return hash;
+        }
+    }
+
+    public static LayerMask DefaultMeleeLayermask = LayerMask.GetMask("Player", "Creature", "Terrain", "Constructed");
     public static LayerMask DefaultThrownHitregLayermask = LayerMask.GetMask("Player", "Creature");
     public static LayerMask ItemLayermask = LayerMask.GetMask("Item");
     public static LayerMask CreatureLayermask = LayerMask.GetMask("Creature");
     public static LayerMask TerrainMask = LayerMask.GetMask("Terrain");
+    public static LayerMask BannedConstructionMask = LayerMask.GetMask("Player", "Creature", "Constructed");
 }

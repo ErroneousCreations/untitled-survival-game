@@ -1,6 +1,7 @@
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
+using Unity.Netcode;
 
 [CreateAssetMenu(fileName = "Buildables", menuName = "ScriptableObjects/Buildables")]
 public class BuildablesSO : ScriptableObject
@@ -16,20 +17,4 @@ public class BuildablesSO : ScriptableObject
     }
 
     public SerializedDictionary<string, Buildable> Buildables;
-
-    private List<string> Items;
-
-    public bool GetItemBuildable(string item)
-    {
-        if (Items == null)
-        {
-            Items = new();
-            foreach (var b in Buildables)
-            {
-                Items.Add(b.Value.itemID);
-            }
-        }
-
-        return Items.Contains(item);
-    }
 }

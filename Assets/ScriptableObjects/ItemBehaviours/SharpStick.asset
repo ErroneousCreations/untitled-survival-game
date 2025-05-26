@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91354c1376fb0c04c9a7343ac10c8ff9, type: 3}
-  m_Name: Knife
+  m_Name: SharpStick
   m_EditorClassIdentifier: 
-  AttackLength: 0.75
-  ForwardTime: 0.15
-  AttackForwardAmount: 1.5
+  AttackLength: 0.9
+  ForwardTime: 0.3
+  AttackForwardAmount: 2.5
   AttackJumpPower: 0.1
   RotateForwardsMelee: 1
-  Damage: 22
-  Stun: 0.125
+  Damage: 17
+  Stun: 0.95
   Type: 1
-  Range: 1.35
+  Range: 1.7
   HitWorldBreakables: 0
   WorldBreakableDamage: 0
-  Sharpen: 0
-  SharpenResult: 
-  SharpenParticle: 
-  MaxCharge: 1
+  Sharpen: 1
+  SharpenResult: shortstick
+  SharpenParticle: particle_splinters
+  MaxCharge: 1.5
   VibrateIntensity: 0.15
-  ThrowchargeUpwardAmount: 0.7
-  MaximumThrowForce: 12
-  ThrowAngularForce: 0
+  ThrowchargeUpwardAmount: 1
+  MaximumThrowForce: 16
+  ThrowAngularForce: 10
   ThrowAnimationBack: 0.5
   ThrowAnimationForward: 0.5
   ThrowAnimationJump: 0.25

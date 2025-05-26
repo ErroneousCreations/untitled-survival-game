@@ -25,39 +25,66 @@ public class BuildHammer : ScriptableObject, IItemBehaviour
 
     public ItemData InInventoryUpdate(InventoryItemStatus status, ItemData item)
     {
+        item.TempData = new List<float> { 0 };
         return item;
     }
 
     public ItemData OnDrop(ItemData item, HandSideEnum side)
     {
+        if(side == HandSideEnum.Right && item.TempData[0] == 1)
+        {
+            BuildingManager.StopPlacement();
+        }
         return item;
     }
 
     public ItemData OnEquip(ItemData item)
     {
+        item.TempData = new List<float> { 0 };
         return item;
     }
 
     public ItemData OnHandsSwapped(ItemData item, HandSideEnum side)
     {
+        item.TempData = new List<float> { 0 };
         return item;
     }
 
     public ItemData OnHeldUpdate(Transform hand, HandSideEnum side, ItemData item)
     {
-        if (Player.GetCanStand && side == HandSideEnum.Right && !PlayerInventory.GetIsBusy && Input.GetMouseButtonDown(0))
+        if (item.TempData[0] == 0)
         {
-            PlayerInventory.AddItemBusyTime(AttackLength);
-            Player.LocalPlayer.StartCoroutine(AttackAnimation(hand));
+            if (Player.GetCanStand && side == HandSideEnum.Right && !PlayerInventory.GetIsBusy && Input.GetMouseButtonDown(0))
+            {
+                PlayerInventory.AddItemBusyTime(AttackLength);
+                Player.LocalPlayer.StartCoroutine(AttackAnimation(hand));
+            }
+
+            if (Player.GetCanStand && side == HandSideEnum.Right && !PlayerInventory.GetIsBusy && Input.GetMouseButtonDown(1) && PlayerInventory.GetLeftHandItem.IsValid && buildables.Buildables.ContainsKey(PlayerInventory.GetLeftHandItem.ID.ToString()))
+            {
+                item.TempData[0] = 1;
+                BuildingManager.SetPlacement(buildables.Buildables[PlayerInventory.GetLeftHandItem.ID.ToString()]);
+            }
+        }
+        else if(item.TempData[0] == 1)
+        {
+            if (!PlayerInventory.GetLeftHandItem.IsValid || !buildables.Buildables.ContainsKey(PlayerInventory.GetLeftHandItem.ID.ToString()) || Input.GetMouseButtonDown(0) || !Player.GetCanStand) { BuildingManager.StopPlacement(); item.TempData[0] = 0; return item; }
+
+            if (Player.GetCanStand && side == HandSideEnum.Right && !PlayerInventory.GetIsBusy && Input.GetMouseButtonDown(1))
+            {
+                PlayerInventory.AddItemBusyTime(AttackLength*AnimationAmount);
+                Player.LocalPlayer.StartCoroutine(BuildAnimation(hand));
+                item.TempData[0] = 2; // Reset the temp data to stop building placement
+            }
+        }
+        else
+        {
+            if (!PlayerInventory.GetLeftHandItem.IsValid || !buildables.Buildables.ContainsKey(PlayerInventory.GetLeftHandItem.ID.ToString()) || Input.GetMouseButtonDown(0) || !Player.GetCanStand) { Player.LocalPlayer.StopCoroutine(nameof(BuildAnimation)); BuildingManager.StopPlacement(); item.TempData[0] = 0; return item; }
+            if (!PlayerInventory.GetIsBusy) { item.TempData[0] = 0; } // Reset the temp data if not busy
+            if (!BuildingManager.PlacementValid) { Player.LocalPlayer.StopCoroutine(nameof(BuildAnimation)); hand.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity); BuildingManager.StopPlacement(); item.TempData[0] = 0; return item; }
         }
 
-        if (Player.GetCanStand && side == HandSideEnum.Right && !PlayerInventory.GetIsBusy && Input.GetMouseButtonDown(1) && PlayerInventory.GetLeftHandItem.IsValid && buildables.GetItemBuildable(PlayerInventory.GetLeftHandItem.ID.ToString()))
-        {
-            PlayerInventory.AddItemBusyTime(AttackLength);
-            Player.LocalPlayer.StartCoroutine(AttackAnimation(hand));
-        }
-
-        if (!Player.GetCanStand) { Player.LocalPlayer.StopCoroutine(nameof(AttackAnimation)); hand.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity); }
+        if (!Player.GetCanStand) { Player.LocalPlayer.StopCoroutine(nameof(BuildAnimation)); Player.LocalPlayer.StopCoroutine(nameof(AttackAnimation)); hand.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity); }
 
         return item;
     }
@@ -84,12 +111,15 @@ public class BuildHammer : ScriptableObject, IItemBehaviour
             if (i == AnimationAmount-1) { Construct(); }
             hand.DOLocalMove(Vector3.zero, AttackLength - ForwardTime);
             hand.DOLocalRotate(Vector3.zero, AttackLength - ForwardTime);
+            yield return new WaitForSeconds(AttackLength - ForwardTime);
         }
     }
 
     private void Construct()
     {
-
+        BuildingManager.Place();
+        BuildingManager.StopPlacement();
+        PlayerInventory.DeleteLefthandItem();
     }
 
     private void DoMeleeDamage()
@@ -125,26 +155,31 @@ public class BuildHammer : ScriptableObject, IItemBehaviour
 
     public ItemData OnPickup(ItemData item, HandSideEnum side)
     {
+        item.TempData = new List<float> {  0 };
         return item;
     }
 
     public ItemData OnPutInBackpack(ItemData item)
     {
+        if (item.TempData[0] == 1) { BuildingManager.StopPlacement(); }
         return item;
     }
 
     public ItemData OnRemoveFromBackpack(ItemData item)
     {
+        item.TempData = new List<float> { 0 };
         return item;
     }
 
     public ItemData OnUnequip(ItemData item)
     {
+        if (item.TempData[0] == 1) { BuildingManager.StopPlacement(); }
         return item;
     }
 
     public ItemData OnWasCrafted(ItemData item)
     {
+        item.TempData = new List<float> { 0 };
         return item;
     }
 

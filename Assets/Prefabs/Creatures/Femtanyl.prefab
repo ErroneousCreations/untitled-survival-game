@@ -1001,7 +1001,7 @@ MonoBehaviour:
   ViewAngle: 89
   ViewMask:
     serializedVersion: 2
-    m_Bits: 200
+    m_Bits: 2248
   CanHear: 1
   HearRange: 20
   HearingPower: 0.5
@@ -1095,8 +1095,8 @@ MonoBehaviour:
   ModifierAreas:
   - Position: {x: 0, y: 1.54, z: 0}
     Size: 0.45
-    DamageModifier: 1.5
-    StunModifier: 2
+    DamageModifier: 1.35
+    StunModifier: 1.5
     DamageEffectOverride: 
 --- !u!114 &7586302758487653881
 MonoBehaviour:

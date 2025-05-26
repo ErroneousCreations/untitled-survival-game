@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6fcddbceb5224bad875291c76822e3c, type: 3}
+  m_Name: Buildables
+  m_EditorClassIdentifier: 
+  Buildables:
+    _serializedList:
+    - Key: plank
+      Value:
+        itemID: plank
+        Prefab: {fileID: 4550798694304671740, guid: 6d2de5ebbf60c164a9caad8b91250a5c, type: 3}
+        placementMesh: {fileID: -3481501719365375840, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.045, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 90}
+        OnlyPlaceOnFloor: 0
+    - Key: stick
+      Value:
+        itemID: stick
+        Prefab: {fileID: 4550798694304671740, guid: f869cc815fb7ca14bba54b419e441c6a, type: 3}
+        placementMesh: {fileID: -4224193870148154796, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.3, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 0}
+        OnlyPlaceOnFloor: 0
+    - Key: sharpstick
+      Value:
+        itemID: sharpstick
+        Prefab: {fileID: 4550798694304671740, guid: 874c382d5f0fa914db98e00f4c9b9c1a, type: 3}
+        placementMesh: {fileID: 1218775195733284945, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.3, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 0}
+        OnlyPlaceOnFloor: 0
+    - Key: ropestick
+      Value:
+        itemID: ropestick
+        Prefab: {fileID: 4550798694304671740, guid: f44f05c238cf34847aee8df014f2c930, type: 3}
+        placementMesh: {fileID: -4224193870148154796, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.3, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 0}
+        OnlyPlaceOnFloor: 0
+    - Key: shortstick
+      Value:
+        itemID: shortstick
+        Prefab: {fileID: 4550798694304671740, guid: 3a5b569a957f65545b8ff95ccc37198d, type: 3}
+        placementMesh: {fileID: 3921487095342828523, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.05, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 0}
+        OnlyPlaceOnFloor: 0
+    - Key: sharpshortstick
+      Value:
+        itemID: sharpshortstick
+        Prefab: {fileID: 4550798694304671740, guid: a937f88a053899748a72c81094ba3adc, type: 3}
+        placementMesh: {fileID: 2378266385503505328, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.05, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 0}
+        OnlyPlaceOnFloor: 0
+    - Key: ropeshortstick
+      Value:
+        itemID: ropeshortstick
+        Prefab: {fileID: 4550798694304671740, guid: 8b9c9a953971f4843b1af8843c74ec35, type: 3}
+        placementMesh: {fileID: 3921487095342828523, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.05, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 0}
+        OnlyPlaceOnFloor: 0

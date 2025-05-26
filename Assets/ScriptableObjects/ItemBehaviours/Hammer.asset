@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628e873346cc44bec907088dc6e11812, type: 3}
+  m_Name: Hammer
+  m_EditorClassIdentifier: 
+  AttackLength: 0.75
+  ForwardTime: 0.15
+  AttackForwardAmount: 0.75
+  buildables: {fileID: 11400000, guid: 53ac0d6f8936b854d929731925714f5b, type: 2}
+  AnimationAmount: 3
+  Damage: 25
+  Stun: 1.15
+  Type: 0
+  Range: 1.5
+  WorldBreakableDamage: 0.6
