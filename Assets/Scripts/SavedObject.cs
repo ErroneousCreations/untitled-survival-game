@@ -13,6 +13,9 @@ public class SavedObject : MonoBehaviour
     public UnityEngine.Events.UnityEvent DataLoaded;
     public UnityEngine.Events.UnityEvent<List<string>> DataLoaded_Data;
 
+    private int UID;
+    public int GetUID => UID;
+
     /// <summary>
     /// Gets if the Init function was called by SavingManager, never called when not loading from a save
     /// </summary>
@@ -28,11 +31,12 @@ public class SavedObject : MonoBehaviour
         SAVEDOBJECTS.Remove(this);
     }
 
-    public void Init(List<string> saveddata, Vector3 pos, Vector3 rot)
+    public void Init(List<string> saveddata, Vector3 pos, Vector3 rot, int id)
     {
         GetLoaded = true;
         transform.SetPositionAndRotation(pos, Quaternion.Euler(rot));
         SavedData = new(saveddata);
+        UID = id;
         OnDataLoaded?.Invoke();
         DataLoaded?.Invoke();
         DataLoaded_Data?.Invoke(saveddata);

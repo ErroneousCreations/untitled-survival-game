@@ -124,8 +124,9 @@ public static class Extensions
         return System.Math.Round(pos.x, rounding).ToString() + delimiter + System.Math.Round(pos.y, rounding).ToString() + delimiter + System.Math.Round(pos.z, rounding).ToString();
     }
 
-    public static LayerMask DefaultMeleeLayermask => LayerMask.GetMask("Player", "Creature", "Terrain");
-    public static LayerMask DefaultThrownHitregLayermask => LayerMask.GetMask("Player", "Creature");
-    public static LayerMask ItemLayermask => LayerMask.GetMask("Item");
-    public static LayerMask CreatureLayermask => LayerMask.GetMask("Creature");
+    public static LayerMask DefaultMeleeLayermask = LayerMask.GetMask("Player", "Creature", "Terrain");
+    public static LayerMask DefaultThrownHitregLayermask = LayerMask.GetMask("Player", "Creature");
+    public static LayerMask ItemLayermask = LayerMask.GetMask("Item");
+    public static LayerMask CreatureLayermask = LayerMask.GetMask("Creature");
+    public static LayerMask TerrainMask = LayerMask.GetMask("Terrain");
 }

@@ -11,7 +11,7 @@ public class BuildablesSO : ScriptableObject
         public string itemID;
         public GameObject Prefab;
         public Mesh placementMesh;
-        public Vector3 EulerRotation;
+        public Vector3 Offset, EulerRotation;
         public bool OnlyPlaceOnFloor;
     }
 

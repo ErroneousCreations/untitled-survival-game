@@ -416,6 +416,7 @@ public class SavingManager : NetworkBehaviour
         }
         if(savedobjects != "null") {
             string[] splitobjects = savedobjects.Split('\\');
+            var k = 0;
             foreach (var obj in splitobjects)
             {
                 var split = obj.Split(',');
@@ -430,8 +431,9 @@ public class SavingManager : NetworkBehaviour
                             savedobjdata.Add(split[i]);
                         }
                     }
-                    savedobj.Init(savedobjdata, new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3])), new Vector3(float.Parse(split[4]), float.Parse(split[5]), float.Parse(split[6])));
+                    savedobj.Init(savedobjdata, new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3])), new Vector3(float.Parse(split[4]), float.Parse(split[5]), float.Parse(split[6])), k);
                 }
+                k++;
             }
         }
         bool playerisnew = true;

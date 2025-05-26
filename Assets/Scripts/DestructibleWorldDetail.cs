@@ -16,20 +16,21 @@ public class DestructibleWorldDetail : MonoBehaviour
 
     private void Start()
     {
-        ObjectID = Mathf.RoundToInt(transform.position.x * 100) + Mathf.RoundToInt(transform.position.z * 100) + Mathf.RoundToInt(transform.position.y);
-        WorldDetailManager.RegisterObject(this);
         CurrHealth = Health;
-        Invoke(nameof(SetHealth), 0.01f);
+        mySaver.OnDataLoaded_Data += SetHealth;
     }
 
-    void SetHealth()
+    void SetHealth(List<string> data)
     {
         if (mySaver)
         {
             if (mySaver.SavedData.Count > 0)
             {
-                CurrHealth = float.Parse(mySaver.SavedData[0]);
+                CurrHealth = float.Parse(data[0]);
             }
+
+            ObjectID = mySaver.GetUID; //surely guys
+            WorldDetailManager.RegisterObject(this);
         }
     }
 
