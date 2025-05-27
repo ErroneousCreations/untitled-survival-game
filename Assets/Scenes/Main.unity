@@ -7420,6 +7420,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 475354899}
   pauseMenu: {fileID: 1580532544}
+  PingText: {fileID: 0}
+  FPSText: {fileID: 0}
   muteIcon: {fileID: 1596712725}
   VitalsIndicatorImage: {fileID: 1969286353}
   VitalsIndicatorCanvasGroup: {fileID: 1969286352}

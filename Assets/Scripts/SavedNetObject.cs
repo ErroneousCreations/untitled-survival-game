@@ -12,6 +12,8 @@ public class SavedNetObject : NetworkBehaviour
 
     public System.Action OnDataLoaded;
     public UnityEngine.Events.UnityEvent DataLoaded;
+    public System.Action<List<string>> OnDataLoaded_Data;
+    public UnityEngine.Events.UnityEvent<List<string>> DataLoaded_Data;
 
     private void OnEnable()
     {
@@ -33,5 +35,7 @@ public class SavedNetObject : NetworkBehaviour
         }
         OnDataLoaded?.Invoke();
         DataLoaded?.Invoke();
+        OnDataLoaded_Data?.Invoke(saveddata);
+        DataLoaded_Data?.Invoke(saveddata);
     }
 }
