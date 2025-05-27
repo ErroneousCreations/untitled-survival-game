@@ -65,7 +65,7 @@ public class BuildingManager : NetworkBehaviour
             var pos = hit.point + (rot * currentBuildable.Offset);
             if (didhit) { buildingPlacementMesh.transform.SetPositionAndRotation(pos, rot); }
             currRotation = (currRotation + Input.mouseScrollDelta.y * PlacementRotSensitivity * Time.deltaTime) % 360;
-            var overlapping = Physics.OverlapBox(buildingPlacementMesh.transform.position, buildingPlacementMesh.mesh.bounds.extents, buildingPlacementMesh.transform.rotation, Extensions.BannedConstructionMask);
+            var overlapping = Physics.OverlapBox(buildingPlacementMesh.transform.position, buildingPlacementMesh.mesh.bounds.extents*0.99f, buildingPlacementMesh.transform.rotation, Extensions.BannedConstructionMask);
             PlacementValid = didhit && (!currentBuildable.OnlyPlaceOnFloor || Vector3.Angle(hit.normal, Vector3.up) < 20) && overlapping.Length<=0;
         }
     }

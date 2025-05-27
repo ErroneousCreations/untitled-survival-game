@@ -330,6 +330,20 @@ MonoBehaviour:
         HeldMesh: {fileID: 6935877506589290101, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
         HeldMats:
         - {fileID: 2100000, guid: a3f46c7a8194fb643912ee426163d5cd, type: 2}
+    - Key: log
+      Value:
+        Name: Log
+        ID: log
+        Volume: 4
+        ScareFactor: 0
+        ItemType: 0
+        BaseSavedData: []
+        ItemPrefab: {fileID: 8701911266804393704, guid: a297edddd605d4a4ca04fa722757a7c4, type: 3}
+        _itemBehaviour: {fileID: 0}
+        HeldMesh: {fileID: -664622057891512100, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        HeldMats:
+        - {fileID: 2100000, guid: 6590974679d787246bba41259e9659ea, type: 2}
+        - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}
   recipes:
   - Result: rope
     SAVEDATAOVERRIDE: []
@@ -364,3 +378,7 @@ MonoBehaviour:
     - 2
     Ingredient1: camera
     Ingredient2: film
+  - Result: hammer
+    SAVEDATAOVERRIDE: []
+    Ingredient1: ropestick
+    Ingredient2: log

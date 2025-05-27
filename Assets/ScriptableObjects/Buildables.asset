@@ -19,7 +19,7 @@ MonoBehaviour:
         itemID: plank
         Prefab: {fileID: 4550798694304671740, guid: 6d2de5ebbf60c164a9caad8b91250a5c, type: 3}
         placementMesh: {fileID: -3481501719365375840, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
-        Offset: {x: 0, y: 0.045, z: 0}
+        Offset: {x: 0, y: 0.05, z: 0}
         EulerRotation: {x: 0, y: 0, z: 90}
         OnlyPlaceOnFloor: 0
     - Key: stick
@@ -70,3 +70,11 @@ MonoBehaviour:
         Offset: {x: 0, y: 0.05, z: 0}
         EulerRotation: {x: 0, y: 0, z: 0}
         OnlyPlaceOnFloor: 0
+    - Key: log
+      Value:
+        itemID: log
+        Prefab: {fileID: 4550798694304671740, guid: 806a7138488895a49a542c9a3742e207, type: 3}
+        placementMesh: {fileID: -6110537674715254763, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.07, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 0}
+        OnlyPlaceOnFloor: 1

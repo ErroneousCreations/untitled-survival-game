@@ -199,6 +199,7 @@ public class BuildHammer : ScriptableObject, IItemBehaviour
 
     public ItemData OnLoaded(ItemData item, LoadedLocationEnum location)
     {
+        item.TempData = new List<float> { 0 };
         return item;
     }
 }

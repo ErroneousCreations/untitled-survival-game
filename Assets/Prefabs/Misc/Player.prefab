@@ -3836,7 +3836,7 @@ MonoBehaviour:
   downForce: 5
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 2056
   groundCheckDistance: 0.1
   airControl: 0.3
   airMaxSpeed: 8

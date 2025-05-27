@@ -81,6 +81,11 @@ public class Axe : ScriptableObject, IItemBehaviour
             {
                 hp.TakeDamage(Damage, Stun, Type, hit.point, hit.normal);
             }
+            else if(hit.collider.TryGetComponent(out CutTreeTrunk tree))
+            {
+                tree.Attack(WorldBreakableDamage);
+                PlayerInventory.SpawnNetOb("particle_splinters", hit.point, Quaternion.LookRotation(hit.normal));
+            }
             else if (hit.collider.transform.parent && hit.collider.transform.parent.TryGetComponent(out WorldFeature wf) && wf.Destroyable)
             {
                 wf.Attack(WorldBreakableDamage);

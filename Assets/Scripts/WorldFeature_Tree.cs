@@ -25,8 +25,9 @@ public class WorldFeature_Tree : WorldFeature
     {
         if (NetworkManager.Singleton.IsServer)
         {
-            var ob = Instantiate(CutTree, transform.position, transform.rotation);
+            var ob = Instantiate(CutTree, transform.position+Vector3.up*0.1f, transform.rotation);
             ob.NetworkObject.Spawn();
+            ob.AddFalloverForce();
             for (int i = 0; i < drops.Count; i++)
             {
                 if (Random.value <= drops[i].Chance)

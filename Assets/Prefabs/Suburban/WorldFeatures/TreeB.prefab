@@ -40,8 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3027988357679072888}
-  - component: {fileID: 8340309119964628599}
   - component: {fileID: 3537084021293982726}
+  - component: {fileID: 1966315649621143501}
   m_Layer: 3
   m_Name: TreeB
   m_TagString: Untagged
@@ -67,45 +67,6 @@ Transform:
   - {fileID: 4294847818536658841}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8340309119964628599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2500441081783796358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 019e246d33c536f42a565a9c0f25da1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Destroyable: 1
-  CurrHealth: 0
-  MaxHealth: 38
-  drops:
-  - ItemID: stick
-    Chance: 1
-  - ItemID: stick
-    Chance: 1
-  - ItemID: stick
-    Chance: 1
-  - ItemID: shortstick
-    Chance: 1
-  - ItemID: stick
-    Chance: 0.75
-  - ItemID: stick
-    Chance: 0.75
-  - ItemID: shortstick
-    Chance: 0.75
-  - ItemID: berry
-    Chance: 0.75
-  - ItemID: berry
-    Chance: 0.75
-  - ItemID: berry
-    Chance: 0.75
-  - ItemID: berry
-    Chance: 0.75
-  Breakparticle: particle_splinters
 --- !u!205 &3537084021293982726
 LODGroup:
   m_ObjectHideFlags: 0
@@ -129,6 +90,40 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1622330584050149821}
   m_Enabled: 1
+--- !u!114 &1966315649621143501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500441081783796358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e18361d6e25314be6937d2955c2efb74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Destroyable: 1
+  CurrHealth: 0
+  MaxHealth: 38
+  drops:
+  - ItemID: stick
+    Chance: 1
+  - ItemID: shortstick
+    Chance: 1
+  - ItemID: stick
+    Chance: 0.75
+  - ItemID: shortstick
+    Chance: 0.75
+  - ItemID: berry
+    Chance: 0.75
+  - ItemID: berry
+    Chance: 0.75
+  - ItemID: berry
+    Chance: 0.75
+  - ItemID: berry
+    Chance: 0.75
+  Breakparticle: particle_splinters
+  CutTree: {fileID: 7312016025378402845, guid: 5ab6cf9edc3194b43a079574fa1e4dae, type: 3}
 --- !u!1 &3091914401465038311
 GameObject:
   m_ObjectHideFlags: 0

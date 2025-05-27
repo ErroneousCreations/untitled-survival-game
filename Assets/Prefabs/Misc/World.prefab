@@ -9095,8 +9095,8 @@ MonoBehaviour:
     SpawnPool: 00000000
   - name: trees
     FeatureTypes:
-    - {fileID: 8340309119964628599, guid: 4062f393d29a6e2468df92580c6bbb9e, type: 3}
-    - {fileID: 8340309119964628599, guid: b37595c3cf07083418408379a9efe8c0, type: 3}
+    - {fileID: 2455558265419049836, guid: 4062f393d29a6e2468df92580c6bbb9e, type: 3}
+    - {fileID: 1966315649621143501, guid: b37595c3cf07083418408379a9efe8c0, type: 3}
     SpawnPoints:
     - {fileID: 217534570797975016}
     - {fileID: 1111649143184366809}
@@ -9444,7 +9444,7 @@ MonoBehaviour:
   - SpawnLocationIndex: femtanylspawn
     spawnPool:
     - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
-    SpawnAmount: {x: 6, y: 8}
+    SpawnAmount: {x: 5, y: 7}
     RandomiseRotation: 0
     OnlyBeforeSave: 1
     OnlyForServer: 1

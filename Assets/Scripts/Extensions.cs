@@ -146,6 +146,7 @@ public static class Extensions
     public static LayerMask DefaultMeleeLayermask = LayerMask.GetMask("Player", "Creature", "Terrain", "Constructed");
     public static LayerMask DefaultThrownHitregLayermask = LayerMask.GetMask("Player", "Creature");
     public static LayerMask ItemLayermask = LayerMask.GetMask("Item");
+    public static LayerMask PlayerLayermask = LayerMask.GetMask("Player");
     public static LayerMask CreatureLayermask = LayerMask.GetMask("Creature");
     public static LayerMask TerrainMask = LayerMask.GetMask("Terrain");
     public static LayerMask PlacementMask = LayerMask.GetMask("Terrain", "Constructed");
