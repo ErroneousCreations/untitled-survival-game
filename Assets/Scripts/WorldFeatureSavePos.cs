@@ -36,7 +36,7 @@ public class WorldFeatureSavePos : WorldFeature
         {
             if (Destroyable)
             {
-                return $"{CurrHealth},{System.Math.Round(transform.position.x, 2)},{System.Math.Round(transform.position.y, 2)},{System.Math.Round(transform.position.z, 2)},{System.Math.Round(transform.eulerAngles.y, 2)}";
+                return $"{System.Math.Round(CurrHealth, 1)},{System.Math.Round(transform.position.x, 2)},{System.Math.Round(transform.position.y, 2)},{System.Math.Round(transform.position.z, 2)},{System.Math.Round(transform.eulerAngles.y, 2)}";
             }
             else
             {

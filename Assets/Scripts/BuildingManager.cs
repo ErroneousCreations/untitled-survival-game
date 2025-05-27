@@ -56,7 +56,7 @@ public class BuildingManager : NetworkBehaviour
         {
             if (!Player.LocalPlayer || !Player.GetCanStand) { StopPlacement(); return; }
             buildingPlacementRend.material = PlacementValid ? validMat : invalidMat;    
-            bool didhit = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, BuildRange, Extensions.TerrainMask);
+            bool didhit = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, BuildRange, Extensions.PlacementMask);
             currHitNormal = didhit ? hit.normal : Vector3.up;
             currHitPos = didhit ? hit.point : Camera.main.transform.position + Camera.main.transform.forward * BuildRange;
             buildingPlacementMesh.gameObject.SetActive(didhit);

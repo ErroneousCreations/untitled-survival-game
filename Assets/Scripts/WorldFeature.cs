@@ -71,24 +71,29 @@ public class WorldFeature : MonoBehaviour
         CurrHealth -= damage;
         if (CurrHealth <= 0)
         {
-            if (NetworkManager.Singleton.IsServer)
-            {
-                for (int i = 0; i < drops.Count; i++)
-                {
-                    if (Random.value <= drops[i].Chance)
-                    {
-                        var curr = Instantiate(ItemDatabase.GetItem(drops[i].ItemID).ItemPrefab, transform.position + Vector3.up * 0.75f, Quaternion.identity);
-                        curr.NetworkObject.Spawn();
-                        curr.InitSavedData();
-                    }
-                }
-            }
-            Destroy(gameObject);
+            Die();
         }
         //else
         //{
         //    transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.2f);
         //}
+    }
+
+    protected virtual void Die()
+    {
+        if (NetworkManager.Singleton.IsServer)
+        {
+            for (int i = 0; i < drops.Count; i++)
+            {
+                if (Random.value <= drops[i].Chance)
+                {
+                    var curr = Instantiate(ItemDatabase.GetItem(drops[i].ItemID).ItemPrefab, transform.position + Vector3.up * 0.75f, Quaternion.identity);
+                    curr.NetworkObject.Spawn();
+                    curr.InitSavedData();
+                }
+            }
+        }
+        Destroy(gameObject);
     }
 
     public void RemoveFeature()
