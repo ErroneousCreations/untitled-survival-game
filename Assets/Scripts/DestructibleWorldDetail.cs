@@ -13,6 +13,17 @@ public class DestructibleWorldDetail : MonoBehaviour
     public float Health;
     public string BreakParticle;
     public SavedObject mySaver;
+    public bool IsBuilding;
+    [ShowField(nameof(IsBuilding))] public float BaseElectricity;
+    [ShowField(nameof(IsBuilding))] public bool Conductive;
+    [ShowField(nameof(isconductive))] public Transform ElectricEffect;
+    private float currElectricity;
+    private int connWfTypeIndex, connWfGenIndex;
+    private enum ConnectedTypeEnum { None, WorldFeature, DWD }
+    private ConnectedTypeEnum connected;
+    private int connBuildingUID;
+
+    private bool isconductive => IsBuilding && Conductive;
 
     private void Start()
     {
@@ -24,12 +35,21 @@ public class DestructibleWorldDetail : MonoBehaviour
 
     void SetHealth(List<string> data)
     {
-        if (mySaver)
+        if (mySaver && data.Count > 0)
         {
-            if (mySaver.SavedData.Count > 0)
-            {
-                CurrHealth = float.Parse(data[0]);
+            CurrHealth = float.Parse(data[0]);
+            if (data.Count > 1) {
+                var split = data[1].Split('~');
+                if (split.Length <= 1) { //then its connected to a DWD
+                    connected = ConnectedTypeEnum.DWD;
+                    connBuildingUID = int.Parse(split[0]);
+                } 
+                else
+                {
+                    //todo
+                }
             }
+            else { connected = ConnectedTypeEnum.None; }
         }
     }
 

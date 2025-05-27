@@ -192,8 +192,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   LogCount: 7
   TreeHeight: 4.6
-  InitialForce: 30
-  ContactDamage: 70
+  InitialForce: 40
+  ContactDamage: 85
   MinDamageSpeed: 0.5
   saver: {fileID: 92686725967230069}
   Health: 30
