@@ -57,7 +57,11 @@ public class UIManager : MonoBehaviour
             TogglePauseMenu(!GetPauseMenuOpen);
         }
         respawnButton.SetActive(!VivoxManager.LeavingChannel);
-        //FPSText.text =  finish this
+        if (GetPauseMenuOpen)
+        {
+            FPSText.text = System.Math.Round(Extensions.GetFramerate, 2) + " fps";
+            PingText.text = System.Math.Round(Extensions.GetEstimatedRTT * 1000, 2) + "ms ping";
+        }
 
         if (regiontitlecountdown > 0)
         {

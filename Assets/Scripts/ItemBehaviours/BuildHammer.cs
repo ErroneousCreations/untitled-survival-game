@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using EditorAttributes;
+using UnityEngine.XR;
 
 [CreateAssetMenu(fileName = "New AxeBehaviour", menuName = "ItemBehaviours/BuildHammer")]
 public class BuildHammer : ScriptableObject, IItemBehaviour
@@ -107,14 +108,20 @@ public class BuildHammer : ScriptableObject, IItemBehaviour
             hand.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             hand.DOLocalRotate(new Vector3(90, 0, 0), ForwardTime);
             hand.DOLocalMove(new Vector3(0, 0, AttackForwardAmount), ForwardTime);
-            if (!BuildingManager.PlacementValid) { yield break; }
+            if (!BuildingManager.PlacementValid) { PlayerInventory.AddItemBusyTime(0.25f); ResetHandPos(hand); yield break; }
             yield return new WaitForSeconds(ForwardTime);
             if (i == AnimationAmount-1 && BuildingManager.PlacementValid) { Construct(); }
             hand.DOLocalMove(Vector3.zero, AttackLength - ForwardTime);
             hand.DOLocalRotate(Vector3.zero, AttackLength - ForwardTime);
-            if (!BuildingManager.PlacementValid) { yield break; }
+            if (!BuildingManager.PlacementValid) { PlayerInventory.AddItemBusyTime(0.25f); ResetHandPos(hand); yield break; }
             yield return new WaitForSeconds(AttackLength - ForwardTime);
         }
+    }
+
+    private void ResetHandPos(Transform hand)
+    {
+        hand.DOLocalMove(Vector3.zero, 0.25f);
+        hand.DOLocalRotate(Vector3.zero, 0.25f);
     }
 
     private void Construct()
