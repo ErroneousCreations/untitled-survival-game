@@ -6,6 +6,9 @@ public class WorldDetailManager : NetworkBehaviour
 {
     private static Dictionary<int, DestructibleWorldDetail> objectsByID = new();
 
+    public static bool GetIDExists(int id) => objectsByID.ContainsKey(id);
+    public static bool TryGetOb(int id, out DestructibleWorldDetail det) => objectsByID.TryGetValue(id, out det);
+
     public static void RegisterObject(DestructibleWorldDetail obj)
     {
         objectsByID[obj.ObjectID] = obj;

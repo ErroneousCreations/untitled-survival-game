@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text PingText, FPSText;
 
     public static Canvas GetCanvas => instance.canvas;
+    private float fpsUpdateTime;
 
     private void Awake()
     {
@@ -56,10 +57,15 @@ public class UIManager : MonoBehaviour
         {
             TogglePauseMenu(!GetPauseMenuOpen);
         }
-        respawnButton.SetActive(!VivoxManager.LeavingChannel);
+        respawnButton.SetActive(!VivoxManager.InMainChannel);
         if (GetPauseMenuOpen)
         {
-            FPSText.text = System.Math.Round(Extensions.GetFramerate, 2) + " fps";
+            fpsUpdateTime -= Time.deltaTime;
+            if (fpsUpdateTime <= 0)
+            {
+                fpsUpdateTime = 0.25f;
+                FPSText.text = System.Math.Round(Extensions.GetFramerate, 2) + " fps";
+            }
             PingText.text = System.Math.Round(Extensions.GetEstimatedRTT * 1000, 2) + "ms ping";
         }
 

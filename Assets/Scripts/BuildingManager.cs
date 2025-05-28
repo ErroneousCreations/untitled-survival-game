@@ -15,6 +15,7 @@ public class BuildingManager : NetworkBehaviour
     private bool currentlyPlacing;
     private float currRotation;
     private Vector3 currHitPos, currHitNormal;
+    private Collider currHitCollider;
 
     public static bool PlacementValid;
 
@@ -41,13 +42,23 @@ public class BuildingManager : NetworkBehaviour
         if(!instance.currentlyPlacing) return;
         var rot = Quaternion.FromToRotation(Vector3.up, instance.currHitNormal) * Quaternion.Euler(0f, instance.currRotation, 0f) * Quaternion.Euler(instance.currentBuildable.EulerRotation);
         var pos = instance.currHitPos + (rot * instance.currentBuildable.Offset);
-        instance.PlaceStructureRPC(pos, rot, instance.currentBuildable.itemID);
+        var connectiondata = "";
+        if(instance.currHitCollider.TryGetComponent(out WorldFeature wf))
+        {
+            connectiondata = $"{wf.GetFeatureIndex}~{wf.GetGeneratedFeatureIndex}";
+        }
+        else if(instance.currHitCollider.transform.parent && instance.currHitCollider.transform.parent.TryGetComponent(out DestructibleWorldDetail det))
+        {
+            connectiondata = $"{det.ObjectID}";
+        }
+        instance.PlaceStructureRPC(pos, rot, instance.currentBuildable.itemID, connectiondata);
     }
 
     [Rpc(SendTo.Everyone, RequireOwnership = false)]
-    private void PlaceStructureRPC(Vector3 pos, Quaternion rot, string placed)
+    private void PlaceStructureRPC(Vector3 pos, Quaternion rot, string placed, string connectiondata)
     {
-        Instantiate(instance.buildables.Buildables[placed].Prefab, pos, rot);
+        var ob = Instantiate(instance.buildables.Buildables[placed].Prefab, pos, rot);
+        ob.SetConnection(connectiondata);
     }
 
     private void Update()
@@ -59,6 +70,7 @@ public class BuildingManager : NetworkBehaviour
             bool didhit = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, BuildRange, Extensions.PlacementMask);
             currHitNormal = didhit ? hit.normal : Vector3.up;
             currHitPos = didhit ? hit.point : Camera.main.transform.position + Camera.main.transform.forward * BuildRange;
+            currHitCollider = didhit ? hit.collider : null;
             buildingPlacementMesh.gameObject.SetActive(didhit);
             buildingPlacementMesh.mesh = currentBuildable.placementMesh;
             var rot = Quaternion.FromToRotation(Vector3.up, hit.normal) * Quaternion.Euler(0f, currRotation, 0f) * Quaternion.Euler(currentBuildable.EulerRotation);

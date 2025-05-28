@@ -73,6 +73,10 @@ MonoBehaviour:
   Health: 2
   BreakParticle: particle_splinters
   mySaver: {fileID: -3308331007220755155}
+  IsBuilding: 0
+  BaseElectricity: 0
+  Conductive: 0
+  ElectricEffect: {fileID: 0}
 --- !u!114 &-3308331007220755155
 MonoBehaviour:
   m_ObjectHideFlags: 0

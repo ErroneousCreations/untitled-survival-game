@@ -10,7 +10,7 @@ public class BuildablesSO : ScriptableObject
     public struct Buildable
     {
         public string itemID;
-        public GameObject Prefab;
+        public DestructibleWorldDetail Prefab;
         public Mesh placementMesh;
         public Vector3 Offset, EulerRotation;
         public bool OnlyPlaceOnFloor;
