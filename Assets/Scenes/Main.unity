@@ -14587,6 +14587,10 @@ MonoBehaviour:
       Value: {fileID: -3308331007220755155, guid: 8b9c9a953971f4843b1af8843c74ec35, type: 3}
     - Key: b8
       Value: {fileID: -3308331007220755155, guid: 806a7138488895a49a542c9a3742e207, type: 3}
+    - Key: b9
+      Value: {fileID: -3308331007220755155, guid: a46c6240b2b0542ac99e378e48c1760b, type: 3}
+    - Key: b10
+      Value: {fileID: -3308331007220755155, guid: 6d5479c73dc6640338c3fb3cf6529944, type: 3}
   SavedNetObjects:
     _serializedList:
     - Key: wallrebar

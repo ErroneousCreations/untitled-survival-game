@@ -36,7 +36,7 @@ MonoBehaviour:
         Prefab: {fileID: 3278574729139848833, guid: 874c382d5f0fa914db98e00f4c9b9c1a, type: 3}
         placementMesh: {fileID: 1218775195733284945, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
         Offset: {x: 0, y: 0.3, z: 0}
-        EulerRotation: {x: 0, y: 0, z: 0}
+        EulerRotation: {x: 45, y: 0, z: 0}
         OnlyPlaceOnFloor: 0
     - Key: ropestick
       Value:
@@ -52,7 +52,7 @@ MonoBehaviour:
         Prefab: {fileID: 3278574729139848833, guid: 3a5b569a957f65545b8ff95ccc37198d, type: 3}
         placementMesh: {fileID: 3921487095342828523, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
         Offset: {x: 0, y: 0.05, z: 0}
-        EulerRotation: {x: 0, y: 0, z: 0}
+        EulerRotation: {x: 45, y: 0, z: 0}
         OnlyPlaceOnFloor: 0
     - Key: sharpshortstick
       Value:
@@ -78,3 +78,19 @@ MonoBehaviour:
         Offset: {x: 0, y: 0.07, z: 0}
         EulerRotation: {x: 0, y: 0, z: 0}
         OnlyPlaceOnFloor: 1
+    - Key: rebarspear
+      Value:
+        itemID: rebarspear
+        Prefab: {fileID: 3278574729139848833, guid: a46c6240b2b0542ac99e378e48c1760b, type: 3}
+        placementMesh: {fileID: -6280669117017369944, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.55, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 0}
+        OnlyPlaceOnFloor: 0
+    - Key: spear
+      Value:
+        itemID: spear
+        Prefab: {fileID: 3278574729139848833, guid: 6d5479c73dc6640338c3fb3cf6529944, type: 3}
+        placementMesh: {fileID: 6540302948180505563, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        Offset: {x: 0, y: 0.43, z: 0}
+        EulerRotation: {x: 0, y: 0, z: 0}
+        OnlyPlaceOnFloor: 0

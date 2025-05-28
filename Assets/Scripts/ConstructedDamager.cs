@@ -7,7 +7,7 @@ public class ConstructedDamager : MonoBehaviour
     public DamagerType MyType;
     public DestructibleWorldDetail myDetail;
 
-    [ShowField(nameof(DamageType), DamagerType.Spike)] public float DamagePerVelocity, DurabilityLoss;
+    [ShowField(nameof(MyType), DamagerType.Spike)] public float DamagePerVelocity, DurabilityLoss;
 
     private void OnTriggerEnter(Collider other)
     {

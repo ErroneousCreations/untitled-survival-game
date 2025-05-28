@@ -73,7 +73,7 @@ MonoBehaviour:
   Health: 2
   BreakParticle: particle_splinters
   mySaver: {fileID: -3308331007220755155}
-  IsBuilding: 0
+  IsBuilding: 1
   BaseElectricity: 0
   Conductive: 0
   ElectricEffect: {fileID: 0}
@@ -92,6 +92,7 @@ MonoBehaviour:
   SavedObjectID: b2
   SavedData:
   - 2
+  - 
   DataLoaded:
     m_PersistentCalls:
       m_Calls: []

@@ -70,7 +70,7 @@ MonoBehaviour:
   drops:
   - ItemID: log
     Chance: 1
-  Health: 10
+  Health: 7
   BreakParticle: particle_splinters
   mySaver: {fileID: -3308331007220755155}
   IsBuilding: 0
@@ -92,6 +92,7 @@ MonoBehaviour:
   SavedObjectID: b8
   SavedData:
   - 5
+  - 
   DataLoaded:
     m_PersistentCalls:
       m_Calls: []
