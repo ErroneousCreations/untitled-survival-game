@@ -15,6 +15,7 @@ public class ConstructedDamager : MonoBehaviour
         {
             case DamagerType.Electric:
                 {
+                    if(myDetail.GetCurrElectricity <= 0.05f) { return; }
                     if (other.CompareTag("Player") && other.TryGetComponent(out Player p))
                     {
                         p.KnockOver(myDetail.GetCurrElectricity * 2.5f, true);

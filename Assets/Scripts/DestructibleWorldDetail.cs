@@ -18,9 +18,11 @@ public class DestructibleWorldDetail : MonoBehaviour
     public bool IsBuilding;
     [ShowField(nameof(IsBuilding))] public float BaseElectricity;
     [ShowField(nameof(IsBuilding))] public bool Conductive;
-    [ShowField(nameof(isconductive))] public Transform ElectricEffect;
+    [ShowField(nameof(isconductive))] public Renderer ElectricEffect;
     private float currElectricity;
     private int connWfTypeIndex, connWfGenIndex;
+    private Material elecmat;
+    private int propID;
     private enum ConnectedTypeEnum { None, WorldFeature, DWD }
     private ConnectedTypeEnum connected;
     private int connBuildingUID;
@@ -50,6 +52,8 @@ public class DestructibleWorldDetail : MonoBehaviour
 
     private void Start()
     {
+        elecmat = ElectricEffect ? ElectricEffect.material : null;
+        if (elecmat) { propID = Shader.PropertyToID("_AlphaNoiseThresh"); }
         CurrHealth = Health;
         mySaver.OnDataLoaded_Data += SetHealth;
         ObjectID = Extensions.HashVector3ToInt(transform.position);
@@ -125,10 +129,10 @@ public class DestructibleWorldDetail : MonoBehaviour
 
         //electricity
         currElectricity = Conductive ? (BaseElectricity + (connected == ConnectedTypeEnum.WorldFeature && WorldDetailManager.TryGetOb(connBuildingUID, out var det) ? det.BaseElectricity*ELECTRICITY_FALLOFF : 0)) : 0;
-        if (ElectricEffect)
+        if (elecmat)
         {
-            ElectricEffect.gameObject.SetActive(currElectricity > 0);
-            ElectricEffect.localScale = Vector3.one * currElectricity;
+            ElectricEffect.gameObject.SetActive(currElectricity > 0.05f);
+            if(currElectricity > 0.05f) { elecmat.SetFloat(propID, Mathf.Lerp(0.85f, 0.34f, currElectricity)); }
         }
 
         //breaking check on the server

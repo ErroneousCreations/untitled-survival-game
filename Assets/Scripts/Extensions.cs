@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Extensions
 {
-    public static float GetEstimatedRTT => (NetworkManager.Singleton.LocalTime - NetworkManager.Singleton.ServerTime).TimeAsFloat;
+    public static float GetEstimatedRTT => !NetworkManager.Singleton ? 0 : (NetworkManager.Singleton.LocalTime - NetworkManager.Singleton.ServerTime).TimeAsFloat;
     public static float GetFramerate => 1 / Time.unscaledDeltaTime;
 
     public static ulong LocalClientID => NetworkManager.Singleton.LocalClientId;

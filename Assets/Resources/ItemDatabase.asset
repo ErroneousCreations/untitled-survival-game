@@ -344,6 +344,19 @@ MonoBehaviour:
         HeldMats:
         - {fileID: 2100000, guid: 6590974679d787246bba41259e9659ea, type: 2}
         - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}
+    - Key: carbattery
+      Value:
+        Name: Car Battery
+        ID: carbattery
+        Volume: 3
+        ScareFactor: 0
+        ItemType: 0
+        BaseSavedData: []
+        ItemPrefab: {fileID: 8701911266804393704, guid: f5c054159a39576469e5e6d17db3599b, type: 3}
+        _itemBehaviour: {fileID: 0}
+        HeldMesh: {fileID: 5878370943547326395, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+        HeldMats:
+        - {fileID: -876546973899608171, guid: eeb85a4bffd4e9c4e908c36c0c0a7d8e, type: 3}
   recipes:
   - Result: rope
     SAVEDATAOVERRIDE: []

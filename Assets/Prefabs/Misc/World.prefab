@@ -712,6 +712,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &260229603902749023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3405464809190664288}
+  m_Layer: 3
+  m_Name: CarSpawn (59)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3405464809190664288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260229603902749023}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9985835, z: 0, w: 0.053207573}
+  m_LocalPosition: {x: -222.14, y: 0, z: -817.06}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 173.9, z: 0}
 --- !u!1 &277814384179873984
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,6 +1115,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8642047994353343096}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &421475883201708114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6615046820214115331}
+  m_Layer: 3
+  m_Name: CarSpawn (20)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6615046820214115331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421475883201708114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.258819, z: 0, w: 0.9659259}
+  m_LocalPosition: {x: -187.3, y: 0, z: -683}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -30, z: 0}
 --- !u!1 &445508557663101513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,6 +2317,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &638083036932225109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3441991753322775504}
+  m_Layer: 3
+  m_Name: CarSpawn (37)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3441991753322775504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638083036932225109}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.8038569, z: 0, w: 0.5948228}
+  m_LocalPosition: {x: -251.96, y: 0, z: -656.69}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 107, z: 0}
 --- !u!1 &650108834105450823
 GameObject:
   m_ObjectHideFlags: 0
@@ -2425,6 +2518,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &674027911249618821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 100230414968993923}
+  m_Layer: 3
+  m_Name: CarSpawn (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &100230414968993923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674027911249618821}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.4686238, z: 0, w: 0.8833979}
+  m_LocalPosition: {x: -172.62, y: 0, z: -645.49}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 55.89, z: 0}
+--- !u!1 &683379233191701423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8204556518033800980}
+  m_Layer: 3
+  m_Name: CarSpawn (81)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8204556518033800980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683379233191701423}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.654405, z: -0, w: 0.7561442}
+  m_LocalPosition: {x: -224.53, y: 0, z: -689.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 81.749, z: 0}
 --- !u!1 &691559717844451266
 GameObject:
   m_ObjectHideFlags: 0
@@ -2812,6 +2967,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &754682573617219769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2215613836946599179}
+  m_Layer: 3
+  m_Name: CarSpawn (92)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2215613836946599179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754682573617219769}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.59850955, z: -0, w: 0.80111575}
+  m_LocalPosition: {x: -200.08, y: 0, z: -582.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 73.526, z: 0}
+--- !u!1 &783675484246720036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4196393371095666948}
+  m_Layer: 3
+  m_Name: CarSpawn (80)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4196393371095666948
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783675484246720036}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.56561744, z: -0, w: 0.82466775}
+  m_LocalPosition: {x: -218.54, y: 0, z: -689.62}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 68.89, z: 0}
 --- !u!1 &784543014553024671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2936,6 +3153,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &859117413539879051
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3886669499244747772}
+  m_Layer: 3
+  m_Name: CarSpawn (107)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3886669499244747772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859117413539879051}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.28089267, z: -0, w: 0.9597392}
+  m_LocalPosition: {x: -381.85, y: 0, z: -653.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -32.627, z: 0}
 --- !u!1 &871423436191684837
 GameObject:
   m_ObjectHideFlags: 0
@@ -3137,6 +3385,68 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &886807098223179528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9061935833581028428}
+  m_Layer: 3
+  m_Name: CarSpawn (27)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9061935833581028428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886807098223179528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.5842497, z: 0, w: 0.81157404}
+  m_LocalPosition: {x: -245.31, y: 0, z: -584.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -71.5, z: 0}
+--- !u!1 &890055013039693193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3862527826691546747}
+  m_Layer: 3
+  m_Name: CarSpawn (96)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3862527826691546747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890055013039693193}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.6966764, z: -0, w: 0.71738553}
+  m_LocalPosition: {x: -423.17, y: 0, z: -727.41}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 88.322, z: 0}
 --- !u!1 &895935324871851228
 GameObject:
   m_ObjectHideFlags: 0
@@ -3230,6 +3540,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &905564176576434411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1388808128413412171}
+  m_Layer: 3
+  m_Name: CarSpawn (82)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1388808128413412171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905564176576434411}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.654405, z: -0, w: 0.7561442}
+  m_LocalPosition: {x: -229.7, y: 0, z: -691.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 81.749, z: 0}
 --- !u!1 &905727506381361340
 GameObject:
   m_ObjectHideFlags: 0
@@ -3261,6 +3602,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &906420735578643162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8947557691519582128}
+  m_Layer: 3
+  m_Name: CarSpawn (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8947557691519582128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906420735578643162}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00018530995, y: 0.99929345, z: -0.004970729, w: 0.037253898}
+  m_LocalPosition: {x: -165.91, y: 0, z: -642.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0.57, y: 175.73, z: 0}
 --- !u!1 &912797577627570104
 GameObject:
   m_ObjectHideFlags: 0
@@ -3788,6 +4160,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1033911934593140864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3649669351503501256}
+  m_Layer: 3
+  m_Name: CarSpawn (113)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3649669351503501256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033911934593140864}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.69735277, z: -0, w: 0.7167281}
+  m_LocalPosition: {x: -306.19, y: 0, z: -626.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -88.43, z: 0}
 --- !u!1 &1038087494892178943
 GameObject:
   m_ObjectHideFlags: 0
@@ -3912,6 +4315,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1897159747798392491}
   m_LocalEulerAnglesHint: {x: 0, y: 24.6, z: 0}
+--- !u!1 &1051395071742155981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4516063034925687089}
+  m_Layer: 3
+  m_Name: CarSpawn (29)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4516063034925687089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051395071742155981}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.008726558, z: 0, w: 0.999962}
+  m_LocalPosition: {x: -252.04, y: 0, z: -580.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
 --- !u!1 &1052719981476280157
 GameObject:
   m_ObjectHideFlags: 0
@@ -3943,6 +4377,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1054068990962114957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7161522340714352675}
+  m_Layer: 3
+  m_Name: CarSpawn (103)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7161522340714352675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054068990962114957}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.75934976, z: -0, w: 0.6506827}
+  m_LocalPosition: {x: -374, y: 0, z: -646.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 98.814, z: 0}
 --- !u!1 &1069969397126333688
 GameObject:
   m_ObjectHideFlags: 0
@@ -4067,6 +4532,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1100861568615603095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2845631966505661138}
+  m_Layer: 3
+  m_Name: CarSpawn (22)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2845631966505661138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100861568615603095}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.2706004, z: 0, w: 0.9626918}
+  m_LocalPosition: {x: -186.21, y: 0, z: -692.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -31.4, z: 0}
 --- !u!1 &1140847847892100413
 GameObject:
   m_ObjectHideFlags: 0
@@ -4226,6 +4722,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1175289585815055933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7212636053125651133}
+  m_Layer: 3
+  m_Name: CarSpawn (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7212636053125651133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175289585815055933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.19851261, z: 0, w: 0.9800983}
+  m_LocalPosition: {x: -188.7, y: 0, z: -668.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -22.9, z: 0}
 --- !u!1 &1179156474631414033
 GameObject:
   m_ObjectHideFlags: 0
@@ -4257,6 +4784,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1897159747798392491}
   m_LocalEulerAnglesHint: {x: 0, y: 24.6, z: 0}
+--- !u!1 &1194895549171295779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8965136142995741460}
+  m_Layer: 3
+  m_Name: CarSpawn (57)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8965136142995741460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194895549171295779}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9901462, z: 0, w: 0.14003733}
+  m_LocalPosition: {x: -214.47, y: 0, z: -798.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 163.9, z: 0}
 --- !u!1 &1194919142581683879
 GameObject:
   m_ObjectHideFlags: 0
@@ -4614,6 +5172,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1322720790802886385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6899261907300395710}
+  m_Layer: 3
+  m_Name: CarSpawn (68)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6899261907300395710
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322720790802886385}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.14630024, z: -0, w: 0.9892403}
+  m_LocalPosition: {x: -262.49, y: 0, z: -783.22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 16.825, z: 0}
 --- !u!1 &1332675817267767549
 GameObject:
   m_ObjectHideFlags: 0
@@ -4815,6 +5404,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1376398773321704548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 184991143645205848}
+  m_Layer: 3
+  m_Name: CarSpawn (87)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &184991143645205848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376398773321704548}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9894881, z: -0, w: -0.14461416}
+  m_LocalPosition: {x: -197.69, y: 0, z: -606.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 196.63, z: 0}
 --- !u!1 &1390263473655040845
 GameObject:
   m_ObjectHideFlags: 0
@@ -5269,6 +5889,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1465838532568253473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1023805879755131196}
+  m_Layer: 3
+  m_Name: CarSpawn (83)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1023805879755131196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465838532568253473}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.61650676, z: -0, w: 0.78734964}
+  m_LocalPosition: {x: -230.72, y: 0, z: -689.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 76.123, z: 0}
 --- !u!1 &1486230634836497280
 GameObject:
   m_ObjectHideFlags: 0
@@ -5362,6 +6013,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1497814350539938718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4092449445056064880}
+  m_Layer: 3
+  m_Name: CarSpawn (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4092449445056064880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497814350539938718}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.8729221, z: -0, w: -0.4878596}
+  m_LocalPosition: {x: -191.09, y: 0, z: -650.63}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 238.4, z: 0}
 --- !u!1 &1497963783456807361
 GameObject:
   m_ObjectHideFlags: 0
@@ -5517,6 +6199,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1548293477487657377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8442064502062658996}
+  m_Layer: 3
+  m_Name: CarSpawn (63)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8442064502062658996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548293477487657377}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.99875766, z: -0, w: -0.049831137}
+  m_LocalPosition: {x: -253.08, y: 0, z: -811.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 185.713, z: 0}
 --- !u!1 &1548376408187779211
 GameObject:
   m_ObjectHideFlags: 0
@@ -6013,6 +6726,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1685388514608109946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6859735943254430630}
+  m_Layer: 3
+  m_Name: CarSpawn (77)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6859735943254430630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685388514608109946}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.633097, z: -0, w: 0.7740725}
+  m_LocalPosition: {x: -199.15, y: 0, z: -686.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 78.558, z: 0}
 --- !u!1 &1723007755372517846
 GameObject:
   m_ObjectHideFlags: 0
@@ -6462,6 +7206,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1830608357315422036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2200253348074027958}
+  m_Layer: 3
+  m_Name: CarSpawn (78)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2200253348074027958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830608357315422036}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.633097, z: -0, w: 0.7740725}
+  m_LocalPosition: {x: -205.88, y: 0, z: -688.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 78.558, z: 0}
+--- !u!1 &1835633816817387364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2203942222873777864}
+  m_Layer: 3
+  m_Name: CarSpawn (73)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2203942222873777864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835633816817387364}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.33378878, z: -0, w: 0.94264793}
+  m_LocalPosition: {x: -203.86, y: 0, z: -721.21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 38.998, z: 0}
 --- !u!1 &1859168515630912193
 GameObject:
   m_ObjectHideFlags: 0
@@ -6879,6 +7685,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1938749816323599763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6521711594773831594}
+  m_Layer: 3
+  m_Name: CarSpawn (32)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6521711594773831594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938749816323599763}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.016841723, z: 0, w: 0.9998582}
+  m_LocalPosition: {x: -225.1, y: 0, z: -664.31}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -1.93, z: 0}
 --- !u!1 &1950036222636597993
 GameObject:
   m_ObjectHideFlags: 0
@@ -7591,6 +8428,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2117944631122135349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5043049470175104901}
+  m_Layer: 3
+  m_Name: CarSpawn (41)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5043049470175104901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117944631122135349}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.4083305, z: 0, w: 0.9128342}
+  m_LocalPosition: {x: -339.54, y: 0, z: -629.96}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 48.2, z: 0}
 --- !u!1 &2125851111669665170
 GameObject:
   m_ObjectHideFlags: 0
@@ -7648,6 +8516,68 @@ LODGroup:
     renderers:
     - renderer: {fileID: 5533443167729162073}
   m_Enabled: 1
+--- !u!1 &2127194930748093469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1079621526998596724}
+  m_Layer: 3
+  m_Name: CarSpawn (111)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1079621526998596724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127194930748093469}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7922075, z: -0, w: 0.6102518}
+  m_LocalPosition: {x: -335.43, y: 0, z: -658.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -104.785, z: 0}
+--- !u!1 &2127535248368078280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3328965405165690005}
+  m_Layer: 3
+  m_Name: CarSpawn (51)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3328965405165690005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127535248368078280}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9918922, z: -0, w: -0.12708192}
+  m_LocalPosition: {x: -344.98, y: 0, z: -846.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 194.602, z: 0}
 --- !u!1 &2139464787991485083
 GameObject:
   m_ObjectHideFlags: 0
@@ -7787,6 +8717,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2162982030117509522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 482502339619916021}
+  m_Layer: 3
+  m_Name: CarSpawn (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &482502339619916021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2162982030117509522}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.99930584, z: 0, w: 0.03725436}
+  m_LocalPosition: {x: -168.66, y: 0, z: -644.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 175.73, z: 0}
 --- !u!1 &2169060880158274948
 GameObject:
   m_ObjectHideFlags: 0
@@ -7818,6 +8779,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2175661701390555589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4505596064432085210}
+  m_Layer: 3
+  m_Name: CarSpawn (69)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4505596064432085210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2175661701390555589}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.37895557, z: -0, w: 0.9254148}
+  m_LocalPosition: {x: -192.1, y: 0, z: -707.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 44.538, z: 0}
 --- !u!1 &2192854619888226769
 GameObject:
   m_ObjectHideFlags: 0
@@ -7849,6 +8841,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2201029181827476734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2992641078089640421}
+  m_Layer: 3
+  m_Name: CarSpawn (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2992641078089640421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2201029181827476734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.8729221, z: -0, w: -0.4878596}
+  m_LocalPosition: {x: -192.54, y: 0, z: -643.44}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 238.4, z: 0}
 --- !u!1 &2203551792293566897
 GameObject:
   m_ObjectHideFlags: 0
@@ -8097,6 +9120,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2321078343271871810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7037154184067709369}
+  m_Layer: 3
+  m_Name: CarSpawn (24)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7037154184067709369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2321078343271871810}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.77879083, z: 0, w: 0.62728363}
+  m_LocalPosition: {x: -235.77, y: 0, z: -691.22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -102.3, z: 0}
 --- !u!1 &2344300429568872100
 GameObject:
   m_ObjectHideFlags: 0
@@ -8267,6 +9321,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2399397139685171602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 870245046778889835}
+  m_Layer: 3
+  m_Name: CarSpawn (99)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &870245046778889835
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2399397139685171602}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.976893, z: -0, w: 0.213729}
+  m_LocalPosition: {x: -370.4, y: 0, z: -657}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 155.318, z: 0}
 --- !u!1 &2400323515046306672
 GameObject:
   m_ObjectHideFlags: 0
@@ -8754,253 +9839,7 @@ MonoBehaviour:
     - {fileID: 7617056786148103879, guid: 1ce078c756941c442b81d7079946c1be, type: 3}
     - {fileID: 7617056786148103879, guid: dcbfcffea3a43ef4285d1daac43c8bc9, type: 3}
     - {fileID: 7617056786148103879, guid: 8db534f1cd613014cadee5fb1ae7a093, type: 3}
-    SpawnPoints:
-    - {fileID: 961393482096093730}
-    - {fileID: 751704465362504687}
-    - {fileID: 9084388318715627925}
-    - {fileID: 1454635891406870739}
-    - {fileID: 4078033973439205386}
-    - {fileID: 5006603245465280069}
-    - {fileID: 6826489650670311695}
-    - {fileID: 6124037314664383756}
-    - {fileID: 8908788680740121799}
-    - {fileID: 5851026369645114510}
-    - {fileID: 3568884045770210331}
-    - {fileID: 75611211463666209}
-    - {fileID: 930079147861239952}
-    - {fileID: 7033786249963627288}
-    - {fileID: 1676792865658636521}
-    - {fileID: 1144151680947240881}
-    - {fileID: 4197284940836047787}
-    - {fileID: 7531438062567340523}
-    - {fileID: 994841381898122052}
-    - {fileID: 268130540965313326}
-    - {fileID: 3843671017626519842}
-    - {fileID: 1017539244408213685}
-    - {fileID: 7054425127620445174}
-    - {fileID: 125580689756910218}
-    - {fileID: 2196215154704197867}
-    - {fileID: 7141434620154620427}
-    - {fileID: 6038386356884565606}
-    - {fileID: 8587532185780913115}
-    - {fileID: 9071193771111855248}
-    - {fileID: 8508459246086085628}
-    - {fileID: 1588427617558828294}
-    - {fileID: 423705144472781706}
-    - {fileID: 4365592536961803587}
-    - {fileID: 8346427229796207132}
-    - {fileID: 4722911046666724053}
-    - {fileID: 5597830131460616114}
-    - {fileID: 1272240643933575193}
-    - {fileID: 1836341196890051824}
-    - {fileID: 7328904999548330902}
-    - {fileID: 5057263590269369392}
-    - {fileID: 3637650510626675102}
-    - {fileID: 262865167339683001}
-    - {fileID: 4250317034879968256}
-    - {fileID: 4878623094737095241}
-    - {fileID: 3750611273580305886}
-    - {fileID: 2062864233780269296}
-    - {fileID: 4907030413861375242}
-    - {fileID: 3666104412036678466}
-    - {fileID: 6932844494851857473}
-    - {fileID: 9030238937814747463}
-    - {fileID: 8519012071950377129}
-    - {fileID: 8248284443886855503}
-    - {fileID: 6488641278425101582}
-    - {fileID: 3436117202062660637}
-    - {fileID: 8694599868820845239}
-    - {fileID: 4497941646579177384}
-    - {fileID: 7474326146661911439}
-    - {fileID: 600436587015483795}
-    - {fileID: 9004872137825920347}
-    - {fileID: 3534044070026104540}
-    - {fileID: 3594279675971557148}
-    - {fileID: 9098358610964048912}
-    - {fileID: 6120857441319190923}
-    - {fileID: 1921205354454621072}
-    - {fileID: 453141604862918305}
-    - {fileID: 8950792899854224233}
-    - {fileID: 6308166890700253382}
-    - {fileID: 3371473166103951996}
-    - {fileID: 7191954209216168672}
-    - {fileID: 1346431432750391158}
-    - {fileID: 837521210890026352}
-    - {fileID: 3707194246404795749}
-    - {fileID: 1391349852597221656}
-    - {fileID: 34776077223830534}
-    - {fileID: 162719022231926732}
-    - {fileID: 4369063080648162486}
-    - {fileID: 7046891815595556166}
-    - {fileID: 8580913016039493957}
-    - {fileID: 2348442539046019109}
-    - {fileID: 1263241911817057742}
-    - {fileID: 1944214809997109317}
-    - {fileID: 5488369808563596995}
-    - {fileID: 5476156547220916119}
-    - {fileID: 7527816858769910763}
-    - {fileID: 521048971446809208}
-    - {fileID: 5561365716854862792}
-    - {fileID: 4702519308589152950}
-    - {fileID: 2501212282699944763}
-    - {fileID: 8629405679169453622}
-    - {fileID: 6741080777841108809}
-    - {fileID: 3495682002568201652}
-    - {fileID: 8668844191044428036}
-    - {fileID: 345203512258086943}
-    - {fileID: 2162850373370266523}
-    - {fileID: 310271944197003065}
-    - {fileID: 5904386078984346307}
-    - {fileID: 956686713773952918}
-    - {fileID: 4561757849320464216}
-    - {fileID: 2213302875504874988}
-    - {fileID: 2045906249992379504}
-    - {fileID: 3220875663132540707}
-    - {fileID: 5623965396663875198}
-    - {fileID: 4640908057192268286}
-    - {fileID: 7073814939546251007}
-    - {fileID: 68899334892005347}
-    - {fileID: 3240726763159532817}
-    - {fileID: 2158833672399423579}
-    - {fileID: 3625225823610233455}
-    - {fileID: 4129147388630106096}
-    - {fileID: 4427917781988319074}
-    - {fileID: 6332181376125177720}
-    - {fileID: 7134410250164204933}
-    - {fileID: 8521027645833792367}
-    - {fileID: 5807554780763931266}
-    - {fileID: 1016984141861508259}
-    - {fileID: 7014579297672688496}
-    - {fileID: 6479534710489324355}
-    - {fileID: 6226418402537339521}
-    - {fileID: 3641733927778289684}
-    - {fileID: 7668563448900740770}
-    - {fileID: 1256822634912134653}
-    - {fileID: 4231986810069804899}
-    - {fileID: 4452989773309093950}
-    - {fileID: 4364288892506609387}
-    - {fileID: 8137302577872075820}
-    - {fileID: 2874957778628108306}
-    - {fileID: 4081910256372212662}
-    - {fileID: 8033799665261842225}
-    - {fileID: 4124809082378037264}
-    - {fileID: 4224428714699399908}
-    - {fileID: 6964660732393289211}
-    - {fileID: 2334810000750806665}
-    - {fileID: 5331564128643919531}
-    - {fileID: 4405054182794848265}
-    - {fileID: 8493081915259246098}
-    - {fileID: 7917817129368192466}
-    - {fileID: 8096931780519157570}
-    - {fileID: 7803271696346777799}
-    - {fileID: 969742602337639579}
-    - {fileID: 3698815148803016498}
-    - {fileID: 6203652024696734722}
-    - {fileID: 5995770229792559537}
-    - {fileID: 7404125773420544025}
-    - {fileID: 7627340500915838956}
-    - {fileID: 8417882791434781701}
-    - {fileID: 7041375387423061380}
-    - {fileID: 4694372657231717690}
-    - {fileID: 4664010420767226460}
-    - {fileID: 1232581760653743345}
-    - {fileID: 1387394498141621943}
-    - {fileID: 3685806385838315524}
-    - {fileID: 3710249228876843031}
-    - {fileID: 3939917536062721901}
-    - {fileID: 5089750598276083757}
-    - {fileID: 134755695395747097}
-    - {fileID: 1705179228984496744}
-    - {fileID: 881469637639632266}
-    - {fileID: 1178087304653450893}
-    - {fileID: 6020920687763646413}
-    - {fileID: 8045566352589310030}
-    - {fileID: 481571540378837984}
-    - {fileID: 1882931364592901214}
-    - {fileID: 7071596208779696638}
-    - {fileID: 6506000354552154500}
-    - {fileID: 5618945327602518163}
-    - {fileID: 6169147218456559301}
-    - {fileID: 6927618059411003964}
-    - {fileID: 3045003616020065833}
-    - {fileID: 1500000650566590641}
-    - {fileID: 5224435186587269206}
-    - {fileID: 98417524552349954}
-    - {fileID: 2890602088552960736}
-    - {fileID: 4881035662718390806}
-    - {fileID: 8429300449786421234}
-    - {fileID: 8726807405521234183}
-    - {fileID: 4335893157868561929}
-    - {fileID: 553559205785264376}
-    - {fileID: 919916590802431875}
-    - {fileID: 4641786536814192570}
-    - {fileID: 5172547285579876077}
-    - {fileID: 1614843224837258837}
-    - {fileID: 2692998910258219669}
-    - {fileID: 3971636029864546745}
-    - {fileID: 3617426860339090614}
-    - {fileID: 5502825607860476389}
-    - {fileID: 4373132484388235217}
-    - {fileID: 7159445869658490243}
-    - {fileID: 6055375148222208322}
-    - {fileID: 2885733777714985630}
-    - {fileID: 6559635846848351033}
-    - {fileID: 8722144752006139179}
-    - {fileID: 1004898797211938529}
-    - {fileID: 3776548401837207881}
-    - {fileID: 2970963014809341512}
-    - {fileID: 1680494090844386900}
-    - {fileID: 2328507504704379381}
-    - {fileID: 3293117842356962952}
-    - {fileID: 5218938995801865886}
-    - {fileID: 4616243863305332487}
-    - {fileID: 7033610952173271246}
-    - {fileID: 668376419969795838}
-    - {fileID: 6618125047830879193}
-    - {fileID: 8902843097683280347}
-    - {fileID: 4136862658211542468}
-    - {fileID: 9915476869584647}
-    - {fileID: 5576504753777061891}
-    - {fileID: 1776830695317737892}
-    - {fileID: 976338264791050206}
-    - {fileID: 6302321063145970106}
-    - {fileID: 2942605328740613533}
-    - {fileID: 5895705002109985348}
-    - {fileID: 1802359128118478133}
-    - {fileID: 9087880543450126127}
-    - {fileID: 1603954741269194654}
-    - {fileID: 2240497183822071738}
-    - {fileID: 5891524338850380862}
-    - {fileID: 1805011979648934022}
-    - {fileID: 6560293702103796522}
-    - {fileID: 5163988316141520775}
-    - {fileID: 8188034674767446443}
-    - {fileID: 5506876798831251066}
-    - {fileID: 205326771807430435}
-    - {fileID: 5919260089364289128}
-    - {fileID: 2154129969075835849}
-    - {fileID: 1230053544141113694}
-    - {fileID: 521921193860559375}
-    - {fileID: 1270976625924521136}
-    - {fileID: 5155833635096849570}
-    - {fileID: 8471402872867621483}
-    - {fileID: 3889639817387982536}
-    - {fileID: 3513112464975018882}
-    - {fileID: 2055332505930969919}
-    - {fileID: 8126257389909134566}
-    - {fileID: 2716587906663034978}
-    - {fileID: 856448027493155151}
-    - {fileID: 9022379573992653499}
-    - {fileID: 1000726525696317220}
-    - {fileID: 2490535445201703435}
-    - {fileID: 4756620077985148547}
-    - {fileID: 3919770307654110634}
-    - {fileID: 225575158925381434}
-    - {fileID: 1773526999608903390}
-    - {fileID: 1158099829868013378}
-    - {fileID: 7636669428578213672}
-    - {fileID: 1876831972182479050}
-    - {fileID: 3501500666495782037}
+    spawnsParent: {fileID: 2576768008944106667}
     RandomiseRotation: 0
     SpawnPool: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a000000
   - name: powerpoles
@@ -9009,281 +9848,14 @@ MonoBehaviour:
     - {fileID: 8340309119964628599, guid: 714216c4860366d4f8f4fe911e905be1, type: 3}
     - {fileID: 8340309119964628599, guid: a7a6f226bd7246446aab88282352f58b, type: 3}
     - {fileID: 8340309119964628599, guid: 8986c128856e33e4d8f54e1b742481ee, type: 3}
-    SpawnPoints:
-    - {fileID: 5923709150421325281}
-    - {fileID: 3619527608200530325}
-    - {fileID: 7866221900777659573}
-    - {fileID: 5753688915277266287}
-    - {fileID: 6540949879215066672}
-    - {fileID: 1248059293263969604}
-    - {fileID: 9083157750981340353}
-    - {fileID: 1017196967817414758}
-    - {fileID: 4655811112700898375}
-    - {fileID: 4638141140240894163}
-    - {fileID: 2297510499626622751}
-    - {fileID: 811591613123083605}
-    - {fileID: 2868148464480894444}
-    - {fileID: 5037376085912553424}
-    - {fileID: 3591878191314049219}
-    - {fileID: 684170266679292}
-    - {fileID: 2329804981212928840}
-    - {fileID: 2021305058584784239}
-    - {fileID: 4645967290499799511}
-    - {fileID: 8265838747008305835}
-    - {fileID: 6235216702342425255}
-    - {fileID: 4437784321667829395}
-    - {fileID: 1913671668745606250}
-    - {fileID: 6948761396253217039}
-    - {fileID: 3952605504555368638}
-    - {fileID: 6355257676149752231}
-    - {fileID: 5542312521774856668}
-    - {fileID: 222369653039515042}
-    - {fileID: 3134561972530082054}
-    - {fileID: 2724255668749748198}
-    - {fileID: 4073073750845818238}
-    - {fileID: 5643499451776981400}
-    - {fileID: 3456786536502722292}
-    - {fileID: 4717444673618805611}
-    - {fileID: 8252512690205394289}
-    - {fileID: 1976827746897373005}
-    - {fileID: 6479051870579375462}
-    - {fileID: 7765254561050190962}
-    - {fileID: 8924048852869791579}
-    - {fileID: 7106806540987001357}
-    - {fileID: 4441986484888349975}
-    - {fileID: 2177523708635265795}
-    - {fileID: 6513863923252934357}
-    - {fileID: 1442888515102484670}
-    - {fileID: 7272142313904073628}
-    - {fileID: 4748659546810726681}
-    - {fileID: 3693320342911654728}
-    - {fileID: 5141084832597257618}
-    - {fileID: 8244292372383713497}
-    - {fileID: 4186500076980750905}
-    - {fileID: 7954523239510605770}
-    - {fileID: 23745051554677776}
-    - {fileID: 712970769088924043}
-    - {fileID: 7438406551815986724}
-    - {fileID: 410868607156458366}
-    - {fileID: 2438614079480903090}
-    - {fileID: 6837717665465911734}
-    - {fileID: 2136860916717093461}
-    - {fileID: 1527223910173681367}
-    - {fileID: 6716528379810985878}
-    - {fileID: 3778177376016073554}
-    - {fileID: 5906660569580758144}
-    - {fileID: 942078788056487020}
-    - {fileID: 4127422981560943845}
-    - {fileID: 2098052125188961888}
-    - {fileID: 2909449890573374744}
-    - {fileID: 4127313189288734559}
-    - {fileID: 7361931315578266123}
-    - {fileID: 2726056074515551877}
-    - {fileID: 2138989167822726622}
-    - {fileID: 6754495003361542807}
-    - {fileID: 5834900290322143956}
-    - {fileID: 6371222911424442264}
-    - {fileID: 5310165749419224412}
-    - {fileID: 4145409440549459789}
-    - {fileID: 3621874576750504070}
-    - {fileID: 8231387858887240252}
-    - {fileID: 632567974609252374}
-    - {fileID: 5816808405321638316}
-    - {fileID: 4634276469885134530}
-    - {fileID: 7993520931711846790}
+    spawnsParent: {fileID: 5655204122420941088}
     RandomiseRotation: 0
     SpawnPool: 00000000
   - name: trees
     FeatureTypes:
     - {fileID: 2455558265419049836, guid: 4062f393d29a6e2468df92580c6bbb9e, type: 3}
     - {fileID: 1966315649621143501, guid: b37595c3cf07083418408379a9efe8c0, type: 3}
-    SpawnPoints:
-    - {fileID: 217534570797975016}
-    - {fileID: 1111649143184366809}
-    - {fileID: 4736001824013540975}
-    - {fileID: 5312902194301635945}
-    - {fileID: 8715489032073561332}
-    - {fileID: 5435493162597574023}
-    - {fileID: 4640937408377262869}
-    - {fileID: 1196792873887433507}
-    - {fileID: 1864206802523244348}
-    - {fileID: 4731826558498879480}
-    - {fileID: 2020307851553134435}
-    - {fileID: 5937114826883375907}
-    - {fileID: 8323168198651119780}
-    - {fileID: 30621753840147091}
-    - {fileID: 5585913661201357151}
-    - {fileID: 152547215086224715}
-    - {fileID: 6240641497041148518}
-    - {fileID: 4941421851763325338}
-    - {fileID: 2182417722854031762}
-    - {fileID: 7565288560209746070}
-    - {fileID: 4160350719312394778}
-    - {fileID: 6940043904586699077}
-    - {fileID: 2757646337970604137}
-    - {fileID: 7886639618434443245}
-    - {fileID: 6653965910553171509}
-    - {fileID: 6566429195451198719}
-    - {fileID: 2430903193612743952}
-    - {fileID: 4170643738972914253}
-    - {fileID: 2264995116120209247}
-    - {fileID: 8056141341252468038}
-    - {fileID: 3178626138239367307}
-    - {fileID: 841302184857142326}
-    - {fileID: 8650690719446070809}
-    - {fileID: 7509528488556314554}
-    - {fileID: 5697748724753748513}
-    - {fileID: 8399016044433784671}
-    - {fileID: 6644710439544002887}
-    - {fileID: 2010130803243715285}
-    - {fileID: 4521700745173199984}
-    - {fileID: 880411651911396231}
-    - {fileID: 7271656709957474135}
-    - {fileID: 657880496551287065}
-    - {fileID: 2772139930478378340}
-    - {fileID: 2051917441791442543}
-    - {fileID: 1267895691820475705}
-    - {fileID: 1274185481320432166}
-    - {fileID: 6113382317937186811}
-    - {fileID: 986801791897772416}
-    - {fileID: 2127766442414513776}
-    - {fileID: 622478302857987444}
-    - {fileID: 6781399518112088220}
-    - {fileID: 2064019123666951263}
-    - {fileID: 3747255399143313029}
-    - {fileID: 2678690561538760442}
-    - {fileID: 4699199253694063839}
-    - {fileID: 953067280337658014}
-    - {fileID: 5246245079771620043}
-    - {fileID: 8822381394139679310}
-    - {fileID: 3035977432874741239}
-    - {fileID: 4082008627804762441}
-    - {fileID: 6362661983686048880}
-    - {fileID: 3008664009126786740}
-    - {fileID: 6000994959965230039}
-    - {fileID: 4514852510391230149}
-    - {fileID: 455696558592988999}
-    - {fileID: 4919792991512817324}
-    - {fileID: 1305113838705391490}
-    - {fileID: 1650251279689526292}
-    - {fileID: 7071987981691013817}
-    - {fileID: 7717587223856699247}
-    - {fileID: 3016517247994072171}
-    - {fileID: 3885302417591426649}
-    - {fileID: 4672564172422584908}
-    - {fileID: 2093742167312938682}
-    - {fileID: 780923456196738626}
-    - {fileID: 1701151033115692853}
-    - {fileID: 6024046482415023672}
-    - {fileID: 985954974592835531}
-    - {fileID: 365609077586469846}
-    - {fileID: 7175408756049842848}
-    - {fileID: 2775614015061413245}
-    - {fileID: 5621145714378829113}
-    - {fileID: 3480432242154626057}
-    - {fileID: 669421902348507676}
-    - {fileID: 583309930128686826}
-    - {fileID: 6978285770471049271}
-    - {fileID: 2217063667459161898}
-    - {fileID: 6012365472879444185}
-    - {fileID: 3735244156219384278}
-    - {fileID: 5444236806466753947}
-    - {fileID: 2535809276843801644}
-    - {fileID: 8703957606199562399}
-    - {fileID: 1883738241320509732}
-    - {fileID: 690760483106510186}
-    - {fileID: 1740065513377944492}
-    - {fileID: 7150830770845350728}
-    - {fileID: 5831533238142993110}
-    - {fileID: 4708813087294027654}
-    - {fileID: 4397283828032970824}
-    - {fileID: 6789987869231658520}
-    - {fileID: 3432680184156421305}
-    - {fileID: 687940706598828564}
-    - {fileID: 9133735408076427395}
-    - {fileID: 1660031793338163615}
-    - {fileID: 7164513622195585101}
-    - {fileID: 6050589749326192472}
-    - {fileID: 980332044005922}
-    - {fileID: 564214732633432626}
-    - {fileID: 3010876311431220930}
-    - {fileID: 4204053663700273933}
-    - {fileID: 3067245063103312480}
-    - {fileID: 4406873575979934586}
-    - {fileID: 8273702765949920074}
-    - {fileID: 4184377588931921884}
-    - {fileID: 8875809873551705498}
-    - {fileID: 8586794855945834488}
-    - {fileID: 7977264900288843222}
-    - {fileID: 3961111301811872124}
-    - {fileID: 2724162082664360041}
-    - {fileID: 1111508616155522909}
-    - {fileID: 4608314244837962596}
-    - {fileID: 7705425895195740211}
-    - {fileID: 1202459773205888277}
-    - {fileID: 4485027751897186237}
-    - {fileID: 3972322535788176561}
-    - {fileID: 7047121144066395523}
-    - {fileID: 8342743769929249380}
-    - {fileID: 5019927894716177916}
-    - {fileID: 2420370123549044899}
-    - {fileID: 5080834188130760020}
-    - {fileID: 172438211704317603}
-    - {fileID: 3620444933236229910}
-    - {fileID: 2150002222306433132}
-    - {fileID: 3208169092188551263}
-    - {fileID: 1382192849100790619}
-    - {fileID: 4057560367453681557}
-    - {fileID: 3193171285707344841}
-    - {fileID: 81260758820391345}
-    - {fileID: 2142515039430427215}
-    - {fileID: 4038755666885488983}
-    - {fileID: 7974567116940511219}
-    - {fileID: 7169733818596279431}
-    - {fileID: 2202245209861203590}
-    - {fileID: 2094045662358743415}
-    - {fileID: 6451499247014148219}
-    - {fileID: 3295993362466209972}
-    - {fileID: 7077030449074589480}
-    - {fileID: 5147032613990394686}
-    - {fileID: 4064561306920045900}
-    - {fileID: 994751667566193483}
-    - {fileID: 4094348642821607682}
-    - {fileID: 6504875984684262684}
-    - {fileID: 2735989828265727466}
-    - {fileID: 5724414634621064009}
-    - {fileID: 1459134870596935644}
-    - {fileID: 4699906111341565606}
-    - {fileID: 7413518811444441128}
-    - {fileID: 8817750648171919957}
-    - {fileID: 1192251655292043743}
-    - {fileID: 6812121982112181428}
-    - {fileID: 5317848684698238003}
-    - {fileID: 2322544110495079531}
-    - {fileID: 8444322498311744035}
-    - {fileID: 5790662755071439726}
-    - {fileID: 6087805434032329775}
-    - {fileID: 8635030053465525347}
-    - {fileID: 264010236183001058}
-    - {fileID: 5714730258117125812}
-    - {fileID: 6908965534995878542}
-    - {fileID: 4983671538934510957}
-    - {fileID: 7242242987127571323}
-    - {fileID: 7251801997161050423}
-    - {fileID: 4779022685068002435}
-    - {fileID: 6335324210815602246}
-    - {fileID: 7640685824056628150}
-    - {fileID: 541628502145855393}
-    - {fileID: 5643289715492650220}
-    - {fileID: 9154367871486995526}
-    - {fileID: 8618234018392385570}
-    - {fileID: 1858401818629540403}
-    - {fileID: 810742445203774384}
-    - {fileID: 7226664541667274715}
-    - {fileID: 5199409693321504941}
-    - {fileID: 7699025351584929482}
-    - {fileID: 7136831695814361845}
-    - {fileID: 1331555258449177747}
+    spawnsParent: {fileID: 3795842609233623395}
     RandomiseRotation: 1
     SpawnPool: 00000000010000000000000001000000ffffffff
   - name: rocks
@@ -9291,111 +9863,28 @@ MonoBehaviour:
     - {fileID: 8340309119964628599, guid: d899f77b26c6f6044b9941a2bc52c99d, type: 3}
     - {fileID: 8340309119964628599, guid: ebaef369da8e4414aacdb56312252633, type: 3}
     - {fileID: 8340309119964628599, guid: e75d73f59226a0d47a068f470a64bdc2, type: 3}
-    SpawnPoints:
-    - {fileID: 5737231468595163796}
-    - {fileID: 7816597957422899965}
-    - {fileID: 8860148618387403975}
-    - {fileID: 7907179708601491234}
-    - {fileID: 67391808971008498}
-    - {fileID: 280536246272381936}
-    - {fileID: 6115499867551955357}
-    - {fileID: 1559548071546216949}
-    - {fileID: 8317089290376406453}
-    - {fileID: 3544171840965944502}
-    - {fileID: 8210928105172205660}
-    - {fileID: 7934010323027940403}
-    - {fileID: 911863785709692137}
-    - {fileID: 8137943692586661119}
-    - {fileID: 88188139499448475}
-    - {fileID: 5471089868284950001}
-    - {fileID: 6246008913040692082}
-    - {fileID: 8680149427780073849}
-    - {fileID: 5107628604331770655}
-    - {fileID: 8924336035296798217}
-    - {fileID: 8838374201310583805}
-    - {fileID: 7905860964424196964}
-    - {fileID: 1739481520122344743}
-    - {fileID: 183125290084294000}
-    - {fileID: 4563473527118397861}
-    - {fileID: 5418049165439652977}
-    - {fileID: 6906500025216526862}
-    - {fileID: 5147548064340842982}
-    - {fileID: 5807174834396075685}
-    - {fileID: 1441249010368074128}
-    - {fileID: 6973901505695710229}
-    - {fileID: 2368577208304965676}
-    - {fileID: 5469571464782571259}
-    - {fileID: 7128104914459517108}
-    - {fileID: 6642892769177867079}
-    - {fileID: 1080859585752186401}
-    - {fileID: 1644498350225967660}
-    - {fileID: 106494307360473274}
-    - {fileID: 3138231755757834817}
-    - {fileID: 3760755564851249350}
-    - {fileID: 6847022429058886376}
-    - {fileID: 6904677715882188374}
-    - {fileID: 3952321688686455325}
-    - {fileID: 8202033636629129894}
-    - {fileID: 8781822254418399464}
-    - {fileID: 4951188026401109336}
-    - {fileID: 7928608364645570989}
-    - {fileID: 4063827279851948530}
-    - {fileID: 8301686406069411084}
-    - {fileID: 4358304594653493642}
-    - {fileID: 1499809487914198311}
-    - {fileID: 2681425516258824481}
-    - {fileID: 8962511773659477374}
-    - {fileID: 3519427072819031025}
-    - {fileID: 7903083963721093967}
-    - {fileID: 144818069199775511}
-    - {fileID: 565598858466858594}
-    - {fileID: 4394136299915238305}
-    - {fileID: 4423900560979039439}
-    - {fileID: 6062029591316313251}
-    - {fileID: 7617912783532545669}
-    - {fileID: 2345979961488559080}
-    - {fileID: 9103195389983364739}
-    - {fileID: 4269710329590922787}
-    - {fileID: 8066482114198776374}
-    - {fileID: 8948813924841905863}
-    - {fileID: 4870946872159279285}
-    - {fileID: 3246404053460646638}
-    - {fileID: 4026234094601171310}
-    - {fileID: 6219173286440995450}
-    - {fileID: 915872876984006831}
-    - {fileID: 2066893076040886143}
-    - {fileID: 9081344550440439275}
-    - {fileID: 6872234210009922338}
-    - {fileID: 7917204237246886491}
-    - {fileID: 5906910416463482209}
-    - {fileID: 2168269216025357697}
-    - {fileID: 702766662620910639}
-    - {fileID: 6612241890037985609}
-    - {fileID: 7316205797894460207}
-    - {fileID: 2002313655677753551}
-    - {fileID: 7583768819809747755}
-    - {fileID: 7331479746724101882}
-    - {fileID: 9201779750967170250}
-    - {fileID: 6791169764487186105}
-    - {fileID: 4799889359873114353}
-    - {fileID: 5459405997214433213}
+    spawnsParent: {fileID: 4833306761659381374}
     RandomiseRotation: 1
     SpawnPool: 000000000100000002000000000000000100000002000000ffffffffffffffffffffffff
   - name: antennas
     FeatureTypes:
     - {fileID: 6734716607488557199, guid: 94303f68de2713647b63f5edb828cae5, type: 3}
     - {fileID: 4818431414955495153, guid: 13cc0dca40fde59409778f98f2dc7f57, type: 3}
-    SpawnPoints:
-    - {fileID: 3960145047308413952}
-    - {fileID: 9137368255524714385}
-    - {fileID: 6712612846442386279}
-    - {fileID: 3910117943454652755}
-    - {fileID: 3013544888644188876}
-    - {fileID: 1383330453791461795}
-    - {fileID: 7911876513219143882}
-    - {fileID: 3200254977229037160}
+    spawnsParent: {fileID: 8642047994353343096}
     RandomiseRotation: 1
     SpawnPool: 00000000000000000000000001000000ffffffff
+  - name: cars
+    FeatureTypes:
+    - {fileID: 8340309119964628599, guid: 39ad57f3dda08114da386e65c0082c75, type: 3}
+    - {fileID: 8340309119964628599, guid: 91508945034897a44b1ba0a510ffe7ed, type: 3}
+    - {fileID: 8340309119964628599, guid: 231182a30f814f1408cd89a464994496, type: 3}
+    - {fileID: 8340309119964628599, guid: 712ba877bbe7cec45a00f15768e8d98f, type: 3}
+    - {fileID: 8340309119964628599, guid: 881a64916f458d34280bc5c6532f9994, type: 3}
+    - {fileID: 8340309119964628599, guid: cdc7dedd94f510e4c9585d9e21cc2bc0, type: 3}
+    - {fileID: 8340309119964628599, guid: b8c93e025ffa3074aa0cb4f156784fcd, type: 3}
+    spawnsParent: {fileID: 5834199153679874595}
+    RandomiseRotation: 0
+    SpawnPool: 00000000010000000200000003000000040000000500000006000000ffffffffffffffff
   netWorldFeatures: []
   raycastedWorldFeatures:
   - name: grass
@@ -9444,7 +9933,7 @@ MonoBehaviour:
   - SpawnLocationIndex: femtanylspawn
     spawnPool:
     - {fileID: 5116409477571956181, guid: 822631628a927fa4896bd03c7a3565c9, type: 3}
-    SpawnAmount: {x: 5, y: 7}
+    SpawnAmount: {x: 6, y: 8}
     RandomiseRotation: 0
     OnlyBeforeSave: 1
     OnlyForServer: 1
@@ -9817,6 +10306,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2597813154734098325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2893387954774400996}
+  m_Layer: 3
+  m_Name: CarSpawn (19)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2893387954774400996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2597813154734098325}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.15039815, z: 0, w: 0.9886255}
+  m_LocalPosition: {x: -187, y: 0, z: -675}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 17.3, z: 0}
 --- !u!1 &2611597337712379991
 GameObject:
   m_ObjectHideFlags: 0
@@ -9972,6 +10492,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2701876470495276451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6226993884915229696}
+  m_Layer: 3
+  m_Name: CarSpawn (64)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6226993884915229696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2701876470495276451}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7665859, z: -0, w: 0.6421419}
+  m_LocalPosition: {x: -247.83, y: 0, z: -813.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 100.097, z: 0}
 --- !u!1 &2714509177571544757
 GameObject:
   m_ObjectHideFlags: 0
@@ -10003,6 +10554,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2715918375521916238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6213593975486253143}
+  m_Layer: 3
+  m_Name: CarSpawn (66)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6213593975486253143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715918375521916238}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.15720892, z: -0, w: 0.98756546}
+  m_LocalPosition: {x: -268.1, y: 0, z: -778.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 18.09, z: 0}
 --- !u!1 &2716466100023702135
 GameObject:
   m_ObjectHideFlags: 0
@@ -10313,6 +10895,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2762603694882665092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3731667166521843180}
+  m_Layer: 3
+  m_Name: CarSpawn (88)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3731667166521843180
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2762603694882665092}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.93643224, z: -0, w: -0.3508485}
+  m_LocalPosition: {x: -197.83, y: 0, z: -601.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 221.078, z: 0}
 --- !u!1 &2766165519074588922
 GameObject:
   m_ObjectHideFlags: 0
@@ -10421,6 +11034,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2771178796587212648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6965979784839431081}
+  m_Layer: 3
+  m_Name: CarSpawn (36)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6965979784839431081
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2771178796587212648}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.6501114, z: 0, w: 0.75983894}
+  m_LocalPosition: {x: -264.11, y: 0, z: -656.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 81.1, z: 0}
 --- !u!1 &2789571470530680952
 GameObject:
   m_ObjectHideFlags: 0
@@ -10647,6 +11291,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2873438803043097538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1708544175842065677}
+  m_Layer: 3
+  m_Name: CarSpawn (60)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1708544175842065677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2873438803043097538}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9821234, z: 0, w: 0.18823849}
+  m_LocalPosition: {x: -218.17, y: 0, z: -817.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 158.3, z: 0}
 --- !u!1 &2890972862738849075
 GameObject:
   m_ObjectHideFlags: 0
@@ -11661,6 +12336,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3121384119558246092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 219311139988759026}
+  m_Layer: 3
+  m_Name: CarSpawn (117)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &219311139988759026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3121384119558246092}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.8819229, z: -0, w: 0.47139385}
+  m_LocalPosition: {x: -305.3, y: 0, z: -604.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -123.75, z: 0}
 --- !u!1 &3131332428385100710
 GameObject:
   m_ObjectHideFlags: 0
@@ -11909,6 +12615,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3218139335109068693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8024814719732091950}
+  m_Layer: 3
+  m_Name: CarSpawn (40)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8024814719732091950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3218139335109068693}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.42261827, z: 0, w: 0.9063079}
+  m_LocalPosition: {x: -345.18, y: 0, z: -631.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 50, z: 0}
 --- !u!1 &3229308327364663060
 GameObject:
   m_ObjectHideFlags: 0
@@ -12048,6 +12785,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3284529521241498581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4927748463176557052}
+  m_Layer: 3
+  m_Name: CarSpawn (48)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4927748463176557052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3284529521241498581}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.41632655, z: -0, w: 0.90921515}
+  m_LocalPosition: {x: -333.96, y: 0, z: -862.24}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 49.206, z: 0}
 --- !u!1 &3284785341340652422
 GameObject:
   m_ObjectHideFlags: 0
@@ -12698,6 +13466,99 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3387847110967855632
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 559082378102346550}
+  m_Layer: 3
+  m_Name: CarSpawn (61)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &559082378102346550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387847110967855632}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9966374, z: 0, w: 0.08193855}
+  m_LocalPosition: {x: -213.16, y: 0, z: -817.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 170.6, z: 0}
+--- !u!1 &3389339172349748502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5139992995733704189}
+  m_Layer: 3
+  m_Name: CarSpawn (54)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5139992995733704189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3389339172349748502}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.99845684, z: -0, w: -0.055533674}
+  m_LocalPosition: {x: -226.96, y: 0, z: -799.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 186.367, z: 0}
+--- !u!1 &3391891249481368406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6886056006806806950}
+  m_Layer: 3
+  m_Name: CarSpawn (95)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6886056006806806950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3391891249481368406}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7845847, z: -0, w: 0.6200216}
+  m_LocalPosition: {x: -422.88, y: 0, z: -724.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 103.365, z: 0}
 --- !u!1 &3405940233804575827
 GameObject:
   m_ObjectHideFlags: 0
@@ -13054,6 +13915,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3480421629427791047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7792126742959094418}
+  m_Layer: 3
+  m_Name: CarSpawn (108)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7792126742959094418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3480421629427791047}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.15923175, z: -0, w: 0.98724127}
+  m_LocalPosition: {x: -382.11, y: 0, z: -657.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -18.325, z: 0}
 --- !u!1 &3488734451644494109
 GameObject:
   m_ObjectHideFlags: 0
@@ -13085,6 +13977,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3517140386718243777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 271136943661968586}
+  m_Layer: 3
+  m_Name: CarSpawn (21)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &271136943661968586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3517140386718243777}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.59271616, z: 0, w: 0.8054114}
+  m_LocalPosition: {x: -202.72, y: 0, z: -684.69}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 72.7, z: 0}
 --- !u!1 &3530773785450828973
 GameObject:
   m_ObjectHideFlags: 0
@@ -13224,6 +14147,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3543445830587928310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3005659275979854038}
+  m_Layer: 3
+  m_Name: CarSpawn (13)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3005659275979854038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3543445830587928310}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9268566, z: 0, w: 0.37541574}
+  m_LocalPosition: {x: -189.4, y: 0, z: -662.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 135.9, z: 0}
 --- !u!1 &3547845651630393775
 GameObject:
   m_ObjectHideFlags: 0
@@ -13595,6 +14549,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3646847693563924569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2011006596351651249}
+  m_Layer: 3
+  m_Name: CarSpawn (100)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2011006596351651249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3646847693563924569}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9210852, z: -0, w: 0.3893612}
+  m_LocalPosition: {x: -370.98, y: 0, z: -661.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 134.17, z: 0}
 --- !u!1 &3672006316488775190
 GameObject:
   m_ObjectHideFlags: 0
@@ -14215,6 +15200,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1897159747798392491}
   m_LocalEulerAnglesHint: {x: 0, y: 24.6, z: 0}
+--- !u!1 &3765371706902845180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 180547678577429799}
+  m_Layer: 3
+  m_Name: CarSpawn (70)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &180547678577429799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3765371706902845180}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.2010112, z: -0, w: 0.9795889}
+  m_LocalPosition: {x: -189.08, y: 0, z: -700.92}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 23.192, z: 0}
 --- !u!1 &3783566276932824655
 GameObject:
   m_ObjectHideFlags: 0
@@ -14277,6 +15293,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3815594153285238726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2052455448949217976}
+  m_Layer: 3
+  m_Name: CarSpawn (47)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2052455448949217976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3815594153285238726}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.67365766, z: 0, w: 0.73904353}
+  m_LocalPosition: {x: -311.01, y: 0, z: -858.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 84.7, z: 0}
 --- !u!1 &3844018436395224416
 GameObject:
   m_ObjectHideFlags: 0
@@ -15184,6 +16231,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4105455064550271195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5005513309445859794}
+  m_Layer: 3
+  m_Name: CarSpawn (104)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5005513309445859794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4105455064550271195}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.18240091, z: -0, w: 0.9832243}
+  m_LocalPosition: {x: -367.58, y: 0, z: -647.21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 21.019, z: 0}
 --- !u!1 &4111896605418920716
 GameObject:
   m_ObjectHideFlags: 0
@@ -15308,6 +16386,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4153001750971809541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8032059771661672398}
+  m_Layer: 3
+  m_Name: CarSpawn (43)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8032059771661672398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4153001750971809541}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.65540016, z: 0, w: 0.7552818}
+  m_LocalPosition: {x: -290.09, y: 0, z: -854.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 81.9, z: 0}
 --- !u!1 &4158017945806884965
 GameObject:
   m_ObjectHideFlags: 0
@@ -15680,6 +16789,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4272896742888207672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2308683343683584992}
+  m_Layer: 3
+  m_Name: CarSpawn (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2308683343683584992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4272896742888207672}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9414707, z: -0, w: -0.33709505}
+  m_LocalPosition: {x: -186.35, y: 0, z: -646.91}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 219.4, z: 0}
 --- !u!1 &4277258551159637795
 GameObject:
   m_ObjectHideFlags: 0
@@ -15943,6 +17083,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4309053278058304768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6104117289681380470}
+  m_Layer: 3
+  m_Name: CarSpawn (90)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6104117289681380470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4309053278058304768}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9881662, z: -0, w: -0.15338697}
+  m_LocalPosition: {x: -199.31, y: 0, z: -592}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 197.647, z: 0}
 --- !u!1 &4329192513261496899
 GameObject:
   m_ObjectHideFlags: 0
@@ -15974,6 +17145,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4335605450668503549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6120713383926887565}
+  m_Layer: 3
+  m_Name: CarSpawn (25)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6120713383926887565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4335605450668503549}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.5045275, z: 0, w: 0.86339563}
+  m_LocalPosition: {x: -240.97, y: 0, z: -693.95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -60.6, z: 0}
 --- !u!1 &4342376273639015456
 GameObject:
   m_ObjectHideFlags: 0
@@ -16144,6 +17346,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4403454443229933869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 374429573720343274}
+  m_Layer: 3
+  m_Name: CarSpawn (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &374429573720343274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403454443229933869}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.65835583, y: 0.65835583, z: 0.25800696, w: 0.25800696}
+  m_LocalPosition: {x: -186.04, y: 0.92, z: -636.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 137.2, z: 90}
 --- !u!1 &4409114819190745359
 GameObject:
   m_ObjectHideFlags: 0
@@ -16237,6 +17470,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4417114003758387066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4625706393461874714}
+  m_Layer: 3
+  m_Name: CarSpawn (114)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4625706393461874714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4417114003758387066}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7408364, z: -0, w: 0.67168564}
+  m_LocalPosition: {x: -308.17, y: 0, z: -629.34}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -95.605, z: 0}
 --- !u!1 &4420197329009675260
 GameObject:
   m_ObjectHideFlags: 0
@@ -16268,6 +17532,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4428304206087753947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 743971069043028424}
+  m_Layer: 3
+  m_Name: CarSpawn (56)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &743971069043028424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428304206087753947}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.995562, z: 0, w: 0.094108395}
+  m_LocalPosition: {x: -229.66, y: 0, z: -801.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 169.2, z: 0}
 --- !u!1 &4437179494559697538
 GameObject:
   m_ObjectHideFlags: 0
@@ -16361,6 +17656,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4520712375944209506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9084584741613139445}
+  m_Layer: 3
+  m_Name: CarSpawn (106)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9084584741613139445
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520712375944209506}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.6040454, z: -0, w: 0.79694986}
+  m_LocalPosition: {x: -383, y: 0, z: -641.21}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -74.32, z: 0}
 --- !u!1 &4522074433828257288
 GameObject:
   m_ObjectHideFlags: 0
@@ -17063,6 +18389,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4667116735419294965
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7463193439466637883}
+  m_Layer: 3
+  m_Name: CarSpawn (116)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7463193439466637883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4667116735419294965}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.8819229, z: -0, w: 0.47139385}
+  m_LocalPosition: {x: -305.3, y: 0, z: -604.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -123.75, z: 0}
 --- !u!1 &4685936042520755409
 GameObject:
   m_ObjectHideFlags: 0
@@ -17156,6 +18513,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4709684464236189069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5412145007096614996}
+  m_Layer: 3
+  m_Name: CarSpawn (62)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5412145007096614996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709684464236189069}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9874603, z: -0, w: 0.15786767}
+  m_LocalPosition: {x: -230.44, y: 0, z: -818.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 161.834, z: 0}
 --- !u!1 &4734560415144930894
 GameObject:
   m_ObjectHideFlags: 0
@@ -17373,6 +18761,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4782696477259329933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2664774418744943554}
+  m_Layer: 3
+  m_Name: CarSpawn (98)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2664774418744943554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4782696477259329933}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.6619582, z: -0, w: 0.7495408}
+  m_LocalPosition: {x: -419.44, y: 0, z: -735.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 82.899, z: 0}
 --- !u!1 &4803176369217239432
 GameObject:
   m_ObjectHideFlags: 0
@@ -17753,6 +19172,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4923487965963477064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9207058198411627794}
+  m_Layer: 3
+  m_Name: CarSpawn (30)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9207058198411627794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4923487965963477064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.85581595, z: 0, w: 0.5172805}
+  m_LocalPosition: {x: -239.6, y: 0, z: -589}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 117.7, z: 0}
 --- !u!1 &4950760672204643448
 GameObject:
   m_ObjectHideFlags: 0
@@ -17939,6 +19389,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5027964305544616618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6547815917040368265}
+  m_Layer: 3
+  m_Name: CarSpawn (65)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6547815917040368265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5027964305544616618}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.15720892, z: -0, w: 0.98756546}
+  m_LocalPosition: {x: -252.26, y: 0, z: -818.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 18.09, z: 0}
+--- !u!1 &5039017150127939529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5270581491952189112}
+  m_Layer: 3
+  m_Name: CarSpawn (112)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5270581491952189112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5039017150127939529}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7922075, z: -0, w: 0.6102518}
+  m_LocalPosition: {x: -300.74, y: 0, z: -628.58}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -104.785, z: 0}
 --- !u!1 &5044094798061675412
 GameObject:
   m_ObjectHideFlags: 0
@@ -17970,6 +19482,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5046512730200112023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8253404381090797762}
+  m_Layer: 3
+  m_Name: CarSpawn (118)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8253404381090797762
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5046512730200112023}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.37098572, z: -0, w: 0.9286386}
+  m_LocalPosition: {x: -304.48, y: 0, z: -617.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -43.553, z: 0}
 --- !u!1 &5066312125090816454
 GameObject:
   m_ObjectHideFlags: 0
@@ -18125,6 +19668,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5100939442650315062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6594731143745319503}
+  m_Layer: 3
+  m_Name: CarSpawn (119)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6594731143745319503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5100939442650315062}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.64911485, z: -0, w: 0.76069045}
+  m_LocalPosition: {x: -305.28, y: 0, z: -612.42}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -80.95, z: 0}
 --- !u!1 &5101730176369611786
 GameObject:
   m_ObjectHideFlags: 0
@@ -18636,6 +20210,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1897159747798392491}
   m_LocalEulerAnglesHint: {x: 0, y: 16.2, z: 0}
+--- !u!1 &5273533786493829082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6323354082474566433}
+  m_Layer: 3
+  m_Name: CarSpawn (74)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6323354082474566433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5273533786493829082}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.578179, z: -0, w: 0.81591}
+  m_LocalPosition: {x: -207.56, y: 0, z: -726.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 70.645, z: 0}
 --- !u!1 &5288543696219864853
 GameObject:
   m_ObjectHideFlags: 0
@@ -18946,6 +20551,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5332992016433227066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5199061494625094572}
+  m_Layer: 3
+  m_Name: CarSpawn (91)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5199061494625094572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5332992016433227066}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.8662062, z: -0, w: 0.4996867}
+  m_LocalPosition: {x: -199.6, y: 0, z: -587}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 120.041, z: 0}
 --- !u!1 &5338155530932066327
 GameObject:
   m_ObjectHideFlags: 0
@@ -19224,6 +20860,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5411580374705861526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4762626754259058678}
+  m_Layer: 3
+  m_Name: CarSpawn (17)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4762626754259058678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411580374705861526}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.72837096, z: 0, w: 0.6851831}
+  m_LocalPosition: {x: -193.1, y: 0, z: -635}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 93.5, z: 0}
 --- !u!1 &5412774873873884393
 GameObject:
   m_ObjectHideFlags: 0
@@ -19363,6 +21030,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5428518038088682678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2041337006505712121}
+  m_Layer: 3
+  m_Name: CarSpawn (53)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2041337006505712121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5428518038088682678}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.99965733, z: -0, w: 0.026178868}
+  m_LocalPosition: {x: -222.8, y: 0, z: -798.57}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 177, z: 0}
 --- !u!1 &5431215862781032334
 GameObject:
   m_ObjectHideFlags: 0
@@ -19580,6 +21278,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5478689984006560681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7429463156380549250}
+  m_Layer: 3
+  m_Name: CarSpawn (115)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7429463156380549250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5478689984006560681}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.8819229, z: -0, w: 0.47139385}
+  m_LocalPosition: {x: -312.7, y: 0, z: -628.29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -123.75, z: 0}
 --- !u!1 &5480194524750874731
 GameObject:
   m_ObjectHideFlags: 0
@@ -19750,6 +21479,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5490101120960060451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1300250138279592751}
+  m_Layer: 3
+  m_Name: CarSpawn (84)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1300250138279592751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5490101120960060451}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.869408, z: -0, w: 0.49409485}
+  m_LocalPosition: {x: -194.18, y: 0, z: -630.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 120.78, z: 0}
 --- !u!1 &5510133083677807436
 GameObject:
   m_ObjectHideFlags: 0
@@ -19982,6 +21742,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5542992749623736777
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3298384858002478129}
+  m_Layer: 3
+  m_Name: CarSpawn (39)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3298384858002478129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542992749623736777}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7132504, z: 0, w: 0.7009094}
+  m_LocalPosition: {x: -340.22, y: 0, z: -634.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 91, z: 0}
 --- !u!1 &5576361018408854108
 GameObject:
   m_ObjectHideFlags: 0
@@ -20783,6 +22574,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5923627711790546297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1989129062549109411}
+  m_Layer: 3
+  m_Name: CarSpawn (34)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1989129062549109411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5923627711790546297}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.493866, z: 0, w: 0.869538}
+  m_LocalPosition: {x: -261.2, y: 0, z: -657.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 59.19, z: 0}
 --- !u!1 &5981607269479106854
 GameObject:
   m_ObjectHideFlags: 0
@@ -21046,6 +22868,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6030598372660124510
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 78254466189428643}
+  m_Layer: 3
+  m_Name: CarSpawn (45)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &78254466189428643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6030598372660124510}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.73845524, z: 0, w: 0.67430246}
+  m_LocalPosition: {x: -296.78, y: 0, z: -854.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 95.2, z: 0}
 --- !u!1 &6033417954172435972
 GameObject:
   m_ObjectHideFlags: 0
@@ -21789,6 +23642,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6168924297414873978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3514612633608804002}
+  m_Layer: 3
+  m_Name: CarSpawn (52)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3514612633608804002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6168924297414873978}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9918922, z: -0, w: -0.12708192}
+  m_LocalPosition: {x: -219.09, y: 0, z: -798.98}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 194.602, z: 0}
 --- !u!1 &6203415294695077180
 GameObject:
   m_ObjectHideFlags: 0
@@ -21820,6 +23704,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6209399795973330482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6915284027665071076}
+  m_Layer: 3
+  m_Name: CarSpawn (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6915284027665071076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6209399795973330482}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.5321376, z: 0, w: 0.84665793}
+  m_LocalPosition: {x: -190.9, y: 0, z: -655.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 64.3, z: 0}
 --- !u!1 &6222087614934900008
 GameObject:
   m_ObjectHideFlags: 0
@@ -21851,6 +23766,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6229446117242751611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4461980481561656747}
+  m_Layer: 3
+  m_Name: CarSpawn (46)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4461980481561656747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6229446117242751611}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.43680182, z: 0, w: 0.89955777}
+  m_LocalPosition: {x: -318.54, y: 0, z: -860.97}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 51.8, z: 0}
 --- !u!1 &6240398272314568126
 GameObject:
   m_ObjectHideFlags: 0
@@ -21978,6 +23924,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6277053731298154004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1102298936040824882}
+  m_Layer: 3
+  m_Name: CarSpawn (102)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1102298936040824882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6277053731298154004}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.57677996, z: -0, w: 0.8168996}
+  m_LocalPosition: {x: -373.74, y: 0, z: -653.13}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 70.449, z: 0}
 --- !u!1 &6280439865045620119
 GameObject:
   m_ObjectHideFlags: 0
@@ -22321,6 +24298,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6357299122273430746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7285420289454304419}
+  m_Layer: 3
+  m_Name: CarSpawn (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7285420289454304419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357299122273430746}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.4625051, y: 0.4625051, z: 0.53487295, w: 0.53487295}
+  m_LocalPosition: {x: -179.94, y: 0.92, z: -641.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 81.7, z: 90}
 --- !u!1 &6363457721506451754
 GameObject:
   m_ObjectHideFlags: 0
@@ -23237,6 +25245,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6552105182184880831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5117193546694424398}
+  m_Layer: 3
+  m_Name: CarSpawn (109)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5117193546694424398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6552105182184880831}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.3610243, z: -0, w: 0.9325565}
+  m_LocalPosition: {x: -337.5, y: 0, z: -648.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -42.326, z: 0}
 --- !u!1 &6552622016066148545
 GameObject:
   m_ObjectHideFlags: 0
@@ -23454,6 +25493,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6592199712006186497
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1418882278639445818}
+  m_Layer: 3
+  m_Name: CarSpawn (49)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1418882278639445818
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6592199712006186497}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7987597, z: -0, w: 0.6016503}
+  m_LocalPosition: {x: -352.6, y: 0, z: -846.69}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 106.024, z: 0}
 --- !u!1 &6633069295202450610
 GameObject:
   m_ObjectHideFlags: 0
@@ -23584,6 +25654,7 @@ Transform:
   - {fileID: 4833306761659381374}
   - {fileID: 1897159747798392491}
   - {fileID: 8642047994353343096}
+  - {fileID: 5834199153679874595}
   - {fileID: 2880895682625487176}
   - {fileID: 3472761665186913388}
   m_Father: {fileID: 4889956379003131956}
@@ -23650,6 +25721,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6656214884253631326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5428568665686436059}
+  m_Layer: 3
+  m_Name: CarSpawn (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5428568665686436059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6656214884253631326}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.99597883, z: 0, w: 0.08958969}
+  m_LocalPosition: {x: -176.57, y: 0, z: -645.23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 169.72, z: 0}
 --- !u!1 &6660766980175591910
 GameObject:
   m_ObjectHideFlags: 0
@@ -23929,6 +26031,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6759679213083088386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2370470263108320898}
+  m_Layer: 3
+  m_Name: CarSpawn (75)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2370470263108320898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6759679213083088386}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.47342923, z: -0, w: 0.8808319}
+  m_LocalPosition: {x: -209.57, y: 0, z: -730.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 56.514, z: 0}
 --- !u!1 &6763298368499821147
 GameObject:
   m_ObjectHideFlags: 0
@@ -24440,6 +26573,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6892995035524888407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5669712216700719994}
+  m_Layer: 3
+  m_Name: CarSpawn (23)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5669712216700719994
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6892995035524888407}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.12446736, z: 0, w: 0.9922237}
+  m_LocalPosition: {x: -241.69, y: 0, z: -688.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 14.3, z: 0}
 --- !u!1 &6914103516362961179
 GameObject:
   m_ObjectHideFlags: 0
@@ -24842,6 +27006,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7015342646152079812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2801668867416523224}
+  m_Layer: 3
+  m_Name: CarSpawn (97)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2801668867416523224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7015342646152079812}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.56972146, z: -0, w: 0.82183784}
+  m_LocalPosition: {x: -418.47, y: 0, z: -738.53}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 69.462, z: 0}
+--- !u!1 &7039084110709143171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7680368724376530829}
+  m_Layer: 3
+  m_Name: CarSpawn (101)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7680368724376530829
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7039084110709143171}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.63999677, z: -0, w: 0.7683776}
+  m_LocalPosition: {x: -372.93, y: 0, z: -650.11}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 79.583, z: 0}
 --- !u!1 &7052544246194728073
 GameObject:
   m_ObjectHideFlags: 0
@@ -24904,6 +27130,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7093956999351430273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5570253751103077453}
+  m_Layer: 3
+  m_Name: CarSpawn (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5570253751103077453
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093956999351430273}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.8467507, z: 0, w: 0.53198993}
+  m_LocalPosition: {x: -161.51, y: 0, z: -643.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 115.72, z: 0}
 --- !u!1 &7098484962528178545
 GameObject:
   m_ObjectHideFlags: 0
@@ -25059,6 +27316,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7201907490610457388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8778967448988794542}
+  m_Layer: 3
+  m_Name: CarSpawn (42)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8778967448988794542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7201907490610457388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.4083305, z: 0, w: 0.9128342}
+  m_LocalPosition: {x: -278.5, y: 0, z: -851.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 48.2, z: 0}
 --- !u!1 &7204933924352009818
 GameObject:
   m_ObjectHideFlags: 0
@@ -25183,6 +27471,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7241223557672683381
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6745687447151279091}
+  m_Layer: 3
+  m_Name: CarSpawn (110)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6745687447151279091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241223557672683381}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.23273383, z: -0, w: 0.9725405}
+  m_LocalPosition: {x: -337.06, y: 0, z: -653.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -26.916, z: 0}
 --- !u!1 &7244121660953143429
 GameObject:
   m_ObjectHideFlags: 0
@@ -25677,6 +27996,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4833306761659381374}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7335559510551784583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6516878790600650042}
+  m_Layer: 3
+  m_Name: CarSpawn (94)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6516878790600650042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7335559510551784583}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.6366785, z: -0, w: 0.7711294}
+  m_LocalPosition: {x: -202.3, y: 0, z: -570.19}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 79.089, z: 0}
+--- !u!1 &7339239140800171006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7304873811768513515}
+  m_Layer: 3
+  m_Name: CarSpawn (15)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7304873811768513515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339239140800171006}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.94322264, z: 0, w: 0.3321612}
+  m_LocalPosition: {x: -196.5, y: 0, z: -618.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 141.2, z: 0}
 --- !u!1 &7347827411738527557
 GameObject:
   m_ObjectHideFlags: 0
@@ -26064,6 +28445,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7445073710299442232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 723894864162324201}
+  m_Layer: 3
+  m_Name: CarSpawn (28)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &723894864162324201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7445073710299442232}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.40114862, z: 0, w: 0.91601306}
+  m_LocalPosition: {x: -246.62, y: 0, z: -588.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 47.3, z: 0}
 --- !u!1 &7445669292542578531
 GameObject:
   m_ObjectHideFlags: 0
@@ -27217,6 +29629,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7743100084681362580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 101357257194416303}
+  m_Layer: 3
+  m_Name: CarSpawn (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &101357257194416303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7743100084681362580}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7996847, z: 0, w: 0.60042024}
+  m_LocalPosition: {x: -179.59, y: 0, z: -647.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 106.2, z: 0}
+--- !u!1 &7744361586566803150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2410567205496829228}
+  m_Layer: 3
+  m_Name: CarSpawn (105)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2410567205496829228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7744361586566803150}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7698331, z: -0, w: 0.6382454}
+  m_LocalPosition: {x: -377.34, y: 0, z: -638.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -100.678, z: 0}
 --- !u!1 &7750974834030277864
 GameObject:
   m_ObjectHideFlags: 0
@@ -27403,6 +29877,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7849413043902685173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3699736992546514534}
+  m_Layer: 3
+  m_Name: CarSpawn (67)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3699736992546514534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7849413043902685173}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.3751709, z: -0, w: 0.9269557}
+  m_LocalPosition: {x: -265.25, y: 0, z: -780.95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 44.07, z: 0}
 --- !u!1 &7853294941345214163
 GameObject:
   m_ObjectHideFlags: 0
@@ -27551,6 +30056,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7893214318778435721
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1073004816694734150}
+  m_Layer: 3
+  m_Name: CarSpawn (38)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1073004816694734150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893214318778435721}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7132504, z: 0, w: 0.7009094}
+  m_LocalPosition: {x: -250.71, y: 0, z: -654.26}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 91, z: 0}
+--- !u!1 &7894620257335135705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1070216337634482403}
+  m_Layer: 3
+  m_Name: CarSpawn (58)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1070216337634482403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7894620257335135705}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9985835, z: 0, w: 0.053207573}
+  m_LocalPosition: {x: -225.52, y: 0, z: -817.42}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 173.9, z: 0}
 --- !u!1 &7895237812501266250
 GameObject:
   m_ObjectHideFlags: 0
@@ -27706,6 +30273,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7921261254838987546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7988474846420550660}
+  m_Layer: 3
+  m_Name: CarSpawn (31)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7988474846420550660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921261254838987546}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.85581595, z: 0, w: 0.5172805}
+  m_LocalPosition: {x: -224.2, y: 0, z: -669.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 117.7, z: 0}
+--- !u!1 &7928847291374714724
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4152893945149070681}
+  m_Layer: 3
+  m_Name: CarSpawn (71)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4152893945149070681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7928847291374714724}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.32847628, z: -0, w: 0.94451225}
+  m_LocalPosition: {x: -185.65, y: 0, z: -699.77}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 38.353, z: 0}
 --- !u!1 &7934748639975835078
 GameObject:
   m_ObjectHideFlags: 0
@@ -28549,6 +31178,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8139640731679975208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 852684379772829781}
+  m_Layer: 3
+  m_Name: CarSpawn (35)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &852684379772829781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8139640731679975208}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.84151083, z: 0, w: 0.54024035}
+  m_LocalPosition: {x: -267.79, y: 0, z: -658.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 114.6, z: 0}
 --- !u!1 &8157580244079285083
 GameObject:
   m_ObjectHideFlags: 0
@@ -28642,6 +31302,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8191517458662779977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3989996057651624082}
+  m_Layer: 3
+  m_Name: CarSpawn (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3989996057651624082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8191517458662779977}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.654081, z: 0, w: 0.7564246}
+  m_LocalPosition: {x: -180.64, y: 0, z: -644.52}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 81.7, z: 0}
+--- !u!1 &8239932239157810557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 906353793384979226}
+  m_Layer: 3
+  m_Name: CarSpawn (93)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &906353793384979226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8239932239157810557}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7726501, z: -0, w: 0.63483214}
+  m_LocalPosition: {x: -201.48, y: 0, z: -573.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 101.185, z: 0}
 --- !u!1 &8265096711940656924
 GameObject:
   m_ObjectHideFlags: 0
@@ -28735,6 +31457,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8272594987780444548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3712406134213708761}
+  m_Layer: 3
+  m_Name: CarSpawn (79)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3712406134213708761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8272594987780444548}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.65744513, z: -0, w: 0.7535024}
+  m_LocalPosition: {x: -208.52, y: 0, z: -686.23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 82.211, z: 0}
 --- !u!1 &8280680058154955973
 GameObject:
   m_ObjectHideFlags: 0
@@ -29029,6 +31782,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8343205940501308308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2167986645975723771}
+  m_Layer: 3
+  m_Name: CarSpawn (85)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2167986645975723771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8343205940501308308}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9703024, z: -0, w: 0.24189506}
+  m_LocalPosition: {x: -195.38, y: 0, z: -611.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 152.003, z: 0}
 --- !u!1 &8355097212954352542
 GameObject:
   m_ObjectHideFlags: 0
@@ -29177,6 +31961,156 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8381078663779270182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5834199153679874595}
+  m_Layer: 3
+  m_Name: Cars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5834199153679874595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8381078663779270182}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 100230414968993923}
+  - {fileID: 5428568665686436059}
+  - {fileID: 101357257194416303}
+  - {fileID: 3989996057651624082}
+  - {fileID: 7285420289454304419}
+  - {fileID: 374429573720343274}
+  - {fileID: 2308683343683584992}
+  - {fileID: 482502339619916021}
+  - {fileID: 8947557691519582128}
+  - {fileID: 5570253751103077453}
+  - {fileID: 2992641078089640421}
+  - {fileID: 4092449445056064880}
+  - {fileID: 3005659275979854038}
+  - {fileID: 6915284027665071076}
+  - {fileID: 7304873811768513515}
+  - {fileID: 7932807047826844746}
+  - {fileID: 4762626754259058678}
+  - {fileID: 7212636053125651133}
+  - {fileID: 2893387954774400996}
+  - {fileID: 6615046820214115331}
+  - {fileID: 271136943661968586}
+  - {fileID: 2845631966505661138}
+  - {fileID: 5669712216700719994}
+  - {fileID: 7037154184067709369}
+  - {fileID: 6120713383926887565}
+  - {fileID: 5892675737861911092}
+  - {fileID: 9061935833581028428}
+  - {fileID: 723894864162324201}
+  - {fileID: 4516063034925687089}
+  - {fileID: 9207058198411627794}
+  - {fileID: 7988474846420550660}
+  - {fileID: 6521711594773831594}
+  - {fileID: 8449294753552288012}
+  - {fileID: 1989129062549109411}
+  - {fileID: 852684379772829781}
+  - {fileID: 6965979784839431081}
+  - {fileID: 3441991753322775504}
+  - {fileID: 1073004816694734150}
+  - {fileID: 3298384858002478129}
+  - {fileID: 8024814719732091950}
+  - {fileID: 5043049470175104901}
+  - {fileID: 8778967448988794542}
+  - {fileID: 8032059771661672398}
+  - {fileID: 3441035681500810664}
+  - {fileID: 78254466189428643}
+  - {fileID: 4461980481561656747}
+  - {fileID: 2052455448949217976}
+  - {fileID: 4927748463176557052}
+  - {fileID: 1418882278639445818}
+  - {fileID: 4949096259508438070}
+  - {fileID: 3328965405165690005}
+  - {fileID: 3514612633608804002}
+  - {fileID: 2041337006505712121}
+  - {fileID: 5139992995733704189}
+  - {fileID: 3680712033437478070}
+  - {fileID: 743971069043028424}
+  - {fileID: 8965136142995741460}
+  - {fileID: 1070216337634482403}
+  - {fileID: 3405464809190664288}
+  - {fileID: 1708544175842065677}
+  - {fileID: 559082378102346550}
+  - {fileID: 5412145007096614996}
+  - {fileID: 8442064502062658996}
+  - {fileID: 6226993884915229696}
+  - {fileID: 6547815917040368265}
+  - {fileID: 6213593975486253143}
+  - {fileID: 3699736992546514534}
+  - {fileID: 6899261907300395710}
+  - {fileID: 4505596064432085210}
+  - {fileID: 180547678577429799}
+  - {fileID: 4152893945149070681}
+  - {fileID: 4992872551386394722}
+  - {fileID: 2203942222873777864}
+  - {fileID: 6323354082474566433}
+  - {fileID: 2370470263108320898}
+  - {fileID: 5399854632723866509}
+  - {fileID: 6859735943254430630}
+  - {fileID: 2200253348074027958}
+  - {fileID: 3712406134213708761}
+  - {fileID: 4196393371095666948}
+  - {fileID: 8204556518033800980}
+  - {fileID: 1388808128413412171}
+  - {fileID: 1023805879755131196}
+  - {fileID: 1300250138279592751}
+  - {fileID: 2167986645975723771}
+  - {fileID: 8136993957896885945}
+  - {fileID: 184991143645205848}
+  - {fileID: 3731667166521843180}
+  - {fileID: 3396760077205859557}
+  - {fileID: 6104117289681380470}
+  - {fileID: 5199061494625094572}
+  - {fileID: 2215613836946599179}
+  - {fileID: 906353793384979226}
+  - {fileID: 6516878790600650042}
+  - {fileID: 6886056006806806950}
+  - {fileID: 3862527826691546747}
+  - {fileID: 2801668867416523224}
+  - {fileID: 2664774418744943554}
+  - {fileID: 870245046778889835}
+  - {fileID: 2011006596351651249}
+  - {fileID: 7680368724376530829}
+  - {fileID: 1102298936040824882}
+  - {fileID: 7161522340714352675}
+  - {fileID: 5005513309445859794}
+  - {fileID: 2410567205496829228}
+  - {fileID: 9084584741613139445}
+  - {fileID: 3886669499244747772}
+  - {fileID: 7792126742959094418}
+  - {fileID: 5117193546694424398}
+  - {fileID: 6745687447151279091}
+  - {fileID: 1079621526998596724}
+  - {fileID: 5270581491952189112}
+  - {fileID: 3649669351503501256}
+  - {fileID: 4625706393461874714}
+  - {fileID: 7429463156380549250}
+  - {fileID: 7463193439466637883}
+  - {fileID: 219311139988759026}
+  - {fileID: 8253404381090797762}
+  - {fileID: 6594731143745319503}
+  m_Father: {fileID: 3491135937923356397}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8381845444805950541
 GameObject:
   m_ObjectHideFlags: 0
@@ -29239,6 +32173,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5655204122420941088}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8389831821094970386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4949096259508438070}
+  m_Layer: 3
+  m_Name: CarSpawn (50)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4949096259508438070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8389831821094970386}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7004588, z: -0, w: 0.7136929}
+  m_LocalPosition: {x: -337.96, y: 0, z: -843.95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 88.928, z: 0}
 --- !u!1 &8399360709902179199
 GameObject:
   m_ObjectHideFlags: 0
@@ -29270,6 +32235,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1897159747798392491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8411604062677961671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8449294753552288012}
+  m_Layer: 3
+  m_Name: CarSpawn (33)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8449294753552288012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8411604062677961671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0007725313, y: -0.18051904, z: 0.00014178599, w: 0.98357123}
+  m_LocalPosition: {x: -221.83, y: -0.1, z: -666.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0.09, y: -20.8, z: 0}
 --- !u!1 &8416263359295549325
 GameObject:
   m_ObjectHideFlags: 0
@@ -29425,6 +32421,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2340628603158361803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8514664309491292473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7932807047826844746}
+  m_Layer: 3
+  m_Name: CarSpawn (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7932807047826844746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8514664309491292473}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.4840462, z: 0, w: 0.8750425}
+  m_LocalPosition: {x: -194.6, y: 0, z: -625.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 57.9, z: 0}
 --- !u!1 &8529233019499534398
 GameObject:
   m_ObjectHideFlags: 0
@@ -29580,6 +32607,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8578722490194659991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3396760077205859557}
+  m_Layer: 3
+  m_Name: CarSpawn (89)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3396760077205859557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8578722490194659991}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.96946174, z: -0, w: -0.24524279}
+  m_LocalPosition: {x: -198.54, y: 0, z: -597.23}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 208.392, z: 0}
 --- !u!1 &8605985343034502941
 GameObject:
   m_ObjectHideFlags: 0
@@ -29642,6 +32700,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8629590885607552587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3680712033437478070}
+  m_Layer: 3
+  m_Name: CarSpawn (55)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3680712033437478070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629590885607552587}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.8543242, z: -0, w: -0.5197404}
+  m_LocalPosition: {x: -216.33, y: 0, z: -808.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 242.63, z: 0}
 --- !u!1 &8661351573218252519
 GameObject:
   m_ObjectHideFlags: 0
@@ -30014,6 +33103,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8787162266804196971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3441035681500810664}
+  m_Layer: 3
+  m_Name: CarSpawn (44)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3441035681500810664
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787162266804196971}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.8012538, z: 0, w: 0.59832466}
+  m_LocalPosition: {x: -303.6, y: 0, z: -856.71}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 106.5, z: 0}
 --- !u!1 &8790467948256134501
 GameObject:
   m_ObjectHideFlags: 0
@@ -30556,6 +33676,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8962223451659862601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4992872551386394722}
+  m_Layer: 3
+  m_Name: CarSpawn (72)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4992872551386394722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962223451659862601}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.06978505, z: -0, w: 0.9975621}
+  m_LocalPosition: {x: -196.44, y: 0, z: -711.59}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 8.003, z: 0}
 --- !u!1 &8984402930238841573
 GameObject:
   m_ObjectHideFlags: 0
@@ -30695,6 +33846,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &9024174909174464195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5892675737861911092}
+  m_Layer: 3
+  m_Name: CarSpawn (26)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5892675737861911092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9024174909174464195}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.5045275, z: 0, w: 0.86339563}
+  m_LocalPosition: {x: -246.51, y: 0, z: -581.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: -60.6, z: 0}
 --- !u!1 &9035903704721453631
 GameObject:
   m_ObjectHideFlags: 0
@@ -30850,6 +34032,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3795842609233623395}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9112334285920545167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5399854632723866509}
+  m_Layer: 3
+  m_Name: CarSpawn (76)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5399854632723866509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9112334285920545167}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.14882714, z: -0, w: 0.9888633}
+  m_LocalPosition: {x: -216.49, y: 0, z: -738.11}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 17.118, z: 0}
 --- !u!1 &9118788538354379161
 GameObject:
   m_ObjectHideFlags: 0
@@ -30881,6 +34094,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2576768008944106667}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9119209469862618901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8136993957896885945}
+  m_Layer: 3
+  m_Name: CarSpawn (86)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8136993957896885945
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9119209469862618901}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9241884, z: -0, w: 0.38193715}
+  m_LocalPosition: {x: -196.37, y: 0, z: -615.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5834199153679874595}
+  m_LocalEulerAnglesHint: {x: 0, y: 135.093, z: 0}
 --- !u!1 &9124455475289081721
 GameObject:
   m_ObjectHideFlags: 0

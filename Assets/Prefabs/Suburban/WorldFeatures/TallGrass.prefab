@@ -81,7 +81,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: grass
+          m_StringArgument: grass|0|0.5|0
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 33179626614870286}

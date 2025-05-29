@@ -14,7 +14,7 @@ public class World : NetworkBehaviour
     {
         public string name; //just for editor identification
         public List<WorldFeature> FeatureTypes;
-        public List<Transform> SpawnPoints;
+        public Transform spawnsParent;
         public bool RandomiseRotation;
         [Tooltip("-1 is empty btw")]public List<int> SpawnPool;
     }
@@ -25,7 +25,7 @@ public class World : NetworkBehaviour
     {
         public string name; //just for editor identification
         public List<NetWorldFeature> FeatureTypes;
-        public List<Transform> SpawnPoints;
+        public Transform spawnsParent;
         public bool RandomiseRotation;
         [Tooltip("-1 is empty btw")] public List<int> SpawnPool;
     }
@@ -204,8 +204,8 @@ public class World : NetworkBehaviour
                 string savedata = string.Join(",", savedataarray);
                 if (worldFeatures[i].FeatureTypes[typeindex] != null)
                 {
-                    Random.InitState(seed + (int)netWorldFeatures[i].SpawnPoints[j].position.x + (int)netWorldFeatures[i].SpawnPoints[j].position.z); //this should be deterministic
-                    var spawnedFeature = Instantiate(netWorldFeatures[i].FeatureTypes[typeindex], netWorldFeatures[i].SpawnPoints[j].position, netWorldFeatures[i].SpawnPoints[j].rotation, netWorldFeatures[i].SpawnPoints[j]);
+                    Random.InitState(seed + (int)netWorldFeatures[i].spawnsParent.GetChild(j).position.x + (int)netWorldFeatures[i].spawnsParent.GetChild(j).position.z); //this should be deterministic
+                    var spawnedFeature = Instantiate(netWorldFeatures[i].FeatureTypes[typeindex], netWorldFeatures[i].spawnsParent.GetChild(j).position, netWorldFeatures[i].spawnsParent.GetChild(j).rotation);
                     spawnedFeature.NetworkObject.Spawn();
                     spawnedFeature.Init(i, j, typeindex);
                     spawnedFeature.LoadFromSavedData(savedata);
@@ -232,8 +232,8 @@ public class World : NetworkBehaviour
                 string savedata = string.Join(",", savedataarray);
                 if (worldFeatures[i].FeatureTypes[typeindex] != null)
                 {
-                    Random.InitState(seed + (int)worldFeatures[i].SpawnPoints[j].position.x + (int)worldFeatures[i].SpawnPoints[j].position.z); //this should be deterministic
-                    var spawnedFeature = Instantiate(worldFeatures[i].FeatureTypes[typeindex], worldFeatures[i].SpawnPoints[j].position, worldFeatures[i].SpawnPoints[j].rotation, worldFeatures[i].SpawnPoints[j]);
+                    Random.InitState(seed + (int)worldFeatures[i].spawnsParent.GetChild(j).position.x + (int)worldFeatures[i].spawnsParent.GetChild(j).position.z); //this should be deterministic
+                    var spawnedFeature = Instantiate(worldFeatures[i].FeatureTypes[typeindex], worldFeatures[i].spawnsParent.GetChild(j).position, worldFeatures[i].spawnsParent.GetChild(j).rotation, worldFeatures[i].spawnsParent.GetChild(j));
                     spawnedFeature.Init(i, j, typeindex);
                     spawnedFeature.LoadFromSavedData(savedata);
                     spawnedFeature.name = worldFeatures[i].name + "_" + j + "_" + typeindex;
@@ -308,13 +308,13 @@ public class World : NetworkBehaviour
         {
             spawnedNetWorldFeatures.Add(new());
             RandomNetWorldFeature feature = netWorldFeatures[i];
-            for (int j = 0; j < feature.SpawnPoints.Count; j++)
+            for (int j = 0; j < feature.spawnsParent.childCount; j++)
             {
                 var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
                 if (feature.SpawnPool[spawnedindex] != -1)
                 {
-                    Random.InitState(seed + (int)feature.SpawnPoints[j].position.x + (int)feature.SpawnPoints[j].position.z); //this should be deterministic
-                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.SpawnPoints[j].position, feature.RandomiseRotation ? Quaternion.Euler(0, Random.Range(0, 360), 0) : feature.SpawnPoints[j].rotation, feature.SpawnPoints[j]);
+                    Random.InitState(seed + (int)feature.spawnsParent.GetChild(j).position.x + (int)feature.spawnsParent.GetChild(j).position.z); //this should be deterministic
+                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.spawnsParent.GetChild(j).position, feature.RandomiseRotation ? Quaternion.Euler(0, Random.Range(0, 360), 0) : feature.spawnsParent.GetChild(j).rotation);
                     spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
                     spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
                     spawnedNetWorldFeatures[i].Add(spawnedFeature);
@@ -331,13 +331,13 @@ public class World : NetworkBehaviour
         {
             spawnedWorldFeatures.Add(new());
             RandomWorldFeature feature = worldFeatures[i];
-            for (int j = 0; j < feature.SpawnPoints.Count; j++)
+            for (int j = 0; j < feature.spawnsParent.childCount; j++)
             {
                 var spawnedindex = rand.Next(0, feature.SpawnPool.Count);
                 if (feature.SpawnPool[spawnedindex] != -1)
                 {
-                    Random.InitState(seed + (int)feature.SpawnPoints[j].position.x + (int)feature.SpawnPoints[j].position.z); //this should be deterministic
-                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.SpawnPoints[j].position, feature.RandomiseRotation ? Quaternion.Euler(0, Random.Range(0, 360), 0) : feature.SpawnPoints[j].rotation, feature.SpawnPoints[j]);
+                    Random.InitState(seed + (int)feature.spawnsParent.GetChild(j).position.x + (int)feature.spawnsParent.GetChild(j).position.z); //this should be deterministic
+                    var spawnedFeature = Instantiate(feature.FeatureTypes[feature.SpawnPool[spawnedindex]], feature.spawnsParent.GetChild(j).position, feature.RandomiseRotation ? Quaternion.Euler(0, Random.Range(0, 360), 0) : feature.spawnsParent.GetChild(j).rotation, feature.spawnsParent.GetChild(j));
                     spawnedFeature.name = feature.name + "_" + i + "_" + j + "_" + feature.SpawnPool[spawnedindex];
                     spawnedFeature.Init(i, j, feature.SpawnPool[spawnedindex]);
                     spawnedWorldFeatures[i].Add(spawnedFeature);
@@ -457,16 +457,16 @@ public class World : NetworkBehaviour
         }
     }
 
-    public static void SpawnItemAtWorldfeature(string id, int worldfeatureid, int index)
+    public static void SpawnItemAtWorldfeature(string id, int worldfeatureid, int index, Vector3 localoffset = default)
     {
-        instance.SpawnItemAtWorldfeatureRPC(id, worldfeatureid, index);
+        instance.SpawnItemAtWorldfeatureRPC(id, worldfeatureid, index, localoffset);
     }
 
     [Rpc(SendTo.Server, RequireOwnership = false)]
-    private void SpawnItemAtWorldfeatureRPC(string id, int worldfeatureid, int index)
+    private void SpawnItemAtWorldfeatureRPC(string id, int worldfeatureid, int index, Vector3 offset)
     {
         if (!spawnedWorldFeatures[worldfeatureid][index]) { return; }
-        var curr = Instantiate(ItemDatabase.GetItem(id).ItemPrefab, spawnedWorldFeatures[worldfeatureid][index].transform.position + Vector3.up*0.5f, Quaternion.identity);
+        var curr = Instantiate(ItemDatabase.GetItem(id).ItemPrefab, spawnedWorldFeatures[worldfeatureid][index].transform.position + offset, Quaternion.identity);
         curr.NetworkObject.Spawn();
         curr.InitSavedData();
     }
@@ -497,7 +497,7 @@ public class World : NetworkBehaviour
         if (spawnedWorldFeatures[featureID][index] != null)
         {
             Destroy(spawnedWorldFeatures[featureID][index].gameObject);
-            spawnedWorldFeatures[featureID][index] = Instantiate(worldFeatures[featureID].FeatureTypes[newtype], worldFeatures[featureID].SpawnPoints[index].position, worldFeatures[featureID].SpawnPoints[index].rotation, worldFeatures[featureID].SpawnPoints[index]);
+            spawnedWorldFeatures[featureID][index] = Instantiate(worldFeatures[featureID].FeatureTypes[newtype], worldFeatures[featureID].spawnsParent.GetChild(index).position, worldFeatures[featureID].spawnsParent.GetChild(index).rotation, worldFeatures[featureID].spawnsParent.GetChild(index));
         }
     }
 
@@ -535,7 +535,7 @@ public class World : NetworkBehaviour
             Gizmos.color = Color.red;
             foreach (var feature in worldFeatures)
             {
-                foreach (var spawn in feature.SpawnPoints)
+                foreach (Transform spawn in feature.spawnsParent)
                 {
                     Gizmos.matrix = spawn.localToWorldMatrix;
                     var rend = feature.FeatureTypes[0].GetComponentInChildren<MeshRenderer>();
@@ -552,7 +552,7 @@ public class World : NetworkBehaviour
             Gizmos.color = Color.blue;
             foreach (var feature in netWorldFeatures)
             {
-                foreach (var spawn in feature.SpawnPoints)
+                foreach (Transform spawn in feature.spawnsParent)
                 {
                     Gizmos.matrix = spawn.localToWorldMatrix;
                     var rend = feature.FeatureTypes[0].GetComponentInChildren<MeshRenderer>();

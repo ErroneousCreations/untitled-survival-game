@@ -57,7 +57,14 @@ public class WorldFeature : MonoBehaviour
 
     public void SpawnItemAtMe(string item)
     {
-        World.SpawnItemAtWorldfeature(item, worldFeatureIndex, generatedFeatureIndex);
+        Vector3 offset = Vector3.zero;
+        if (item.Contains('|'))
+        {
+            var split = item.Split('|');
+            offset = new Vector3(float.Parse(split[1]), float.Parse(split[2]), float.Parse(split[3]));
+            item = split[0];
+        }
+        World.SpawnItemAtWorldfeature(item, worldFeatureIndex, generatedFeatureIndex, offset);
     }
 
     public void Attack(float damage)
