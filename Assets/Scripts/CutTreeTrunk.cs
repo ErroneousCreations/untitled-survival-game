@@ -12,13 +12,19 @@ public class CutTreeTrunk : NetworkBehaviour
 
     private float CurrentHealth;
 
+    //Jerry was here
     public void AddFalloverForce()
     {
         var force = Extensions.RandomCircle * InitialForce;
         var hits = Physics.OverlapSphere(transform.position, 10, Extensions.PlayerLayermask);
+        var targets = new List<Collider>();
         foreach (var player in hits)
         {
-            if (player.CompareTag("Player")) { force = (player.transform.position - transform.position); force.y = 0; force.Normalize(); force *= InitialForce; break; }
+            if (player.CompareTag("Player")) { targets.Add(player); }
+        }
+        if (targets.Count > 0)
+        {
+            force = (targets[Random.Range(0, targets.Count)].transform.position - transform.position); force.y = 0; force.Normalize(); force *= InitialForce;
         }
         rb.AddForceAtPosition(force, transform.position + transform.up * TreeHeight);
     }
