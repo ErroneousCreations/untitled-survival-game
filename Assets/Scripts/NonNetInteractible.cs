@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using Unity.Netcode;
 
-public class NonNetInteractible : MonoBehaviour
+public class NonNetInteractible : MonoBehaviour, IInteractible
 {
-    public static List<NonNetInteractible> INTERACTIBLES = new();
-
     public string Description;
     public float InteractLength = 1, InteractDistance = 1;
     [SerializeField] protected UnityEvent Interacted;
@@ -17,25 +15,51 @@ public class NonNetInteractible : MonoBehaviour
     public System.Action OnUpdate;
     public bool InteractOnce;
     private bool interacted;
+    private Vector3 lastPos;
+    private Vector2Int currCell;
 
     [HideInInspector] public bool Banned;
 
     public bool GetBannedFromInteracting => (InteractOnce && interacted) || Banned;
 
+    string IInteractible.GetDescription => Description;
+
+    float IInteractible.GetInteractDist => InteractDistance;
+
+    float IInteractible.GetInteractLength => InteractLength;
+
     private void OnEnable()
     {
-        INTERACTIBLES.Add(this);
+        IInteractible.INTERACTIBLES.Add(this);
+        lastPos = transform.position;
+        currCell = Extensions.GetSpacialCell(transform.position, IInteractible.PARTITIONSIZE);
+        if (!IInteractible.PARTITIONGRID.ContainsKey(currCell)) { IInteractible.PARTITIONGRID.Add(currCell, new() { this }); }
+        else { IInteractible.PARTITIONGRID[currCell].Add(this); }
     }
 
     private void OnDisable()
     {
-        INTERACTIBLES.Remove(this);
+        IInteractible.INTERACTIBLES.Remove(this);
+        IInteractible.PARTITIONGRID[currCell].Remove(this);
     }
 
     private void Update()
     {
         OnUpdate?.Invoke();
         VirtUpdate();
+
+        if (Mathf.Abs(transform.position.x - lastPos.x) > 0.1f || Mathf.Abs(transform.position.y - lastPos.y) > 0.1f || Mathf.Abs(transform.position.z - lastPos.z) > 0.1f)
+        {
+            lastPos = transform.position;
+            var newcell = Extensions.GetSpacialCell(transform.position, IInteractible.PARTITIONSIZE);
+            if (newcell != currCell)
+            {
+                IInteractible.PARTITIONGRID[currCell].Remove(this);
+                currCell = newcell;
+                if (!IInteractible.PARTITIONGRID.ContainsKey(newcell)) { IInteractible.PARTITIONGRID.Add(newcell, new() { this }); }
+                else { IInteractible.PARTITIONGRID[newcell].Add(this); }
+            }
+        }
     }
 
     protected virtual void VirtUpdate()

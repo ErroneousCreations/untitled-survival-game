@@ -143,6 +143,37 @@ public static class Extensions
         }
     }
 
+    public static Vector2Int GetSpacialCell(Vector3 position, float cellSize)
+    {
+        return new Vector2Int(Mathf.FloorToInt(position.x / cellSize),
+            Mathf.FloorToInt(position.z / cellSize));
+    }
+
+    public static List<T> GetNearbySpacial<T>(Vector3 position, float radius, Dictionary<Vector2Int, List<T>> grid, float cellSize) where T: Component
+    {
+        List<T> results = new();
+        Vector2Int center = GetSpacialCell(position, cellSize);
+        int cellsToCheck = Mathf.CeilToInt(radius / cellSize);
+
+        for (int x = -cellsToCheck; x <= cellsToCheck; x++)
+        {
+            for (int z = -cellsToCheck; z <= cellsToCheck; z++)
+            {
+                Vector2Int cell = center + new Vector2Int(x, z);
+                if (grid.TryGetValue(cell, out var list))
+                {
+                    foreach (var obj in list)
+                    {
+                        if ((obj.transform.position - position).sqrMagnitude <= radius * radius)
+                            results.Add(obj);
+                    }
+                }
+            }
+        }
+
+        return results;
+    }
+
     public static LayerMask DefaultMeleeLayermask = LayerMask.GetMask("Player", "Creature", "Terrain", "Constructed");
     public static LayerMask DefaultThrownHitregLayermask = LayerMask.GetMask("Player", "Creature");
     public static LayerMask ItemLayermask = LayerMask.GetMask("Item");

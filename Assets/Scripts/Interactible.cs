@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using Unity.Netcode;
 
-public class Interactible : NetworkBehaviour
+public class Interactible : NetworkBehaviour,IInteractible
 {
-    public static List<Interactible> INTERACTIBLES = new();
 
     public string Description;
     public float InteractLength = 1, InteractDistance = 1;
@@ -15,16 +14,25 @@ public class Interactible : NetworkBehaviour
     public System.Action OnInteractedLocal, OnInteractedClient, OnInteractedServer;
     public System.Action<ulong> OnInteractedLocal_GetUser, OnInteractedClient_GetUser, OnInteractedServer_GetUser;
     public System.Action OnUpdate;
-     public bool DestroyOnInteract, InteractOnce, DoRpcs = true;
+    public bool DestroyOnInteract, InteractOnce, DoRpcs = true;
     private bool interacted;
+    private Vector3 lastPos;
+    private Vector2Int currCell;
 
     [HideInInspector] public bool Banned;
 
-    public bool GetBannedFromInteracting => (InteractOnce && interacted) || Banned;
+    public bool GetBannedFromInteracting { get { return (InteractOnce && interacted) || Banned; } }
+    public string GetDescription { get => Description; }
+    public float GetInteractDist { get => InteractDistance; }
+    public float GetInteractLength { get => InteractLength; }
 
     private void OnEnable()
     {
-        INTERACTIBLES.Add(this);
+        IInteractible.INTERACTIBLES.Add(this);
+        lastPos = transform.position;
+        currCell = Extensions.GetSpacialCell(transform.position, IInteractible.PARTITIONSIZE);
+        if (!IInteractible.PARTITIONGRID.ContainsKey(currCell)) { IInteractible.PARTITIONGRID.Add(currCell, new() { this }); }
+        else { IInteractible.PARTITIONGRID[currCell].Add(this); }
         Enabled();
     }
 
@@ -35,7 +43,8 @@ public class Interactible : NetworkBehaviour
 
     private void OnDisable()
     {
-        INTERACTIBLES.Remove(this);
+        IInteractible.INTERACTIBLES.Remove(this);
+        IInteractible.PARTITIONGRID[currCell].Remove(this);
         Disabled();
     }
 
@@ -48,6 +57,19 @@ public class Interactible : NetworkBehaviour
     {
         OnUpdate?.Invoke();
         VirtUpdate();
+
+        if(Mathf.Abs(transform.position.x - lastPos.x) > 0.1f || Mathf.Abs(transform.position.y - lastPos.y) > 0.1f || Mathf.Abs(transform.position.z - lastPos.z) > 0.1f)
+        {
+            lastPos = transform.position;
+            var newcell = Extensions.GetSpacialCell(transform.position, IInteractible.PARTITIONSIZE);
+            if (newcell != currCell)
+            {
+                IInteractible.PARTITIONGRID[currCell].Remove(this);
+                currCell = newcell;
+                if (!IInteractible.PARTITIONGRID.ContainsKey(newcell)) { IInteractible.PARTITIONGRID.Add(newcell, new() { this }); }
+                else { IInteractible.PARTITIONGRID[newcell].Add(this); }
+            }
+        }
     }
 
     protected virtual void VirtUpdate()
