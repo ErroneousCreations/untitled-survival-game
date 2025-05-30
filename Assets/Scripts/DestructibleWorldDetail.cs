@@ -34,6 +34,7 @@ public class DestructibleWorldDetail : MonoBehaviour
 
     public void SetConnection(string conn)
     {
+        if(conn.Length <= 0) { connected = ConnectedTypeEnum.None; return; }
         var split = conn.Split('~');
         if (split.Length <= 1)
         { //then its connected to a DWD
@@ -67,6 +68,7 @@ public class DestructibleWorldDetail : MonoBehaviour
         {
             CurrHealth = float.Parse(data[0]);
             if (data.Count > 1) {
+                if (data[1].Length <= 0) { connected = ConnectedTypeEnum.None; return; }
                 var split = data[1].Split('~');
                 if (split.Length <= 1) { //then its connected to a DWD
                     connected = ConnectedTypeEnum.DWD;
@@ -128,11 +130,11 @@ public class DestructibleWorldDetail : MonoBehaviour
         if (connected == ConnectedTypeEnum.None) { currElectricity = BaseElectricity; return; }
 
         //electricity
-        currElectricity = Conductive ? (BaseElectricity + (connected == ConnectedTypeEnum.WorldFeature && WorldDetailManager.TryGetOb(connBuildingUID, out var det) ? det.BaseElectricity*ELECTRICITY_FALLOFF : 0)) : 0;
+        currElectricity = Conductive ? (BaseElectricity + (connected == ConnectedTypeEnum.DWD && WorldDetailManager.TryGetOb(connBuildingUID, out var det) ? det.BaseElectricity*ELECTRICITY_FALLOFF : 0)) : 0;
         if (elecmat)
         {
             ElectricEffect.gameObject.SetActive(currElectricity > 0.05f);
-            if(currElectricity > 0.05f) { elecmat.SetFloat(propID, Mathf.Lerp(0.85f, 0.34f, currElectricity)); }
+            if(currElectricity > 0.05f) { elecmat.SetFloat(propID, Mathf.Lerp(0.87f, 0.45f, currElectricity)); }
         }
 
         //breaking check on the server

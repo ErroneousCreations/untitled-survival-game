@@ -43,7 +43,7 @@ public class BuildingManager : NetworkBehaviour
         var rot = Quaternion.FromToRotation(Vector3.up, instance.currHitNormal) * Quaternion.Euler(0f, instance.currRotation, 0f) * Quaternion.Euler(instance.currentBuildable.EulerRotation);
         var pos = instance.currHitPos + (rot * instance.currentBuildable.Offset);
         var connectiondata = "";
-        if(instance.currHitCollider.TryGetComponent(out WorldFeature wf))
+        if(instance.currHitCollider.transform.parent && instance.currHitCollider.transform.parent.TryGetComponent(out WorldFeature wf))
         {
             connectiondata = $"{wf.GetFeatureIndex}~{wf.GetGeneratedFeatureIndex}";
         }

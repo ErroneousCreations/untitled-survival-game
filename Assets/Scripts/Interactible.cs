@@ -16,7 +16,7 @@ public class Interactible : NetworkBehaviour,IInteractible
     public System.Action OnUpdate;
     public bool DestroyOnInteract, InteractOnce, DoRpcs = true;
     private bool interacted;
-    private Vector3 lastPos;
+    private Vector3 lastPosition;
     private Vector2Int currCell;
 
     [HideInInspector] public bool Banned;
@@ -30,7 +30,7 @@ public class Interactible : NetworkBehaviour,IInteractible
     private void OnEnable()
     {
         IInteractible.INTERACTIBLES.Add(this);
-        lastPos = transform.position;
+        lastPosition = transform.position;
         currCell = Extensions.GetSpacialCell(transform.position, IInteractible.PARTITIONSIZE);
         if (!IInteractible.PARTITIONGRID.ContainsKey(currCell)) { IInteractible.PARTITIONGRID.Add(currCell, new() { this }); }
         else { IInteractible.PARTITIONGRID[currCell].Add(this); }
@@ -59,9 +59,9 @@ public class Interactible : NetworkBehaviour,IInteractible
         OnUpdate?.Invoke();
         VirtUpdate();
 
-        if(Mathf.Abs(transform.position.x - lastPos.x) > 0.1f || Mathf.Abs(transform.position.y - lastPos.y) > 0.1f || Mathf.Abs(transform.position.z - lastPos.z) > 0.1f)
+        if(Mathf.Abs(transform.position.x - lastPosition.x) > 0.1f || Mathf.Abs(transform.position.y - lastPosition.y) > 0.1f || Mathf.Abs(transform.position.z - lastPosition.z) > 0.1f)
         {
-            lastPos = transform.position;
+            lastPosition = transform.position;
             var newcell = Extensions.GetSpacialCell(transform.position, IInteractible.PARTITIONSIZE);
             if (newcell != currCell)
             {

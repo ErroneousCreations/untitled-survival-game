@@ -6,6 +6,7 @@ public class ConstructedDamager : MonoBehaviour
     public enum DamagerType { Electric, Spike }
     public DamagerType MyType;
     public DestructibleWorldDetail myDetail;
+    public float MinimumDamageDot = 1;
 
     [ShowField(nameof(MyType), DamagerType.Spike)] public float DamagePerVelocity, DurabilityLoss;
 
@@ -32,7 +33,9 @@ public class ConstructedDamager : MonoBehaviour
                     var norm = transform.position - other.transform.position;
                     norm.y = 0;
                     norm.Normalize();
-                    var relativevelocity = other.attachedRigidbody.linearVelocity.magnitude;
+
+                    var relativevelocity = -Vector3.Dot(other.attachedRigidbody.linearVelocity, transform.up);
+                    if (relativevelocity <= MinimumDamageDot) { return; }
                     if (other.CompareTag("Player") && other.TryGetComponent(out Player p))
                     {
                         p.ph.ApplyDamage(relativevelocity * DamagePerVelocity, DamageType.Stab, other.ClosestPoint(transform.position), norm);
