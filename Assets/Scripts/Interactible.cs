@@ -25,6 +25,7 @@ public class Interactible : NetworkBehaviour,IInteractible
     public string GetDescription { get => Description; }
     public float GetInteractDist { get => InteractDistance; }
     public float GetInteractLength { get => InteractLength; }
+    public Vector3 GetPosition { get => transform.position; }
 
     private void OnEnable()
     {

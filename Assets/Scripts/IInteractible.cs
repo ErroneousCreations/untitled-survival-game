@@ -10,6 +10,7 @@ public interface IInteractible
     public string GetDescription { get; }
     public float GetInteractDist { get; }
     public float GetInteractLength { get; }
+    public Vector3 GetPosition { get; }
 
     public abstract void InteractComplete();
 

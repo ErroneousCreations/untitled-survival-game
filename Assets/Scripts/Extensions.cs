@@ -149,7 +149,7 @@ public static class Extensions
             Mathf.FloorToInt(position.z / cellSize));
     }
 
-    public static List<T> GetNearbySpacial<T>(Vector3 position, float radius, Dictionary<Vector2Int, List<T>> grid, float cellSize) where T: Component
+    public static List<T> GetNearbySpacial<T>(Vector3 position, float radius, Dictionary<Vector2Int, List<T>> grid, float cellSize, System.Func<T,Vector3> getpos)
     {
         List<T> results = new();
         Vector2Int center = GetSpacialCell(position, cellSize);
@@ -164,7 +164,7 @@ public static class Extensions
                 {
                     foreach (var obj in list)
                     {
-                        if ((obj.transform.position - position).sqrMagnitude <= radius * radius)
+                        if ((getpos(obj) - position).sqrMagnitude <= radius * radius)
                             results.Add(obj);
                     }
                 }

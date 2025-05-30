@@ -22,11 +22,13 @@ public class NonNetInteractible : MonoBehaviour, IInteractible
 
     public bool GetBannedFromInteracting => (InteractOnce && interacted) || Banned;
 
-    string IInteractible.GetDescription => Description;
+    public string GetDescription => Description;
 
-    float IInteractible.GetInteractDist => InteractDistance;
+    public float GetInteractDist => InteractDistance;
 
-    float IInteractible.GetInteractLength => InteractLength;
+    public float GetInteractLength => InteractLength;
+    public Vector3 GetPosition { get => transform.position; }
+
 
     private void OnEnable()
     {

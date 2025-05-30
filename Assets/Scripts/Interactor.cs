@@ -25,7 +25,8 @@ public class Interactor : MonoBehaviour
     private Interactible currentTarget;
     private NonNetInteractible altCurrentTarget;
     private float holdProgress = 0f;
-    private List<IInteractible> withinRange = new();
+    private List<Interactible> withinRange = new();
+    private List<NonNetInteractible> withinRangeNonNet = new();
 
     public static Interactor instance;
 
@@ -80,6 +81,7 @@ public class Interactor : MonoBehaviour
     {
         // Destroy old UI elements
         withinRange.Clear();
+        withinRangeNonNet.Clear();
         foreach (Transform child in InteractibleUIBase.transform.parent)
         {
             if (child.gameObject.activeSelf)
@@ -89,11 +91,35 @@ public class Interactor : MonoBehaviour
         }
         if(GameManager.IsSpectating) { return; }
 
-        //TODO
-        //foreach (var item in Extensions.GetNearbySpacial(transform.position, 5, IInteractible.PARTITIONGRID, IInteractible.PARTITIONSIZE))
-        //{
-
-        //}
+        foreach (var baseob in Extensions.GetNearbySpacial(transform.position, 5, IInteractible.PARTITIONGRID, IInteractible.PARTITIONSIZE, (IInteractible x) => { return x.GetPosition; }))
+        {
+            if(baseob is Interactible)
+            {
+                var inter = baseob as Interactible;
+                if (!inter.GetBannedFromInteracting && (inter.transform.position - transform.position).sqrMagnitude < inter.InteractDistance * inter.InteractDistance && Player.LocalPlayer.ph.isConscious.Value)
+                {
+                    withinRange.Add(inter);
+                    var pos = Extensions.TransformToHUDSpace(inter.transform.position);
+                    if (pos.z < 0) { continue; }
+                    var ob = Instantiate(InteractibleUIBase, InteractibleUIBase.transform.parent);
+                    ob.SetActive(true);
+                    ob.transform.localPosition = pos;
+                }
+            }
+            else if(baseob is NonNetInteractible)
+            {
+                var inter = baseob as NonNetInteractible;
+                if (!inter.GetBannedFromInteracting && (inter.transform.position - transform.position).sqrMagnitude < inter.InteractDistance * inter.InteractDistance && Player.LocalPlayer.ph.isConscious.Value)
+                {
+                    withinRangeNonNet.Add(inter);
+                    var pos = Extensions.TransformToHUDSpace(inter.transform.position);
+                    if (pos.z < 0) { continue; }
+                    var ob = Instantiate(InteractibleUIBase, InteractibleUIBase.transform.parent);
+                    ob.SetActive(true);
+                    ob.transform.localPosition = pos;
+                }
+            }
+        }
     }
 
     Interactible GetBestInteractible(out NonNetInteractible nonnet)
