@@ -14447,6 +14447,8 @@ MonoBehaviour:
     Value: {fileID: 8300000, guid: 192425fb0ff42b44dbc974e3f20ff81a, type: 3}
   - Key: cameraclick
     Value: {fileID: 8300000, guid: bf4eaadafc2398642a9a8f46b7df35f3, type: 3}
+  - Key: electrocute
+    Value: {fileID: 8300000, guid: 7b37cfa3a153d864f835a04ec4141eec, type: 3}
   DefAudioOb: {fileID: 887336806245285577, guid: e6046388bd15ad146bd026a9cac4c990, type: 3}
 --- !u!114 &1090251059
 MonoBehaviour:
@@ -14470,6 +14472,10 @@ MonoBehaviour:
     prefab: {fileID: 3918460742249407562, guid: eae4e8bcaa1e2184eb53796cde173447, type: 3}
   - ID: particle_bloodsplash
     prefab: {fileID: 4756778655431166634, guid: 6f0248de4575799419d6d36619cff880, type: 3}
+  - ID: particle_electroshock
+    prefab: {fileID: 3918460742249407562, guid: 937a90630cca06e458c63326f340a0e3, type: 3}
+  - ID: cameraflash
+    prefab: {fileID: 7549184614128888845, guid: 0d917fa169892a749861cdc7c3496028, type: 3}
 --- !u!114 &1090251060
 MonoBehaviour:
   m_ObjectHideFlags: 0

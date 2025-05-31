@@ -2687,7 +2687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 2120
   direction: {fileID: 1331412401487231112}
   legs:
   - EndOfLeg: {fileID: 5675546019953624507}

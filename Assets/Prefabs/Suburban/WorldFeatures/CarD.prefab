@@ -114,7 +114,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: carbattery|0.06|1.06|2.04
+          m_StringArgument: carbattery|0.06|1.1|2.04
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 8340309119964628599}
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019e246d33c536f42a565a9c0f25da1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Destroyable: 1
+  Destroyable: 0
   CurrHealth: 0
   MaxHealth: 150
   drops:

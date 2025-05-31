@@ -1,5 +1,6 @@
 using UnityEngine;
 using EditorAttributes;
+using Unity.Netcode;
 
 public class ConstructedDamager : MonoBehaviour
 {
@@ -17,14 +18,27 @@ public class ConstructedDamager : MonoBehaviour
             case DamagerType.Electric:
                 {
                     if(myDetail.GetCurrElectricity <= 0.05f) { return; }
+                    bool doeffects =false;
+                    var pos = Vector3.zero;
                     if (other.CompareTag("Player") && other.TryGetComponent(out Player p))
                     {
+                        doeffects = true;
+                        pos = other.ClosestPoint(transform.position);
                         p.KnockOver(myDetail.GetCurrElectricity * 2.5f, true);
-                        p.ph.ApplyDamage(myDetail.GetCurrElectricity * 10, DamageType.Blunt, other.ClosestPoint(transform.position), Vector3.up);
+                        p.ph.ApplyDamage(myDetail.GetCurrElectricity * 2, DamageType.Blunt, pos, Vector3.up);
                     }
                     else if (other.TryGetComponent(out HealthBodyPart hp))
                     {
-                        hp.TakeDamage(myDetail.GetCurrElectricity * 10, myDetail.GetCurrElectricity * 4f, DamageType.Blunt, other.ClosestPoint(transform.position), Vector3.up);
+                        doeffects = true;
+                        pos = other.ClosestPoint(transform.position);
+                        hp.TakeDamage(myDetail.GetCurrElectricity * 2, myDetail.GetCurrElectricity * 4f, DamageType.Blunt, pos, Vector3.up);
+                    }
+
+                    if (doeffects)
+                    {
+                        Destroy(Instantiate(NetPrefabsList.GetNetPrefab("particle_electroshock"), pos, Quaternion.identity).gameObject, 1);
+                        NetPrefabsList.SpawnObjectExcept("particle_electroshock", pos, Quaternion.identity, NetworkManager.Singleton.LocalClientId, 1);
+                        NetworkAudioManager.PlayNetworkedAudioClip(Random.Range(0.8f, 1.2f), 1, 1, pos, "electrocute");
                     }
                 }
                 break;

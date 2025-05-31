@@ -55,7 +55,7 @@ public class LegWalkerController : MonoBehaviour
 
         var IsGrounded = Physics.Raycast(transform.position + groundcastHeightOffset, Vector3.down, out _, groundcastLength, groundMask);
 
-        if (!IsGrounded) { flyingTime = Mathf.Clamp(flyingTime+Time.deltaTime, 0, 8); }
+        if (!IsGrounded) { flyingTime = Mathf.Clamp(flyingTime+Time.deltaTime, 0, 4); }
         else { flyingTime = 0; }
 
         if (DisableLegsMovement) { return; }

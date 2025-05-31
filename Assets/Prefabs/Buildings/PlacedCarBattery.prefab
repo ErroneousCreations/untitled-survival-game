@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyType: 0
   myDetail: {fileID: 3278574729139848833}
+  MinimumDamageDot: 1
   DamagePerVelocity: 5
   DurabilityLoss: 0.1
 --- !u!65 &4011299587602038973
@@ -82,6 +83,7 @@ GameObject:
   - component: {fileID: 5123110904353326497}
   - component: {fileID: 3278574729139848833}
   - component: {fileID: -3308331007220755155}
+  - component: {fileID: 933708633734837563}
   m_Layer: 11
   m_Name: PlacedCarBattery
   m_TagString: WorldDetail
@@ -146,10 +148,7 @@ MonoBehaviour:
   Health: 9
   BreakParticle: particle_sparks
   mySaver: {fileID: -3308331007220755155}
-  IsBuilding: 1
-  BaseElectricity: 1
-  Conductive: 1
-  ElectricEffect: {fileID: 6460749326666615681}
+  myBuilding: {fileID: 933708633734837563}
 --- !u!114 &-3308331007220755155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +171,23 @@ MonoBehaviour:
   DataLoaded_Data:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &933708633734837563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550798694304671740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b131a36285a80d349b1af214c1ea5c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myDwd: {fileID: 3278574729139848833}
+  mySaver: {fileID: -3308331007220755155}
+  BaseElectricity: 1
+  Conductive: 1
+  ElectricEffect: {fileID: 6460749326666615681}
 --- !u!1 &4736872897992533961
 GameObject:
   m_ObjectHideFlags: 0

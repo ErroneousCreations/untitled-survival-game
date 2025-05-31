@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846531571950697553}
   - component: {fileID: 8414210865928201873}
-  - component: {fileID: 3526659203368301351}
+  - component: {fileID: 4114078176562992173}
   m_Layer: 11
   m_Name: DamageTrigger
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 488357522157101066}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2506, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2706, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,10 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyType: 1
   myDetail: {fileID: 3278574729139848833}
-  DamagePerVelocity: 4
+  MinimumDamageDot: 0.75
+  DamagePerVelocity: 5
   DurabilityLoss: 0.1
---- !u!65 &3526659203368301351
-BoxCollider:
+--- !u!135 &4114078176562992173
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -68,7 +69,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.015, y: 0.05, z: 0.015}
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4550798694304671740
 GameObject:
@@ -82,6 +83,7 @@ GameObject:
   - component: {fileID: 5123110904353326497}
   - component: {fileID: 3278574729139848833}
   - component: {fileID: -3308331007220755155}
+  - component: {fileID: 3700740271176612796}
   m_Layer: 11
   m_Name: PlacedShortSharpStick
   m_TagString: WorldDetail
@@ -144,10 +146,7 @@ MonoBehaviour:
   Health: 1
   BreakParticle: particle_splinters
   mySaver: {fileID: -3308331007220755155}
-  IsBuilding: 0
-  BaseElectricity: 0
-  Conductive: 0
-  ElectricEffect: {fileID: 0}
+  myBuilding: {fileID: 3700740271176612796}
 --- !u!114 &-3308331007220755155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +169,23 @@ MonoBehaviour:
   DataLoaded_Data:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3700740271176612796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4550798694304671740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b131a36285a80d349b1af214c1ea5c50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myDwd: {fileID: 3278574729139848833}
+  mySaver: {fileID: -3308331007220755155}
+  BaseElectricity: 0
+  Conductive: 0
+  ElectricEffect: {fileID: 0}
 --- !u!1 &4736872897992533961
 GameObject:
   m_ObjectHideFlags: 0

@@ -126,16 +126,16 @@ public class PlayerInventory : NetworkBehaviour
     public static Transform GetRightHand => localInstance.RightHandOb.GetChild(0);
     public static Transform GetLeftHand => localInstance.LeftHandOb.GetChild(0);
 
-    public static void SpawnNetOb(string prefab, Vector3 pos, Quaternion rot)
+    public static void SpawnNetOb(string prefab, Vector3 pos, Quaternion rot, float destroytime = 1)
     {
-        localInstance.InstSpawnNetOb(prefab, pos, rot);
+        localInstance.InstSpawnNetOb(prefab, pos, rot, destroytime);
     }
 
-    private void InstSpawnNetOb(string prefab, Vector3 pos, Quaternion rot)
+    private void InstSpawnNetOb(string prefab, Vector3 pos, Quaternion rot, float destroytime)
     {
-        NetPrefabsList.SpawnObjectExcept(prefab, pos, rot, Extensions.LocalClientID, 1);
-        var ob = Instantiate(NetPrefabsList.GetNetPrefab(prefab), pos, rot);
-        Destroy(ob, 1);
+        NetPrefabsList.SpawnObjectExcept(prefab, pos, rot, Extensions.LocalClientID, destroytime);
+        var ob = Instantiate(NetPrefabsList.GetNetPrefab(prefab), pos, rot).gameObject;
+        Destroy(ob, destroytime);
     }
 
     public static void SpawnItemWithVelocity(ItemData item, Vector3 position, Vector3 velocity, ulong thrower, Vector3 angular = default)

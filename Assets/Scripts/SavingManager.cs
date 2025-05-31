@@ -340,10 +340,10 @@ public class SavingManager : NetworkBehaviour
 
     private IEnumerator LoadCoroutine(SaveFileLocationEnum loc, int slot)
     {
-        LOADING = true;
         CheckDirectories();
         var targetpath = Application.dataPath + SAVE_LOCATIONS[(int)loc] + $"/{slot + 1}.sav";
         if (!File.Exists(targetpath)) { Debug.LogError("No save file found at: " + targetpath); yield break; }
+        LOADING = true;
         string savedata = File.ReadAllText(targetpath);
         MenuController.ToggleLoadingScreen(true);
 
@@ -354,6 +354,7 @@ public class SavingManager : NetworkBehaviour
         var sendtoclients = CompressString($"{splitlocaldata[0]};{splitlocaldata[3]};{splitlocaldata[1]};{splitlocaldata[2]};{splitlocaldata[4]}");
         var chunks = SplitBytes(sendtoclients, 1024);
         instance.PrepareForSaveFileRPC(sendtoclients.Length);
+        yield return new WaitForSeconds(0.5f);//give time for the fucking world to spawn
         for (int i = 0; i < chunks.Count; i++)
         {
             yield return null;

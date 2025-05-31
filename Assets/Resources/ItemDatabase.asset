@@ -388,7 +388,7 @@ MonoBehaviour:
     Ingredient2: ropeshortstick
   - Result: camera
     SAVEDATAOVERRIDE:
-    - 2
+    - 36
     Ingredient1: camera
     Ingredient2: film
   - Result: hammer

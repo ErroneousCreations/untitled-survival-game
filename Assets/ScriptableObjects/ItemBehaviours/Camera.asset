@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a1d530c8675174d941013b54f4e93b, type: 3}
   m_Name: Camera
   m_EditorClassIdentifier: 
+  photoTaker: {fileID: 8582011898098172027, guid: fb4767d8713ec8045830e34d8d0c26dc, type: 3}
+  W: 800
+  H: 600
+  D: 24

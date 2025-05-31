@@ -129,6 +129,7 @@ public class World : NetworkBehaviour
     private void Awake()
     {
         instance = this;
+        GameManager.SetWorld(this);
     }
 
     public static List<List<WorldFeature>> GetWorldFeatures => instance.spawnedWorldFeatures;
@@ -466,7 +467,7 @@ public class World : NetworkBehaviour
     private void SpawnItemAtWorldfeatureRPC(string id, int worldfeatureid, int index, Vector3 offset)
     {
         if (!spawnedWorldFeatures[worldfeatureid][index]) { return; }
-        var curr = Instantiate(ItemDatabase.GetItem(id).ItemPrefab, spawnedWorldFeatures[worldfeatureid][index].transform.position + offset, Quaternion.identity);
+        var curr = Instantiate(ItemDatabase.GetItem(id).ItemPrefab, spawnedWorldFeatures[worldfeatureid][index].transform.TransformPoint(offset), Quaternion.identity);
         curr.NetworkObject.Spawn();
         curr.InitSavedData();
     }

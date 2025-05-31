@@ -15,6 +15,8 @@ public class CreatureCorpseProxy : NetworkBehaviour
 
     [Header("Visuals")]
     public List<SyncedMaterialStruct> syncedMats;
+    public Renderer eyesRend;
+    public Texture2D eyesTex;
 
     //statics
     public static List<CreatureCorpseProxy> CORPSES = new();
@@ -92,6 +94,10 @@ public class CreatureCorpseProxy : NetworkBehaviour
         despawnTimer = baseDespawnTime;
         checkRangesTimer = Random.Range(4.5f, 6.5f);
         despawnSpeedMult = 1;
+        if(eyesRend && eyesTex)
+        {
+            eyesRend.material.mainTexture = eyesTex;
+        }
     }
 
     [Rpc(SendTo.Everyone)]

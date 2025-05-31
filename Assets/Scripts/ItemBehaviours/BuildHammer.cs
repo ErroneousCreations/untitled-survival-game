@@ -47,6 +47,10 @@ public class BuildHammer : ScriptableObject, IItemBehaviour
 
     public ItemData OnHandsSwapped(ItemData item, HandSideEnum side)
     {
+        if (side == HandSideEnum.Left && item.TempData[0] == 1)
+        {
+            BuildingManager.StopPlacement();
+        }
         item.TempData = new List<float> { 0 };
         return item;
     }

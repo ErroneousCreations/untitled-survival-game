@@ -881,7 +881,7 @@ MonoBehaviour:
   IdleWanderRange: 6
   ScoutRange: 80
   GetItemRange: 9
-  FleeFearThreshold: 1
+  FleeFearThreshold: 0.875
   SearchForTargetRange: 8
   ThrowRange: 12
   ThrowVelocity: 17
@@ -1019,7 +1019,7 @@ MonoBehaviour:
     _serializedList:
     - Key: axolotl
       Value:
-        Fear: 0.2
+        Fear: 0.31
         Aggression: 0.6
         Ignore: 0
     - Key: femtanyl

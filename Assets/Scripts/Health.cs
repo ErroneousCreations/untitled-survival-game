@@ -31,6 +31,8 @@ public class Health : NetworkBehaviour
     /// </summary>
     public System.Action<float, float, bool> OnTakeDamage;
 
+    public System.Action Died;
+
     public bool GetStunned => stunTime > StunThreshold;
     private float stunTime;
     private Dictionary<int,Wound> _wounds = new Dictionary<int,Wound>();
@@ -208,9 +210,10 @@ public class Health : NetworkBehaviour
         {
             if(Random.value < DeathChanceCurve.Evaluate(Mathf.Clamp01(Mathf.Abs(_currentHealth) / MaxHealth)))
             {
+                Died?.Invoke();
                 var corpse = Instantiate(Corpse, transform.position, transform.rotation);
                 corpse.NetworkObject.Spawn();
-                List<Color > colours = new List<Color>();
+                List<Color > colours = new();
                 foreach (var synced in SyncedMats)
                 {
                     colours.Add(synced.rend.materials[synced.index].color);

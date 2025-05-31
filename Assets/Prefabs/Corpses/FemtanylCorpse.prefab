@@ -950,6 +950,8 @@ MonoBehaviour:
     index: 0
   - rend: {fileID: 4326499595566188688}
     index: 1
+  eyesRend: {fileID: 4926151172937117728}
+  eyesTex: {fileID: 2800000, guid: ddeb10ea243e46a4bb442af7bacaf3ac, type: 3}
 --- !u!1 &6245712610641838472
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,7 +1016,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f837db76fdce2de4e98b53b34a503df3, type: 2}
+  - {fileID: 2100000, guid: f350082ceb224044b8452229480ab9b4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

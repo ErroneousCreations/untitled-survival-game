@@ -108,6 +108,7 @@ public class AI_Femtanyl : NetworkBehaviour
         eyemat = EyeRenderer.material;
         if (IsOwner) {
             health.OnTakeDamage += (_, _, _) => OnTakeDamage();
+            health.Died += Died;
             SyncIDRPC(ID);
             Random.InitState(ID);
             speedmod = Random.Range(0.96f, 1.05f);
@@ -126,6 +127,25 @@ public class AI_Femtanyl : NetworkBehaviour
             fightingOffset = Extensions.RandomCircle * 2f; //offset for fighting target, so we dont just stand still and get hit
             currGiveUpTime = 30;
         }
+    }
+
+    private void Died()
+    {
+        if (LefthandItem.Value.IsValid)
+        {
+            var ob = Instantiate(ItemDatabase.GetItem(LefthandItem.Value.ID.ToString()).ItemPrefab, transform.position + Vector3.up + 0.45f * transform.forward, Quaternion.identity);
+            ob.NetworkObject.Spawn();
+            ob.InitSavedData(LefthandItem.Value.SavedData);
+            LefthandItem.Value = ItemData.Empty;
+        } //drop lefthand item if stunned
+
+        if (RighthandItem.Value.IsValid)
+        {
+            var ob = Instantiate(ItemDatabase.GetItem(RighthandItem.Value.ID.ToString()).ItemPrefab, transform.position + Vector3.up + 0.45f * transform.forward, Quaternion.identity);
+            ob.NetworkObject.Spawn();
+            ob.InitSavedData(RighthandItem.Value.SavedData);
+            RighthandItem.Value = ItemData.Empty;
+        } //drop righthand item if stunned
     }
 
     [Rpc(SendTo.Everyone)]
@@ -213,7 +233,23 @@ public class AI_Femtanyl : NetworkBehaviour
         {
             health.Heal(health.MaxHealth*0.02f * Time.deltaTime); //heal 0.1% of health per second
         }
-        if (health.GetStunned) { return; }
+        if (health.GetStunned) {
+            if(LefthandItem.Value.IsValid) { 
+                var ob = Instantiate(ItemDatabase.GetItem(LefthandItem.Value.ID.ToString()).ItemPrefab, transform.position + Vector3.up + 0.45f * transform.forward, Quaternion.identity);
+                ob.NetworkObject.Spawn();
+                ob.InitSavedData(LefthandItem.Value.SavedData);
+                LefthandItem.Value = ItemData.Empty; 
+            } //drop lefthand item if stunned
+
+            if (RighthandItem.Value.IsValid)
+            {
+                var ob = Instantiate(ItemDatabase.GetItem(RighthandItem.Value.ID.ToString()).ItemPrefab, transform.position + Vector3.up + 0.45f * transform.forward, Quaternion.identity);
+                ob.NetworkObject.Spawn();
+                ob.InitSavedData(RighthandItem.Value.SavedData);
+                RighthandItem.Value = ItemData.Empty;
+            } //drop righthand item if stunned
+            return;
+        }
         switch (state)
         {
             case FemtanylAIState.Idle:
@@ -468,6 +504,7 @@ public class AI_Femtanyl : NetworkBehaviour
             state = FemtanylAIState.Reacting;
             currFleeingTarget = targeter.TopScaredTarget;
             nextState = FemtanylAIState.Fleeing;
+            losttargetcooldown = Random.Range(5f, 10f);
             currReactionTime = reactiontime;
             lookdirection = (targeter.TopScaredTarget.transform.position - transform.position).normalized;
             return;
@@ -492,7 +529,7 @@ public class AI_Femtanyl : NetworkBehaviour
             //make sure we have a free hand
             if (!LefthandItem.Value.IsValid || !RighthandItem.Value.IsValid)
             {
-                var obs = Physics.OverlapSphere(transform.position, GetItemRange, Extensions.ItemLayermask);
+                var obs = Physics.OverlapSphere(transform.position, GetItemRange*0.6f, Extensions.ItemLayermask);
                 if (obs.Length > 0)
                 {
                     float nearestdist = Mathf.Infinity;
@@ -500,7 +537,7 @@ public class AI_Femtanyl : NetworkBehaviour
                     foreach (var ob in obs)
                     {
                         var thisdist = (transform.position - ob.transform.position).sqrMagnitude;
-                        if (ob.TryGetComponent(out PickupableItem item) && item.IsSpawned && (item.ItemType == ItemTypeEnum.ThrowingBluntWeapon || item.ItemType == ItemTypeEnum.ThrowingSharpWeapon) && thisdist < nearestdist)
+                        if (ob.TryGetComponent(out PickupableItem item) && item.IsSpawned && (item.ItemType == ItemTypeEnum.ThrowingBluntWeapon || item.ItemType == ItemTypeEnum.ThrowingSharpWeapon) && thisdist < nearestdist && (!targeter.TopAggroTarget || Vector3.Angle((targeter.TopAggroTarget.transform.position - transform.position).normalized, (ob.transform.position - transform.position).normalized) > 45)) //double check we dont just run straight into the enemy 
                         {
                             nearestdist = thisdist;
                             closest = item;

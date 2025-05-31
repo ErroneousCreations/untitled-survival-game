@@ -45,6 +45,7 @@ public class GameManager : NetworkBehaviour
     public static bool IsSpectating = false;
 
     public static World GetWorld => instance.currWorld;
+    public static void SetWorld(World w) { instance.currWorld = w; }
 
     public static Dictionary<ulong, string> GetUUIDS => instance.UNIQUEUSERIDS;
 

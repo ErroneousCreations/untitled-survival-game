@@ -6,8 +6,6 @@ using Unity.Netcode;
 
 public class DestructibleWorldDetail : MonoBehaviour
 {
-    public static float ELECTRICITY_FALLOFF = 0.9f;
-
     public int ObjectID { get; private set; }
 
     [ReadOnly, SerializeField]private float CurrHealth;
@@ -15,51 +13,16 @@ public class DestructibleWorldDetail : MonoBehaviour
     public float Health;
     public string BreakParticle;
     public SavedObject mySaver;
-    public bool IsBuilding;
-    [ShowField(nameof(IsBuilding))] public float BaseElectricity;
-    [ShowField(nameof(IsBuilding))] public bool Conductive;
-    [ShowField(nameof(isconductive))] public Renderer ElectricEffect;
-    private float currElectricity;
-    private int connWfTypeIndex, connWfGenIndex;
-    private Material elecmat;
-    private int propID;
-    private enum ConnectedTypeEnum { None, WorldFeature, DWD }
-    private ConnectedTypeEnum connected;
-    private int connBuildingUID;
+    public Building myBuilding;
 
-    private float breaktime = 0;
-    private bool isconductive => IsBuilding && Conductive;
-
-    public float GetCurrElectricity => currElectricity;
-
-    public void SetConnection(string conn)
-    {
-        if(conn.Length <= 0) { connected = ConnectedTypeEnum.None; return; }
-        var split = conn.Split('~');
-        if (split.Length <= 1)
-        { //then its connected to a DWD
-            connected = ConnectedTypeEnum.DWD;
-            connBuildingUID = int.Parse(split[0]);
-        }
-        else
-        {
-            connected = ConnectedTypeEnum.WorldFeature;
-            connWfTypeIndex = int.Parse(split[0]);
-            connWfGenIndex = int.Parse(split[1]);
-        }
-
-        mySaver.SavedData[1] = conn;
-    }
+    public float GetCurrElectricity => myBuilding ? myBuilding.GetCurrElectricity : 0;
 
     private void Start()
     {
-        elecmat = ElectricEffect ? ElectricEffect.material : null;
-        if (elecmat) { propID = Shader.PropertyToID("_AlphaNoiseThresh"); }
         CurrHealth = Health;
         mySaver.OnDataLoaded_Data += SetHealth;
         ObjectID = Extensions.HashVector3ToInt(transform.position);
         WorldDetailManager.RegisterObject(this);
-        breaktime = Random.Range(0.05f, 0.2f);
     }
 
     void SetHealth(List<string> data)
@@ -67,21 +30,6 @@ public class DestructibleWorldDetail : MonoBehaviour
         if (mySaver && data.Count > 0)
         {
             CurrHealth = float.Parse(data[0]);
-            if (data.Count > 1) {
-                if (data[1].Length <= 0) { connected = ConnectedTypeEnum.None; return; }
-                var split = data[1].Split('~');
-                if (split.Length <= 1) { //then its connected to a DWD
-                    connected = ConnectedTypeEnum.DWD;
-                    connBuildingUID = int.Parse(split[0]);
-                } 
-                else
-                {
-                    connected = ConnectedTypeEnum.WorldFeature;
-                    connWfTypeIndex = int.Parse(split[0]);
-                    connWfGenIndex = int.Parse(split[1]);
-                }
-            }
-            else { connected = ConnectedTypeEnum.None; }
         }
     }
 
@@ -122,39 +70,5 @@ public class DestructibleWorldDetail : MonoBehaviour
     public void Attack(float damage)
     {
         WorldDetailManager.DoDamage(ObjectID, damage);
-    }
-
-    private void Update()
-    {
-        if (!IsBuilding) { return; }
-        if (connected == ConnectedTypeEnum.None) { currElectricity = BaseElectricity; return; }
-
-        //electricity
-        currElectricity = Conductive ? (BaseElectricity + (connected == ConnectedTypeEnum.DWD && WorldDetailManager.TryGetOb(connBuildingUID, out var det) ? det.BaseElectricity*ELECTRICITY_FALLOFF : 0)) : 0;
-        if (elecmat)
-        {
-            ElectricEffect.gameObject.SetActive(currElectricity > 0.05f);
-            if(currElectricity > 0.05f) { elecmat.SetFloat(propID, Mathf.Lerp(0.87f, 0.45f, currElectricity)); }
-        }
-
-        //breaking check on the server
-        if(!NetworkManager.Singleton || !NetworkManager.Singleton.IsServer) { return; }
-
-        breaktime -= Time.deltaTime;
-        if (breaktime <= 0)
-        {
-            breaktime = Random.Range(0.05f, 0.2f);
-
-            //destroy if not connected
-            switch (connected)
-            {
-                case ConnectedTypeEnum.DWD:
-                    if (!WorldDetailManager.GetIDExists(connBuildingUID)) { Attack(1000); return; }
-                    return;
-                case ConnectedTypeEnum.WorldFeature:
-                    if (!World.GetWorldFeatures[connWfTypeIndex][connWfGenIndex]) { Attack(1000); return; }
-                    return;
-            }
-        }
     }
 }

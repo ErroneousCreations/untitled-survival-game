@@ -58,7 +58,7 @@ public class BuildingManager : NetworkBehaviour
     private void PlaceStructureRPC(Vector3 pos, Quaternion rot, string placed, string connectiondata)
     {
         var ob = Instantiate(instance.buildables.Buildables[placed].Prefab, pos, rot);
-        ob.SetConnection(connectiondata);
+        ob.myBuilding?.SetConnection(connectiondata);
     }
 
     private void Update()
