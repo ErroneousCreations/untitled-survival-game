@@ -179,6 +179,7 @@ public static class Extensions
     public static LayerMask ItemLayermask = LayerMask.GetMask("Item");
     public static LayerMask PlayerLayermask = LayerMask.GetMask("Player");
     public static LayerMask CreatureLayermask = LayerMask.GetMask("Creature");
+    public static LayerMask BuiltLayermask = LayerMask.GetMask("Constructed");
     public static LayerMask TerrainMask = LayerMask.GetMask("Terrain");
     public static LayerMask PlacementMask = LayerMask.GetMask("Terrain", "Constructed");
     public static LayerMask BannedConstructionMask = LayerMask.GetMask("Player", "Creature");

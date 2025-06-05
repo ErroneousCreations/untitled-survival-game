@@ -8,7 +8,7 @@ using Unity.Netcode;
 
 public class AITargeter : MonoBehaviour
 {
-    public const float AudioEnergyFalloffDistanceModifer = 0.03f;
+    public const float AudioEnergyFalloffDistanceModifer = -0.06f;
 
     [System.Serializable]
     public struct RelationshipStruct
@@ -102,7 +102,7 @@ public class AITargeter : MonoBehaviour
                 foundvalues.Add(target, new Vector3(dist, fear, aggression));
             }
 
-            if(CanHear && dist < HearRange && (target.AudioEnergy / (1 + (dist * AudioEnergyFalloffDistanceModifer))) > HearingPower) {
+            if(CanHear && dist < HearRange && (target.AudioEnergy + (dist * AudioEnergyFalloffDistanceModifer)) > HearingPower) {
                 OnHeardSound?.Invoke(target.AudioEnergy, target.transform.position);
                 HeardSound?.Invoke(target.AudioEnergy, target.transform.position);
                 var fear = relation.Fear * FearModifier * target.ScarinessModifier;

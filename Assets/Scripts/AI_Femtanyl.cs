@@ -78,8 +78,8 @@ public class AI_Femtanyl : NetworkBehaviour
     {
         get
         {
-            float rot = 0;
-            if (state == FemtanylAIState.Reacting) { rot = 20; }
+            float rot = 10;
+            if (state == FemtanylAIState.Reacting) { rot = 0; }
             if (state == FemtanylAIState.Fleeing) { rot = 40; }
             if (tookDamageTime > 0) { rot = 30; }
             if (health.GetStunned) { rot = 30; } //stunned, lower ears

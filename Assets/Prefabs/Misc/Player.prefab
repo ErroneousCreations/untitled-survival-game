@@ -4118,7 +4118,7 @@ MonoBehaviour:
   legHealthRegenRate: 190
   bodyHealthRegenRate: 200
   headHealthRegenRate: 190
-  baseBleedParticleAmount: 25
+  baseBleedParticleAmount: 10
   maxShockPerSeverity: 35
   LeghealthMovementMult:
     serializedVersion: 2

@@ -8,8 +8,9 @@ public class ConstructedDamager : MonoBehaviour
     public DamagerType MyType;
     public DestructibleWorldDetail myDetail;
     public float MinimumDamageDot = 1;
+    private float dmgCooldownTime;
 
-    [ShowField(nameof(MyType), DamagerType.Spike)] public float DamagePerVelocity, DurabilityLoss;
+    [ShowField(nameof(MyType), DamagerType.Spike)] public float DamagePerVelocity, DurabilityLoss, PlacedCheckRange;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -44,6 +45,10 @@ public class ConstructedDamager : MonoBehaviour
                 break;
             case DamagerType.Spike:
                 {
+                    if(Time.time < dmgCooldownTime) { return; }
+                    var hits = Physics.OverlapSphere(transform.position, PlacedCheckRange, Extensions.BuiltLayermask);
+                    if (hits.Length > 1) { return; }
+                    dmgCooldownTime = Time.time + 0.25f; // cooldown to prevent multiple hits in one frame
                     var norm = transform.position - other.transform.position;
                     norm.y = 0;
                     norm.Normalize();

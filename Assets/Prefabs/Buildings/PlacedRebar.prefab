@@ -136,6 +136,7 @@ MonoBehaviour:
   MinimumDamageDot: 0.75
   DamagePerVelocity: 6.5
   DurabilityLoss: 0.1
+  PlacedCheckRange: 0.08
 --- !u!135 &5476614269245605642
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -207,6 +208,7 @@ MonoBehaviour:
   MinimumDamageDot: 1
   DamagePerVelocity: 5
   DurabilityLoss: 0.1
+  PlacedCheckRange: 0
 --- !u!65 &6999673178276488113
 BoxCollider:
   m_ObjectHideFlags: 0

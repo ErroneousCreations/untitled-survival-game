@@ -50,6 +50,7 @@ MonoBehaviour:
   MinimumDamageDot: 0.7
   DamagePerVelocity: 7.25
   DurabilityLoss: 0.1
+  PlacedCheckRange: 0.08
 --- !u!135 &645175348934539534
 SphereCollider:
   m_ObjectHideFlags: 0
