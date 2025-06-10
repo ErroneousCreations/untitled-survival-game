@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using EditorAttributes;
-using UnityEngine.XR;
 
 [CreateAssetMenu(fileName = "New AxeBehaviour", menuName = "ItemBehaviours/BuildHammer")]
 public class BuildHammer : ScriptableObject, IItemBehaviour
