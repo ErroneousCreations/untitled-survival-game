@@ -37,6 +37,8 @@ public class AILocomotor : MonoBehaviour
     private Vector3 turndestination;
     private bool isTurning;
     private bool traversingLink;
+    private float currStandForce;
+
 
     [HideInInspector] public bool StandingUp = true;
 
@@ -86,6 +88,15 @@ public class AILocomotor : MonoBehaviour
     }
 
     private bool GetUpright => Vector3.Angle(transform.up, Vector3.up) < 10;
+
+    private void Update()
+    {
+        if (!NetworkManager.Singleton) { return; } //if we are not networked, just return
+        if (!NetworkManager.Singleton.IsServer) { return; }
+
+        if (!StandingUp) { currStandForce = 0; }
+        else { currStandForce = Mathf.Lerp(currStandForce, standForce, Time.deltaTime / 4); }
+    }
 
     private void FixedUpdate()
     {
@@ -190,7 +201,7 @@ public class AILocomotor : MonoBehaviour
         Vector3 torqueAxis = Vector3.Cross(currentUp, desiredUp);
         float angle = Vector3.Angle(currentUp, desiredUp) * Mathf.Deg2Rad;
 
-        Vector3 correctiveTorque = (torqueAxis.normalized * angle * standForce) - (standDamping * rb.angularVelocity);
+        Vector3 correctiveTorque = (torqueAxis.normalized * angle * currStandForce) - (standDamping * rb.angularVelocity);
         rb.AddTorque(correctiveTorque, ForceMode.Acceleration);
     }
 

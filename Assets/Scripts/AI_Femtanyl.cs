@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Netcode;
 using System.Collections.Generic;
 using DG.Tweening;
+using DitzelGames.FastIK;
 
 public class AI_Femtanyl : NetworkBehaviour
 {
@@ -17,6 +18,8 @@ public class AI_Femtanyl : NetworkBehaviour
     public Collider coll;
 
     [Header("Visuals")]
+    public LegWalkerController legController;
+    public FastIKFabric[] legs;
     public Gradient SkinColourGradient;
     public Gradient ClothesColourGradient;
     public Transform model;
@@ -223,6 +226,11 @@ public class AI_Femtanyl : NetworkBehaviour
     {
         if(!IsSpawned) { return; }
         UpdateSyncing();
+        legController.DisableLegsMovement = health.GetStunned;
+        foreach (var l in legs)
+        {
+            l.enabled = !health.GetStunned;
+        }
         if (!IsOwner) { return; }
         locomotor.StandingUp = !health.GetStunned;
         targeter.FearModifier = fear + GetFearFromItems + GetFearFromHealth; //update the fear modifier based on if we are holding items (scaredy if we dont have any)
@@ -231,7 +239,7 @@ public class AI_Femtanyl : NetworkBehaviour
         if(healingCooldown > 0) { healingCooldown -= Time.deltaTime; }
         else
         {
-            health.Heal(health.MaxHealth*0.02f * Time.deltaTime); //heal 0.1% of health per second
+            health.Heal(health.MaxHealth*0.05f * Time.deltaTime); //heal 0.5% of health per second
         }
         if (health.GetStunned) {
             if(LefthandItem.Value.IsValid) { 

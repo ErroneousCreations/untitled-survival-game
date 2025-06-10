@@ -522,28 +522,28 @@ MonoBehaviour:
   - EndOfLeg: {fileID: 4634778589563030126}
     target: {fileID: 3248359189257183074}
     defaultAnchor: {fileID: 7904296626873959528}
-    stepDistance: 0
-    stepAheadLength: 0
-    stepHeight: 0
+    stepDistance: 0.1
+    stepAheadLength: 0.15
+    stepHeight: 0.1
     footHeightOffset: 0
-    stepSpeed: 0
-    raycastOffset: 0
+    stepSpeed: 0.1
+    raycastOffset: 0.05
     alignToGround: 0
   - EndOfLeg: {fileID: 4427271718724776384}
     target: {fileID: 1602768429354770439}
     defaultAnchor: {fileID: 3393752775259372435}
-    stepDistance: 0
-    stepAheadLength: 0
-    stepHeight: 0
+    stepDistance: 0.15
+    stepAheadLength: 0.1
+    stepHeight: 0.1
     footHeightOffset: 0
-    stepSpeed: 0
-    raycastOffset: 0
+    stepSpeed: 0.1
+    raycastOffset: 0.05
     alignToGround: 0
   stepCooldown: 0.1
   ungroundedLegFlailAmplitude: 0.2
   ungroundedLegFlailSpeed: 30
   groundcastLength: 0.7
-  groundcastHeightOffset: {x: 0, y: 0, z: 0}
+  groundcastHeightOffset: {x: 0, y: -0.1, z: 0}
   DisableLegsMovement: 0
 --- !u!1 &4664295800632205458
 GameObject:
@@ -1017,6 +1017,10 @@ MonoBehaviour:
   ThrowVelocity: 17
   health: {fileID: 3633660691485679775}
   coll: {fileID: 1214964031899247643}
+  legController: {fileID: 721856207863596004}
+  legs:
+  - {fileID: 534027491535844624}
+  - {fileID: 8267316850327098602}
   SkinColourGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.99664843, b: 0.8726415, a: 1}
@@ -1170,7 +1174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  MaxHealth: 150
+  MaxHealth: 450
   DeathChanceCurve:
     serializedVersion: 2
     m_Curve:
@@ -1200,11 +1204,17 @@ MonoBehaviour:
   StunThreshold: 2
   Parts:
   - {fileID: 7754059738197054235}
+  ShouldBleed: 1
+  bleedingEffect: {fileID: 7356597680002989962, guid: ed11a43460bc3fb4d9b0bff25296dc4d, type: 3}
+  BleedRatePerSeverity: 0.5
+  WoundHealRate: 0.02
   SyncedMats:
   - rend: {fileID: 5970859066851128241}
     index: 0
   - rend: {fileID: 5970859066851128241}
     index: 1
+  netStunned:
+    m_InternalValue: 0
 --- !u!114 &7754059738197054235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,7 +1231,7 @@ MonoBehaviour:
   StunModifier: 1
   health: {fileID: 3633660691485679775}
   PartIndex: 0
-  DamageEffect: particle_bloodsplash
+  DamageEffect: 
   ModifierAreas:
   - Position: {x: 0, y: 1.54, z: 0}
     Size: 0.45

@@ -39,10 +39,11 @@ public class Health : NetworkBehaviour
     public System.Action OnEmbeddedRemoved;
     public System.Action Died;
 
-    public bool GetStunned => stunTime > StunThreshold;
+    public bool GetStunned => netStunned.Value;
     private float stunTime;
     private Dictionary<int,Wound> _wounds = new Dictionary<int,Wound>();
     private int next;
+    public NetworkVariable<bool> netStunned = new(false);
 
     public struct Wound
     {
@@ -152,11 +153,14 @@ public class Health : NetworkBehaviour
             inter.Description = _wounds[i].embedded ? $"Remove {ItemDatabase.GetItem(wound.embeddedItem.ID.ToString()).Name}" : "";
             inter.InteractLength = 2f;
             inter.InteractDistance = 1.5f;
-            emission.rateOverTime = 10 * _wounds[i].severity;
-            if (IsServer) { _currentHealth -= _wounds[i].severity * BleedRatePerSeverity * Time.deltaTime; }
-            var w = _wounds[i];
-            w.severity -= WoundHealRate * Time.deltaTime;
-            _wounds[i] = w;
+            if (ShouldBleed) {
+                emission.rateOverTime = 10 * _wounds[i].severity;
+                if (ShouldBleed) { _currentHealth -= _wounds[i].severity * BleedRatePerSeverity * Time.deltaTime; }
+                var w = _wounds[i];
+                w.severity -= WoundHealRate * Time.deltaTime;
+                _wounds[i] = w;
+            }
+            
             if (Player.LocalPlayer && wound.embedded) { inter.OnInteractedLocal = () => DeleteWound(i); }
             else { inter.OnInteractedLocal = null; }
         };
@@ -236,6 +240,7 @@ public class Health : NetworkBehaviour
     {
         if(!IsServer) return;
 
+        netStunned.Value = stunTime > StunThreshold;
         if (stunTime > 0) { stunTime -= Time.deltaTime; }
 
         if (_currentHealth <= 0)

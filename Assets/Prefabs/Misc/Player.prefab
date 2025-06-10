@@ -3998,7 +3998,7 @@ MonoBehaviour:
   standupForce: 700
   standupDamping: 15
   falloverForce: 1
-  fallRecoverSpeed: 2
+  fallRecoverSpeed: 4
   incapacitatedgroundDrag: 5
   incapacitatedangularDrag: 5
   incapacitatedrotationStrength: 10
