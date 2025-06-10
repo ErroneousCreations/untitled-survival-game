@@ -46,7 +46,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Color_Burn: 18.7
-    - _Color_Burn_Strength: 0.289
+    - _Color_Burn_Strength: 0.403
     - _Color_Resolution: 36.36
     - _Dither_Opacity: 0
     - _Dither_Spread: 4
