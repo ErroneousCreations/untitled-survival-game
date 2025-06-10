@@ -3,6 +3,8 @@ using System.Linq;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
+
 public enum DamageType { Blunt, Stab }
 public enum BodyPart { Head, Body, Arm, Leg }
 
@@ -506,11 +508,10 @@ public class PlayerHealthController : NetworkBehaviour
         bleed.transform.parent = ob.transform;
         bleed.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         var initialpos = ob.transform.localPosition;
-
+        var emission = bleed.emission;
         var inter = ob.AddComponent<Interactible>();
         inter.OnUpdate += () =>
         {
-            //todo make it change depending on what your holding and stuff
             inter.Banned = IsOwner || !Player.LocalPlayer || ((!woundObjects.ContainsKey(id) || !woundObjects[id].hasembedded) && PlayerInventory.GetRightHandItem.ID.ToString() != "bandage");
             if (!woundObjects.ContainsKey(id)) { Destroy(ob); return; }
             if (!Player.LocalPlayer) { return; }
@@ -520,7 +521,7 @@ public class PlayerHealthController : NetworkBehaviour
             if(embeddedgraphic && !woundObjects[id].hasembedded) { 
                 Destroy(embeddedgraphic);
             }
-            var emission = bleed.emission;
+            
             emission.rateOverTime = baseBleedParticleAmount * woundObjects[id].severity;
             if (woundObjects[id].hasembedded) { inter.OnInteractedLocal = () => RemoveEmbeddedObject(id, embeddedItem); }
             else if (PlayerInventory.GetRightHandItem.ID.ToString() == "bandage") { inter.OnInteractedLocal = () => { 
@@ -583,10 +584,12 @@ public class PlayerHealthController : NetworkBehaviour
 
         var w = wounds[wound];
         w.isEmbeddedObject = false;
-        w.severity *= 4; //you bleed a bit more after its removed
+        var item = ItemDatabase.GetItem(woundObjects[wound].embedded.ID.ToString());
+        var bleedmult = item.CustomItemProperties.ContainsKey("RemovedBleedMult") ? 2.5f : float.Parse(item.CustomItemProperties["RemovedBleedMult"]);
+        w.severity *= bleedmult; //you bleed a bit more after its removed
         shock.Value += w.severity / 90;
         wounds[wound] = w;
-        IncreaseWoundIntensityRPC(wound, 2);
+        IncreaseWoundIntensityRPC(wound, bleedmult);
     }
 
     [Rpc(SendTo.Everyone)]

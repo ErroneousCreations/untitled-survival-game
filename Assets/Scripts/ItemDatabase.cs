@@ -13,11 +13,11 @@ public struct Item
     /// In litres for backpack capacity
     /// </summary>
     public float Volume;
-    public float ScareFactor;
     public ItemTypeEnum ItemType;
     public List<string> BaseSavedData;
     public PickupableItem ItemPrefab;
     [SerializeField] private Object _itemBehaviour;
+    public SerializedDictionary<string, string> CustomItemProperties;
 
     [Header("Held Properties")]
     public Mesh HeldMesh;

@@ -21,6 +21,12 @@ public class Health : NetworkBehaviour
     public CreatureCorpseProxy Corpse;
     public float StunResistance, StunThreshold;
     public List<HealthBodyPart> Parts;
+    [Header("Bleeding")]
+    public bool ShouldBleed;
+    public ParticleSystem bleedingEffect;
+    [Tooltip("Damage rate for each wound severity per second")]public float BleedRatePerSeverity;
+    [Tooltip("How much severity is removed per second")]public float WoundHealRate = 0.01f;
+    [Header("Visuals")]
     /// <summary>
     /// For if the creature has colour variation so we can apply that to the corpse as well!!!
     /// </summary>
@@ -30,7 +36,7 @@ public class Health : NetworkBehaviour
     /// Damage, Stunamount, Is Embedded
     /// </summary>
     public System.Action<float, float, bool> OnTakeDamage;
-
+    public System.Action OnEmbeddedRemoved;
     public System.Action Died;
 
     public bool GetStunned => stunTime > StunThreshold;
@@ -40,16 +46,20 @@ public class Health : NetworkBehaviour
 
     public struct Wound
     {
+        public bool embedded;
         public ItemData embeddedItem;
+        public float severity;
         public int Part;
         public Vector3 localPosition, localRotation;
 
-        public Wound(ItemData embeddedItem, int part, Vector3 localPosition, Vector3 localRotation)
+        public Wound(bool embedded, ItemData embeddedItem, int part, Vector3 localPosition, Vector3 localRotation, float severity)
         {
             this.embeddedItem = embeddedItem;
             Part = part;
             this.localPosition = localPosition;
             this.localRotation = localRotation;
+            this.severity = severity;
+            this.embedded = embedded;
         }
 
         public Wound(string data)
@@ -59,11 +69,13 @@ public class Health : NetworkBehaviour
             Part = int.Parse(split[1]);
             localPosition = new Vector3(float.Parse(split[2]), float.Parse(split[3]), float.Parse(split[4]));
             localRotation = new Vector3(float.Parse(split[5]), float.Parse(split[6]), float.Parse(split[7]));
+            severity = float.Parse(split[8]);
+            embedded = split[9] == "1";
         }
 
         public override string ToString()
         {
-            return $"{embeddedItem.ID}`{Part}`{Extensions.VecToString(localPosition, "`")}`{Extensions.VecToString(localRotation, "`")}";
+            return $"{embeddedItem.ID}`{Part}`{Extensions.VecToString(localPosition, "`")}`{Extensions.VecToString(localRotation, "`")}`{System.Math.Round(severity, 2)}`{(embedded?"1":"0")}";
         }
     }
 
@@ -113,6 +125,14 @@ public class Health : NetworkBehaviour
         ob.transform.SetLocalPositionAndRotation(wound.localPosition, Quaternion.LookRotation(wound.localRotation));
         GameObject embeddedgraphic = null;
 
+        ParticleSystem bleed = null;
+        if (ShouldBleed)
+        {
+            bleed = Instantiate(bleedingEffect, Vector3.zero, Quaternion.identity);
+            bleed.transform.parent = ob.transform;
+            bleed.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        }
+
         embeddedgraphic = new GameObject("EmbeddedGraphic");
         embeddedgraphic.transform.parent = ob.transform;
         embeddedgraphic.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(-90,0,0));
@@ -120,17 +140,24 @@ public class Health : NetworkBehaviour
         embeddedgraphic.AddComponent<MeshRenderer>().materials = ItemDatabase.GetItem(wound.embeddedItem.ID.ToString()).HeldMats;
 
         var initialpos = ob.transform.localPosition;
-
+        var emission = bleed.emission;
         var inter = ob.AddComponent<Interactible>();
         inter.OnUpdate += () =>
         {
             var i = index;
             if (!_wounds.ContainsKey(i)) { Destroy(ob); return; } // Ensure the wound still exists
-            inter.Banned = !Player.LocalPlayer || !_wounds.ContainsKey(i);
-            inter.Description = $"Remove {ItemDatabase.GetItem(wound.embeddedItem.ID.ToString()).Name}";
+            if (!_wounds[i].embedded) { Destroy(ShouldBleed ? embeddedgraphic : ob); return; } // Ensure there is still an embedded object, if we dont bleed and we dont have embedded just destroy the whole thing otherwise jsut the embedded object
+            if (ShouldBleed && _wounds[i].severity <= 0.01f) { Destroy(_wounds[i].embedded ? bleed : ob); return; } //Ensure we are still actually bleeding. If we have an embedded, just destroy the bleeding, otherwise destroy the whole thing.
+            inter.Banned = !Player.LocalPlayer || !_wounds.ContainsKey(i) || !_wounds[i].embedded;
+            inter.Description = _wounds[i].embedded ? $"Remove {ItemDatabase.GetItem(wound.embeddedItem.ID.ToString()).Name}" : "";
             inter.InteractLength = 2f;
             inter.InteractDistance = 1.5f;
-            if (Player.LocalPlayer) { inter.OnInteractedLocal = () => DeleteWound(i); }
+            emission.rateOverTime = 10 * _wounds[i].severity;
+            if (IsServer) { _currentHealth -= _wounds[i].severity * BleedRatePerSeverity * Time.deltaTime; }
+            var w = _wounds[i];
+            w.severity -= WoundHealRate * Time.deltaTime;
+            _wounds[i] = w;
+            if (Player.LocalPlayer && wound.embedded) { inter.OnInteractedLocal = () => DeleteWound(i); }
             else { inter.OnInteractedLocal = null; }
         };
     }
@@ -146,7 +173,12 @@ public class Health : NetworkBehaviour
     {
         if (_wounds.ContainsKey(wound))
         {
-            _wounds.Remove(wound);
+            var w = _wounds[wound];
+            w.embedded = false;
+            var item = ItemDatabase.GetItem(w.embeddedItem.ID.ToString());
+            w.severity *= item.CustomItemProperties.ContainsKey("RemovedBleedMult") ? 2.5f : float.Parse(item.CustomItemProperties["RemovedBleedMult"]);
+            w.embeddedItem = ItemData.Empty;
+            _wounds[wound] = w;
         }
     }
 
@@ -181,9 +213,9 @@ public class Health : NetworkBehaviour
     {
         _currentHealth -= damage;
         stunTime += stun * (1 - StunResistance);
-        if (embedded) {
+        if (embedded || type == DamageType.Stab) {
             // Add a new wound to the list
-            var newWound = new Wound(embeddeditem, part, pos, localrot);
+            var newWound = new Wound(embedded, embeddeditem, part, pos, localrot, damage/20);
             ApplyNewWoundRPC(newWound.ToString()); // Apply the wound visuals and interactor
         }
         OnTakeDamage?.Invoke(damage, stun, embedded);

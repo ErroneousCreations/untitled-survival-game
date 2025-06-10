@@ -91,7 +91,7 @@ public class Interactor : MonoBehaviour
         }
         if(GameManager.IsSpectating) { return; }
 
-        foreach (var baseob in Extensions.GetNearbySpacial(transform.position, 5, IInteractible.PARTITIONGRID, IInteractible.PARTITIONSIZE, (IInteractible x) => { return x.GetPosition; }))
+        foreach (var baseob in Extensions.GetNearbySpacial(transform.position, 10, IInteractible.PARTITIONGRID, IInteractible.PARTITIONSIZE, (IInteractible x) => { return x.GetPosition; }))
         {
             if(baseob is Interactible)
             {
