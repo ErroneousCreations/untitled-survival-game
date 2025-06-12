@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f59713e7b7ce1c0449e8600968d53f4f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 151019
+  packageName: Sun Shafts SRP
+  packageVersion: 2.1
+  assetPath: Assets/ARTnGAME/SunShaftsSRP/Shaders - Scripts/Resources/SunShaftsSRP_FORWARD_URP.shader
+  uploadId: 763111

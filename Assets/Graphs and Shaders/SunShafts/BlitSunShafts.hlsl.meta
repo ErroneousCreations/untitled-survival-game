@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 13c1fe69dc049ef4da54fc01629820e5
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 151019
+  packageName: Sun Shafts SRP
+  packageVersion: 2.1
+  assetPath: Assets/ARTnGAME/SunShaftsSRP/Shaders - Scripts/Resources/BlitSunShafts.hlsl
+  uploadId: 763111
