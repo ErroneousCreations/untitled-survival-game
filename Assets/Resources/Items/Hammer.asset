@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4d125202423411ba72c626f1897b70, type: 3}
+  m_Name: Hammer
+  m_EditorClassIdentifier: 
+  Name: Hammer
+  ID: hammer
+  Volume: 2
+  ItemType: 3
+  BaseSavedData: []
+  ItemPrefab: {fileID: 8701911266804393704, guid: 45e7695a3316c9e4d875e5da2806c10d, type: 3}
+  _itemBehaviour: {fileID: 11400000, guid: a8a82412c92fd5b4d917ad7a86fbb905, type: 2}
+  CustomItemProperties:
+    _serializedList:
+    - Key: ScareFactor
+      Value: 0.3
+  HeldMesh: {fileID: 8164388750953057965, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+  HeldMats:
+  - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}
+  - {fileID: 2100000, guid: 6590974679d787246bba41259e9659ea, type: 2}

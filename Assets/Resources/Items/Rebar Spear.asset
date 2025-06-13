@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4d125202423411ba72c626f1897b70, type: 3}
+  m_Name: Rebar Spear
+  m_EditorClassIdentifier: 
+  Name: Rebar Spear
+  ID: rebarspear
+  Volume: 2
+  ItemType: 2
+  BaseSavedData: []
+  ItemPrefab: {fileID: 8701911266804393704, guid: 3e31bfbd3b97f4f4895799c4777599ff, type: 3}
+  _itemBehaviour: {fileID: 11400000, guid: 5b916e7a13eefe74cb444a33da4f59a9, type: 2}
+  CustomItemProperties:
+    _serializedList:
+    - Key: ScareFactor
+      Value: 0.8
+  HeldMesh: {fileID: -6280669117017369944, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+  HeldMats:
+  - {fileID: 2100000, guid: 0d4e0cb5ba2cfbe4aad0bb25c90484f2, type: 2}

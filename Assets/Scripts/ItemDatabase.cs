@@ -8,7 +8,8 @@ using Unity.Netcode;
 public struct Item
 {
     [Header("Item Properties")]
-    public string Name, ID;
+    public string Name;
+    public string ID;
     /// <summary>
     /// In litres for backpack capacity
     /// </summary>
@@ -16,7 +17,7 @@ public struct Item
     public ItemTypeEnum ItemType;
     public List<string> BaseSavedData;
     public PickupableItem ItemPrefab;
-    [SerializeField] private Object _itemBehaviour;
+    public Object _itemBehaviour;
     public SerializedDictionary<string, string> CustomItemProperties;
 
     [Header("Held Properties")]
@@ -27,7 +28,7 @@ public struct Item
 
     public static readonly Item Empty = new Item { ID = string.Empty };
 
-    public IItemBehaviour ItemBehaviour => _itemBehaviour as IItemBehaviour;
+    public readonly IItemBehaviour ItemBehaviour => _itemBehaviour as IItemBehaviour;
 }
 
 /// <summary>
@@ -186,9 +187,14 @@ public class ItemDatabase : ScriptableObject
         public override int GetHashCode() => System.HashCode.Combine(idA, idB);
     }
 
-    [SerializeField] private SerializedDictionary<string, Item> ITEMS;
-
+    private Dictionary<string, Item> itemDict;
     [SerializeField] private List<CraftingRecipe> recipes;
+
+    [EditorAttributes.Button("Check Items")]
+    public void CheckItems()
+    {
+        Debug.Log("There are " + Resources.LoadAll("Items").Length + " items.");
+    }
 
     private Dictionary<ItemPair, CraftingRecipe> recipeLookup;
 
@@ -200,7 +206,16 @@ public class ItemDatabase : ScriptableObject
         {
             instance = Resources.Load<ItemDatabase>("ItemDatabase");
         }
-        return instance.ITEMS.ContainsKey(itemcode);
+        if (instance.itemDict == null || instance.itemDict.Count <= 0)
+        {
+            var items = Resources.LoadAll<ItemSO>("Items");
+            instance.itemDict = new();
+            foreach (var i in items)
+            {
+                instance.itemDict.Add(i.ID, i.ToItem);
+            }
+        }
+        return instance.itemDict.ContainsKey(itemcode);
     }
 
     public static Item GetItem(string itemCode)
@@ -209,7 +224,16 @@ public class ItemDatabase : ScriptableObject
         {
             instance = Resources.Load<ItemDatabase>("ItemDatabase");
         }
-        if (instance.ITEMS.TryGetValue(itemCode, out var item))
+        if(instance.itemDict == null || instance.itemDict.Count <= 0)
+        {
+            var items = Resources.LoadAll<ItemSO>("Items");
+            instance.itemDict = new();
+            foreach (var i in items)
+            {
+                instance.itemDict.Add(i.ID, i.ToItem);
+            }
+        }
+        if (instance.itemDict.TryGetValue(itemCode, out var item))
         {
             return item;
         }

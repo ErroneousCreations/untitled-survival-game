@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4d125202423411ba72c626f1897b70, type: 3}
+  m_Name: Sharper Rock
+  m_EditorClassIdentifier: 
+  Name: Sharper Rock
+  ID: sharperrock
+  Volume: 0.75
+  ItemType: 2
+  BaseSavedData: []
+  ItemPrefab: {fileID: 8701911266804393704, guid: 05ae218675b48ab40ae009282f480892, type: 3}
+  _itemBehaviour: {fileID: 11400000, guid: 0bf7c470b7f0f974bb640511cacab232, type: 2}
+  CustomItemProperties:
+    _serializedList:
+    - Key: ScareFactor
+      Value: 0.33
+  HeldMesh: {fileID: -2940022540159529380, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+  HeldMats:
+  - {fileID: 2100000, guid: 9bbd2c86d35844845980bfcf9a851f5f, type: 2}

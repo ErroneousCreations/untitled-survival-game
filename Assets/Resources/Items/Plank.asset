@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4d125202423411ba72c626f1897b70, type: 3}
+  m_Name: Plank
+  m_EditorClassIdentifier: 
+  Name: Plank
+  ID: plank
+  Volume: 1.5
+  ItemType: 0
+  BaseSavedData: []
+  ItemPrefab: {fileID: 8701911266804393704, guid: e63ea04a245691745ade2095f7427685, type: 3}
+  _itemBehaviour: {fileID: 0}
+  CustomItemProperties:
+    _serializedList: []
+  HeldMesh: {fileID: -3481501719365375840, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+  HeldMats:
+  - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}

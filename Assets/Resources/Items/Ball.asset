@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4d125202423411ba72c626f1897b70, type: 3}
+  m_Name: Ball
+  m_EditorClassIdentifier: 
+  Name: Ball
+  ID: ball
+  Volume: 0.5
+  ItemType: 0
+  BaseSavedData: []
+  ItemPrefab: {fileID: 8701911266804393704, guid: 1e5768e45837e4648a466726e2cc748c, type: 3}
+  _itemBehaviour: {fileID: 11400000, guid: 55d9b58d14c0eff4bbf98e445603080c, type: 2}
+  CustomItemProperties:
+    _serializedList: []
+  HeldMesh: {fileID: 6935877506589290101, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+  HeldMats:
+  - {fileID: 2100000, guid: a3f46c7a8194fb643912ee426163d5cd, type: 2}

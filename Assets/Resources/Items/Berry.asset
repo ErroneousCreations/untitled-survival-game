@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e4d125202423411ba72c626f1897b70, type: 3}
+  m_Name: Berry
+  m_EditorClassIdentifier: 
+  Name: Berry
+  ID: berry
+  Volume: 0.015
+  ItemType: 0
+  BaseSavedData:
+  - 3
+  ItemPrefab: {fileID: 8701911266804393704, guid: 58e647c54d67de14c98a4f367ac40faf, type: 3}
+  _itemBehaviour: {fileID: 11400000, guid: 5c506d26f38d69b45a3c440725574624, type: 2}
+  CustomItemProperties:
+    _serializedList: []
+  HeldMesh: {fileID: 7898303678134235034, guid: b611b6d448824bd40a551c862488c2ee, type: 3}
+  HeldMats:
+  - {fileID: 2100000, guid: 229d65160b3853941b7f9827f3ac8a63, type: 2}
+  - {fileID: 2100000, guid: 478a5e6e7e4142a4c94aa4b26dca629f, type: 2}
+  - {fileID: 2100000, guid: a3f46c7a8194fb643912ee426163d5cd, type: 2}
