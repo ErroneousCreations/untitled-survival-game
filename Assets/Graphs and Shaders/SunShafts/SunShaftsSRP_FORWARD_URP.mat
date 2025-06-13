@@ -129,7 +129,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SunColor: {r: 0.33113205, g: 0.2620351, b: 0.20461461, a: 0.45}
-    - _SunPosition: {r: 0.75, g: 0.75, b: 100, a: 1.18}
+    - _SunPosition: {r: 0.7500001, g: 0.75, b: 100.00002, a: 1.18}
     - _SunThreshold: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

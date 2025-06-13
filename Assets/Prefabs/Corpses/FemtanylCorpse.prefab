@@ -744,7 +744,7 @@ MonoBehaviour:
   stepCooldown: 0.1
   ungroundedLegFlailAmplitude: 0.2
   ungroundedLegFlailSpeed: 30
-  groundcastLength: 0.7
+  groundcastLength: 0.75
   groundcastHeightOffset: {x: 0, y: 0, z: 0}
   DisableLegsMovement: 0
 --- !u!1 &5564704278048635179

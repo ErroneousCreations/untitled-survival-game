@@ -11974,8 +11974,8 @@ MonoBehaviour:
   resolutionMult: 4
   voxelHeight: 1
   autoVoxelHeight: 1
-  layer: 0
-  chunksTag: Untagged
+  layer: 3
+  chunksTag: Ground
   enableOcclusionCulling: 1
   enableContributeGI: 1
   forceMicroSplatMaterialAssetUpdate: 0
